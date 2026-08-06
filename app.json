@@ -21,9 +21,47 @@
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "粤韵童行",
+    "navigationBarTitleText": "粤语童谣时光屋",
     "navigationBarBackgroundColor": "#FFFFFF",
-    "backgroundColor": "#F8F8F8"
+    "backgroundColor": "#F6F7FF"
+  },
+  "tabBar": {
+    "color": "#77758A",
+    "selectedColor": "#C8553D",
+    "backgroundColor": "#FFFDF5",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/learn/learn",
+        "text": "学习",
+        "iconPath": "static/tabbar/learn.png",
+        "selectedIconPath": "static/tabbar/learn-active.png"
+      },
+      {
+        "pagePath": "pages/games/games",
+        "text": "游戏",
+        "iconPath": "static/tabbar/games.png",
+        "selectedIconPath": "static/tabbar/games-active.png"
+      },
+      {
+        "pagePath": "pages/original/original",
+        "text": "原创",
+        "iconPath": "static/tabbar/original.png",
+        "selectedIconPath": "static/tabbar/original-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "static/tabbar/profile.png",
+        "selectedIconPath": "static/tabbar/profile-active.png"
+      }
+    ]
   },
   "usingComponents": {}
 }

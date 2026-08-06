@@ -58,7 +58,7 @@ Page({
     this.setData({ displayVideos: displayVideos });
   },
   goBack() {
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/original/original" }); } });
+    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/original/original" }); } });
   },
   playVideo(e) {
     var video = e.currentTarget.dataset.video;

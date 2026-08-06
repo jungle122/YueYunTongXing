@@ -7,7 +7,7 @@ Page({
   goBack() {
     var pages = getCurrentPages();
     if (pages && pages.length > 1) { wx.navigateBack(); }
-    else { wx.reLaunch({ url: "/pages/home/home" }); }
+    else { wx.switchTab({ url: "/pages/profile/profile" }); }
   },
   loadFavorites() {
     var favorites = [];

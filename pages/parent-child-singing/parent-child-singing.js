@@ -57,7 +57,7 @@ Page({
   },
   goBack() {
     if (this.data.audio) { try { this.data.audio.stop(); } catch(e) {} try { this.data.audio.destroy(); } catch(e) {} }
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/learn/learn" }); } });
+    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/learn/learn" }); } });
   },
   initAudio() {
     var self = this;

@@ -20,7 +20,7 @@ Page({
     if (pages && pages.length > 1) {
       wx.navigateBack();
     } else {
-      wx.reLaunch({ url: "/pages/home/home" });
+      wx.switchTab({ url: "/pages/profile/profile" });
     }
   },
   loadSettings() {
@@ -78,7 +78,7 @@ Page({
       if (pages && pages.length > 1) {
         wx.navigateBack();
       } else {
-        wx.reLaunch({ url: "/pages/home/home" });
+        wx.switchTab({ url: "/pages/profile/profile" });
       }
     }, 1500);
   },

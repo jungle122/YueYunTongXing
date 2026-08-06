@@ -23,7 +23,7 @@ Page({
   onUnload() { if (this.data.gameTimer) { clearInterval(this.data.gameTimer); } },
   goBack() {
     if (this.data.gameTimer) { clearInterval(this.data.gameTimer); }
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/games/games" }); } });
+    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/games/games" }); } });
   },
   initGame() {
     this.setData({ currentPuzzle: 0, score: 0, startTime: Date.now(), elapsedTime: 0 });

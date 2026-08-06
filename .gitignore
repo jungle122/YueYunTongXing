@@ -11,3 +11,7 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Local Codex design skills and generated design references
+.agents/
+design-system/

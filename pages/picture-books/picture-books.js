@@ -74,7 +74,7 @@ Page({
     this.setData({ displayBooks: displayBooks });
   },
   goBack() {
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/original/original" }); } });
+    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/original/original" }); } });
   },
   selectBook(e) {
     var bookId = e.currentTarget.dataset.bookid;

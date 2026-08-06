@@ -34,7 +34,7 @@ Page({
       try { this.data.audio.stop(); } catch(e) {}
       try { this.data.audio.destroy(); } catch(e) {}
     }
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/learn/learn" }); } });
+    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/learn/learn" }); } });
   },
   refreshSongsDisplay() {
     var self = this;

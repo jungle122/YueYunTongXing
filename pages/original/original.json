@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "原创绘本",
+  "navigationBarTitleText": "原创剧场",
+  "navigationBarBackgroundColor": "#FFF7E8",
+  "backgroundColor": "#FFF7E8",
   "usingComponents": {}
 }

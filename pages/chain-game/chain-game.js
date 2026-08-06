@@ -33,7 +33,7 @@ Page({
   },
   onLoad() { this.initGame(); },
   goBack() {
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/games/games" }); } });
+    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/games/games" }); } });
   },
   randomSelectUniques(array, count) {
     var shuffled = array.slice().sort(function() { return Math.random() - 0.5; });

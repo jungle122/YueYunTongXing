@@ -41,7 +41,7 @@ Page({
     this.setData({ displayArticles: displayArticles });
   },
   goBack() {
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/learn/learn" }); } });
+    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/learn/learn" }); } });
   },
   openArticle(e) {
     var article = e.currentTarget.dataset.article;

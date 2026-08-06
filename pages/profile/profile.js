@@ -1,5 +1,6 @@
 Page({
   data: {
+    isPageEntering: false,
     isLoggedIn: false,
     userNickname: "",
     userAvatar: "",
@@ -14,16 +15,14 @@ Page({
     this.loadStats();
   },
   onShow() {
+    this.playEntryAnimation();
     this.checkLoginStatus();
     this.loadStats();
   },
-  goBack() {
-    const pages = getCurrentPages();
-    if (pages && pages.length > 1) {
-      wx.navigateBack();
-    } else {
-      wx.reLaunch({ url: "/pages/home/home" });
-    }
+  playEntryAnimation() {
+    this.setData({ isPageEntering: false }, () => {
+      this.setData({ isPageEntering: true });
+    });
   },
   goToMyCollection() {
     wx.navigateTo({ url: "/pages/my-collection/my-collection" });

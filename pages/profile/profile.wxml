@@ -1,80 +1,66 @@
-<view class="profile-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <view></view>
-      <view></view>
+<view class="hub-page profile-page {{isPageEntering ? 'page-enter-active' : ''}}">
+  <view class="page-intro profile-hero">
+    <text class="chapter-seal">第四章</text>
+    <text class="intro-title">把每一次进步收藏起来</text>
+    <text class="intro-description">看看最近的学习足迹，也记住自己坚持的每一天。</text>
+    <text class="hero-ornament">☀</text>
+  </view>
+
+  <text class="section-caption">成长档案</text>
+  <view wx:if="{{isLoggedIn}}" class="profile-summary">
+    <view class="profile-main" bindtap="goToSettings" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="编辑个人资料">
+      <image wx:if="{{userAvatar}}" src="{{userAvatar}}" class="profile-avatar" mode="aspectFill" binderror="onAvatarError" />
+      <view wx:else class="profile-avatar avatar-text">我</view>
+      <view class="profile-copy">
+        <text class="profile-name">{{userNickname || "用户"}}</text>
+        <text class="profile-caption">今天也和粤语童谣见面吧</text>
+      </view>
+      <text class="feature-arrow">›</text>
     </view>
-    <view class="content">
-      <view wx:if="{{isLoggedIn}}" class="profile-section">
-        <view class="profile-header">
-          <image wx:if="{{userAvatar}}" src="{{userAvatar}}" class="avatar" mode="aspectFill" bindtap="goToSettings" binderror="onAvatarError"/>
-          <view wx:else class="avatar">👤</view>
-          <view class="user-info">
-            <text class="user-name">{{userNickname || "用户"}}</text>
-            <text class="user-sub">已登录用户</text>
-          </view>
-        </view>
-        <view class="stats-grid">
-          <view class="stat-item">
-            <text class="stat-number">{{stats.learningDays}}</text>
-            <text class="stat-label">学习天数</text>
-          </view>
-          <view class="stat-item">
-            <text class="stat-number">{{stats.favoriteCount}}</text>
-            <text class="stat-label">收藏内容</text>
-          </view>
-          <view class="stat-item">
-            <text class="stat-number">{{stats.currentStreak}}</text>
-            <text class="stat-label">连续学习</text>
-          </view>
-        </view>
+    <view class="stats-grid">
+      <view class="stat-cell"><text class="stat-number">{{stats.learningDays}}</text><text class="stat-label">学习天数</text></view>
+      <view class="stat-cell"><text class="stat-number">{{stats.favoriteCount}}</text><text class="stat-label">收藏内容</text></view>
+      <view class="stat-cell"><text class="stat-number">{{stats.currentStreak}}</text><text class="stat-label">连续学习</text></view>
+    </view>
+  </view>
+
+  <view wx:else class="login-panel" bindtap="goToSettings" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="设置昵称和头像">
+    <view class="login-symbol">🏡</view>
+    <view class="login-copy">
+      <text class="login-title">欢迎来到粤语童谣时光屋</text>
+      <text class="login-subtitle">设置昵称和头像，开始记录成长。</text>
+    </view>
+    <text class="login-action">去设置</text>
+  </view>
+
+  <view class="menu-section">
+    <text class="section-caption menu-heading">学习记录</text>
+    <view class="menu-list">
+      <view class="menu-row enter-menu-1" bindtap="goToMyCollection" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看我的收藏">
+        <view class="menu-symbol collection-symbol">⭐</view>
+        <view class="menu-copy"><text class="menu-title">我的收藏</text><text class="menu-description">童谣、视频和文章</text></view>
+        <text class="feature-arrow">›</text>
       </view>
-      <view wx:else class="login-section" bindtap="goToSettings">
-        <text class="login-title">欢迎来到粤韵童行</text>
-        <text class="login-subtitle">登录后可享受更多功能</text>
-        <view class="login-btn">立即登录</view>
+      <view class="menu-row enter-menu-2" bindtap="goToHistory" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看历史记录">
+        <view class="menu-symbol history-symbol">🕰</view>
+        <view class="menu-copy"><text class="menu-title">历史记录</text><text class="menu-description">最近学习过的内容</text></view>
+        <text class="feature-arrow">›</text>
       </view>
-      <view class="menu-card" bindtap="goToMyCollection">
-        <view class="menu-item">
-          <view class="menu-icon collection">❤️</view>
-          <view class="menu-text">
-            <text class="menu-title">我的收藏</text>
-            <text class="menu-subtitle">查看收藏的童谣和内容</text>
-          </view>
-          <text class="menu-arrow">→</text>
-        </view>
+      <view class="menu-row enter-menu-3" bindtap="goToLearningStats" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看学习统计">
+        <view class="menu-symbol stats-symbol">📈</view>
+        <view class="menu-copy"><text class="menu-title">学习统计</text><text class="menu-description">查看天数和学习趋势</text></view>
+        <text class="feature-arrow">›</text>
       </view>
-      <view class="menu-card" bindtap="goToHistory">
-        <view class="menu-item">
-          <view class="menu-icon history">📚</view>
-          <view class="menu-text">
-            <text class="menu-title">历史记录</text>
-            <text class="menu-subtitle">查看学习历史和进度</text>
-          </view>
-          <text class="menu-arrow">→</text>
-        </view>
-      </view>
-      <view class="menu-card" bindtap="goToLearningStats">
-        <view class="menu-item">
-          <view class="menu-icon stats">📊</view>
-          <view class="menu-text">
-            <text class="menu-title">学习统计</text>
-            <text class="menu-subtitle">查看详细的学习数据分析</text>
-          </view>
-          <text class="menu-arrow">→</text>
-        </view>
-      </view>
-      <view class="menu-card" bindtap="goToSettings">
-        <view class="menu-item">
-          <view class="menu-icon settings">⚙️</view>
-          <view class="menu-text">
-            <text class="menu-title">个性化设置</text>
-            <text class="menu-subtitle">头像昵称、学习偏好设置</text>
-          </view>
-          <text class="menu-arrow">→</text>
-        </view>
+    </view>
+  </view>
+
+  <view class="menu-section preference-section">
+    <text class="section-caption menu-heading">偏好设置</text>
+    <view class="menu-list">
+      <view class="menu-row enter-menu-4" bindtap="goToSettings" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="打开个性化设置">
+        <view class="menu-symbol settings-symbol">⚙</view>
+        <view class="menu-copy"><text class="menu-title">个性化设置</text><text class="menu-description">头像、昵称和学习偏好</text></view>
+        <text class="feature-arrow">›</text>
       </view>
     </view>
   </view>

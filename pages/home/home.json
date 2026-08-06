@@ -1,6 +1,7 @@
 {
-  "navigationBarTitleText": "粤韵童行",
-  "backgroundColor": "#667eea",
+  "navigationBarTitleText": "粤语童谣时光屋",
+  "navigationBarBackgroundColor": "#FFF7E8",
+  "backgroundColor": "#FFF7E8",
   "usingComponents": {
     "alin-3d": "../../components/alin-3d/alin-3d"
   }
