@@ -1,0 +1,36 @@
+{
+  "appid": "wx8cd8f77196c7dc35",
+  "compileType": "miniprogram",
+  "projectname": "YueYunTongXing",
+  "miniprogramRoot": "dist/build/mp-weixin/",
+  "setting": {
+    "es6": true,
+    "postcss": true,
+    "minified": true,
+    "minifyWXML": true,
+    "enhance": true,
+    "compileWorklet": false,
+    "uglifyFileName": false,
+    "uploadWithSourceMap": true,
+    "packNpmManually": false,
+    "packNpmRelationList": [],
+    "minifyWXSS": true,
+    "localPlugins": false,
+    "disableUseStrict": false,
+    "useCompilerPlugins": false,
+    "condition": false,
+    "swc": false,
+    "disableSWC": true,
+    "babelSetting": {
+      "ignore": [],
+      "disablePlugins": [],
+      "outputPath": ""
+    }
+  },
+  "packOptions": {
+    "ignore": [],
+    "include": []
+  },
+  "simulatorPluginLibVersion": {},
+  "editorSetting": {}
+}

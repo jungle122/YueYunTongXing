@@ -1,0 +1,21 @@
+node_modules/
+node_modules.failed-install/
+dist/
+.npm-cache/
+
+# WeChat DevTools local settings
+project.private.config.json
+
+# Never commit WeChat/miniprogram CI upload credentials
+ci/private.key
+*.key
+
+# Received archives and incomplete extracted copies kept as originals
+*.zip
+uni-preset-vue-vite/
+
+# Logs and editor files
+*.log
+.DS_Store
+.idea/
+.vscode/
