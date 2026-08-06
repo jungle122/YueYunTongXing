@@ -1,0 +1,78 @@
+<view class="text-science-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">文字科普</text>
+      <view></view>
+    </view>
+    <view class="content">
+      <view wx:for="{{displayArticles}}" wx:for-item="article" wx:key="id" class="text-card" bindtap="openArticle" data-article="{{article}}">
+        <view class="text-header">
+          <view class="text-icon {{article.iconClass}}">{{article.icon}}</view>
+          <view class="text-info">
+            <text class="text-title">{{article.title}}</text>
+            <text class="text-description">{{article.subtitle}}</text>
+          </view>
+        </view>
+        <view class="text-actions">
+          <button class="action-btn read-btn" catchtap="openArticle" data-article="{{article}}">📖</button>
+          <button class="action-btn collect-btn {{article.isCollected ? 'collected' : ''}}" catchtap="toggleCollect" data-article="{{article}}">{{article.collectText}}</button>
+        </view>
+      </view>
+      <view class="progress-container" wx:for="{{displayArticles}}" wx:for-item="article" wx:key="id">
+        <view class="progress-bar">
+          <view class="progress-fill" style="{{article.progressWidth}}"></view>
+        </view>
+        <text class="progress-text">已阅读 {{article.progressPercent}}%</text>
+      </view>
+    </view>
+    <view wx:if="{{showToast}}" class="collect-toast">
+      <text class="toast-icon">{{toastIcon}}</text>
+      <text class="toast-text">{{toastText}}</text>
+    </view>
+    <view wx:if="{{showModal}}" class="modal-mask" bindtap="closeModal">
+      <view class="modal-body" catchtap="">
+        <view class="modal-header">
+          <view class="modal-header-left">
+            <text class="article-section-title">📖 文章内容</text>
+            <text class="modal-title">{{currentArticle.title}}</text>
+            <text class="modal-subtitle">{{currentArticle.subtitle}}</text>
+          </view>
+          <button class="close-btn" bindtap="closeModal">关闭</button>
+        </view>
+        <scroll-view scroll-y="true" class="modal-content" scroll-top="{{scrollTop}}" bindscroll="onScroll" style="height:100%">
+          <view class="article-content">
+            <view class="section-divider">
+              <text class="divider-icon">■</text>
+              <text class="divider-text">文章内容</text>
+            </view>
+            <view wx:for="{{currentArticle.paragraphs}}" wx:for-item="p" wx:key="*this" class="article-paragraph">{{p}}</view>
+            <view wx:if="{{currentArticle.tips}}" class="tips-box">
+              <view class="tips-header">
+                <text class="tips-icon">💡</text>
+                <text class="tips-title">{{currentArticle.tipsTitle || "你知道吗？"}}</text>
+              </view>
+              <text class="tips-content">{{currentArticle.tips}}</text>
+            </view>
+            <view wx:for="{{currentArticle.continuedParagraphs}}" wx:for-item="p" wx:key="*this" class="article-paragraph">{{p}}</view>
+            <view wx:if="{{currentArticle.features}}" class="features-box">
+              <view class="features-header">
+                <text class="features-icon">⭐</text>
+                <text class="features-title">{{currentArticle.featuresTitle || "特色"}}</text>
+              </view>
+              <text class="features-content">{{currentArticle.features}}</text>
+            </view>
+            <view wx:if="{{currentArticle.conclusion}}" class="conclusion-paragraph">{{currentArticle.conclusion}}</view>
+          </view>
+        </scroll-view>
+        <view class="modal-footer">
+          <view class="reading-time">⏰ 预计阅读时间: {{currentArticle.readTime || 3}}分钟</view>
+          <view class="footer-actions">
+            <button class="collect-btn-modal {{collections[currentArticle.id] ? 'collected' : ''}}" bindtap="toggleCollectCurrent">{{collections[currentArticle.id] ? '💖 已收藏' : '❤️ 收藏'}}</button>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

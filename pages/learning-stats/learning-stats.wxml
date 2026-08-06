@@ -1,0 +1,56 @@
+<view class="stats-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">学习统计</text>
+      <view></view>
+    </view>
+    <view class="content">
+      <view class="stats-grid">
+        <view class="stat-card">
+          <text class="stat-number">{{stats.totalHours}}</text>
+          <text class="stat-label">总学习时长(小时)</text>
+        </view>
+        <view class="stat-card">
+          <text class="stat-number">{{stats.totalLearningDays}}</text>
+          <text class="stat-label">学习天数</text>
+        </view>
+        <view class="stat-card">
+          <text class="stat-number">{{stats.currentStreak}}</text>
+          <text class="stat-label">连续学习(天)</text>
+        </view>
+        <view class="stat-card">
+          <text class="stat-number">{{stats.totalFavorites}}</text>
+          <text class="stat-label">收藏内容</text>
+        </view>
+      </view>
+      <view class="category-section">
+        <text class="section-title">分类统计</text>
+        <view class="category-list">
+          <view class="category-item">
+            <text class="category-icon">🎵</text>
+            <view class="category-info">
+              <text class="category-name">音频学习</text>
+              <text class="category-desc">{{stats.categoryStats.audio.count}}次，{{stats.categoryStats.audio.minutes}}分钟</text>
+            </view>
+          </view>
+          <view class="category-item">
+            <text class="category-icon">🎬</text>
+            <view class="category-info">
+              <text class="category-name">视频学习</text>
+              <text class="category-desc">{{stats.categoryStats.video.count}}次，{{stats.categoryStats.video.minutes}}分钟</text>
+            </view>
+          </view>
+          <view class="category-item">
+            <text class="category-icon">📖</text>
+            <view class="category-info">
+              <text class="category-name">文章阅读</text>
+              <text class="category-desc">{{stats.categoryStats.article.count}}次，{{stats.categoryStats.article.minutes}}分钟</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

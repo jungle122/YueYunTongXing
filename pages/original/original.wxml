@@ -1,0 +1,42 @@
+<view class="original-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">原创</text>
+      <view></view>
+    </view>
+    <view class="content">
+      <view class="song-card" bindtap="goVideo">
+        <view class="song-header">
+          <view class="song-icon">🎬</view>
+          <view class="song-info">
+            <text class="song-title">视频展示</text>
+            <text class="song-author">粤语童谣视频合集</text>
+          </view>
+        </view>
+        <text class="song-preview">观看原创粤语童谣视频，体验传统文化魅力</text>
+        <view class="song-tags">
+          <text class="tag">视频</text>
+          <text class="tag">原创</text>
+          <text class="tag">童谣</text>
+        </view>
+      </view>
+      <view class="song-card" bindtap="goBook">
+        <view class="song-header">
+          <view class="song-icon">📚</view>
+          <view class="song-info">
+            <text class="song-title">绘本欣赏</text>
+            <text class="song-author">粤语童谣绘本故事</text>
+          </view>
+        </view>
+        <text class="song-preview">氹氹转、齐齐望过去、月光光 等经典绘本</text>
+        <view class="song-tags">
+          <text class="tag">绘本</text>
+          <text class="tag">童谣</text>
+          <text class="tag">故事</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

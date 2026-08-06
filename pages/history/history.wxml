@@ -1,0 +1,31 @@
+<view class="history-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">历史记录</text>
+      <view></view>
+    </view>
+    <view class="content">
+      <view wx:if="{{historyList.length === 0}}" class="empty-state">
+        <text class="empty-icon">📝</text>
+        <text class="empty-text">暂无学习记录</text>
+        <text class="empty-hint">开始学习吧，记录会在这里显示</text>
+      </view>
+      <view wx:else>
+        <view wx:for="{{groupedHistory}}" wx:for-item="group" wx:key="date" class="history-section">
+          <text class="section-title">{{group.date}}</text>
+          <view class="history-list">
+            <view wx:for="{{group.items}}" wx:for-item="item" wx:key="itemId" class="history-item">
+              <view class="item-icon">{{item.icon}}</view>
+              <view class="item-info">
+                <text class="item-title">{{item.title}}</text>
+                <text class="item-desc">{{item.typeName}} · {{item.durationText}} · {{item.timeText}}</text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

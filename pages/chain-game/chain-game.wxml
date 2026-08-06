@@ -1,0 +1,55 @@
+<view class="chain-game-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">童谣接龙</text>
+      <view></view>
+    </view>
+    <view class="game-stats">
+      <view class="stat-item"><view class="stat-number">{{score}}</view><view class="stat-label">得分</view></view>
+      <view class="stat-item"><view class="stat-number">{{currentRound + 1}}</view><view class="stat-label">题目 /3</view></view>
+      <view class="stat-item"><view class="stat-number">{{streak}}</view><view class="stat-label">连胜</view></view>
+    </view>
+    <view class="game-area">
+      <view wx:if="{{currentQuestion}}" class="question-title">{{currentQuestion.title}}</view>
+      <view class="chain-display">
+        <view wx:for="{{displayedChain}}" wx:for-item="line" wx:key="text" class="chain-line {{line.isLast ? 'current' : ''}}">{{line.text}}</view>
+      </view>
+      <input class="answer-input" placeholder="请输入下一句童谣..." bindconfirm="submitAnswer" disabled="{{gameOver}}" value="{{userAnswer}}" bindinput="onAnswerInput"/>
+      <view class="game-controls">
+        <button class="control-btn" bindtap="submitAnswer">提交答案</button>
+        <button class="control-btn hint" bindtap="showHint">💡 提示</button>
+        <button wx:if="{{showNextBtn}}" class="control-btn next" bindtap="nextRound">➡️ 下一题</button>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{showResultModal}}" class="modal" bindtap="closeResultModal">
+    <view class="modal-content correct" catchtap="closeResultModal">
+      <view class="modal-title">🎉 接对了！</view>
+      <view class="modal-text">+{{currentScore}} 分</view>
+      <button class="modal-btn" bindtap="closeResultModal">确定</button>
+    </view>
+  </view>
+  <view wx:if="{{showWrongModal}}" class="modal" bindtap="closeWrongModal">
+    <view class="modal-content wrong" catchtap="closeWrongModal">
+      <view class="modal-title">❌ 接错了！</view>
+      <view class="modal-text">正确答案是：{{correctAnswer}}</view>
+      <button class="modal-btn" bindtap="closeWrongModal">确定</button>
+    </view>
+  </view>
+  <view wx:if="{{showGameOverModal}}" class="modal" bindtap="closeGameOverModal">
+    <view class="modal-content game-over" catchtap="closeGameOverModal">
+      <view class="modal-title">🎊 游戏结束！</view>
+      <view class="modal-text">最终得分：{{score}} 分</view>
+      <button class="modal-btn" bindtap="restartGame">重新开始</button>
+    </view>
+  </view>
+  <view wx:if="{{showHintModal}}" class="modal" bindtap="closeHintModal">
+    <view class="modal-content hint" catchtap="closeHintModal">
+      <view class="modal-title">💡 正确答案</view>
+      <view class="modal-text">{{hintAnswer}}</view>
+      <button class="modal-btn" bindtap="closeHintModal">确定</button>
+    </view>
+  </view>
+</view>

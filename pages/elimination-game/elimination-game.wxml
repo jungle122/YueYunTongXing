@@ -1,0 +1,23 @@
+<view class="elimination-game-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">🎮 童谣消消乐</text>
+      <view></view>
+    </view>
+    <view class="game-info">
+      <text>得分: <text class="info-value">{{score}}</text></text>
+      <text>时间: <text class="info-value">{{timeLeft}}</text>s</text>
+      <text>配对: <text class="info-value">{{matches}}</text>/8</text>
+    </view>
+    <view class="message {{messageClass}}">{{messageText}}</view>
+    <view class="game-board">
+      <view wx:for="{{gameBoard}}" wx:for-item="cell" wx:for-index="idx" wx:key="index" class="game-cell {{cell.selected ? 'selected' : ''}} {{cell.matched ? 'matched' : ''}} {{cell.matched ? 'hidden' : ''}}" bindtap="selectCell" data-index="{{idx}}">{{cell.word}}</view>
+    </view>
+    <view class="controls">
+      <button class="btn" bindtap="startNewGame">🔄 新游戏</button>
+      <button class="btn" bindtap="showHint">💡 提示</button>
+    </view>
+  </view>
+</view>

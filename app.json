@@ -1,0 +1,29 @@
+{
+  "pages": [
+    "pages/home/home",
+    "pages/learn/learn",
+    "pages/games/games",
+    "pages/original/original",
+    "pages/profile/profile",
+    "pages/settings/settings",
+    "pages/my-collection/my-collection",
+    "pages/history/history",
+    "pages/learning-stats/learning-stats",
+    "pages/audio-learning/audio-learning",
+    "pages/parent-child-singing/parent-child-singing",
+    "pages/text-science/text-science",
+    "pages/chain-game/chain-game",
+    "pages/elimination-game/elimination-game",
+    "pages/puzzle-game/puzzle-game",
+    "pages/daily-quiz/daily-quiz",
+    "pages/picture-books/picture-books",
+    "pages/video-learning/video-learning"
+  ],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "粤韵童行",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F8F8F8"
+  },
+  "usingComponents": {}
+}

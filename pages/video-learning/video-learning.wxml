@@ -1,0 +1,45 @@
+<view class="video-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">视频展示</text>
+      <view></view>
+    </view>
+    <view class="content">
+      <view wx:for="{{displayVideos}}" wx:for-item="v" wx:key="id" class="video-card">
+        <view class="video-header">
+          <view class="video-icon">🎬</view>
+          <view class="video-info">
+            <text class="video-title">{{v.title}}</text>
+            <text class="video-subtitle">{{v.subtitle}}</text>
+          </view>
+        </view>
+        <view class="video-actions">
+          <button class="action-btn {{v.isPlaying ? 'playing' : ''}}" bindtap="playVideo" data-video="{{v}}">{{v.playBtnText}}</button>
+          <button class="action-btn {{v.isLiked ? 'liked' : ''}}" bindtap="toggleFavorite" data-video="{{v}}">{{v.likeText}}</button>
+        </view>
+        <view class="video-preview">{{v.description}}</view>
+        <view class="video-tags">
+          <text wx:for="{{v.tags}}" wx:for-item="tag" wx:key="*this" class="tag">{{tag}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{showToast}}" class="favorite-toast {{toastType}}">
+    <view class="toast-content">
+      <text class="toast-icon">{{toastIcon}}</text>
+      <text class="toast-message">{{toastText}}</text>
+    </view>
+  </view>
+  <view wx:if="{{showPlayer && currentVideo}}" class="video-player-modal" bindtap="closePlayer">
+    <view class="player-container" catchtap="" style="pointer-events:auto">
+      <view class="player-header">
+        <text class="player-title">{{currentVideo.title}}</text>
+        <button class="close-player-btn" bindtap="closePlayer">✕</button>
+      </view>
+      <video src="{{currentVideo.src || ''}}" controls class="video-player" id="video-{{currentVideo.id}}" bindplay="onVideoPlay" bindpause="onVideoPause" bindended="onVideoEnded" binderror="onVideoError" bindloadedmetadata="onVideoLoaded" bindwaiting="onVideoWaiting" bindprogress="onVideoProgress" bindtimeupdate="onVideoTimeUpdate" bindseeked="onVideoSeeked" bindfullscreenchange="onVideoFullscreenChange" enable-play-gesture="{{true}}" show-fullscreen-btn="{{false}}" show-center-play-btn="{{true}}" autoplay="{{false}}" object-fit="contain" show-play-btn="{{true}}" enable-fullscreen="{{true}}" page-gesture="{{false}}" direction="{{90}}"></video>
+      <view class="custom-fullscreen-btn" bindtap="enterFullscreen"> ⤢ </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,81 @@
+<view class="profile-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <view></view>
+      <view></view>
+    </view>
+    <view class="content">
+      <view wx:if="{{isLoggedIn}}" class="profile-section">
+        <view class="profile-header">
+          <image wx:if="{{userAvatar}}" src="{{userAvatar}}" class="avatar" mode="aspectFill" bindtap="goToSettings" binderror="onAvatarError"/>
+          <view wx:else class="avatar">👤</view>
+          <view class="user-info">
+            <text class="user-name">{{userNickname || "用户"}}</text>
+            <text class="user-sub">已登录用户</text>
+          </view>
+        </view>
+        <view class="stats-grid">
+          <view class="stat-item">
+            <text class="stat-number">{{stats.learningDays}}</text>
+            <text class="stat-label">学习天数</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-number">{{stats.favoriteCount}}</text>
+            <text class="stat-label">收藏内容</text>
+          </view>
+          <view class="stat-item">
+            <text class="stat-number">{{stats.currentStreak}}</text>
+            <text class="stat-label">连续学习</text>
+          </view>
+        </view>
+      </view>
+      <view wx:else class="login-section" bindtap="goToSettings">
+        <text class="login-title">欢迎来到粤韵童行</text>
+        <text class="login-subtitle">登录后可享受更多功能</text>
+        <view class="login-btn">立即登录</view>
+      </view>
+      <view class="menu-card" bindtap="goToMyCollection">
+        <view class="menu-item">
+          <view class="menu-icon collection">❤️</view>
+          <view class="menu-text">
+            <text class="menu-title">我的收藏</text>
+            <text class="menu-subtitle">查看收藏的童谣和内容</text>
+          </view>
+          <text class="menu-arrow">→</text>
+        </view>
+      </view>
+      <view class="menu-card" bindtap="goToHistory">
+        <view class="menu-item">
+          <view class="menu-icon history">📚</view>
+          <view class="menu-text">
+            <text class="menu-title">历史记录</text>
+            <text class="menu-subtitle">查看学习历史和进度</text>
+          </view>
+          <text class="menu-arrow">→</text>
+        </view>
+      </view>
+      <view class="menu-card" bindtap="goToLearningStats">
+        <view class="menu-item">
+          <view class="menu-icon stats">📊</view>
+          <view class="menu-text">
+            <text class="menu-title">学习统计</text>
+            <text class="menu-subtitle">查看详细的学习数据分析</text>
+          </view>
+          <text class="menu-arrow">→</text>
+        </view>
+      </view>
+      <view class="menu-card" bindtap="goToSettings">
+        <view class="menu-item">
+          <view class="menu-icon settings">⚙️</view>
+          <view class="menu-text">
+            <text class="menu-title">个性化设置</text>
+            <text class="menu-subtitle">头像昵称、学习偏好设置</text>
+          </view>
+          <text class="menu-arrow">→</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

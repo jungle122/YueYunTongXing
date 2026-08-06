@@ -1,0 +1,4 @@
+<view class="alin-3d-wrapper" bindtap="onClick">
+  <image wx:if="{{threeViewImage}}" src="{{threeViewImage}}" class="alin-image" mode="aspectFit" />
+  <view wx:else class="alin-fallback">🦁</view>
+</view>

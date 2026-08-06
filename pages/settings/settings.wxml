@@ -1,0 +1,37 @@
+<view class="settings-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">个性化设置</text>
+      <view></view>
+    </view>
+    <view class="content">
+      <view class="setting-row">
+        <text class="setting-label">昵称</text>
+        <input class="setting-input" placeholder="请输入昵称" placeholder-style="color: rgba(255,255,255,0.6)" bindinput="onNicknameInput" value="{{nickname}}"/>
+      </view>
+      <view class="setting-row">
+        <text class="setting-label">每日学习提醒</text>
+        <switch checked="{{dailyReminder}}" bindchange="onReminderChange" color="#56ab2f"/>
+      </view>
+      <view class="setting-row">
+        <text class="setting-label">难度等级</text>
+        <picker range="{{difficultyLevels}}" value="{{difficultyIndex}}" bindchange="onDifficultyChange" mode="selector">
+          <view class="setting-picker">{{difficultyLevels[difficultyIndex]}}</view>
+        </picker>
+      </view>
+      <view class="setting-row">
+        <text class="setting-label">更换头像</text>
+        <image wx:if="{{selectedAvatarPath}}" src="{{selectedAvatarPath}}" class="avatar-preview" mode="aspectFill" binderror="onPreviewError"/>
+        <view wx:else class="avatar-preview">👤</view>
+      </view>
+      <view class="avatar-selection">
+        <view wx:for="{{avatars}}" wx:for-item="avatar" wx:key="path" class="avatar-option {{selectedAvatar === avatar.key ? 'selected' : ''}}" bindtap="selectAvatar" data-key="{{avatar.key}}">
+          <image src="{{avatar.path}}" class="avatar-img" mode="aspectFill" binderror="onImageError"/>
+        </view>
+      </view>
+      <view class="save-btn" bindtap="saveSettings">保存设置</view>
+    </view>
+  </view>
+</view>

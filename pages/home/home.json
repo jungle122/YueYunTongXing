@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "粤韵童行",
+  "backgroundColor": "#667eea",
+  "usingComponents": {
+    "alin-3d": "../../components/alin-3d/alin-3d"
+  }
+}

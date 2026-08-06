@@ -1,0 +1,25 @@
+<view class="picture-books-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">绘本欣赏</text>
+      <view></view>
+    </view>
+    <view class="book-selector">
+      <text class="selector-title">📚 选择绘本</text>
+      <view class="book-buttons">
+        <button wx:for="{{displayBooks}}" wx:for-item="book" wx:key="id" class="book-btn {{book.isActive ? 'active' : ''}}" bindtap="selectBook" data-bookid="{{book.id}}">{{book.title}}</button>
+      </view>
+    </view>
+    <view class="book-viewer">
+      <text class="book-title">{{currentTitle}}</text>
+      <text class="book-page-info">第 {{currentPageIndex + 1}} 页 / 共 {{totalPages}} 页</text>
+      <image key="{{imageKey}}-{{currentPageIndex}}" src="{{currentPagePath}}" mode="widthFix" class="book-image" lazy-load="{{false}}" show-menu-by-longpress="{{false}}" binderror="onImageError" bindload="onImageLoad"/>
+      <view class="page-controls">
+        <button class="page-btn" disabled="{{isFirstPage}}" bindtap="previousPage">← 上一页</button>
+        <button class="page-btn" disabled="{{isLastPage}}" bindtap="nextPage">下一页 →</button>
+      </view>
+    </view>
+  </view>
+</view>

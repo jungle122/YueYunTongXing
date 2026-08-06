@@ -1,0 +1,4 @@
+<view class="quiz-root">
+  <view class="title">每日五题</view>
+  <view class="desc">每日答题打卡区。</view>
+</view>

@@ -1,0 +1,37 @@
+<view class="yyth-home">
+  <view class="bg-stars"></view>
+  <view wx:if="{{isLoggedIn}}" class="user-card" bindtap="goToProfile">
+    <image wx:if="{{userAvatar}}" src="{{userAvatar}}" class="avatar-img" mode="aspectFill" binderror="onAvatarError"/>
+    <view wx:else class="avatar-fallback">{{nicknameFirstChar}}</view>
+    <text class="nickname">{{userNickname || "用户"}}</text>
+  </view>
+  <view class="header-section">
+    <text class="main-title">粤韵童行</text>
+    <view class="stars-and-music">
+      <text class="icon-star">★</text>
+      <text class="subtitle">让粤语童谣陪伴孩子快乐成长</text>
+      <text class="icon-music">🎵</text>
+    </view>
+  </view>
+  <view class="nav-section">
+    <view class="nav">
+      <view class="nav-btn module-learn" hover-class="card-press" hover-stay-time="150" bindtap="navigateToModule" data-url="/pages/learn/learn">
+        <text class="nav-emoji">📚</text>
+        <text class="nav-label">学习</text>
+      </view>
+      <view class="nav-btn module-games" hover-class="card-press" hover-stay-time="150" bindtap="navigateToModule" data-url="/pages/games/games">
+        <text class="nav-emoji">🎮</text>
+        <text class="nav-label">游戏</text>
+      </view>
+      <view class="nav-btn module-original" hover-class="card-press" hover-stay-time="150" bindtap="navigateToModule" data-url="/pages/original/original">
+        <text class="nav-emoji">🎬</text>
+        <text class="nav-label">原创</text>
+      </view>
+      <view class="nav-btn module-profile" hover-class="card-press" hover-stay-time="150" bindtap="navigateToModule" data-url="/pages/profile/profile">
+        <text class="nav-emoji">👤</text>
+        <text class="nav-label">我的</text>
+      </view>
+    </view>
+  </view>
+  <alin-3d wx:if="{{alinImageSrc}}" bind:click="handleAlinClick" three-view-image="{{alinImageSrc}}"></alin-3d>
+</view>

@@ -1,0 +1,49 @@
+<view class="puzzle-game-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">⭐ 童谣拼图</text>
+      <view class="header-right"><text class="question-info">题目: {{currentPuzzle + 1}}/3</text></view>
+    </view>
+    <view class="game-stats">
+      <view class="stat-item"><view class="stat-number">{{score}}</view><view class="stat-label">得分</view></view>
+      <view class="stat-item"><view class="stat-number">{{currentPuzzle + 1}}</view><view class="stat-label">拼图</view></view>
+      <view class="stat-item"><view class="stat-number">{{elapsedTime}}</view><view class="stat-label">时间(秒)</view></view>
+    </view>
+    <view class="game-area">
+      <view class="puzzle-title">{{currentPuzzleData.title}}</view>
+      <view class="puzzle-area">
+        <view wx:for="{{puzzleSlots}}" wx:for-item="slot" wx:for-index="idx" wx:key="position" class="puzzle-slot {{slot.dragOver ? 'drag-over' : ''}} {{slot.placed ? 'placed' : ''}}" data-position="{{idx}}" bindtap="placePiece">{{slot.content}}</view>
+      </view>
+      <view class="pieces-area">
+        <view wx:for="{{availablePieces}}" wx:for-item="piece" wx:for-index="idx" wx:key="index" class="puzzle-piece {{piece.selected ? 'selected' : ''}} {{piece.used ? 'used' : ''}}" data-piece="{{piece}}" data-index="{{idx}}" bindtap="selectPiece">{{piece.text}}</view>
+      </view>
+      <view class="game-controls">
+        <button class="control-btn" bindtap="checkAnswer">✓ 提交答案</button>
+        <button class="control-btn warning" bindtap="nextPuzzle">下一题</button>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{showResultModal}}" class="modal" bindtap="closeResultModal">
+    <view class="modal-content correct" catchtap="closeResultModal">
+      <view class="modal-title">🎉 拼图完成！</view>
+      <view class="modal-text">+100 分</view>
+      <button class="modal-btn" bindtap="closeResultModal">确定</button>
+    </view>
+  </view>
+  <view wx:if="{{showWrongModal}}" class="modal" bindtap="closeWrongModal">
+    <view class="modal-content wrong" catchtap="closeWrongModal">
+      <view class="modal-title">❌ 拼图不正确</view>
+      <view class="modal-text">还有拼图块位置不正确，请继续调整！</view>
+      <button class="modal-btn" bindtap="closeWrongModal">确定</button>
+    </view>
+  </view>
+  <view wx:if="{{showGameOverModal}}" class="modal" bindtap="closeGameOverModal">
+    <view class="modal-content game-over" catchtap="closeGameOverModal">
+      <view class="modal-title">🎊 游戏结束！</view>
+      <view class="modal-text">最终得分：{{score}} 分</view>
+      <button class="modal-btn" bindtap="restartGame">重新开始</button>
+    </view>
+  </view>
+</view>

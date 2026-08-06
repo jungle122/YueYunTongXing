@@ -1,0 +1,26 @@
+<view class="collection-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">我的收藏</text>
+      <view></view>
+    </view>
+    <view class="content">
+      <view wx:if="{{favorites.length === 0}}" class="empty-state">
+        <text class="empty-icon">📭</text>
+        <text class="empty-text">暂无收藏内容</text>
+        <text class="empty-hint">快去收藏喜欢的童谣和视频吧！</text>
+      </view>
+      <view wx:else class="collection-list">
+        <view wx:for="{{favorites}}" wx:for-item="item" wx:key="id" class="collection-item">
+          <view class="item-icon">{{item.icon}}</view>
+          <view class="item-info">
+            <text class="item-title">{{item.title}}</text>
+            <text class="item-desc">已收藏 · {{item.typeName}} · {{item.dateStr}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

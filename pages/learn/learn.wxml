@@ -1,0 +1,51 @@
+<view class="learn-page">
+  <view class="bg-stars"></view>
+  <view class="container">
+    <view class="header">
+      <view class="back-btn" bindtap="goBack">←</view>
+      <text class="page-title">学习天地</text>
+      <view></view>
+    </view>
+    <view class="content">
+      <view class="learning-card" bindtap="goAudio">
+        <view class="card-header">
+          <view class="card-icon">🎵</view>
+          <view>
+            <text class="card-title">音频学习</text>
+            <text class="card-description">听粤语童谣，学习正确发音</text>
+          </view>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width:75%"></view>
+        </view>
+        <view class="progress-text">已完成 15/20 首</view>
+      </view>
+      <view class="learning-card" bindtap="goParent">
+        <view class="card-header">
+          <view class="card-icon">👨‍👩‍👧‍👦</view>
+          <view>
+            <text class="card-title">亲子传唱</text>
+            <text class="card-description">与家人一起唱粤语童谣</text>
+          </view>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width:45%"></view>
+        </view>
+        <view class="progress-text">已参与 9/20 次</view>
+      </view>
+      <view class="learning-card" bindtap="goText">
+        <view class="card-header">
+          <view class="card-icon">📖</view>
+          <view>
+            <text class="card-title">文字科普</text>
+            <text class="card-description">了解粤语童谣的文化背景</text>
+          </view>
+        </view>
+        <view class="progress-bar">
+          <view class="progress-fill" style="width:30%"></view>
+        </view>
+        <view class="progress-text">已阅读 6/20 篇</view>
+      </view>
+    </view>
+  </view>
+</view>
