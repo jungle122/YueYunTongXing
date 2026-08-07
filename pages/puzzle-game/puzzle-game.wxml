@@ -1,49 +1,105 @@
 <view class="puzzle-game-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">⭐ 童谣拼图</text>
-      <view class="header-right"><text class="question-info">题目: {{currentPuzzle + 1}}/3</text></view>
-    </view>
-    <view class="game-stats">
-      <view class="stat-item"><view class="stat-number">{{score}}</view><view class="stat-label">得分</view></view>
-      <view class="stat-item"><view class="stat-number">{{currentPuzzle + 1}}</view><view class="stat-label">拼图</view></view>
-      <view class="stat-item"><view class="stat-number">{{elapsedTime}}</view><view class="stat-label">时间(秒)</view></view>
-    </view>
-    <view class="game-area">
-      <view class="puzzle-title">{{currentPuzzleData.title}}</view>
-      <view class="puzzle-area">
-        <view wx:for="{{puzzleSlots}}" wx:for-item="slot" wx:for-index="idx" wx:key="position" class="puzzle-slot {{slot.dragOver ? 'drag-over' : ''}} {{slot.placed ? 'placed' : ''}}" data-position="{{idx}}" bindtap="placePiece">{{slot.content}}</view>
+  <view class="game-shell">
+    <view class="game-overview">
+      <view class="overview-copy">
+        <text class="overview-kicker">歌词排序挑战</text>
+        <text class="overview-title">第 {{currentPuzzle + 1}} 关</text>
       </view>
-      <view class="pieces-area">
-        <view wx:for="{{availablePieces}}" wx:for-item="piece" wx:for-index="idx" wx:key="index" class="puzzle-piece {{piece.selected ? 'selected' : ''}} {{piece.used ? 'used' : ''}}" data-piece="{{piece}}" data-index="{{idx}}" bindtap="selectPiece">{{piece.text}}</view>
+      <view class="overview-stats">
+        <view class="overview-stat"><text class="stat-number">{{score}}</text><text class="stat-label">得分</text></view>
+        <view class="stat-divider"></view>
+        <view class="overview-stat"><text class="stat-number">{{elapsedTime}}</text><text class="stat-label">秒</text></view>
       </view>
+    </view>
+
+    <view class="round-progress" aria-label="当前第{{currentPuzzle + 1}}关，共3关">
+      <view wx:for="{{puzzleData}}" wx:for-item="puzzle" wx:for-index="roundIndex" wx:key="title" class="round-dot {{currentPuzzle >= roundIndex ? 'round-dot-active' : ''}}"></view>
+    </view>
+
+    <view class="puzzle-card">
+      <view class="puzzle-heading">
+        <text class="puzzle-kicker">先选句子，再放进对应位置</text>
+        <text class="puzzle-title">{{currentPuzzleData.title}}</text>
+      </view>
+
+      <view class="slot-section">
+        <view class="section-heading"><text class="section-title">童谣顺序</text><text class="section-hint">点击空位放入</text></view>
+        <view class="puzzle-slots">
+          <view
+            wx:for="{{puzzleSlots}}"
+            wx:for-item="slot"
+            wx:for-index="idx"
+            wx:key="position"
+            class="puzzle-slot {{slot.content ? 'slot-filled' : ''}} {{slot.placed ? 'slot-placed' : ''}}"
+            data-position="{{idx}}"
+            bindtap="placePiece"
+            aria-role="button"
+            aria-label="第{{idx + 1}}句，{{slot.content || slot.placeholder}}"
+          >
+            <text class="slot-number">{{idx + 1}}</text>
+            <text class="slot-content">{{slot.content || slot.placeholder}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="piece-section">
+        <view class="section-heading"><text class="section-title">待选句子</text><text class="section-hint">先点选一张</text></view>
+        <view class="pieces-area">
+          <view
+            wx:for="{{availablePieces}}"
+            wx:for-item="piece"
+            wx:for-index="idx"
+            wx:key="index"
+            class="puzzle-piece {{piece.selected ? 'piece-selected' : ''}} {{piece.used ? 'piece-used' : ''}}"
+            data-piece="{{piece}}"
+            data-index="{{idx}}"
+            bindtap="selectPiece"
+            aria-role="button"
+            aria-label="{{piece.used ? '已使用' : '选择'}}{{piece.text}}"
+          >
+            <text class="piece-text">{{piece.text}}</text>
+            <text wx:if="{{piece.selected}}" class="piece-status">已选</text>
+            <text wx:if="{{piece.used}}" class="piece-status used-status">已放入</text>
+          </view>
+        </view>
+      </view>
+
       <view class="game-controls">
-        <button class="control-btn" bindtap="checkAnswer">✓ 提交答案</button>
-        <button class="control-btn warning" bindtap="nextPuzzle">下一题</button>
+        <button class="control-btn primary-btn" bindtap="checkAnswer"><text class="button-icon">✓</text><text>检查顺序</text></button>
+        <button class="control-btn reset-btn" bindtap="resetPuzzle"><text class="button-icon">↻</text><text>重新排列</text></button>
       </view>
+      <button class="skip-btn" bindtap="nextPuzzle">跳过本题</button>
+    </view>
+
+    <text class="game-note">按童谣原本的顺序，把四句歌词放回正确位置</text>
+  </view>
+
+  <view wx:if="{{showResultModal}}" class="modal" bindtap="nextPuzzle">
+    <view class="modal-card correct-card" catchtap="noop">
+      <view class="modal-symbol correct-symbol">✓</view>
+      <text class="modal-title">顺序正确</text>
+      <text class="modal-text">完整童谣已经拼好啦</text>
+      <text class="score-reward">+100 分</text>
+      <button class="modal-btn" bindtap="nextPuzzle">{{currentPuzzle + 1 >= puzzleData.length ? '查看成绩' : '下一题'}}</button>
     </view>
   </view>
-  <view wx:if="{{showResultModal}}" class="modal" bindtap="closeResultModal">
-    <view class="modal-content correct" catchtap="closeResultModal">
-      <view class="modal-title">🎉 拼图完成！</view>
-      <view class="modal-text">+100 分</view>
-      <button class="modal-btn" bindtap="closeResultModal">确定</button>
-    </view>
-  </view>
+
   <view wx:if="{{showWrongModal}}" class="modal" bindtap="closeWrongModal">
-    <view class="modal-content wrong" catchtap="closeWrongModal">
-      <view class="modal-title">❌ 拼图不正确</view>
-      <view class="modal-text">还有拼图块位置不正确，请继续调整！</view>
-      <button class="modal-btn" bindtap="closeWrongModal">确定</button>
+    <view class="modal-card wrong-card" catchtap="noop">
+      <view class="modal-symbol wrong-symbol">×</view>
+      <text class="modal-title">顺序还不对</text>
+      <text class="modal-text">有些句子还没有回到正确位置，可以重新排列再试一次</text>
+      <button class="modal-btn" bindtap="closeWrongModal">继续调整</button>
     </view>
   </view>
-  <view wx:if="{{showGameOverModal}}" class="modal" bindtap="closeGameOverModal">
-    <view class="modal-content game-over" catchtap="closeGameOverModal">
-      <view class="modal-title">🎊 游戏结束！</view>
-      <view class="modal-text">最终得分：{{score}} 分</view>
-      <button class="modal-btn" bindtap="restartGame">重新开始</button>
+
+  <view wx:if="{{showGameOverModal}}" class="modal" bindtap="noop">
+    <view class="modal-card game-over-card" catchtap="noop">
+      <view class="modal-symbol trophy-symbol">★</view>
+      <text class="modal-title">拼图完成</text>
+      <text class="modal-text">三首童谣都挑战结束了</text>
+      <text class="final-score">{{score}} 分</text>
+      <button class="modal-btn" bindtap="restartGame">再玩一次</button>
     </view>
   </view>
 </view>

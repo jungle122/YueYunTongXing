@@ -1,9 +1,13 @@
 Page({
-  goBack() {
-    wx.navigateBack({
-      fail: () => {
-        wx.reLaunch({ url: "/pages/home/home" });
-      }
+  data: {
+    isPageEntering: false
+  },
+  onShow() {
+    this.playEntryAnimation();
+  },
+  playEntryAnimation() {
+    this.setData({ isPageEntering: false }, () => {
+      this.setData({ isPageEntering: true });
     });
   },
   goVideo() {

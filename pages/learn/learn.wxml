@@ -1,50 +1,40 @@
-<view class="learn-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">学习天地</text>
-      <view></view>
+<view class="hub-page learn-page {{isPageEntering ? 'page-enter-active' : ''}}">
+  <view class="page-intro learn-hero">
+    <text class="chapter-seal">第一章</text>
+    <text class="intro-title">选一种喜欢的方式开始吧</text>
+    <text class="intro-description">在童谣、陪伴和岭南故事里，自然认识粤语。</text>
+    <text class="hero-ornament">♪</text>
+  </view>
+
+  <text class="section-caption">学习方式</text>
+  <view class="feature-list">
+    <view class="feature-card audio-card" bindtap="goAudio" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="进入音频学习">
+      <view class="feature-main">
+        <view class="feature-symbol audio-symbol">🎵</view>
+        <view class="feature-copy">
+          <text class="feature-title">音频学习</text>
+          <text class="feature-description">听童谣、看歌词、录下自己的跟唱。</text>
+        </view>
+        <text class="feature-arrow">›</text>
+      </view>
+      <view class="learning-progress">
+        <view class="progress-info"><text>学习进度</text><text>75%</text></view>
+        <view class="progress-track"><view class="progress-fill audio-progress" style="width:75%"></view></view>
+      </view>
     </view>
-    <view class="content">
-      <view class="learning-card" bindtap="goAudio">
-        <view class="card-header">
-          <view class="card-icon">🎵</view>
-          <view>
-            <text class="card-title">音频学习</text>
-            <text class="card-description">听粤语童谣，学习正确发音</text>
-          </view>
+
+    <view class="feature-card text-card" bindtap="goText" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="进入文字科普">
+      <view class="feature-main">
+        <view class="feature-symbol text-symbol">📖</view>
+        <view class="feature-copy">
+          <text class="feature-title">文字科普</text>
+          <text class="feature-description">了解童谣背后的岭南生活与传统文化。</text>
         </view>
-        <view class="progress-bar">
-          <view class="progress-fill" style="width:75%"></view>
-        </view>
-        <view class="progress-text">已完成 15/20 首</view>
+        <text class="feature-arrow">›</text>
       </view>
-      <view class="learning-card" bindtap="goParent">
-        <view class="card-header">
-          <view class="card-icon">👨‍👩‍👧‍👦</view>
-          <view>
-            <text class="card-title">亲子传唱</text>
-            <text class="card-description">与家人一起唱粤语童谣</text>
-          </view>
-        </view>
-        <view class="progress-bar">
-          <view class="progress-fill" style="width:45%"></view>
-        </view>
-        <view class="progress-text">已参与 9/20 次</view>
-      </view>
-      <view class="learning-card" bindtap="goText">
-        <view class="card-header">
-          <view class="card-icon">📖</view>
-          <view>
-            <text class="card-title">文字科普</text>
-            <text class="card-description">了解粤语童谣的文化背景</text>
-          </view>
-        </view>
-        <view class="progress-bar">
-          <view class="progress-fill" style="width:30%"></view>
-        </view>
-        <view class="progress-text">已阅读 6/20 篇</view>
+      <view class="learning-progress">
+        <view class="progress-info"><text>学习进度</text><text>30%</text></view>
+        <view class="progress-track"><view class="progress-fill text-progress" style="width:30%"></view></view>
       </view>
     </view>
   </view>

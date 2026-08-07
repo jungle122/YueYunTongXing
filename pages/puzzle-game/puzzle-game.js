@@ -21,10 +21,6 @@ Page({
   },
   onLoad() { this.initGame(); },
   onUnload() { if (this.data.gameTimer) { clearInterval(this.data.gameTimer); } },
-  goBack() {
-    if (this.data.gameTimer) { clearInterval(this.data.gameTimer); }
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/games/games" }); } });
-  },
   initGame() {
     this.setData({ currentPuzzle: 0, score: 0, startTime: Date.now(), elapsedTime: 0 });
     this.loadPuzzle();
@@ -33,11 +29,12 @@ Page({
   loadPuzzle() {
     if (this.data.currentPuzzle >= this.data.puzzleData.length) {
       this.setData({ showGameOverModal: true });
+      if (this.data.gameTimer) { clearInterval(this.data.gameTimer); }
       return;
     }
     var puzzle = this.data.puzzleData[this.data.currentPuzzle];
     var slots = puzzle.pieces.map(function(piece, index) {
-      return { content: "", expected: piece, position: index, dragOver: false, placed: false };
+      return { content: "", expected: piece, position: index, placeholder: "点击放入第 " + (index + 1) + " 句", dragOver: false, placed: false };
     });
     var shuffledPieces = puzzle.pieces.slice().sort(function() { return Math.random() - 0.5; });
     var pieces = shuffledPieces.map(function(piece, index) {
@@ -78,11 +75,9 @@ Page({
   checkAnswer() {
     var correctCount = 0;
     var totalSlots = this.data.puzzleSlots.length;
-    var self = this;
     this.data.puzzleSlots.forEach(function(slot) { if (slot.content === slot.expected) { correctCount++; } });
     if (correctCount === totalSlots) {
       this.setData({ score: this.data.score + 100, showResultModal: true });
-      setTimeout(function() { self.nextPuzzle(); }, 2000);
     } else {
       this.setData({ showWrongModal: true });
     }
@@ -91,6 +86,7 @@ Page({
     this.setData({ currentPuzzle: this.data.currentPuzzle + 1, showResultModal: false });
     this.loadPuzzle();
   },
+  resetPuzzle() { this.loadPuzzle(); },
   startTimer() {
     var self = this;
     if (self.data.gameTimer) { clearInterval(self.data.gameTimer); }
@@ -99,8 +95,7 @@ Page({
     }, 1000);
     self.setData({ gameTimer: timer });
   },
-  closeResultModal() { this.setData({ showResultModal: false }); },
   closeWrongModal() { this.setData({ showWrongModal: false }); },
-  closeGameOverModal() { this.setData({ showGameOverModal: false }); },
+  noop() {},
   restartGame() { this.setData({ showGameOverModal: false }); this.initGame(); }
 });

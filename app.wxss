@@ -1,9 +1,166 @@
-
-/*每个页面公共css */
+/* 粤语童谣时光屋：暖色故事书设计基线 */
 page {
   width: 100%;
-  height: 100%;
   min-height: 100vh;
   box-sizing: border-box;
+  background: #fff7e8;
+  color: #49352d;
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
 }
-page{--status-bar-height:25px;--top-window-height:0px;--window-top:0px;--window-bottom:0px;--window-left:0px;--window-right:0px;--window-magin:0px}[data-c-h="true"]{display: none !important;}
+
+page{--status-bar-height:25px;--top-window-height:0px;--window-top:0px;--window-bottom:0px;--window-left:0px;--window-right:0px;--window-magin:0px}[data-c-h="true"]{display:none!important;}
+
+.hub-page {
+  min-height: 100vh;
+  padding: 28rpx 28rpx 170rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 94% 4%, rgba(244, 190, 80, 0.22), transparent 26%),
+    radial-gradient(circle at 2% 42%, rgba(224, 126, 98, 0.1), transparent 20%),
+    #fff7e8;
+}
+
+.page-intro {
+  position: relative;
+  min-height: 250rpx;
+  padding: 34rpx 34rpx 32rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow: hidden;
+  border: 2rpx solid #ecd2aa;
+  border-radius: 34rpx;
+  box-shadow: 0 14rpx 30rpx rgba(104, 66, 43, 0.1);
+  box-sizing: border-box;
+}
+
+.chapter-seal {
+  align-self: flex-start;
+  padding: 8rpx 14rpx;
+  border: 2rpx solid currentColor;
+  border-radius: 12rpx;
+  font-size: 19rpx;
+  font-weight: 750;
+  letter-spacing: 2rpx;
+}
+
+.intro-title {
+  width: 82%;
+  margin-top: 8rpx;
+  color: #49352d;
+  font-size: 37rpx;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.intro-description {
+  width: 82%;
+  margin-top: 12rpx;
+  color: #765f54;
+  font-size: 23rpx;
+  line-height: 1.55;
+}
+
+.hero-ornament {
+  position: absolute;
+  right: 24rpx;
+  bottom: 12rpx;
+  color: rgba(114, 70, 48, 0.16);
+  font-size: 118rpx;
+  font-weight: 800;
+  line-height: 1;
+  transform: rotate(-9deg);
+}
+
+.section-caption {
+  display: block;
+  margin: 34rpx 6rpx 18rpx;
+  color: #634b40;
+  font-size: 25rpx;
+  font-weight: 800;
+  letter-spacing: 2rpx;
+}
+
+.feature-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.feature-card {
+  position: relative;
+  min-height: 200rpx;
+  padding: 26rpx;
+  overflow: hidden;
+  border: 2rpx solid #ead8bc;
+  border-radius: 28rpx;
+  background: #fffdf5;
+  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+  box-sizing: border-box;
+  transition: transform 180ms ease-out, opacity 180ms ease-out, box-shadow 180ms ease-out;
+}
+
+.feature-main {
+  display: flex;
+  align-items: center;
+}
+
+.feature-symbol {
+  width: 88rpx;
+  height: 88rpx;
+  margin-right: 22rpx;
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  border: 2rpx solid rgba(92, 61, 43, 0.08);
+  border-radius: 26rpx;
+  font-size: 43rpx;
+  box-shadow: inset 0 3rpx 0 rgba(255, 255, 255, 0.55);
+}
+
+.feature-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.feature-title {
+  display: block;
+  color: #49352d;
+  font-size: 29rpx;
+  font-weight: 800;
+}
+
+.feature-description {
+  display: block;
+  margin-top: 8rpx;
+  color: #7a655a;
+  font-size: 22rpx;
+  line-height: 1.5;
+}
+
+.feature-arrow {
+  margin-left: 14rpx;
+  color: #a76a50;
+  font-size: 38rpx;
+  line-height: 1;
+}
+
+.soft-press {
+  opacity: 0.9;
+  transform: scale(0.98);
+  box-shadow: 0 5rpx 14rpx rgba(104, 66, 43, 0.08);
+}
+
+@media (max-width: 340px) {
+  .hub-page { padding-left: 22rpx; padding-right: 22rpx; }
+  .page-intro { padding-left: 28rpx; padding-right: 28rpx; }
+  .intro-title, .intro-description { width: 88%; }
+  .intro-title { font-size: 33rpx; }
+  .feature-card { padding: 22rpx; }
+  .feature-symbol { width: 78rpx; height: 78rpx; margin-right: 18rpx; font-size: 38rpx; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feature-card { transition: none; }
+}

@@ -5,13 +5,17 @@
     "pages/games/games",
     "pages/original/original",
     "pages/profile/profile",
+    "pages/login/login",
+    "pages/community/community",
+    "pages/feedback/feedback",
     "pages/settings/settings",
     "pages/my-collection/my-collection",
     "pages/history/history",
     "pages/learning-stats/learning-stats",
     "pages/audio-learning/audio-learning",
-    "pages/parent-child-singing/parent-child-singing",
+    "pages/audio-player/audio-player",
     "pages/text-science/text-science",
+    "pages/article-reader/article-reader",
     "pages/chain-game/chain-game",
     "pages/elimination-game/elimination-game",
     "pages/puzzle-game/puzzle-game",
@@ -21,9 +25,47 @@
   ],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "粤韵童行",
-    "navigationBarBackgroundColor": "#FFFFFF",
-    "backgroundColor": "#F8F8F8"
+    "navigationBarTitleText": "粤语童谣时光屋",
+    "navigationBarBackgroundColor": "#FFF7E8",
+    "backgroundColor": "#F6F7FF"
+  },
+  "tabBar": {
+    "color": "#77758A",
+    "selectedColor": "#C8553D",
+    "backgroundColor": "#FFFDF5",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/home",
+        "text": "首页",
+        "iconPath": "static/tabbar/home.png",
+        "selectedIconPath": "static/tabbar/home-active.png"
+      },
+      {
+        "pagePath": "pages/learn/learn",
+        "text": "学习",
+        "iconPath": "static/tabbar/learn.png",
+        "selectedIconPath": "static/tabbar/learn-active.png"
+      },
+      {
+        "pagePath": "pages/games/games",
+        "text": "游戏",
+        "iconPath": "static/tabbar/games.png",
+        "selectedIconPath": "static/tabbar/games-active.png"
+      },
+      {
+        "pagePath": "pages/original/original",
+        "text": "原创",
+        "iconPath": "static/tabbar/original.png",
+        "selectedIconPath": "static/tabbar/original-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "static/tabbar/profile.png",
+        "selectedIconPath": "static/tabbar/profile-active.png"
+      }
+    ]
   },
   "usingComponents": {}
 }

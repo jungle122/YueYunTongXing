@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "学习",
+  "navigationBarTitleText": "学习天地",
+  "navigationBarBackgroundColor": "#FFF7E8",
+  "backgroundColor": "#FFF7E8",
   "usingComponents": {}
 }

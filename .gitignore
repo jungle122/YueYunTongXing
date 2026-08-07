@@ -1,9 +1,6 @@
 # WeChat DevTools local settings
 project.private.config.json
 
-# Local dependencies and generated output from the previous uni-app checkout
-node_modules/
-dist/
 
 # Private keys, logs, and editor files
 *.key
@@ -11,3 +8,7 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Local Codex design skills and generated design references
+.agents/
+design-system/

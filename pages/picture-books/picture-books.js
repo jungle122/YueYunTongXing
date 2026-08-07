@@ -9,14 +9,29 @@ Page({
     currentPageIndex: 0,
     imageKey: 0,
     currentBook: null,
+    favorites: {},
+    isCurrentFavorite: false,
     currentPagePath: "",
     totalPages: 0,
     currentTitle: "",
+    currentPageNumber: 1,
+    readingProgress: 0,
     isLastPage: false,
     isFirstPage: true,
     displayBooks: []
   },
-  onLoad() { this.loadBooksFromJSON(); },
+  onLoad() {
+    this.loadFavorites();
+    this.loadBooksFromJSON();
+  },
+  onShow() {
+    this.loadFavorites();
+    if (this.data.currentBook) this.refreshCurrentBook();
+  },
+  loadFavorites() {
+    var favorites = wx.getStorageSync("picture_book_favorites") || {};
+    this.setData({ favorites: favorites });
+  },
   loadBooksFromJSON() {
     var self = this;
     wx.request({
@@ -46,7 +61,11 @@ Page({
   getCurrentPagePath() {
     var book = this.getCurrentBook();
     if (!book || !book.pages || this.data.currentPageIndex >= book.pages.length) return "";
-    var page = book.pages[this.data.currentPageIndex];
+    return this.resolvePagePath(book, this.data.currentPageIndex);
+  },
+  resolvePagePath(book, pageIndex) {
+    if (!book || !book.pages || !book.pages[pageIndex]) return "";
+    var page = book.pages[pageIndex];
     if (typeof page === "string") {
       if (page.indexOf("http") === 0) return page;
       var base = "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com";
@@ -56,30 +75,64 @@ Page({
   },
   refreshCurrentBook() {
     var book = this.getCurrentBook();
+    var totalPages = book.pages.length;
+    var currentPageNumber = this.data.currentPageIndex + 1;
     this.setData({
       currentBook: book,
       currentTitle: book.title,
-      totalPages: book.pages.length,
+      isCurrentFavorite: !!this.data.favorites[book.id],
+      totalPages: totalPages,
+      currentPageNumber: currentPageNumber,
+      readingProgress: totalPages ? Math.round(currentPageNumber / totalPages * 100) : 0,
       currentPagePath: this.getCurrentPagePath(),
       isFirstPage: this.data.currentPageIndex === 0,
-      isLastPage: this.data.currentPageIndex >= book.pages.length - 1
+      isLastPage: this.data.currentPageIndex >= totalPages - 1
     });
     this.refreshDisplayBooks();
   },
   refreshDisplayBooks() {
     var self = this;
-    var displayBooks = self.data.books.map(function(book) {
-      return { id: book.id, title: book.title, isActive: book.id === self.data.currentBookId };
+    var themes = ["book-coral", "book-sage", "book-moon"];
+    var displayBooks = self.data.books.map(function(book, index) {
+      return {
+        id: book.id,
+        title: book.title,
+        coverPath: self.resolvePagePath(book, 0),
+        pageCount: book.pages.length,
+        orderText: index < 9 ? "0" + (index + 1) : String(index + 1),
+        themeClass: themes[index % themes.length],
+        isFavorite: !!self.data.favorites[book.id],
+        isActive: book.id === self.data.currentBookId
+      };
     });
     this.setData({ displayBooks: displayBooks });
   },
   goBack() {
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/original/original" }); } });
+    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/original/original" }); } });
   },
   selectBook(e) {
     var bookId = e.currentTarget.dataset.bookid;
     this.setData({ currentBookId: bookId, currentPageIndex: 0, imageKey: this.data.imageKey + 1 });
     this.refreshCurrentBook();
+  },
+  toggleFavorite() {
+    var book = this.getCurrentBook();
+    if (!book) return;
+    var favorites = this.data.favorites || {};
+    var nextFavorite = !favorites[book.id];
+    if (nextFavorite) {
+      favorites[book.id] = {
+        title: book.title,
+        coverPath: this.resolvePagePath(book, 0),
+        favoritedAt: new Date().toISOString()
+      };
+    } else {
+      delete favorites[book.id];
+    }
+    try { wx.setStorageSync("picture_book_favorites", favorites); } catch (e) {}
+    this.setData({ favorites: favorites, isCurrentFavorite: nextFavorite });
+    this.refreshDisplayBooks();
+    wx.showToast({ title: nextFavorite ? "已收藏这本绘本" : "已取消收藏", icon: "none" });
   },
   previousPage() {
     if (this.data.currentPageIndex > 0) {

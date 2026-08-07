@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "我的",
+  "navigationBarTitleText": "我的成长",
+  "navigationBarBackgroundColor": "#FFF7E8",
+  "backgroundColor": "#FFF7E8",
   "usingComponents": {}
 }

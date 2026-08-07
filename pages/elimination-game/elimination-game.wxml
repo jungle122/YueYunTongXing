@@ -1,23 +1,57 @@
 <view class="elimination-game-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">🎮 童谣消消乐</text>
-      <view></view>
+  <view class="game-shell">
+    <view class="game-overview">
+      <view class="overview-copy">
+        <text class="overview-kicker">童谣词语配对</text>
+        <text class="overview-title">找出相同卡片</text>
+      </view>
+      <view class="overview-stats">
+        <view class="overview-stat"><text class="stat-number">{{score}}</text><text class="stat-label">得分</text></view>
+        <view class="stat-divider"></view>
+        <view class="overview-stat"><text class="stat-number">{{matches}}/8</text><text class="stat-label">配对</text></view>
+      </view>
     </view>
-    <view class="game-info">
-      <text>得分: <text class="info-value">{{score}}</text></text>
-      <text>时间: <text class="info-value">{{timeLeft}}</text>s</text>
-      <text>配对: <text class="info-value">{{matches}}</text>/8</text>
+
+    <view class="timer-card {{10 >= timeLeft ? 'timer-danger' : ''}}">
+      <view class="timer-copy">
+        <text class="timer-label">剩余时间</text>
+        <text class="timer-value">{{timeLeft}} 秒</text>
+      </view>
+      <view class="timer-track"><view class="timer-fill" style="width:{{timeProgress}}%"></view></view>
     </view>
-    <view class="message {{messageClass}}">{{messageText}}</view>
-    <view class="game-board">
-      <view wx:for="{{gameBoard}}" wx:for-item="cell" wx:for-index="idx" wx:key="index" class="game-cell {{cell.selected ? 'selected' : ''}} {{cell.matched ? 'matched' : ''}} {{cell.matched ? 'hidden' : ''}}" bindtap="selectCell" data-index="{{idx}}">{{cell.word}}</view>
+
+    <view class="message-card {{messageClass}}">
+      <view class="message-symbol">{{messageClass === 'success' ? '✓' : (messageClass === 'error' ? '×' : 'i')}}</view>
+      <text class="message-text">{{messageText}}</text>
     </view>
+
+    <view class="board-card">
+      <view class="board-heading">
+        <text class="board-title">童谣卡片桌</text>
+        <text class="board-hint">一次选择两张</text>
+      </view>
+      <view class="game-board">
+        <view
+          wx:for="{{gameBoard}}"
+          wx:for-item="cell"
+          wx:for-index="idx"
+          wx:key="index"
+          class="game-cell {{cell.selected ? 'selected' : ''}} {{cell.matched ? 'matched hidden' : ''}}"
+          bindtap="selectCell"
+          data-index="{{idx}}"
+          aria-role="button"
+          aria-label="{{cell.matched ? '已配对' : cell.word}}"
+        >
+          <text class="cell-corner">{{idx + 1}}</text>
+          <text class="cell-word">{{cell.word}}</text>
+          <text wx:if="{{cell.selected}}" class="selected-mark">✓</text>
+        </view>
+      </view>
+    </view>
+
     <view class="controls">
-      <button class="btn" bindtap="startNewGame">🔄 新游戏</button>
-      <button class="btn" bindtap="showHint">💡 提示</button>
+      <button class="game-btn new-game-btn" bindtap="startNewGame"><text class="btn-icon">↻</text><text>重新开局</text></button>
+      <button class="game-btn hint-btn" bindtap="showHint" disabled="{{!isGameActive}}"><text class="btn-icon">💡</text><text>给我提示</text></button>
     </view>
   </view>
 </view>

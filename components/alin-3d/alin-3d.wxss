@@ -1,16 +1,17 @@
 .alin-3d-wrapper {
-  position: fixed;
-  right: 20rpx;
-  bottom: 120rpx;
-  width: 140rpx;
-  height: 140rpx;
-  z-index: 999;
-  animation: float 3s ease-in-out infinite;
+  position: absolute;
+  right: 6rpx;
+  bottom: -16rpx;
+  width: 122rpx;
+  height: 158rpx;
+  z-index: 8;
+  animation: float 3.4s ease-in-out infinite;
+  pointer-events: none;
 }
 .alin-image {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
+  filter: drop-shadow(0 8rpx 10rpx rgba(85, 51, 34, 0.2));
 }
 .alin-fallback {
   width: 100%;
@@ -18,12 +19,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 80rpx;
-  background: rgba(255,255,255,0.25);
+  font-size: 68rpx;
+  background: rgba(255, 253, 245, 0.82);
   border-radius: 50%;
-  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.15);
+  box-shadow: 0 8rpx 24rpx rgba(85, 51, 34, 0.15);
 }
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-12rpx); }
+  50% { transform: translateY(-8rpx); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .alin-3d-wrapper { animation: none; }
 }

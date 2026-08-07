@@ -1,26 +1,47 @@
 <view class="collection-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">我的收藏</text>
-      <view></view>
-    </view>
-    <view class="content">
-      <view wx:if="{{favorites.length === 0}}" class="empty-state">
-        <text class="empty-icon">📭</text>
-        <text class="empty-text">暂无收藏内容</text>
-        <text class="empty-hint">快去收藏喜欢的童谣和视频吧！</text>
+  <view class="collection-shell">
+    <view wx:if="{{favorites.length > 0}}" class="collection-overview">
+      <view class="overview-count">
+        <text class="count-number">{{favoriteCount}}</text>
+        <text class="count-unit">项内容</text>
       </view>
-      <view wx:else class="collection-list">
-        <view wx:for="{{favorites}}" wx:for-item="item" wx:key="id" class="collection-item">
-          <view class="item-icon">{{item.icon}}</view>
-          <view class="item-info">
-            <text class="item-title">{{item.title}}</text>
-            <text class="item-desc">已收藏 · {{item.typeName}} · {{item.dateStr}}</text>
+      <view class="overview-copy">
+        <text class="overview-title">喜欢的内容都在这里</text>
+        <text class="overview-description">{{summaryText}}</text>
+      </view>
+      <text class="overview-mark" aria-hidden="true">藏</text>
+    </view>
+
+    <view class="collection-content">
+      <view wx:if="{{favorites.length === 0}}" class="empty-state">
+        <view class="empty-symbol">♡</view>
+        <text class="empty-title">收藏夹还是空的</text>
+        <text class="empty-description">遇到喜欢的童谣、绘本或文章时，点一下爱心就能在这里找到。</text>
+      </view>
+
+      <block wx:else>
+        <view class="section-heading">
+          <view>
+            <text class="section-title">收藏内容</text>
+            <text class="section-description">把喜欢的粤韵内容留在身边</text>
+          </view>
+          <text class="section-count">共 {{favoriteCount}} 项</text>
+        </view>
+
+        <view class="collection-list">
+          <view wx:for="{{favorites}}" wx:for-item="item" wx:key="id" class="collection-item item-{{item.type}}">
+            <view class="item-icon">{{item.icon}}</view>
+            <view class="item-info">
+              <text class="item-title">{{item.title}}</text>
+              <view class="item-meta">
+                <text class="type-tag">{{item.typeName}}</text>
+                <text class="date-text">{{item.dateStr}}收藏</text>
+              </view>
+            </view>
+            <text class="favorite-mark" aria-label="已收藏">♥</text>
           </view>
         </view>
-      </view>
+      </block>
     </view>
   </view>
 </view>

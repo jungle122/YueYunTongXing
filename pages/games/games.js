@@ -1,19 +1,22 @@
 Page({
-  goBack() {
-    const pages = getCurrentPages();
-    if (pages && pages.length > 1) {
-      wx.navigateBack();
-    } else {
-      wx.reLaunch({ url: "/pages/home/home" });
-    }
+  data: {
+    isPageEntering: false
+  },
+  onShow() {
+    this.playEntryAnimation();
+  },
+  playEntryAnimation() {
+    this.setData({ isPageEntering: false }, () => {
+      this.setData({ isPageEntering: true });
+    });
   },
   startChain() {
-    wx.redirectTo({ url: "/pages/chain-game/chain-game" });
+    wx.navigateTo({ url: "/pages/chain-game/chain-game" });
   },
   startElimination() {
-    wx.redirectTo({ url: "/pages/elimination-game/elimination-game" });
+    wx.navigateTo({ url: "/pages/elimination-game/elimination-game" });
   },
   startPuzzle() {
-    wx.redirectTo({ url: "/pages/puzzle-game/puzzle-game" });
+    wx.navigateTo({ url: "/pages/puzzle-game/puzzle-game" });
   }
 });

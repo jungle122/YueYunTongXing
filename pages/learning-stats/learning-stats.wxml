@@ -1,53 +1,77 @@
 <view class="stats-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">学习统计</text>
-      <view></view>
+  <view class="stats-shell">
+    <view class="growth-overview">
+      <view class="growth-copy">
+        <text class="growth-kicker">成长概览</text>
+        <text class="growth-title">每一次学习都算数</text>
+        <text class="growth-description">继续听、读、看，让粤语童谣慢慢成为熟悉的声音。</text>
+      </view>
+      <text class="growth-mark" aria-hidden="true">长</text>
     </view>
-    <view class="content">
-      <view class="stats-grid">
-        <view class="stat-card">
-          <text class="stat-number">{{stats.totalHours}}</text>
-          <text class="stat-label">总学习时长(小时)</text>
-        </view>
-        <view class="stat-card">
-          <text class="stat-number">{{stats.totalLearningDays}}</text>
-          <text class="stat-label">学习天数</text>
-        </view>
-        <view class="stat-card">
-          <text class="stat-number">{{stats.currentStreak}}</text>
-          <text class="stat-label">连续学习(天)</text>
-        </view>
-        <view class="stat-card">
-          <text class="stat-number">{{stats.totalFavorites}}</text>
-          <text class="stat-label">收藏内容</text>
+
+    <view class="stats-grid">
+      <view class="stat-card stat-time">
+        <text class="stat-symbol">◷</text>
+        <view class="stat-value-row"><text class="stat-number">{{stats.totalTimeValue}}</text><text class="stat-unit">{{stats.totalTimeUnit}}</text></view>
+        <text class="stat-label">累计学习</text>
+      </view>
+      <view class="stat-card stat-days">
+        <text class="stat-symbol">☀</text>
+        <view class="stat-value-row"><text class="stat-number">{{stats.totalLearningDays}}</text><text class="stat-unit">天</text></view>
+        <text class="stat-label">学习天数</text>
+      </view>
+      <view class="stat-card stat-streak">
+        <text class="stat-symbol">↗</text>
+        <view class="stat-value-row"><text class="stat-number">{{stats.currentStreak}}</text><text class="stat-unit">天</text></view>
+        <text class="stat-label">连续学习</text>
+      </view>
+      <view class="stat-card stat-favorite">
+        <text class="stat-symbol">♥</text>
+        <view class="stat-value-row"><text class="stat-number">{{stats.totalFavorites}}</text><text class="stat-unit">项</text></view>
+        <text class="stat-label">收藏内容</text>
+      </view>
+
+    </view>
+
+    <view class="category-section">
+      <view class="section-heading">
+        <view>
+          <text class="section-title">学习分布</text>
+          <text class="section-description">看看时间花在了哪些内容上</text>
         </view>
       </view>
-      <view class="category-section">
-        <text class="section-title">分类统计</text>
-        <view class="category-list">
-          <view class="category-item">
-            <text class="category-icon">🎵</text>
-            <view class="category-info">
+      <view class="category-list">
+        <view class="category-item category-audio">
+          <view class="category-icon">🎵</view>
+          <view class="category-info">
+            <view class="category-heading">
               <text class="category-name">音频学习</text>
-              <text class="category-desc">{{stats.categoryStats.audio.count}}次，{{stats.categoryStats.audio.minutes}}分钟</text>
+              <text class="category-percent">{{stats.categoryStats.audio.share || 0}}%</text>
             </view>
+            <text class="category-desc">{{stats.categoryStats.audio.count}} 次记录 · {{stats.categoryStats.audio.minutes}} 分钟</text>
+            <view class="progress-track"><view class="progress-fill" style="width: {{stats.categoryStats.audio.share || 0}}%;"></view></view>
           </view>
-          <view class="category-item">
-            <text class="category-icon">🎬</text>
-            <view class="category-info">
+        </view>
+        <view class="category-item category-video">
+          <view class="category-icon">🎬</view>
+          <view class="category-info">
+            <view class="category-heading">
               <text class="category-name">视频学习</text>
-              <text class="category-desc">{{stats.categoryStats.video.count}}次，{{stats.categoryStats.video.minutes}}分钟</text>
+              <text class="category-percent">{{stats.categoryStats.video.share || 0}}%</text>
             </view>
+            <text class="category-desc">{{stats.categoryStats.video.count}} 次记录 · {{stats.categoryStats.video.minutes}} 分钟</text>
+            <view class="progress-track"><view class="progress-fill" style="width: {{stats.categoryStats.video.share || 0}}%;"></view></view>
           </view>
-          <view class="category-item">
-            <text class="category-icon">📖</text>
-            <view class="category-info">
+        </view>
+        <view class="category-item category-article">
+          <view class="category-icon">📖</view>
+          <view class="category-info">
+            <view class="category-heading">
               <text class="category-name">文章阅读</text>
-              <text class="category-desc">{{stats.categoryStats.article.count}}次，{{stats.categoryStats.article.minutes}}分钟</text>
+              <text class="category-percent">{{stats.categoryStats.article.share || 0}}%</text>
             </view>
+            <text class="category-desc">{{stats.categoryStats.article.count}} 次记录 · {{stats.categoryStats.article.minutes}} 分钟</text>
+            <view class="progress-track"><view class="progress-fill" style="width: {{stats.categoryStats.article.share || 0}}%;"></view></view>
           </view>
         </view>
       </view>

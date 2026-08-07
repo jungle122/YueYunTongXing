@@ -1,37 +1,175 @@
-<view class="yyth-home">
-  <view class="bg-stars"></view>
-  <view wx:if="{{isLoggedIn}}" class="user-card" bindtap="goToProfile">
-    <image wx:if="{{userAvatar}}" src="{{userAvatar}}" class="avatar-img" mode="aspectFill" binderror="onAvatarError"/>
-    <view wx:else class="avatar-fallback">{{nicknameFirstChar}}</view>
-    <text class="nickname">{{userNickname || "用户"}}</text>
+<view class="home-page">
+  <view class="sky-decoration sky-dot-one"></view>
+  <view class="sky-decoration sky-dot-two"></view>
+
+  <view
+    class="recent-card"
+    bindtap="handleRecentLearning"
+    hover-class="recent-card-press"
+    hover-stay-time="120"
+    aria-role="button"
+    aria-label="{{hasRecentLearning ? '继续最近学习' : '开始第一次学习'}}"
+  >
+    <view class="bookmark-ribbon" aria-hidden="true"></view>
+    <view class="recent-copy">
+      <text wx:if="{{hasRecentLearning}}" class="recent-label">最近学习</text>
+      <text class="recent-title">{{hasRecentLearning ? recentLearning.title : "开启第一次粤语学习"}}</text>
+      <text class="recent-meta">{{hasRecentLearning ? recentLearning.metaText : "从童谣、绘本和文化科普认识乡音"}}</text>
+    </view>
+    <alin-3d wx:if="{{alinImageSrc}}" three-view-image="{{alinImageSrc}}"></alin-3d>
   </view>
-  <view class="header-section">
-    <text class="main-title">粤韵童行</text>
-    <view class="stars-and-music">
-      <text class="icon-star">★</text>
-      <text class="subtitle">让粤语童谣陪伴孩子快乐成长</text>
-      <text class="icon-music">🎵</text>
+
+  <view class="storybook-heading">
+    <text class="storybook-title">粤韵故事书</text>
+  </view>
+
+  <view class="book-stage">
+    <view class="book-cover"></view>
+    <view class="page-stack page-stack-left"></view>
+    <view class="page-stack page-stack-right"></view>
+
+    <view class="open-book">
+      <view class="book-page left-page">
+        <view
+          class="book-entry entry-learn"
+          bindtap="navigateToModule"
+          data-url="/pages/learn/learn"
+          hover-class="entry-press"
+          hover-stay-time="120"
+          aria-role="button"
+          aria-label="第一章，学习天地"
+        >
+          <view class="entry-topline">
+            <text class="entry-number">第一章</text>
+            <text class="entry-corner">壹</text>
+          </view>
+          <image
+            class="entry-watermark"
+            src="/static/tabbar/learn-active.png"
+            mode="aspectFit"
+            aria-hidden="true"
+          ></image>
+          <text class="entry-title">学习天地</text>
+          <text class="entry-description">童谣跟读 · 文化科普</text>
+        </view>
+
+        <view
+          class="book-entry entry-original"
+          bindtap="navigateToModule"
+          data-url="/pages/original/original"
+          hover-class="entry-press"
+          hover-stay-time="120"
+          aria-role="button"
+          aria-label="第三章，原创剧场"
+        >
+          <view class="entry-topline">
+            <text class="entry-number">第三章</text>
+            <text class="entry-corner">叁</text>
+          </view>
+          <image
+            class="entry-watermark"
+            src="/static/tabbar/original-active.png"
+            mode="aspectFit"
+            aria-hidden="true"
+          ></image>
+          <text class="entry-title">原创剧场</text>
+          <text class="entry-description">原创视频 · 趣味绘本</text>
+        </view>
+      </view>
+
+      <view class="book-spine" aria-hidden="true">
+        <view class="spine-highlight"></view>
+      </view>
+
+      <view class="book-page right-page">
+        <view
+          class="book-entry entry-game"
+          bindtap="navigateToModule"
+          data-url="/pages/games/games"
+          hover-class="entry-press"
+          hover-stay-time="120"
+          aria-role="button"
+          aria-label="第二章，游戏乐园"
+        >
+          <view class="entry-topline">
+            <text class="entry-number">第二章</text>
+            <text class="entry-corner">贰</text>
+          </view>
+          <image
+            class="entry-watermark"
+            src="/static/tabbar/games-active.png"
+            mode="aspectFit"
+            aria-hidden="true"
+          ></image>
+          <text class="entry-title">游戏乐园</text>
+          <text class="entry-description">趣味闯关 · 快乐练习</text>
+        </view>
+
+        <view
+          class="book-entry entry-profile"
+          bindtap="navigateToModule"
+          data-url="/pages/profile/profile"
+          hover-class="entry-press"
+          hover-stay-time="120"
+          aria-role="button"
+          aria-label="第四章，我的成长"
+        >
+          <view class="entry-topline">
+            <text class="entry-number">第四章</text>
+            <text class="entry-corner">肆</text>
+          </view>
+          <image
+            class="entry-watermark"
+            src="/static/tabbar/profile-active.png"
+            mode="aspectFit"
+            aria-hidden="true"
+          ></image>
+          <text class="entry-title">我的成长</text>
+          <text class="entry-description">收藏记录 · 学习足迹</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="book-mark book-mark-one"></view>
+    <view class="book-mark book-mark-two"></view>
+  </view>
+
+  <view class="extra-entries">
+    <view
+      class="extra-entry extra-community"
+      bindtap="goToCommunity"
+      hover-class="entry-press"
+      hover-stay-time="120"
+      aria-role="button"
+      aria-label="互动社区"
+    >
+      <view class="extra-icon">🤝</view>
+      <view class="extra-copy">
+        <text class="extra-title">互动社区</text>
+        <text class="extra-desc">打卡排行 · 成就徽章</text>
+      </view>
+      <text class="feature-arrow">›</text>
+    </view>
+    <view
+      class="extra-entry extra-feedback"
+      bindtap="goToFeedback"
+      hover-class="entry-press"
+      hover-stay-time="120"
+      aria-role="button"
+      aria-label="建议反馈"
+    >
+      <view class="extra-icon">💌</view>
+      <view class="extra-copy">
+        <text class="extra-title">建议反馈</text>
+        <text class="extra-desc">告诉我们你的想法</text>
+      </view>
+      <text class="feature-arrow">›</text>
     </view>
   </view>
-  <view class="nav-section">
-    <view class="nav">
-      <view class="nav-btn module-learn" hover-class="card-press" hover-stay-time="150" bindtap="navigateToModule" data-url="/pages/learn/learn">
-        <text class="nav-emoji">📚</text>
-        <text class="nav-label">学习</text>
-      </view>
-      <view class="nav-btn module-games" hover-class="card-press" hover-stay-time="150" bindtap="navigateToModule" data-url="/pages/games/games">
-        <text class="nav-emoji">🎮</text>
-        <text class="nav-label">游戏</text>
-      </view>
-      <view class="nav-btn module-original" hover-class="card-press" hover-stay-time="150" bindtap="navigateToModule" data-url="/pages/original/original">
-        <text class="nav-emoji">🎬</text>
-        <text class="nav-label">原创</text>
-      </view>
-      <view class="nav-btn module-profile" hover-class="card-press" hover-stay-time="150" bindtap="navigateToModule" data-url="/pages/profile/profile">
-        <text class="nav-emoji">👤</text>
-        <text class="nav-label">我的</text>
-      </view>
-    </view>
+
+  <view class="closing-note">
+    <text class="closing-flower">✿</text>
+    <text>每天翻一页，让乡音陪着长大</text>
+    <text class="closing-flower">✿</text>
   </view>
-  <alin-3d wx:if="{{alinImageSrc}}" bind:click="handleAlinClick" three-view-image="{{alinImageSrc}}"></alin-3d>
 </view>

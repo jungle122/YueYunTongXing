@@ -32,9 +32,6 @@ Page({
     gameOver: false
   },
   onLoad() { this.initGame(); },
-  goBack() {
-    wx.navigateBack({ fail: function() { wx.reLaunch({ url: "/pages/games/games" }); } });
-  },
   randomSelectUniques(array, count) {
     var shuffled = array.slice().sort(function() { return Math.random() - 0.5; });
     return shuffled.slice(0, count);
@@ -97,5 +94,6 @@ Page({
   closeWrongModal() { this.setData({ showWrongModal: false }); },
   closeGameOverModal() { this.setData({ showGameOverModal: false }); },
   closeHintModal() { this.setData({ showHintModal: false }); },
+  noop() {},
   restartGame() { this.setData({ showGameOverModal: false }); this.initGame(); }
 });

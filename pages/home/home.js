@@ -1,55 +1,142 @@
+var userModule = require('../../utils/user.js');
+
 Page({
   data: {
-    isLoggedIn: false,
-    userNickname: "",
-    userAvatar: "",
     alinImageSrc: "/static/alin.png",
-    nicknameFirstChar: "用"
+    hasRecentLearning: false,
+    recentLearning: {
+      type: "",
+      title: "",
+      itemId: "",
+      metaText: "",
+      targetUrl: "/pages/learn/learn"
+    }
   },
+
   onLoad() {
-    this.checkLoginStatus();
-    console.log("阿霖图片路径:", this.data.alinImageSrc);
+    this.checkLogin();
+    this.loadRecentLearning();
   },
+
   onShow() {
-    this.checkLoginStatus();
+    this.checkLogin();
+    this.loadRecentLearning();
   },
-  checkLoginStatus() {
-    const nickname = wx.getStorageSync("userNickname");
-    const avatar = wx.getStorageSync("userAvatar");
-    const selectedAvatar = wx.getStorageSync("selectedAvatar");
-    if (nickname || selectedAvatar) {
-      this.setData({ isLoggedIn: true });
-      this.setData({ userNickname: nickname || "用户" });
-      const firstChar = (nickname || "用户").charAt(0);
-      this.setData({ nicknameFirstChar: firstChar });
-      if (selectedAvatar) {
-        const avatarMap = {
-          "1": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar1.png",
-          "2": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar2.png",
-          "3": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar3.png"
-        };
-        this.setData({ userAvatar: avatarMap[String(selectedAvatar)] || "" });
-      } else {
-        this.setData({ userAvatar: avatar || "" });
+
+  checkLogin() {
+    if (!userModule.isLoggedIn()) {
+      wx.navigateTo({ url: '/pages/login/login' });
+    }
+  },
+
+  loadRecentLearning() {
+    try {
+      const historyKey = userModule.isLoggedIn() ? userModule.getUserKey('learningHistory') : 'learningHistory';
+      let storedHistory = wx.getStorageSync(historyKey);
+      if (!storedHistory && historyKey !== 'learningHistory') {
+        storedHistory = wx.getStorageSync('learningHistory');
       }
-    } else {
-      this.setData({ isLoggedIn: false, userNickname: "", userAvatar: "" });
+      storedHistory = storedHistory || "[]";
+      const history = Array.isArray(storedHistory) ? storedHistory : JSON.parse(storedHistory);
+      const validHistory = history
+        .filter(function(item) {
+          return item && item.title && item.timestamp && !Number.isNaN(new Date(item.timestamp).getTime());
+        })
+        .sort(function(a, b) {
+          return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
+        });
+
+      if (!validHistory.length) {
+        this.setData({ hasRecentLearning: false });
+        return;
+      }
+
+      const latest = validHistory[0];
+      const typeConfig = this.getLearningTypeConfig(latest.type);
+      const durationText = this.formatDuration(latest.duration);
+      const timeText = this.formatRelativeTime(latest.timestamp);
+      const metaParts = [typeConfig.label];
+
+      if (durationText) metaParts.push(durationText);
+      if (timeText) metaParts.push(timeText);
+
+      this.setData({
+        hasRecentLearning: true,
+        recentLearning: {
+          type: latest.type || "",
+          title: latest.title,
+          itemId: latest.itemId || "",
+          metaText: metaParts.join(" · "),
+          targetUrl: typeConfig.targetUrl
+        }
+      });
+    } catch (error) {
+      console.error("读取最近学习失败:", error);
+      this.setData({ hasRecentLearning: false });
     }
   },
-  goToProfile() {
-    wx.navigateTo({ url: "/pages/profile/profile" });
+
+  getLearningTypeConfig(type) {
+    const configMap = {
+      audio: { label: "童谣音频", targetUrl: "/pages/audio-learning/audio-learning" },
+      article: { label: "文化科普", targetUrl: "/pages/text-science/text-science" },
+      video: { label: "原创视频", targetUrl: "/pages/video-learning/video-learning" },
+      game: { label: "游戏练习", targetUrl: "/pages/games/games" }
+    };
+    return configMap[type] || { label: "粤语学习", targetUrl: "/pages/learn/learn" };
   },
-  onAvatarError(e) {
-    console.error("头像加载失败:", e);
-    this.setData({ userAvatar: "" });
+
+  formatDuration(seconds) {
+    const duration = Number(seconds) || 0;
+    if (duration < 60) return "";
+    return "学习" + Math.floor(duration / 60) + "分钟";
   },
-  handleAlinClick() {
-    console.log("阿霖被点击");
+
+  formatRelativeTime(timestamp) {
+    const elapsed = Date.now() - new Date(timestamp).getTime();
+    if (elapsed < 0) return "刚刚";
+
+    const minutes = Math.floor(elapsed / 60000);
+    const hours = Math.floor(elapsed / 3600000);
+    const days = Math.floor(elapsed / 86400000);
+
+    if (minutes < 1) return "刚刚";
+    if (minutes < 60) return minutes + "分钟前";
+    if (hours < 24) return hours + "小时前";
+    if (days === 1) return "昨天";
+    if (days < 7) return days + "天前";
+
+    const date = new Date(timestamp);
+    return (date.getMonth() + 1) + "月" + date.getDate() + "日";
   },
-  navigateToModule(e) {
-    const url = e.currentTarget.dataset.url;
-    if (url) {
-      wx.navigateTo({ url });
+
+  handleRecentLearning() {
+    if (!this.data.hasRecentLearning) {
+      wx.switchTab({ url: "/pages/learn/learn" });
+      return;
     }
+
+    const recent = this.data.recentLearning;
+    const query = recent.itemId ? "?itemId=" + encodeURIComponent(recent.itemId) : "";
+
+    if (recent.targetUrl === "/pages/learn/learn" || recent.targetUrl === "/pages/games/games") {
+      wx.switchTab({ url: recent.targetUrl });
+      return;
+    }
+
+    wx.navigateTo({ url: recent.targetUrl + query });
+  },
+
+  navigateToModule(event) {
+    const url = event.currentTarget.dataset.url;
+    if (url) wx.switchTab({ url: url });
+  },
+
+  goToCommunity() {
+    wx.navigateTo({ url: "/pages/community/community" });
+  },
+
+  goToFeedback() {
+    wx.navigateTo({ url: "/pages/feedback/feedback" });
   }
 });

@@ -1,87 +1,97 @@
-
-.learn-page { min-height: 100vh; background: linear-gradient(135deg,#667eea 0%,#764ba2 100%); position: relative; overflow: hidden;
-}
-.bg-stars { position: absolute; left: 0; top: 0; right: 0; bottom: 0; pointer-events: none; background-image:
-  radial-gradient(4rpx 4rpx at 40rpx 60rpx, #ffffff, rgba(255,255,255,0)),
-  radial-gradient(4rpx 4rpx at 120rpx 120rpx, rgba(255,255,255,0.8), rgba(255,255,255,0)),
-  radial-gradient(6rpx 6rpx at 220rpx 80rpx, #ffffff, rgba(255,255,255,0));
-  background-size: 700rpx 400rpx; animation: starTwinkle-50e1c592 4s ease-in-out infinite; z-index:0;
-}
-.container { position: relative; z-index: 1; min-height: 100vh; padding: 40rpx 28rpx 60rpx 28rpx; box-sizing: border-box;
-}
-.header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 40rpx;
-}
-.back-btn { width: 60rpx; height: 60rpx; line-height: 60rpx; text-align: center; border-radius: 50%; background: rgba(255,255,255,0.15); border: 2rpx solid rgba(255,255,255,0.25); color: #fff;
-}
-.page-title { font-size: 36rpx; font-weight: 800; color: #fff; text-shadow: 0 0 20rpx rgba(255,215,0,.7); animation: glow-50e1c592 2s infinite alternate;
-}
-.content { display: flex; flex-direction: column; gap: 24rpx; max-width: 900rpx; margin: 0 auto;
-}
-.learning-card { background: rgba(255,255,255,0.12); border: 2rpx solid rgba(255,255,255,0.24); border-radius: 22rpx; padding: 28rpx; box-shadow: 0 16rpx 36rpx rgba(0,0,0,.2); overflow: hidden; transition: transform .2s ease;
-}
-.learning-card:active { transform: translateY(-6rpx) scale(1.01);
-}
-.card-header { display: flex; align-items: center; margin-bottom: 18rpx;
-}
-.card-icon { width: 80rpx; height: 80rpx; border-radius: 50%; background: linear-gradient(45deg,#4facfe 0%, #00f2fe 100%); display: flex; align-items: center; justify-content: center; font-size: 40rpx; margin-right: 20rpx; box-shadow: 0 8rpx 30rpx rgba(79,172,254,.3);
-}
-.card-title { display: block; font-size: 30rpx; font-weight: 700; color: #fff; margin-bottom: 8rpx;
-}
-.card-description { display: block; font-size: 24rpx; color: rgba(255,255,255,0.9); line-height: 1.6;
-}
-.progress-bar { width: 100%; height: 12rpx; background: rgba(255,255,255,0.2); border-radius: 6rpx; margin-top: 18rpx; overflow: hidden;
-}
-.progress-fill { height: 100%; background: linear-gradient(45deg,#4facfe,#00f2fe); border-radius: 6rpx;
-}
-.progress-text { font-size: 22rpx; color: rgba(255,255,255,0.85); margin-top: 8rpx; text-align: right;
-}
-@keyframes starTwinkle-50e1c592 {
-0%,100%{ opacity:.4; transform: scale(1);
-}
-50%{ opacity:1; transform: scale(1.2);
-}
-}
-@keyframes glow-50e1c592 {
-0%{ text-shadow: 0 0 10rpx rgba(255,215,0,0.5), 0 0 20rpx rgba(255,215,0,0.3);
-}
-100%{ text-shadow: 0 0 20rpx rgba(255,215,0,0.9), 0 0 40rpx rgba(255,215,0,0.6);
-}
+.learn-hero {
+  border-color: #ecd08a;
+  background: linear-gradient(145deg, #fff4cf 0%, #ffefd0 100%);
 }
 
-/* ====== 入场动画 ====== */
-.learn-page {
-  animation: pageEnter-learn 0.5s ease-out;
+.learn-hero .chapter-seal { color: #9a5e24; }
+
+.audio-card { border-left: 8rpx solid #efb841; }
+.text-card { border-left: 8rpx solid #76b982; }
+
+.audio-symbol { background: #fff0bd; }
+.text-symbol { background: #ddf3df; }
+
+.learning-progress {
+  margin-top: 20rpx;
+  padding-top: 16rpx;
+  border-top: 2rpx dashed #eadac2;
 }
-.header {
-  animation: headerSlideDown-learn 0.4s ease-out 0.1s both;
+
+.progress-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #765f54;
+  font-size: 20rpx;
+  font-weight: 650;
 }
-.content {
-  animation: contentFadeUp-learn 0.5s ease-out 0.15s both;
+
+.progress-track {
+  height: 12rpx;
+  margin-top: 12rpx;
+  overflow: hidden;
+  border-radius: 999rpx;
+  background: #f0e5d4;
 }
-.learning-card:nth-child(1) {
-  animation: cardBounceIn-learn 0.55s ease-out 0.2s both;
+
+.progress-fill {
+  height: 100%;
+  border-radius: 999rpx;
 }
-.learning-card:nth-child(2) {
-  animation: cardBounceIn-learn 0.55s ease-out 0.32s both;
+
+.audio-progress { background: #efb841; }
+.text-progress { background: #76b982; }
+
+/* 初版分层入场动画，使用显式 class 以便 TabBar 页面再次显示时重播。 */
+.learn-page.page-enter-active {
+  animation: pageEnter-learn 500ms ease-out;
 }
-.learning-card:nth-child(3) {
-  animation: cardBounceIn-learn 0.55s ease-out 0.44s both;
+
+.learn-page.page-enter-active .learn-hero {
+  animation: headerSlideDown-learn 400ms ease-out 100ms both;
 }
+
+.learn-page.page-enter-active .section-caption,
+.learn-page.page-enter-active .feature-list {
+  animation: contentFadeUp-learn 500ms ease-out 150ms both;
+}
+
+.learn-page.page-enter-active .feature-card:nth-child(1) {
+  animation: cardBounceIn-learn 550ms ease-out 200ms both;
+}
+
+.learn-page.page-enter-active .feature-card:nth-child(2) {
+  animation: cardBounceIn-learn 550ms ease-out 320ms both;
+}
+
 @keyframes pageEnter-learn {
   from { opacity: 0; transform: translateY(40rpx); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 @keyframes headerSlideDown-learn {
   from { opacity: 0; transform: translateY(-40rpx); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 @keyframes contentFadeUp-learn {
   from { opacity: 0; transform: translateY(30rpx); }
   to { opacity: 1; transform: translateY(0); }
 }
+
 @keyframes cardBounceIn-learn {
   0% { opacity: 0; transform: translateY(80rpx) scale(0.92); }
   60% { opacity: 1; transform: translateY(-12rpx) scale(1.02); }
   80% { transform: translateY(4rpx) scale(0.99); }
   100% { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .learn-page.page-enter-active,
+  .learn-page.page-enter-active .learn-hero,
+  .learn-page.page-enter-active .section-caption,
+  .learn-page.page-enter-active .feature-list,
+  .learn-page.page-enter-active .feature-card {
+    animation: none;
+  }
 }
