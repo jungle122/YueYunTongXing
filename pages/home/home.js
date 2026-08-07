@@ -1,3 +1,5 @@
+var userModule = require('../../utils/user.js');
+
 Page({
   data: {
     alinImageSrc: "/static/alin.png",
@@ -12,16 +14,25 @@ Page({
   },
 
   onLoad() {
+    this.checkLogin();
     this.loadRecentLearning();
   },
 
   onShow() {
+    this.checkLogin();
     this.loadRecentLearning();
+  },
+
+  checkLogin() {
+    if (!userModule.isLoggedIn()) {
+      wx.navigateTo({ url: '/pages/login/login' });
+    }
   },
 
   loadRecentLearning() {
     try {
-      const storedHistory = wx.getStorageSync("learningHistory") || "[]";
+      const historyKey = userModule.isLoggedIn() ? userModule.getUserKey('learningHistory') : 'learningHistory';
+      const storedHistory = wx.getStorageSync(historyKey) || "[]";
       const history = Array.isArray(storedHistory) ? storedHistory : JSON.parse(storedHistory);
       const validHistory = history
         .filter(function(item) {
@@ -115,5 +126,13 @@ Page({
   navigateToModule(event) {
     const url = event.currentTarget.dataset.url;
     if (url) wx.switchTab({ url: url });
+  },
+
+  goToCommunity() {
+    wx.navigateTo({ url: "/pages/community/community" });
+  },
+
+  goToFeedback() {
+    wx.navigateTo({ url: "/pages/feedback/feedback" });
   }
 });

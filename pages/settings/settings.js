@@ -1,91 +1,178 @@
+var userModule = require('../../utils/user.js');
+
 Page({
   data: {
-    nickname: "",
+    isLoggedIn: false,
+    nickname: '',
     dailyReminder: true,
-    difficultyLevels: ["入门", "初级", "中级", "高级"],
+    difficultyLevels: ['入门', '初级', '中级', '高级'],
     difficultyIndex: 1,
-    selectedAvatar: "1",
-    avatars: [
-      { key: "1", path: "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar1.png" },
-      { key: "2", path: "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar2.png" },
-      { key: "3", path: "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar3.png" }
+    emojiAvatars: [
+      { emoji: '🦊', name: '小狐狸', bg: 'linear-gradient(135deg, #FFB347, #FF8C42)' },
+      { emoji: '🐱', name: '小猫咪', bg: 'linear-gradient(135deg, #87CEEB, #6BB5E0)' },
+      { emoji: '🐶', name: '小狗狗', bg: 'linear-gradient(135deg, #98D8C8, #7BC8B5)' }
     ],
-    selectedAvatarPath: ""
+    selectedEmoji: -1,
+    currentAvatar: '',
+    avatarType: 'emoji',
+    wechatAvatarUrl: ''
   },
-  onLoad() {
+
+  onLoad: function() {
     this.loadSettings();
   },
-  goBack() {
-    var pages = getCurrentPages();
-    if (pages && pages.length > 1) {
-      wx.navigateBack();
-    } else {
-      wx.switchTab({ url: "/pages/profile/profile" });
-    }
-  },
-  loadSettings() {
-    var nickname = wx.getStorageSync("userNickname") || "";
-    var dailyReminder = wx.getStorageSync("dailyReminder");
-    var difficulty = wx.getStorageSync("difficultyLevel") || "初级";
-    var selectedAvatar = wx.getStorageSync("selectedAvatar") || "1";
+
+  loadSettings: function() {
+    var user = userModule.getCurrentUser();
+    var isLoggedIn = !!user;
+    
+    var nickname = user ? (user.nickname || '') : (wx.getStorageSync('userNickname') || '');
+    var dailyReminder = wx.getStorageSync('dailyReminder');
+    var difficulty = wx.getStorageSync('difficultyLevel') || '初级';
     var idx = this.data.difficultyLevels.indexOf(difficulty);
     if (idx === -1) idx = 1;
-    var avatar = null;
-    for (var i = 0; i < this.data.avatars.length; i++) {
-      if (this.data.avatars[i].key === String(selectedAvatar)) {
-        avatar = this.data.avatars[i];
-        break;
+
+    var currentAvatar = '';
+    var avatarType = 'emoji';
+    var selectedEmoji = -1;
+    var wechatAvatarUrl = '';
+
+    if (user) {
+      currentAvatar = user.avatar || '';
+      avatarType = user.avatarType || 'emoji';
+      if (avatarType === 'emoji') {
+        for (var i = 0; i < this.data.emojiAvatars.length; i++) {
+          if (this.data.emojiAvatars[i].emoji === currentAvatar) {
+            selectedEmoji = i;
+            break;
+          }
+        }
+      } else if (avatarType === 'wechat') {
+        wechatAvatarUrl = currentAvatar;
+      }
+    } else {
+      // Legacy support
+      var selectedAvatar = wx.getStorageSync('selectedAvatar');
+      if (selectedAvatar) {
+        var avatarMap = {
+          '1': 'https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar1.png',
+          '2': 'https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar2.png',
+          '3': 'https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar3.png'
+        };
+        currentAvatar = avatarMap[String(selectedAvatar)] || '';
+        avatarType = 'image';
       }
     }
+
     this.setData({
+      isLoggedIn: isLoggedIn,
       nickname: nickname,
       dailyReminder: dailyReminder !== false,
       difficultyIndex: idx,
-      selectedAvatar: selectedAvatar,
-      selectedAvatarPath: avatar ? avatar.path : ""
+      currentAvatar: currentAvatar,
+      avatarType: avatarType,
+      selectedEmoji: selectedEmoji,
+      wechatAvatarUrl: wechatAvatarUrl
     });
   },
-  onNicknameInput(e) {
+
+  selectEmoji: function(e) {
+    var index = e.currentTarget.dataset.index;
+    this.setData({
+      selectedEmoji: index,
+      currentAvatar: this.data.emojiAvatars[index].emoji,
+      avatarType: 'emoji',
+      wechatAvatarUrl: ''
+    });
+  },
+
+  onChooseAvatar: function(e) {
+    var avatarUrl = e.detail.avatarUrl;
+    if (avatarUrl) {
+      this.setData({
+        wechatAvatarUrl: avatarUrl,
+        currentAvatar: avatarUrl,
+        avatarType: 'wechat',
+        selectedEmoji: -1
+      });
+    }
+  },
+
+  onNicknameInput: function(e) {
     this.setData({ nickname: e.detail.value });
   },
-  onReminderChange(e) {
+
+  onReminderChange: function(e) {
     this.setData({ dailyReminder: e.detail.value });
   },
-  onDifficultyChange(e) {
+
+  onDifficultyChange: function(e) {
     this.setData({ difficultyIndex: e.detail.value });
   },
-  selectAvatar(e) {
-    var key = e.currentTarget.dataset.key;
-    this.setData({ selectedAvatar: key });
-    var avatar = null;
-    for (var i = 0; i < this.data.avatars.length; i++) {
-      if (this.data.avatars[i].key === String(key)) {
-        avatar = this.data.avatars[i];
-        break;
-      }
+
+  saveSettings: function() {
+    var nickname = this.data.nickname.trim();
+    if (!nickname) {
+      wx.showToast({ title: '请输入昵称', icon: 'none' });
+      return;
     }
-    this.setData({ selectedAvatarPath: avatar ? avatar.path : "" });
-  },
-  saveSettings() {
-    wx.setStorageSync("userNickname", this.data.nickname);
-    wx.setStorageSync("dailyReminder", this.data.dailyReminder);
-    wx.setStorageSync("difficultyLevel", this.data.difficultyLevels[this.data.difficultyIndex]);
-    wx.setStorageSync("selectedAvatar", String(this.data.selectedAvatar));
-    wx.showToast({ title: "设置已保存", icon: "success", duration: 2000 });
+
+    // Update user module
+    if (userModule.isLoggedIn()) {
+      userModule.updateCurrentUser({
+        nickname: nickname,
+        avatar: this.data.currentAvatar,
+        avatarType: this.data.avatarType
+      });
+    } else {
+      // Register/update via user module
+      userModule.register({
+        nickname: nickname,
+        avatar: this.data.currentAvatar,
+        avatarType: this.data.avatarType
+      });
+    }
+
+    // Save legacy storage keys for backward compatibility
+    wx.setStorageSync('userNickname', nickname);
+    wx.setStorageSync('dailyReminder', this.data.dailyReminder);
+    wx.setStorageSync('difficultyLevel', this.data.difficultyLevels[this.data.difficultyIndex]);
+
+    wx.showToast({ title: '设置已保存', icon: 'success', duration: 1500 });
+    
     var self = this;
     setTimeout(function() {
       var pages = getCurrentPages();
       if (pages && pages.length > 1) {
         wx.navigateBack();
       } else {
-        wx.switchTab({ url: "/pages/profile/profile" });
+        wx.switchTab({ url: '/pages/profile/profile' });
       }
     }, 1500);
   },
-  onImageError(e) {
-    console.error("头像图片加载失败:", e);
+
+  handleLogout: function() {
+    wx.showModal({
+      title: '退出登录',
+      content: '确定要退出登录吗？',
+      success: function(res) {
+        if (res.confirm) {
+          userModule.logout();
+          wx.showToast({ title: '已退出登录', icon: 'success' });
+          setTimeout(function() {
+            wx.navigateTo({ url: '/pages/login/login' });
+          }, 1500);
+        }
+      }
+    });
   },
-  onPreviewError(e) {
-    console.error("头像预览加载失败:", e);
+
+  goBack: function() {
+    var pages = getCurrentPages();
+    if (pages && pages.length > 1) {
+      wx.navigateBack();
+    } else {
+      wx.switchTab({ url: '/pages/profile/profile' });
+    }
   }
 });

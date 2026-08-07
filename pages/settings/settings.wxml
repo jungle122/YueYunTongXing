@@ -1,37 +1,101 @@
 <view class="settings-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">个性化设置</text>
-      <view></view>
+  <view class="settings-decoration settings-cloud-1"></view>
+  <view class="settings-decoration settings-cloud-2"></view>
+
+  <view class="settings-header">
+    <view class="back-btn" bindtap="goBack" aria-role="button" aria-label="返回">
+      <text class="back-arrow">←</text>
     </view>
-    <view class="content">
-      <view class="setting-row">
-        <text class="setting-label">昵称</text>
-        <input class="setting-input" placeholder="请输入昵称" placeholder-style="color: rgba(255,255,255,0.6)" bindinput="onNicknameInput" value="{{nickname}}"/>
+    <text class="page-title">个性化设置</text>
+    <view class="header-spacer"></view>
+  </view>
+
+  <view class="settings-content">
+    <!-- 头像区域 -->
+    <view class="settings-section avatar-section">
+      <text class="section-title">我的头像</text>
+      <view class="current-avatar-wrap">
+        <view wx:if="{{avatarType === 'emoji' && currentAvatar}}" class="current-avatar avatar-emoji-display">
+          <text class="avatar-emoji-large">{{currentAvatar}}</text>
+        </view>
+        <image wx:elif="{{currentAvatar}}" src="{{currentAvatar}}" class="current-avatar" mode="aspectFill" />
+        <view wx:else class="current-avatar avatar-placeholder">👤</view>
       </view>
-      <view class="setting-row">
-        <text class="setting-label">每日学习提醒</text>
-        <switch checked="{{dailyReminder}}" bindchange="onReminderChange" color="#56ab2f"/>
-      </view>
-      <view class="setting-row">
-        <text class="setting-label">难度等级</text>
-        <picker range="{{difficultyLevels}}" value="{{difficultyIndex}}" bindchange="onDifficultyChange" mode="selector">
-          <view class="setting-picker">{{difficultyLevels[difficultyIndex]}}</view>
-        </picker>
-      </view>
-      <view class="setting-row">
-        <text class="setting-label">更换头像</text>
-        <image wx:if="{{selectedAvatarPath}}" src="{{selectedAvatarPath}}" class="avatar-preview" mode="aspectFill" binderror="onPreviewError"/>
-        <view wx:else class="avatar-preview">👤</view>
-      </view>
-      <view class="avatar-selection">
-        <view wx:for="{{avatars}}" wx:for-item="avatar" wx:key="path" class="avatar-option {{selectedAvatar === avatar.key ? 'selected' : ''}}" bindtap="selectAvatar" data-key="{{avatar.key}}">
-          <image src="{{avatar.path}}" class="avatar-img" mode="aspectFill" binderror="onImageError"/>
+
+      <view class="avatar-options">
+        <text class="option-label">选择角色头像</text>
+        <view class="avatar-choices">
+          <view 
+            wx:for="{{emojiAvatars}}" 
+            wx:key="emoji"
+            class="avatar-choice-item {{selectedEmoji === index ? 'choice-selected' : ''}}"
+            bindtap="selectEmoji"
+            data-index="{{index}}"
+          >
+            <view class="choice-circle" style="background:{{item.bg}};">
+              <text class="choice-emoji">{{item.emoji}}</text>
+            </view>
+            <text class="choice-name">{{item.name}}</text>
+          </view>
+        </view>
+
+        <view class="divider-line">
+          <text class="divider-text">或</text>
+        </view>
+
+        <button class="wechat-avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+          <text class="wechat-icon">📱</text>
+          <text class="wechat-text">使用微信头像</text>
+        </button>
+        <view wx:if="{{wechatAvatarUrl}}" class="wechat-preview-row">
+          <image class="wechat-preview-img" src="{{wechatAvatarUrl}}" mode="aspectFill" />
+          <text class="wechat-hint">已选择微信头像</text>
         </view>
       </view>
-      <view class="save-btn" bindtap="saveSettings">保存设置</view>
+    </view>
+
+    <!-- 昵称区域 -->
+    <view class="settings-section">
+      <text class="section-title">我的昵称</text>
+      <view class="input-wrap">
+        <text class="input-icon">✏️</text>
+        <input 
+          class="settings-input" 
+          placeholder="输入你的昵称" 
+          placeholder-style="color:#b8a99a"
+          value="{{nickname}}"
+          bindinput="onNicknameInput"
+          maxlength="12"
+        />
+      </view>
+    </view>
+
+    <!-- 学习偏好 -->
+    <view class="settings-section">
+      <text class="section-title">学习偏好</text>
+      <view class="setting-row">
+        <text class="row-label">每日学习提醒</text>
+        <switch checked="{{dailyReminder}}" bindchange="onReminderChange" color="#cf684b"/>
+      </view>
+      <view class="setting-row">
+        <text class="row-label">难度等级</text>
+        <picker range="{{difficultyLevels}}" value="{{difficultyIndex}}" bindchange="onDifficultyChange" mode="selector">
+          <view class="settings-picker">
+            <text>{{difficultyLevels[difficultyIndex]}}</text>
+            <text class="picker-arrow">▾</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <!-- 保存按钮 -->
+    <view class="save-btn" bindtap="saveSettings" hover-class="save-btn-press">
+      <text class="save-btn-text">保存设置</text>
+    </view>
+
+    <!-- 登出按钮 -->
+    <view wx:if="{{isLoggedIn}}" class="logout-btn" bindtap="handleLogout">
+      <text class="logout-text">退出登录</text>
     </view>
   </view>
 </view>

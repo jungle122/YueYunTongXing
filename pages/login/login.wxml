@@ -1,0 +1,73 @@
+<view class="login-page">
+  <view class="login-decoration login-cloud-1"></view>
+  <view class="login-decoration login-cloud-2"></view>
+  <view class="login-decoration login-flower-1">✿</view>
+  <view class="login-decoration login-flower-2">❀</view>
+
+  <view class="login-hero">
+    <view class="hero-badge">粤语童谣时光屋</view>
+    <text class="hero-title">欢迎来到故事书的世界</text>
+    <text class="hero-subtitle">选一个头像，给自己取个名字吧～</text>
+  </view>
+
+  <view class="login-card">
+    <view class="card-title-row">
+      <text class="card-seal">启程章</text>
+      <text class="card-title">创建你的角色</text>
+    </view>
+
+    <view class="nickname-section">
+      <text class="input-label">你的名字</text>
+      <view class="nickname-input-wrap">
+        <text class="input-icon">✏️</text>
+        <input 
+          class="nickname-input" 
+          placeholder="输入昵称" 
+          placeholder-style="color:#b8a99a"
+          value="{{nickname}}"
+          bindinput="onNicknameInput"
+          maxlength="12"
+        />
+      </view>
+    </view>
+
+    <view class="avatar-section">
+      <text class="input-label">选择头像</text>
+      <view class="emoji-avatars">
+        <view 
+          wx:for="{{emojiAvatars}}" 
+          wx:key="emoji"
+          class="emoji-avatar-item {{selectedEmoji === index ? 'emoji-selected' : ''}}"
+          bindtap="selectEmoji"
+          data-index="{{index}}"
+        >
+          <view class="emoji-circle" style="background:{{item.bg}};">
+            <text class="emoji-text">{{item.emoji}}</text>
+          </view>
+          <text class="emoji-name">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="wechat-avatar-section">
+      <button class="wechat-avatar-btn" open-type="chooseAvatar" bindchooseavatar="onChooseAvatar">
+        <text class="wechat-btn-icon">📱</text>
+        <text class="wechat-btn-text">使用微信头像</text>
+      </button>
+      <view wx:if="{{wechatAvatarUrl}}" class="wechat-preview">
+        <image class="wechat-preview-img" src="{{wechatAvatarUrl}}" mode="aspectFill" />
+        <text class="wechat-preview-text">已选择微信头像</text>
+      </view>
+    </view>
+
+    <view class="login-btn-wrap">
+      <view class="login-btn {{!nickname ? 'login-btn-disabled' : ''}}" bindtap="handleLogin" hover-class="login-btn-press">
+        <text class="login-btn-text">{{isLoggedIn ? '更新信息' : '创建角色 · 开始冒险'}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="login-footer">
+    <text class="footer-text">每天翻一页，让乡音陪着长大</text>
+  </view>
+</view>

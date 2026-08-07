@@ -1,9 +1,12 @@
+var userModule = require('../../utils/user.js');
+
 Page({
   data: {
     isPageEntering: false,
     isLoggedIn: false,
     userNickname: "",
     userAvatar: "",
+    userAvatarType: "emoji",
     stats: {
       learningDays: 0,
       favoriteCount: 0,
@@ -36,53 +39,64 @@ Page({
   goToSettings() {
     wx.navigateTo({ url: "/pages/settings/settings" });
   },
+  goToLogin() {
+    wx.navigateTo({ url: "/pages/login/login" });
+  },
+  goToCommunity() {
+    wx.navigateTo({ url: "/pages/community/community" });
+  },
+  goToFeedback() {
+    wx.navigateTo({ url: "/pages/feedback/feedback" });
+  },
   checkLoginStatus() {
-    const nickname = wx.getStorageSync("userNickname");
-    const avatar = wx.getStorageSync("userAvatar");
-    const selectedAvatar = wx.getStorageSync("selectedAvatar");
-    if (nickname || selectedAvatar) {
-      this.setData({ isLoggedIn: true, userNickname: nickname || "用户" });
-      if (selectedAvatar) {
-        const avatarMap = {
-          "1": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar1.png",
-          "2": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar2.png",
-          "3": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/Avatars/Avatar3.png"
-        };
-        this.setData({ userAvatar: avatarMap[String(selectedAvatar)] || "" });
-      } else {
-        this.setData({ userAvatar: avatar || "" });
-      }
+    var user = userModule.getCurrentUser();
+    if (user) {
+      this.setData({
+        isLoggedIn: true,
+        userNickname: user.nickname || "用户",
+        userAvatar: user.avatar || "",
+        userAvatarType: user.avatarType || "emoji"
+      });
     } else {
-      this.setData({ isLoggedIn: false, userNickname: "", userAvatar: "" });
+      this.setData({ isLoggedIn: false, userNickname: "", userAvatar: "", userAvatarType: "emoji" });
     }
   },
   loadStats() {
-    const history = wx.getStorageSync("learningHistory") || "[]";
-    const historyList = JSON.parse(history);
-    const learningDaysSet = new Set();
-    historyList.forEach((item) => {
-      const date = new Date(item.timestamp).toDateString();
-      learningDaysSet.add(date);
+    var historyKey = userModule.isLoggedIn() ? userModule.getUserKey('learningHistory') : 'learningHistory';
+    var history = wx.getStorageSync(historyKey) || "[]";
+    var historyList = typeof history === 'string' ? JSON.parse(history) : history;
+    if (!Array.isArray(historyList)) historyList = [];
+    
+    var learningDaysSet = new Set();
+    historyList.forEach(function(item) {
+      if (item && item.timestamp) {
+        var date = new Date(item.timestamp).toDateString();
+        learningDaysSet.add(date);
+      }
     });
-    let favoriteCount = 0;
-    for (let i = 1; i <= 22; i++) {
-      if (wx.getStorageSync("favorite_audio_" + i) === "true") favoriteCount++;
+    
+    var favCount = 0;
+    for (var i = 1; i <= 22; i++) {
+      var favKey = userModule.isLoggedIn() ? userModule.getUserKey('favorite_audio_' + i) : 'favorite_audio_' + i;
+      if (wx.getStorageSync(favKey) === "true") favCount++;
     }
-    for (let i = 1; i <= 10; i++) {
-      if (wx.getStorageSync("favorite_video_video" + i) === "true") favoriteCount++;
+    for (var i = 1; i <= 10; i++) {
+      var favKey = userModule.isLoggedIn() ? userModule.getUserKey('favorite_video_video' + i) : 'favorite_video_video' + i;
+      if (wx.getStorageSync(favKey) === "true") favCount++;
     }
-    const currentStreak = this.calculateStreak(historyList);
+    
+    var currentStreak = this.calculateStreak(historyList);
     this.setData({
       "stats.learningDays": learningDaysSet.size,
-      "stats.favoriteCount": favoriteCount,
+      "stats.favoriteCount": favCount,
       "stats.currentStreak": currentStreak
     });
   },
   calculateStreak(historyList) {
     if (!historyList || historyList.length === 0) return 0;
-    const today = new Date();
+    var today = new Date();
     today.setHours(0, 0, 0, 0);
-    const dates = [].concat(Array.from(new Set(historyList.map(function(item) {
+    var dates = [].concat(Array.from(new Set(historyList.filter(function(item) { return item && item.timestamp; }).map(function(item) {
       var d = new Date(item.timestamp);
       d.setHours(0, 0, 0, 0);
       return d.getTime();

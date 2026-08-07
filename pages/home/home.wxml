@@ -134,6 +134,39 @@
     <view class="book-mark book-mark-two"></view>
   </view>
 
+  <view class="extra-entries">
+    <view
+      class="extra-entry extra-community"
+      bindtap="goToCommunity"
+      hover-class="entry-press"
+      hover-stay-time="120"
+      aria-role="button"
+      aria-label="互动社区"
+    >
+      <view class="extra-icon">🤝</view>
+      <view class="extra-copy">
+        <text class="extra-title">互动社区</text>
+        <text class="extra-desc">打卡排行 · 成就徽章</text>
+      </view>
+      <text class="feature-arrow">›</text>
+    </view>
+    <view
+      class="extra-entry extra-feedback"
+      bindtap="goToFeedback"
+      hover-class="entry-press"
+      hover-stay-time="120"
+      aria-role="button"
+      aria-label="建议反馈"
+    >
+      <view class="extra-icon">💌</view>
+      <view class="extra-copy">
+        <text class="extra-title">建议反馈</text>
+        <text class="extra-desc">告诉我们你的想法</text>
+      </view>
+      <text class="feature-arrow">›</text>
+    </view>
+  </view>
+
   <view class="closing-note">
     <text class="closing-flower">✿</text>
     <text>每天翻一页，让乡音陪着长大</text>

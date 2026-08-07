@@ -1,0 +1,109 @@
+<view class="community-page">
+  <view class="page-intro community-hero">
+    <text class="chapter-seal">第五章</text>
+    <text class="intro-title">和小伙伴们一起成长</text>
+    <text class="intro-description">打卡记录、学习排行、成就徽章、互动留言。</text>
+    <text class="hero-ornament">🌟</text>
+  </view>
+
+  <text class="section-caption">🔥 每日打卡墙</text>
+  <view class="checkin-card">
+    <view class="checkin-header">
+      <view class="checkin-info">
+        <text class="checkin-days">{{checkinStreak}}</text>
+        <text class="checkin-label">连续打卡天数</text>
+      </view>
+      <view class="checkin-btn-wrap">
+        <view 
+          class="checkin-btn {{todayCheckedIn ? 'checkin-done' : ''}}" 
+          bindtap="handleCheckin"
+          hover-class="checkin-btn-press"
+        >
+          <text>{{todayCheckedIn ? '✓ 已打卡' : '立即打卡'}}</text>
+        </view>
+      </view>
+    </view>
+    <view class="checkin-calendar">
+      <view wx:for="{{calendarDays}}" wx:key="date" class="calendar-item {{item.checked ? 'calendar-checked' : ''}} {{item.today ? 'calendar-today' : ''}}">
+        <text class="calendar-day">{{item.day}}</text>
+        <text class="calendar-dot" wx:if="{{item.checked}}">✓</text>
+      </view>
+    </view>
+    <view class="checkin-total">
+      <text class="total-text">累计打卡 {{totalCheckins}} 天</text>
+    </view>
+  </view>
+
+  <text class="section-caption">🏆 学习排行榜</text>
+  <view class="leaderboard-card">
+    <view wx:for="{{leaderboard}}" wx:key="userId" class="leaderboard-item">
+      <view class="rank-badge rank-{{index < 3 ? index + 1 : 'other'}}">
+        <text wx:if="{{index < 3}}">{{['🥇','🥈','🥉'][index]}}</text>
+        <text wx:else>{{index + 1}}</text>
+      </view>
+      <view class="rank-avatar">
+        <text wx:if="{{item.avatarType === 'emoji'}}">{{item.avatar || '👤'}}</text>
+        <image wx:else src="{{item.avatar}}" class="rank-avatar-img" mode="aspectFill" />
+      </view>
+      <view class="rank-info">
+        <text class="rank-name">{{item.nickname}}</text>
+        <text class="rank-minutes">学习 {{item.totalStudyMinutes}} 分钟</text>
+      </view>
+      <view class="rank-score">
+        <text class="score-number">{{item.totalStudyMinutes}}</text>
+        <text class="score-unit">分钟</text>
+      </view>
+    </view>
+    <view wx:if="{{leaderboard.length === 0}}" class="empty-hint">
+      <text>还没有学习记录，快去打卡学习吧～</text>
+    </view>
+  </view>
+
+  <text class="section-caption">🎖 成就墙</text>
+  <view class="achievements-card">
+    <view wx:for="{{achievements}}" wx:key="id" class="achievement-item {{item.unlocked ? 'achievement-unlocked' : 'achievement-locked'}}">
+      <view class="achievement-icon">
+        <text>{{item.icon}}</text>
+      </view>
+      <view class="achievement-info">
+        <text class="achievement-name">{{item.name}}</text>
+        <text class="achievement-desc">{{item.desc}}</text>
+      </view>
+      <view wx:if="{{item.unlocked}}" class="achievement-status">✓</view>
+      <view wx:else class="achievement-status locked">🔒</view>
+    </view>
+  </view>
+
+  <text class="section-caption">💬 留言板</text>
+  <view class="messageboard-card">
+    <view class="message-input-wrap">
+      <input 
+        class="message-input" 
+        placeholder="写点什么吧..." 
+        placeholder-style="color:#b8a99a"
+        value="{{newMessage}}"
+        bindinput="onMessageInput"
+        maxlength="100"
+      />
+      <view class="message-send-btn {{!newMessage ? 'send-disabled' : ''}}" bindtap="sendMessage">发送</view>
+    </view>
+    <view class="messages-list">
+      <view wx:for="{{messages}}" wx:key="id" class="message-item">
+        <view class="msg-avatar">
+          <text wx:if="{{item.avatarType === 'emoji'}}">{{item.avatar || '👤'}}</text>
+          <image wx:else src="{{item.avatar}}" class="msg-avatar-img" mode="aspectFill" />
+        </view>
+        <view class="msg-content">
+          <view class="msg-header">
+            <text class="msg-name">{{item.nickname}}</text>
+            <text class="msg-time">{{item.timeText}}</text>
+          </view>
+          <text class="msg-text">{{item.text}}</text>
+        </view>
+      </view>
+      <view wx:if="{{messages.length === 0}}" class="empty-hint">
+        <text>还没有留言，来说第一句话吧～</text>
+      </view>
+    </view>
+  </view>
+</view>
