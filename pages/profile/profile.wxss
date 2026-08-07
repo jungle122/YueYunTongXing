@@ -259,3 +259,16 @@
     animation: none;
   }
 }
+
+/* Emoji头像样式 */
+.avatar-emoji {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 42rpx;
+  background: linear-gradient(135deg, #ffe8c2, #ffd7a8);
+}
+
+/* 社区和反馈菜单项 */
+.community-symbol { background: #e1f5e1; }
+.feedback-symbol { background: #f3e8fd; }

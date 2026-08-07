@@ -417,3 +417,63 @@
     transition: none;
   }
 }
+
+/* 社区和反馈入口 */
+.extra-entries {
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+}
+
+.extra-entry {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 26rpx;
+  border: 2rpx solid #ead8bc;
+  border-radius: 24rpx;
+  background: #fffdf5;
+  box-shadow: 0 8rpx 20rpx rgba(104, 66, 43, 0.07);
+  transition: transform 180ms ease-out, box-shadow 180ms ease-out;
+}
+
+.extra-community {
+  border-color: #b9ddb9;
+  background: linear-gradient(135deg, #f0faee, #fffdf5);
+}
+
+.extra-feedback {
+  border-color: #d4b8e8;
+  background: linear-gradient(135deg, #f8f0fd, #fffdf5);
+}
+
+.extra-icon {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 36rpx;
+  margin-right: 20rpx;
+  border: 2rpx solid rgba(92, 61, 43, 0.06);
+}
+
+.extra-copy {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.extra-title {
+  font-size: 27rpx;
+  font-weight: 800;
+  color: #49352d;
+}
+
+.extra-desc {
+  font-size: 21rpx;
+  color: #7a655a;
+  margin-top: 6rpx;
+}

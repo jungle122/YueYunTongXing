@@ -1,0 +1,403 @@
+.community-page {
+  min-height: 100vh;
+  padding: 28rpx 28rpx 80rpx;
+  box-sizing: border-box;
+  background:
+    radial-gradient(circle at 94% 4%, rgba(244, 190, 80, 0.22), transparent 26%),
+    radial-gradient(circle at 2% 42%, rgba(224, 126, 98, 0.1), transparent 20%),
+    #fff7e8;
+}
+
+.community-hero {
+  border-color: #e8c8a0;
+  background: linear-gradient(145deg, #fff5e6 0%, #ffe8d0 100%);
+}
+
+.community-hero .chapter-seal { color: #cf684b; }
+
+/* 打卡卡片 */
+.checkin-card {
+  padding: 26rpx;
+  border: 2rpx solid #ead5b5;
+  border-radius: 28rpx;
+  background: #fffdf5;
+  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+}
+
+.checkin-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24rpx;
+}
+
+.checkin-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkin-days {
+  font-size: 48rpx;
+  font-weight: 850;
+  color: #cf684b;
+}
+
+.checkin-label {
+  font-size: 21rpx;
+  color: #7a655a;
+  margin-top: 4rpx;
+}
+
+.checkin-btn-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.checkin-btn {
+  padding: 18rpx 36rpx;
+  border-radius: 30rpx;
+  background: linear-gradient(135deg, #cf684b, #e8a87c);
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: 700;
+  box-shadow: 0 8rpx 18rpx rgba(207, 104, 75, 0.25);
+}
+
+.checkin-btn-press {
+  opacity: 0.85;
+  transform: scale(0.96);
+}
+
+.checkin-done {
+  background: linear-gradient(135deg, #7db487, #a8d5b0);
+  box-shadow: 0 8rpx 18rpx rgba(125, 180, 135, 0.25);
+}
+
+.checkin-calendar {
+  display: flex;
+  justify-content: space-between;
+  gap: 10rpx;
+  padding: 16rpx 0;
+  border-top: 2rpx dashed #e6d1b2;
+  border-bottom: 2rpx dashed #e6d1b2;
+}
+
+.calendar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 72rpx;
+  height: 80rpx;
+  border-radius: 16rpx;
+  background: #f8edd8;
+  border: 2rpx solid transparent;
+}
+
+.calendar-checked {
+  background: #fff3e0;
+  border-color: #cf684b;
+}
+
+.calendar-today {
+  box-shadow: 0 0 0 3rpx rgba(207, 104, 75, 0.2);
+}
+
+.calendar-day {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #49352d;
+}
+
+.calendar-dot {
+  font-size: 18rpx;
+  color: #cf684b;
+  font-weight: 700;
+}
+
+.checkin-total {
+  margin-top: 16rpx;
+  text-align: center;
+}
+
+.total-text {
+  font-size: 22rpx;
+  color: #7a655a;
+}
+
+/* 排行榜 */
+.leaderboard-card {
+  padding: 20rpx 24rpx;
+  border: 2rpx solid #ead5b5;
+  border-radius: 28rpx;
+  background: #fffdf5;
+  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+}
+
+.leaderboard-item {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 0;
+  border-bottom: 2rpx dashed #eadbc4;
+}
+
+.leaderboard-item:last-child {
+  border-bottom: none;
+}
+
+.rank-badge {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  font-weight: 800;
+  color: #7a655a;
+  margin-right: 12rpx;
+}
+
+.rank-1, .rank-2, .rank-3 {
+  font-size: 32rpx;
+}
+
+.rank-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  background: #ffe8c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30rpx;
+  margin-right: 16rpx;
+  border: 3rpx solid #f1c96e;
+  overflow: hidden;
+}
+
+.rank-avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.rank-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.rank-name {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #49352d;
+}
+
+.rank-minutes {
+  font-size: 20rpx;
+  color: #7a655a;
+  margin-top: 4rpx;
+}
+
+.rank-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.score-number {
+  font-size: 30rpx;
+  font-weight: 850;
+  color: #cf684b;
+}
+
+.score-unit {
+  font-size: 18rpx;
+  color: #7a655a;
+}
+
+/* 成就墙 */
+.achievements-card {
+  padding: 20rpx 24rpx;
+  border: 2rpx solid #ead5b5;
+  border-radius: 28rpx;
+  background: #fffdf5;
+  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+}
+
+.achievement-item {
+  display: flex;
+  align-items: center;
+  padding: 18rpx 0;
+  border-bottom: 2rpx dashed #eadbc4;
+}
+
+.achievement-item:last-child {
+  border-bottom: none;
+}
+
+.achievement-unlocked {
+  opacity: 1;
+}
+
+.achievement-locked {
+  opacity: 0.5;
+}
+
+.achievement-icon {
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background: #ffe8c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin-right: 18rpx;
+}
+
+.achievement-unlocked .achievement-icon {
+  background: linear-gradient(135deg, #ffd700, #ffb347);
+  box-shadow: 0 6rpx 14rpx rgba(255, 215, 0, 0.3);
+}
+
+.achievement-info {
+  flex: 1;
+}
+
+.achievement-name {
+  font-size: 26rpx;
+  font-weight: 700;
+  color: #49352d;
+}
+
+.achievement-desc {
+  font-size: 20rpx;
+  color: #7a655a;
+  margin-top: 4rpx;
+}
+
+.achievement-status {
+  font-size: 28rpx;
+  color: #7db487;
+  font-weight: 700;
+}
+
+.achievement-status.locked {
+  font-size: 24rpx;
+  opacity: 0.6;
+}
+
+/* 留言板 */
+.messageboard-card {
+  padding: 20rpx 24rpx;
+  border: 2rpx solid #ead5b5;
+  border-radius: 28rpx;
+  background: #fffdf5;
+  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+}
+
+.message-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 14rpx 16rpx;
+  border: 2rpx solid #e6cba8;
+  border-radius: 18rpx;
+  background: #fff9ed;
+  margin-bottom: 20rpx;
+}
+
+.message-input {
+  flex: 1;
+  font-size: 24rpx;
+  color: #49352d;
+}
+
+.message-send-btn {
+  padding: 12rpx 24rpx;
+  border-radius: 20rpx;
+  background: #cf684b;
+  color: #fff;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.send-disabled {
+  opacity: 0.5;
+}
+
+.messages-list {
+  max-height: 600rpx;
+  overflow-y: auto;
+}
+
+.message-item {
+  display: flex;
+  padding: 16rpx 0;
+  border-bottom: 2rpx dashed #eadbc4;
+}
+
+.message-item:last-child {
+  border-bottom: none;
+}
+
+.msg-avatar {
+  width: 52rpx;
+  height: 52rpx;
+  border-radius: 50%;
+  background: #ffe8c2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26rpx;
+  margin-right: 14rpx;
+  border: 2rpx solid #f1c96e;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.msg-avatar-img {
+  width: 100%;
+  height: 100%;
+}
+
+.msg-content {
+  flex: 1;
+}
+
+.msg-header {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  margin-bottom: 6rpx;
+}
+
+.msg-name {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #49352d;
+}
+
+.msg-time {
+  font-size: 18rpx;
+  color: #a08d82;
+}
+
+.msg-text {
+  font-size: 24rpx;
+  color: #49352d;
+  line-height: 1.5;
+}
+
+/* 通用样式 */
+.empty-hint {
+  text-align: center;
+  padding: 40rpx 20rpx;
+  color: #a08d82;
+  font-size: 24rpx;
+}
+
+@media (max-width: 340px) {
+  .community-page { padding-left: 22rpx; padding-right: 22rpx; }
+  .calendar-item { width: 62rpx; }
+}

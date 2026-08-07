@@ -1,0 +1,76 @@
+<view class="feedback-page">
+  <view class="page-intro feedback-hero">
+    <text class="chapter-seal">第六章</text>
+    <text class="intro-title">告诉我们你的想法</text>
+    <text class="intro-description">每一条建议都是我们进步的动力，感谢你帮助时光屋变得更好。</text>
+    <text class="hero-ornament">✉</text>
+  </view>
+
+  <text class="section-caption">📝 提交反馈</text>
+  <view class="feedback-form-card">
+    <view class="form-row">
+      <text class="form-label">反馈类型</text>
+      <view class="type-selector">
+        <view
+          wx:for="{{feedbackTypes}}"
+          wx:key="value"
+          class="type-tag {{selectedType === item.value ? 'type-selected' : ''}}"
+          bindtap="selectType"
+          data-value="{{item.value}}"
+        >
+          <text>{{item.icon}} {{item.label}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-row">
+      <text class="form-label">你的建议</text>
+      <textarea
+        class="feedback-textarea"
+        placeholder="请描述你的建议、问题或想法..."
+        placeholder-style="color:#b8a99a"
+        value="{{feedbackContent}}"
+        bindinput="onContentInput"
+        maxlength="500"
+      />
+      <text class="char-count">{{feedbackContent.length}}/500</text>
+    </view>
+
+    <view class="form-row">
+      <text class="form-label">联系方式（选填）</text>
+      <input
+        class="contact-input"
+        placeholder="方便我们回复你"
+        placeholder-style="color:#b8a99a"
+        value="{{contactInfo}}"
+        bindinput="onContactInput"
+      />
+    </view>
+
+    <view class="submit-btn {{!feedbackContent ? 'submit-disabled' : ''}}" bindtap="submitFeedback" hover-class="submit-btn-press">
+      <text>提交反馈</text>
+    </view>
+  </view>
+
+  <text class="section-caption">📋 我的反馈记录</text>
+  <view class="feedback-list-card">
+    <view wx:for="{{feedbackList}}" wx:key="id" class="feedback-item">
+      <view class="feedback-item-header">
+        <view class="feedback-type-badge type-{{item.type}}">
+          <text>{{item.typeLabel}}</text>
+        </view>
+        <view class="feedback-status status-{{item.status}}">
+          <text>{{item.statusText}}</text>
+        </view>
+      </view>
+      <text class="feedback-content-text">{{item.content}}</text>
+      <view class="feedback-item-footer">
+        <text class="feedback-time">{{item.timeText}}</text>
+        <text wx:if="{{item.reply}}" class="feedback-reply">💬 已回复: {{item.reply}}</text>
+      </view>
+    </view>
+    <view wx:if="{{feedbackList.length === 0}}" class="empty-hint">
+      <text>还没有提交过反馈，期待你的建议～</text>
+    </view>
+  </view>
+</view>
