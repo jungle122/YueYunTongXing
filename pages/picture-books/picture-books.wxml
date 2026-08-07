@@ -25,6 +25,7 @@
           <view class="cover-frame">
             <image class="cover-image" src="{{book.coverPath}}" mode="aspectFill" lazy-load="{{true}}" show-menu-by-longpress="{{false}}" />
             <text class="cover-order">{{book.orderText}}</text>
+            <text wx:if="{{book.isFavorite}}" class="cover-favorite" aria-label="已收藏">♥</text>
             <text wx:if="{{book.isActive}}" class="reading-badge">阅读中</text>
           </view>
           <text class="shelf-book-title">{{book.title}}</text>
@@ -39,6 +40,11 @@
           <text class="reader-kicker">正在阅读</text>
           <text class="book-title">{{currentTitle}}</text>
         </view>
+        <button
+          class="favorite-button {{isCurrentFavorite ? 'favorite-button-active' : ''}}"
+          bindtap="toggleFavorite"
+          aria-label="{{isCurrentFavorite ? '取消收藏' : '收藏绘本'}}"
+        >{{isCurrentFavorite ? '♥' : '♡'}}</button>
         <text class="page-pill">{{currentPageNumber}} / {{totalPages}}</text>
       </view>
 

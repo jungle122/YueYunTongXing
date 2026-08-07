@@ -9,6 +9,8 @@ Page({
     currentPageIndex: 0,
     imageKey: 0,
     currentBook: null,
+    favorites: {},
+    isCurrentFavorite: false,
     currentPagePath: "",
     totalPages: 0,
     currentTitle: "",
@@ -18,7 +20,18 @@ Page({
     isFirstPage: true,
     displayBooks: []
   },
-  onLoad() { this.loadBooksFromJSON(); },
+  onLoad() {
+    this.loadFavorites();
+    this.loadBooksFromJSON();
+  },
+  onShow() {
+    this.loadFavorites();
+    if (this.data.currentBook) this.refreshCurrentBook();
+  },
+  loadFavorites() {
+    var favorites = wx.getStorageSync("picture_book_favorites") || {};
+    this.setData({ favorites: favorites });
+  },
   loadBooksFromJSON() {
     var self = this;
     wx.request({
@@ -67,6 +80,7 @@ Page({
     this.setData({
       currentBook: book,
       currentTitle: book.title,
+      isCurrentFavorite: !!this.data.favorites[book.id],
       totalPages: totalPages,
       currentPageNumber: currentPageNumber,
       readingProgress: totalPages ? Math.round(currentPageNumber / totalPages * 100) : 0,
@@ -87,6 +101,7 @@ Page({
         pageCount: book.pages.length,
         orderText: index < 9 ? "0" + (index + 1) : String(index + 1),
         themeClass: themes[index % themes.length],
+        isFavorite: !!self.data.favorites[book.id],
         isActive: book.id === self.data.currentBookId
       };
     });
@@ -99,6 +114,25 @@ Page({
     var bookId = e.currentTarget.dataset.bookid;
     this.setData({ currentBookId: bookId, currentPageIndex: 0, imageKey: this.data.imageKey + 1 });
     this.refreshCurrentBook();
+  },
+  toggleFavorite() {
+    var book = this.getCurrentBook();
+    if (!book) return;
+    var favorites = this.data.favorites || {};
+    var nextFavorite = !favorites[book.id];
+    if (nextFavorite) {
+      favorites[book.id] = {
+        title: book.title,
+        coverPath: this.resolvePagePath(book, 0),
+        favoritedAt: new Date().toISOString()
+      };
+    } else {
+      delete favorites[book.id];
+    }
+    try { wx.setStorageSync("picture_book_favorites", favorites); } catch (e) {}
+    this.setData({ favorites: favorites, isCurrentFavorite: nextFavorite });
+    this.refreshDisplayBooks();
+    wx.showToast({ title: nextFavorite ? "已收藏这本绘本" : "已取消收藏", icon: "none" });
   },
   previousPage() {
     if (this.data.currentPageIndex > 0) {

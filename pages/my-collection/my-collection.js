@@ -1,6 +1,8 @@
 Page({
   data: {
-    favorites: []
+    favorites: [],
+    favoriteCount: 0,
+    summaryText: ""
   },
   onLoad() { this.loadFavorites(); },
   onShow() { this.loadFavorites(); },
@@ -58,12 +60,44 @@ Page({
         }
       });
     } catch (e) { console.error("读取文章收藏失败:", e); }
+    try {
+      var pictureBookFavorites = wx.getStorageSync("picture_book_favorites") || {};
+      Object.keys(pictureBookFavorites).forEach(function(bookId) {
+        var bookFavorite = pictureBookFavorites[bookId];
+        if (bookFavorite) {
+          var bookData = typeof bookFavorite === "object" ? bookFavorite : {};
+          favorites.push({
+            id: bookId,
+            title: bookData.title || self.getPictureBookTitleById(bookId),
+            type: "pictureBook",
+            icon: self.getItemIcon("pictureBook"),
+            typeName: self.getItemTypeName("pictureBook"),
+            dateStr: self.formatDate(bookData.favoritedAt || new Date().toISOString()),
+            favorited_at: bookData.favoritedAt || new Date().toISOString()
+          });
+        }
+      });
+    } catch (e) { console.error("读取绘本收藏失败:", e); }
     favorites.sort(function(a, b) { return new Date(b.favorited_at) - new Date(a.favorited_at); });
-    this.setData({ favorites: favorites });
+    var typeCounts = { audio: 0, video: 0, pictureBook: 0, article: 0 };
+    favorites.forEach(function(item) {
+      if (typeCounts[item.type] !== undefined) typeCounts[item.type]++;
+    });
+    var labels = { audio: "音频", video: "视频", pictureBook: "绘本", article: "文章" };
+    var summaryText = ["audio", "video", "pictureBook", "article"].filter(function(type) {
+      return typeCounts[type] > 0;
+    }).map(function(type) {
+      return labels[type] + " " + typeCounts[type];
+    }).join(" · ");
+    this.setData({ favorites: favorites, favoriteCount: favorites.length, summaryText: summaryText });
   },
   getArticleTitleById(id) {
     var map = { "cantonese-history": "粤语童谣的历史起源", "festival-rhymes": "传统节日的粤语童谣", "language-features": "粤语童谣的语言特色", "modern-development": "现代粤语童谣的发展" };
     return map[id] || "未知文章";
+  },
+  getPictureBookTitleById(id) {
+    var map = { dangdang: "氹氹转", qiqi: "齐齐望过去", yueguang: "月光光" };
+    return map[id] || "粤语童谣绘本";
   },
   getAudioDataById(id) {
     var numId = typeof id === "string" ? parseInt(id.replace("song", "")) : id;
@@ -87,8 +121,8 @@ Page({
     for (var i = 0; i < list.length; i++) { if (list[i].id === id) return list[i]; }
     return null;
   },
-  getItemIcon(type) { return { audio: "🎵", video: "🎬", article: "📖" }[type] || "📄"; },
-  getItemTypeName(type) { return { audio: "音频", video: "视频", article: "文章" }[type] || "未知"; },
+  getItemIcon(type) { return { audio: "🎵", video: "🎬", article: "📖", pictureBook: "📚" }[type] || "📄"; },
+  getItemTypeName(type) { return { audio: "音频", video: "视频", article: "文章", pictureBook: "绘本" }[type] || "未知"; },
   formatDate(dateString) {
     var date = new Date(dateString);
     var today = new Date();

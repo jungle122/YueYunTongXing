@@ -38,7 +38,7 @@
     <view class="menu-list">
       <view class="menu-row enter-menu-1" bindtap="goToMyCollection" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看我的收藏">
         <view class="menu-symbol collection-symbol">⭐</view>
-        <view class="menu-copy"><text class="menu-title">我的收藏</text><text class="menu-description">童谣、视频和文章</text></view>
+        <view class="menu-copy"><text class="menu-title">我的收藏</text><text class="menu-description">童谣、视频、绘本和文章</text></view>
         <text class="feature-arrow">›</text>
       </view>
       <view class="menu-row enter-menu-2" bindtap="goToHistory" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看历史记录">

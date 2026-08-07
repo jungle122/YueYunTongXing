@@ -64,13 +64,11 @@ Page({
       const date = new Date(item.timestamp).toDateString();
       learningDaysSet.add(date);
     });
-    let favoriteCount = 0;
-    for (let i = 1; i <= 22; i++) {
-      if (wx.getStorageSync("favorite_audio_" + i) === "true") favoriteCount++;
-    }
-    for (let i = 1; i <= 10; i++) {
-      if (wx.getStorageSync("favorite_video_video" + i) === "true") favoriteCount++;
-    }
+    const favoriteGroups = ["audio_likes", "video_favorites", "text_science_collections", "picture_book_favorites"];
+    let favoriteCount = favoriteGroups.reduce((total, storageKey) => {
+      const group = wx.getStorageSync(storageKey) || {};
+      return total + Object.keys(group).filter((key) => !!group[key]).length;
+    }, 0);
     const currentStreak = this.calculateStreak(historyList);
     this.setData({
       "stats.learningDays": learningDaysSet.size,

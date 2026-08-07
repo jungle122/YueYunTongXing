@@ -1,7 +1,9 @@
 Page({
   data: {
     historyList: [],
-    groupedHistory: []
+    groupedHistory: [],
+    recordCount: 0,
+    dayCount: 0
   },
   onLoad() { this.loadHistory(); },
   onShow() { this.loadHistory(); },
@@ -20,16 +22,25 @@ Page({
       item.typeName = self.getItemTypeName(item.type);
       item.durationText = self.formatDuration(item.duration);
       item.timeText = self.formatTime(item.timestamp);
+      item.themeClass = "history-" + item.type;
     });
     var grouped = {};
     var order = [];
     sorted.forEach(function(item) {
-      var date = new Date(item.timestamp).toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
-      if (!grouped[date]) { grouped[date] = []; order.push(date); }
-      grouped[date].push(item);
+      var itemDate = new Date(item.timestamp);
+      var dateKey = itemDate.toDateString();
+      if (!grouped[dateKey]) {
+        grouped[dateKey] = { date: self.formatDateLabel(itemDate), items: [] };
+        order.push(dateKey);
+      }
+      grouped[dateKey].items.push(item);
     });
-    var groupedHistory = order.map(function(date) { return { date: date, items: grouped[date] }; });
-    this.setData({ historyList: sorted, groupedHistory: groupedHistory });
+    var groupedHistory = order.map(function(dateKey) {
+      var group = grouped[dateKey];
+      group.count = group.items.length;
+      return group;
+    });
+    this.setData({ historyList: sorted, groupedHistory: groupedHistory, recordCount: sorted.length, dayCount: groupedHistory.length });
   },
   getItemIcon(type) { return { audio: "🎵", video: "🎬", article: "📖", game: "🎮" }[type] || "📄"; },
   getItemTypeName(type) { return { audio: "音频学习", video: "视频学习", article: "文章阅读", game: "游戏练习" }[type] || "未知"; },
@@ -42,5 +53,13 @@ Page({
   formatTime(timestamp) {
     var date = new Date(timestamp);
     return date.toLocaleTimeString("zh-CN", { hour: "2-digit", minute: "2-digit" });
+  },
+  formatDateLabel(date) {
+    var today = new Date();
+    var yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+    if (date.toDateString() === today.toDateString()) return "今天";
+    if (date.toDateString() === yesterday.toDateString()) return "昨天";
+    return date.toLocaleDateString("zh-CN", { month: "long", day: "numeric" });
   }
 });

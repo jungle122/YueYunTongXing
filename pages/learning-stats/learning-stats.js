@@ -2,6 +2,8 @@ Page({
   data: {
     stats: {
       totalHours: 0,
+      totalTimeValue: 0,
+      totalTimeUnit: "分钟",
       totalLearningDays: 0,
       currentStreak: 0,
       totalFavorites: 0,
@@ -24,6 +26,9 @@ Page({
     var history = JSON.parse(historyStr);
     var totalSeconds = history.reduce(function(total, item) { return total + (item.duration || 0); }, 0);
     var totalHours = Math.floor(totalSeconds / 3600);
+    var totalMinutes = Math.floor(totalSeconds / 60);
+    var totalTimeValue = totalMinutes >= 60 ? Number((totalMinutes / 60).toFixed(1)) : totalMinutes;
+    var totalTimeUnit = totalMinutes >= 60 ? "小时" : "分钟";
     var learningDaysSet = {};
     history.forEach(function(item) {
       var date = new Date(item.timestamp).toDateString();
@@ -31,24 +36,35 @@ Page({
     });
     var totalLearningDays = Object.keys(learningDaysSet).length;
     var currentStreak = this.calculateStreak(history);
-    var favoriteCount = 0;
-    for (var i = 1; i <= 22; i++) { if (wx.getStorageSync("favorite_audio_" + i) === "true") favoriteCount++; }
-    for (var j = 1; j <= 10; j++) { if (wx.getStorageSync("favorite_video_video" + j) === "true") favoriteCount++; }
+    var favoriteGroups = ["audio_likes", "video_favorites", "text_science_collections", "picture_book_favorites"];
+    var favoriteCount = favoriteGroups.reduce(function(total, storageKey) {
+      var group = wx.getStorageSync(storageKey) || {};
+      return total + Object.keys(group).filter(function(key) { return !!group[key]; }).length;
+    }, 0);
     var catStats = { audio: { count: 0, totalTime: 0 }, video: { count: 0, totalTime: 0 }, article: { count: 0, totalTime: 0 } };
     history.forEach(function(item) {
       if (catStats[item.type]) { catStats[item.type].count++; catStats[item.type].totalTime += item.duration || 0; }
     });
+    var totalCategoryCount = catStats.audio.count + catStats.video.count + catStats.article.count;
+    var getShare = function(count) {
+      return totalCategoryCount ? Math.round(count / totalCategoryCount * 100) : 0;
+    };
     this.setData({
       "stats.totalHours": totalHours,
+      "stats.totalTimeValue": totalTimeValue,
+      "stats.totalTimeUnit": totalTimeUnit,
       "stats.totalLearningDays": totalLearningDays,
       "stats.currentStreak": currentStreak,
       "stats.totalFavorites": favoriteCount,
       "stats.categoryStats.audio.count": catStats.audio.count,
       "stats.categoryStats.audio.minutes": Math.floor(catStats.audio.totalTime / 60),
+      "stats.categoryStats.audio.share": getShare(catStats.audio.count),
       "stats.categoryStats.video.count": catStats.video.count,
       "stats.categoryStats.video.minutes": Math.floor(catStats.video.totalTime / 60),
+      "stats.categoryStats.video.share": getShare(catStats.video.count),
       "stats.categoryStats.article.count": catStats.article.count,
-      "stats.categoryStats.article.minutes": Math.floor(catStats.article.totalTime / 60)
+      "stats.categoryStats.article.minutes": Math.floor(catStats.article.totalTime / 60),
+      "stats.categoryStats.article.share": getShare(catStats.article.count)
     });
   },
   calculateStreak(historyList) {

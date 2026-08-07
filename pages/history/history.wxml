@@ -1,27 +1,39 @@
 <view class="history-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">历史记录</text>
-      <view></view>
-    </view>
-    <view class="content">
-      <view wx:if="{{historyList.length === 0}}" class="empty-state">
-        <text class="empty-icon">📝</text>
-        <text class="empty-text">暂无学习记录</text>
-        <text class="empty-hint">开始学习吧，记录会在这里显示</text>
+  <view class="history-shell">
+    <view wx:if="{{historyList.length > 0}}" class="history-overview">
+      <view class="overview-copy">
+        <text class="overview-kicker">学习足迹</text>
+        <text class="overview-title">最近共留下 {{recordCount}} 条记录</text>
+        <text class="overview-description">分布在 {{dayCount}} 个学习日里，每一次打开都是一点进步。</text>
       </view>
-      <view wx:else>
+      <text class="overview-mark" aria-hidden="true">迹</text>
+    </view>
+
+    <view class="history-content">
+      <view wx:if="{{historyList.length === 0}}" class="empty-state">
+        <view class="empty-symbol">⌁</view>
+        <text class="empty-title">还没有学习足迹</text>
+        <text class="empty-description">听童谣、看视频或阅读文章后，最近的学习内容会记录在这里。</text>
+      </view>
+
+      <view wx:else class="history-groups">
         <view wx:for="{{groupedHistory}}" wx:for-item="group" wx:key="date" class="history-section">
-          <text class="section-title">{{group.date}}</text>
+          <view class="date-heading">
+            <view class="date-dot"></view>
+            <text class="date-title">{{group.date}}</text>
+            <text class="date-count">{{group.count}} 条</text>
+          </view>
           <view class="history-list">
-            <view wx:for="{{group.items}}" wx:for-item="item" wx:key="itemId" class="history-item">
+            <view wx:for="{{group.items}}" wx:for-item="item" wx:key="itemId" class="history-item {{item.themeClass}}">
               <view class="item-icon">{{item.icon}}</view>
               <view class="item-info">
                 <text class="item-title">{{item.title}}</text>
-                <text class="item-desc">{{item.typeName}} · {{item.durationText}} · {{item.timeText}}</text>
+                <view class="item-meta">
+                  <text class="type-tag">{{item.typeName}}</text>
+                  <text class="duration-text">{{item.durationText}}</text>
+                </view>
               </view>
+              <text class="time-text">{{item.timeText}}</text>
             </view>
           </view>
         </view>
