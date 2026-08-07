@@ -1,45 +1,139 @@
 <view class="video-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">视频展示</text>
-      <view></view>
+  <view class="video-shell">
+    <view class="library-hero">
+      <view class="hero-copy">
+        <text class="hero-kicker">原创童谣片库</text>
+        <text class="hero-title">让童谣在画面里唱起来</text>
+        <text class="hero-description">从经典童谣到节日故事，陪孩子听见熟悉的岭南声音。</text>
+      </view>
+      <view class="hero-mark" aria-hidden="true">映</view>
+      <view class="hero-summary">
+        <view class="summary-item">
+          <text class="summary-number">{{displayVideos.length}}</text>
+          <text class="summary-label">部作品</text>
+        </view>
+        <view class="summary-divider"></view>
+        <view class="summary-item">
+          <text class="summary-number">{{favoriteCount}}</text>
+          <text class="summary-label">已收藏</text>
+        </view>
+      </view>
     </view>
-    <view class="content">
-      <view wx:for="{{displayVideos}}" wx:for-item="v" wx:key="id" class="video-card">
-        <view class="video-header">
-          <view class="video-icon">🎬</view>
-          <view class="video-info">
-            <text class="video-title">{{v.title}}</text>
-            <text class="video-subtitle">{{v.subtitle}}</text>
+
+    <view class="section-heading">
+      <view>
+        <text class="section-title">全部作品</text>
+        <text class="section-description">选择一部童谣开始观看</text>
+      </view>
+      <text class="section-count">共 {{displayVideos.length}} 部</text>
+    </view>
+
+    <view class="video-list">
+      <view wx:for="{{displayVideos}}" wx:for-item="v" wx:key="id" class="video-card {{v.isPlaying ? 'video-card-playing' : ''}}">
+        <view
+          class="video-cover {{v.themeClass}}"
+          bindtap="playVideo"
+          data-video="{{v}}"
+          hover-class="cover-press"
+          hover-stay-time="120"
+          aria-role="button"
+          aria-label="观看{{v.title}}"
+        >
+          <text class="cover-order">{{v.orderText}}</text>
+          <view class="cover-play"><text>{{v.playIcon}}</text></view>
+          <text class="cover-caption">粤韵童行 · 原创</text>
+        </view>
+
+        <view class="video-body">
+          <view class="video-title-row">
+            <view class="video-copy">
+              <text class="video-title">{{v.title}}</text>
+              <text class="video-subtitle">{{v.subtitle}}</text>
+            </view>
+            <button
+              class="favorite-button {{v.isLiked ? 'favorite-button-active' : ''}}"
+              catchtap="toggleFavorite"
+              data-video="{{v}}"
+              aria-label="{{v.favoriteLabel}}{{v.title}}"
+            >{{v.isLiked ? '♥' : '♡'}}</button>
           </view>
-        </view>
-        <view class="video-actions">
-          <button class="action-btn {{v.isPlaying ? 'playing' : ''}}" bindtap="playVideo" data-video="{{v}}">{{v.playBtnText}}</button>
-          <button class="action-btn {{v.isLiked ? 'liked' : ''}}" bindtap="toggleFavorite" data-video="{{v}}">{{v.likeText}}</button>
-        </view>
-        <view class="video-preview">{{v.description}}</view>
-        <view class="video-tags">
-          <text wx:for="{{v.tags}}" wx:for-item="tag" wx:key="*this" class="tag">{{tag}}</text>
+
+          <text class="video-description">{{v.description}}</text>
+
+          <view class="video-tags">
+            <text wx:for="{{v.tags}}" wx:for-item="tag" wx:key="*this" class="video-tag">{{tag}}</text>
+          </view>
+
+          <button
+            class="watch-button {{v.isPlaying ? 'watch-button-playing' : ''}}"
+            bindtap="playVideo"
+            data-video="{{v}}"
+            aria-label="{{v.playLabel}}{{v.title}}"
+          >
+            <text class="watch-icon">{{v.playIcon}}</text>
+            <text>{{v.playLabel}}</text>
+          </button>
         </view>
       </view>
     </view>
+
+    <text class="library-note">部分作品仍在整理视频资源，后续接入后即可直接播放。</text>
   </view>
+
   <view wx:if="{{showToast}}" class="favorite-toast {{toastType}}">
-    <view class="toast-content">
-      <text class="toast-icon">{{toastIcon}}</text>
-      <text class="toast-message">{{toastText}}</text>
-    </view>
+    <text class="toast-icon">{{toastIcon}}</text>
+    <text class="toast-message">{{toastText}}</text>
   </view>
+
   <view wx:if="{{showPlayer && currentVideo}}" class="video-player-modal" bindtap="closePlayer">
-    <view class="player-container" catchtap="" style="pointer-events:auto">
+    <view class="player-card" catchtap="noop">
       <view class="player-header">
-        <text class="player-title">{{currentVideo.title}}</text>
-        <button class="close-player-btn" bindtap="closePlayer">✕</button>
+        <view class="player-copy">
+          <text class="player-kicker">正在观看</text>
+          <text class="player-title">{{currentVideo.title}}</text>
+        </view>
+        <button class="close-player-btn" bindtap="closePlayer" aria-label="关闭播放器">×</button>
       </view>
-      <video src="{{currentVideo.src || ''}}" controls class="video-player" id="video-{{currentVideo.id}}" bindplay="onVideoPlay" bindpause="onVideoPause" bindended="onVideoEnded" binderror="onVideoError" bindloadedmetadata="onVideoLoaded" bindwaiting="onVideoWaiting" bindprogress="onVideoProgress" bindtimeupdate="onVideoTimeUpdate" bindseeked="onVideoSeeked" bindfullscreenchange="onVideoFullscreenChange" enable-play-gesture="{{true}}" show-fullscreen-btn="{{false}}" show-center-play-btn="{{true}}" autoplay="{{false}}" object-fit="contain" show-play-btn="{{true}}" enable-fullscreen="{{true}}" page-gesture="{{false}}" direction="{{90}}"></video>
-      <view class="custom-fullscreen-btn" bindtap="enterFullscreen"> ⤢ </view>
+
+      <video
+        wx:if="{{currentVideo.src}}"
+        src="{{currentVideo.src}}"
+        controls
+        class="video-player"
+        id="video-{{currentVideo.id}}"
+        bindplay="onVideoPlay"
+        bindpause="onVideoPause"
+        bindended="onVideoEnded"
+        binderror="onVideoError"
+        bindloadedmetadata="onVideoLoaded"
+        bindwaiting="onVideoWaiting"
+        bindprogress="onVideoProgress"
+        bindtimeupdate="onVideoTimeUpdate"
+        bindseeked="onVideoSeeked"
+        bindfullscreenchange="onVideoFullscreenChange"
+        enable-play-gesture="{{true}}"
+        show-fullscreen-btn="{{false}}"
+        show-center-play-btn="{{true}}"
+        autoplay="{{false}}"
+        object-fit="contain"
+        show-play-btn="{{true}}"
+        enable-fullscreen="{{true}}"
+        page-gesture="{{false}}"
+        direction="{{90}}"
+      ></video>
+
+      <view wx:else class="player-placeholder">
+        <view class="placeholder-symbol">▶</view>
+        <text class="placeholder-title">视频资源整理中</text>
+        <text class="placeholder-description">这部作品的画面暂未接入，完成资源整理后即可在这里播放。</text>
+      </view>
+
+      <view class="player-footer">
+        <view class="player-tags">
+          <text wx:for="{{currentVideo.tags}}" wx:for-item="tag" wx:key="*this" class="player-tag">{{tag}}</text>
+        </view>
+        <button wx:if="{{currentVideo.src}}" class="fullscreen-button" bindtap="enterFullscreen">全屏观看</button>
+      </view>
     </view>
   </view>
 </view>

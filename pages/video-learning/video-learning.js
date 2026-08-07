@@ -9,6 +9,7 @@ Page({
     toastText: "",
     toastIcon: "",
     toastType: "",
+    favoriteCount: 0,
     showPlayer: false,
     currentVideo: null,
     videoSrc: "",
@@ -47,15 +48,21 @@ Page({
   },
   refreshDisplayVideos() {
     var self = this;
-    var displayVideos = self.data.videos.map(function(v) {
+    var coverThemes = ["cover-coral", "cover-honey", "cover-sage", "cover-sky"];
+    var favoriteCount = 0;
+    var displayVideos = self.data.videos.map(function(v, index) {
       var d = JSON.parse(JSON.stringify(v));
-      d.playBtnText = (self.data.currentPlaying === v.id && self.data.playing) ? "⏸️" : "▶️";
       d.isPlaying = self.data.currentPlaying === v.id && self.data.playing;
-      d.likeText = self.data.favorites[v.id] ? "💖" : "❤️";
+      d.playIcon = d.isPlaying ? "Ⅱ" : "▶";
+      d.playLabel = d.isPlaying ? "播放中" : "观看作品";
       d.isLiked = !!self.data.favorites[v.id];
+      d.favoriteLabel = d.isLiked ? "已收藏" : "收藏";
+      d.orderText = index < 9 ? "0" + (index + 1) : String(index + 1);
+      d.themeClass = coverThemes[index % coverThemes.length];
+      if (d.isLiked) favoriteCount++;
       return d;
     });
-    this.setData({ displayVideos: displayVideos });
+    this.setData({ displayVideos: displayVideos, favoriteCount: favoriteCount });
   },
   goBack() {
     wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/original/original" }); } });
@@ -148,6 +155,7 @@ Page({
       if (ctx && ctx.requestFullScreen) { ctx.requestFullScreen({ direction: 90 }); }
     } catch(err) { console.error("进入全屏失败:", err); }
   },
+  noop() {},
   toggleFavorite(e) {
     var video = e.currentTarget.dataset.video;
     var prev = !!this.data.favorites[video.id];

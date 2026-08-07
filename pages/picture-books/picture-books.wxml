@@ -1,24 +1,72 @@
 <view class="picture-books-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">绘本欣赏</text>
-      <view></view>
-    </view>
-    <view class="book-selector">
-      <text class="selector-title">📚 选择绘本</text>
-      <view class="book-buttons">
-        <button wx:for="{{displayBooks}}" wx:for-item="book" wx:key="id" class="book-btn {{book.isActive ? 'active' : ''}}" bindtap="selectBook" data-bookid="{{book.id}}">{{book.title}}</button>
+  <view class="book-shell">
+    <view class="shelf-heading">
+      <view>
+        <text class="section-title">绘本书架</text>
+        <text class="section-description">选一本喜欢的童谣故事</text>
       </view>
+      <text class="book-total">共 {{displayBooks.length}} 本</text>
     </view>
-    <view class="book-viewer">
-      <text class="book-title">{{currentTitle}}</text>
-      <text class="book-page-info">第 {{currentPageIndex + 1}} 页 / 共 {{totalPages}} 页</text>
-      <image key="{{imageKey}}-{{currentPageIndex}}" src="{{currentPagePath}}" mode="widthFix" class="book-image" lazy-load="{{false}}" show-menu-by-longpress="{{false}}" binderror="onImageError" bindload="onImageLoad"/>
+
+    <scroll-view class="book-shelf" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="shelf-track">
+        <view
+          wx:for="{{displayBooks}}"
+          wx:for-item="book"
+          wx:key="id"
+          class="shelf-book {{book.themeClass}} {{book.isActive ? 'shelf-book-active' : ''}}"
+          bindtap="selectBook"
+          data-bookid="{{book.id}}"
+          hover-class="book-press"
+          hover-stay-time="120"
+          aria-role="button"
+          aria-label="阅读{{book.title}}"
+        >
+          <view class="cover-frame">
+            <image class="cover-image" src="{{book.coverPath}}" mode="aspectFill" lazy-load="{{true}}" show-menu-by-longpress="{{false}}" />
+            <text class="cover-order">{{book.orderText}}</text>
+            <text wx:if="{{book.isActive}}" class="reading-badge">阅读中</text>
+          </view>
+          <text class="shelf-book-title">{{book.title}}</text>
+          <text class="shelf-book-meta">{{book.pageCount}} 页 · 童谣绘本</text>
+        </view>
+      </view>
+    </scroll-view>
+
+    <view class="reader-card">
+      <view class="reader-heading">
+        <view class="reader-title-group">
+          <text class="reader-kicker">正在阅读</text>
+          <text class="book-title">{{currentTitle}}</text>
+        </view>
+        <text class="page-pill">{{currentPageNumber}} / {{totalPages}}</text>
+      </view>
+
+      <view class="book-paper">
+        <view class="paper-tape paper-tape-left"></view>
+        <view class="paper-tape paper-tape-right"></view>
+        <image key="{{imageKey}}-{{currentPageIndex}}" src="{{currentPagePath}}" mode="widthFix" class="book-image" lazy-load="{{false}}" show-menu-by-longpress="{{false}}" binderror="onImageError" bindload="onImageLoad"/>
+      </view>
+
+      <view class="reading-progress">
+        <view class="progress-copy">
+          <text>阅读进度</text>
+          <text>{{readingProgress}}%</text>
+        </view>
+        <view class="progress-track">
+          <view class="progress-fill" style="width: {{readingProgress}}%;"></view>
+        </view>
+      </view>
+
       <view class="page-controls">
-        <button class="page-btn" disabled="{{isFirstPage}}" bindtap="previousPage">← 上一页</button>
-        <button class="page-btn" disabled="{{isLastPage}}" bindtap="nextPage">下一页 →</button>
+        <button class="page-btn page-btn-secondary" disabled="{{isFirstPage}}" bindtap="previousPage">
+          <text class="control-arrow">‹</text>
+          <text>上一页</text>
+        </button>
+        <button class="page-btn page-btn-primary" disabled="{{isLastPage}}" bindtap="nextPage">
+          <text>{{isLastPage ? '已经读完' : '下一页'}}</text>
+          <text class="control-arrow">›</text>
+        </button>
       </view>
     </view>
   </view>

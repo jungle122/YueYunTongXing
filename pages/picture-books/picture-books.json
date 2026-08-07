@@ -1,4 +1,7 @@
 {
   "navigationBarTitleText": "绘本欣赏",
+  "navigationBarBackgroundColor": "#FFF7E8",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#FFF7E8",
   "usingComponents": {}
 }

@@ -12,6 +12,8 @@ Page({
     currentPagePath: "",
     totalPages: 0,
     currentTitle: "",
+    currentPageNumber: 1,
+    readingProgress: 0,
     isLastPage: false,
     isFirstPage: true,
     displayBooks: []
@@ -46,7 +48,11 @@ Page({
   getCurrentPagePath() {
     var book = this.getCurrentBook();
     if (!book || !book.pages || this.data.currentPageIndex >= book.pages.length) return "";
-    var page = book.pages[this.data.currentPageIndex];
+    return this.resolvePagePath(book, this.data.currentPageIndex);
+  },
+  resolvePagePath(book, pageIndex) {
+    if (!book || !book.pages || !book.pages[pageIndex]) return "";
+    var page = book.pages[pageIndex];
     if (typeof page === "string") {
       if (page.indexOf("http") === 0) return page;
       var base = "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com";
@@ -56,20 +62,33 @@ Page({
   },
   refreshCurrentBook() {
     var book = this.getCurrentBook();
+    var totalPages = book.pages.length;
+    var currentPageNumber = this.data.currentPageIndex + 1;
     this.setData({
       currentBook: book,
       currentTitle: book.title,
-      totalPages: book.pages.length,
+      totalPages: totalPages,
+      currentPageNumber: currentPageNumber,
+      readingProgress: totalPages ? Math.round(currentPageNumber / totalPages * 100) : 0,
       currentPagePath: this.getCurrentPagePath(),
       isFirstPage: this.data.currentPageIndex === 0,
-      isLastPage: this.data.currentPageIndex >= book.pages.length - 1
+      isLastPage: this.data.currentPageIndex >= totalPages - 1
     });
     this.refreshDisplayBooks();
   },
   refreshDisplayBooks() {
     var self = this;
-    var displayBooks = self.data.books.map(function(book) {
-      return { id: book.id, title: book.title, isActive: book.id === self.data.currentBookId };
+    var themes = ["book-coral", "book-sage", "book-moon"];
+    var displayBooks = self.data.books.map(function(book, index) {
+      return {
+        id: book.id,
+        title: book.title,
+        coverPath: self.resolvePagePath(book, 0),
+        pageCount: book.pages.length,
+        orderText: index < 9 ? "0" + (index + 1) : String(index + 1),
+        themeClass: themes[index % themes.length],
+        isActive: book.id === self.data.currentBookId
+      };
     });
     this.setData({ displayBooks: displayBooks });
   },

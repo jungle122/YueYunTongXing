@@ -12,7 +12,7 @@
   box-shadow: 0 14rpx 30rpx rgba(91, 58, 40, 0.1);
   box-sizing: border-box;
 }
-.hero-watermark { position: absolute; right: 20rpx; bottom: 8rpx; color: rgba(76, 51, 40, 0.11); font-size: 156rpx; font-weight: 900; line-height: 1; transform: rotate(-8deg); }
+.hero-watermark { position: absolute; right: 20rpx; bottom: 12rpx; width: 156rpx; height: 156rpx; opacity: 0.12; transform: rotate(-8deg); }
 .article-section { position: relative; color: #80553d; font-size: 20rpx; font-weight: 850; letter-spacing: 1rpx; }
 .article-title { position: relative; width: 86%; display: block; margin-top: 24rpx; color: #443129; font-size: 43rpx; font-weight: 900; line-height: 1.36; }
 .article-subtitle { position: relative; width: 84%; display: block; margin-top: 16rpx; color: #71584c; font-size: 23rpx; line-height: 1.6; }

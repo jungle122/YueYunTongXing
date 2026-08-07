@@ -6,17 +6,14 @@ Page({
     score: 0,
     matches: 0,
     timeLeft: 60,
+    timeProgress: 100,
     gameTimer: null,
     isGameActive: false,
-    messageText: "点击两个相同的童谣词汇进行配对！",
+    messageText: "点击两张文字相同的卡片完成配对",
     messageClass: ""
   },
   onLoad() { this.initGame(); },
   onUnload() { if (this.data.gameTimer) { clearInterval(this.data.gameTimer); } },
-  goBack() {
-    if (this.data.gameTimer) { clearInterval(this.data.gameTimer); }
-    wx.navigateBack({ fail: function() { wx.switchTab({ url: "/pages/games/games" }); } });
-  },
   initGame() {
     var self = this;
     if (self.data.gameTimer) { clearInterval(self.data.gameTimer); }
@@ -25,7 +22,7 @@ Page({
     var board = pairedWords.map(function(word, index) {
       return { word: word, matched: false, selected: false, index: index };
     });
-    self.setData({ gameBoard: board, selectedCells: [], score: 0, matches: 0, timeLeft: 60, isGameActive: true, messageText: "点击两个相同的童谣词汇进行配对！", messageClass: "" });
+    self.setData({ gameBoard: board, selectedCells: [], score: 0, matches: 0, timeLeft: 60, timeProgress: 100, isGameActive: true, messageText: "点击两张文字相同的卡片完成配对", messageClass: "" });
     self.startTimer();
   },
   selectCell(e) {
@@ -53,15 +50,16 @@ Page({
     }
     this.setData({ selectedCells: [] });
     var self = this;
-    setTimeout(function() { self.setData({ messageText: "点击两个相同的童谣词汇进行配对！", messageClass: "" }); }, 2000);
+    setTimeout(function() { self.setData({ messageText: "点击两张文字相同的卡片完成配对", messageClass: "" }); }, 2000);
   },
   startTimer() {
     var self = this;
     if (self.data.gameTimer) { clearInterval(self.data.gameTimer); }
     var timer = setInterval(function() {
       if (self.data.isGameActive) {
-        self.setData({ timeLeft: self.data.timeLeft - 1 });
-        if (self.data.timeLeft <= 0) { self.endGame(false); }
+        var nextTime = Math.max(0, self.data.timeLeft - 1);
+        self.setData({ timeLeft: nextTime, timeProgress: Math.round(nextTime / 60 * 100) });
+        if (nextTime <= 0) { self.endGame(false); }
       }
     }, 1000);
     self.setData({ gameTimer: timer });
@@ -80,7 +78,7 @@ Page({
       if (!board[i].matched) {
         for (var j = i + 1; j < board.length; j++) {
           if (!board[j].matched && board[j].word === board[i].word) {
-            this.setData({ messageText: "💡 提示：这两个词汇可以配对！", messageClass: "" });
+            this.setData({ messageText: "💡 提示：找找两张“" + board[i].word + "”", messageClass: "" });
             return;
           }
         }

@@ -2,7 +2,7 @@
   <scroll-view class="reader-scroll" scroll-y="true" enhanced="true" show-scrollbar="false" bindscroll="onScroll">
     <view class="reader-content">
       <view class="article-hero {{article.themeClass}}">
-        <view class="hero-watermark">{{article.icon}}</view>
+        <image class="hero-watermark" src="{{article.iconPath}}" mode="aspectFit" aria-hidden="true"></image>
         <text class="article-section">岭南童谣小报 · {{article.sectionName}}</text>
         <text class="article-title">{{article.title}}</text>
         <text class="article-subtitle">{{article.subtitle}}</text>

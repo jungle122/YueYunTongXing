@@ -1,4 +1,7 @@
 {
-  "navigationBarTitleText": "动画视频",
+  "navigationBarTitleText": "原创视频",
+  "navigationBarBackgroundColor": "#FFF7E8",
+  "navigationBarTextStyle": "black",
+  "backgroundColor": "#FFF7E8",
   "usingComponents": {}
 }
