@@ -1,0 +1,60 @@
+<view wx:if="{{article}}" class="reader-page">
+  <scroll-view class="reader-scroll" scroll-y="true" enhanced="true" show-scrollbar="false" bindscroll="onScroll">
+    <view class="reader-content">
+      <view class="article-hero {{article.themeClass}}">
+        <view class="hero-watermark">{{article.icon}}</view>
+        <text class="article-section">岭南童谣小报 · {{article.sectionName}}</text>
+        <text class="article-title">{{article.title}}</text>
+        <text class="article-subtitle">{{article.subtitle}}</text>
+        <view class="article-reading-meta">
+          <text>约 {{article.readTime}} 分钟阅读</text>
+          <text>{{progress >= 100 ? '已读完' : '阅读中'}}</text>
+        </view>
+      </view>
+
+      <view class="paper-body">
+        <view class="opening-mark">“</view>
+        <text wx:for="{{article.paragraphs}}" wx:for-item="paragraph" wx:key="*this" class="article-paragraph">{{paragraph}}</text>
+
+        <view wx:if="{{article.tips}}" class="knowledge-note note-warm">
+          <view class="note-heading">
+            <text class="note-symbol">?</text>
+            <text class="note-title">{{article.tipsTitle || '你知道吗？'}}</text>
+          </view>
+          <text class="note-content">{{article.tips}}</text>
+        </view>
+
+        <text wx:for="{{article.continuedParagraphs}}" wx:for-item="paragraph" wx:key="*this" class="article-paragraph">{{paragraph}}</text>
+
+        <view wx:if="{{article.features}}" class="knowledge-note note-green">
+          <view class="note-heading">
+            <text class="note-symbol">知</text>
+            <text class="note-title">{{article.featuresTitle || '岭南知识卡'}}</text>
+          </view>
+          <text class="note-content">{{article.features}}</text>
+        </view>
+
+        <text wx:if="{{article.conclusion}}" class="article-paragraph conclusion">{{article.conclusion}}</text>
+
+        <view class="article-ending">
+          <text class="ending-ornament">❦</text>
+          <text class="ending-text">读完了，去听一首粤语童谣吧</text>
+        </view>
+      </view>
+    </view>
+  </scroll-view>
+
+  <view class="reading-dock">
+    <view class="reading-progress-copy">
+      <text class="progress-label">阅读进度</text>
+      <text class="progress-number">{{progress}}%</text>
+      <view class="dock-progress"><view class="dock-progress-fill" style="{{progressStyle}}"></view></view>
+    </view>
+    <button class="collect-button {{collected ? 'collect-button-active' : ''}}" bindtap="toggleCollect" aria-label="{{collected ? '取消收藏' : '收藏文章'}}">
+      <text class="collect-heart">{{collected ? '♥' : '♡'}}</text>
+      <text>{{collected ? '已收藏' : '收藏'}}</text>
+    </button>
+  </view>
+
+  <view wx:if="{{showToast}}" class="reader-toast">{{toastText}}</view>
+</view>

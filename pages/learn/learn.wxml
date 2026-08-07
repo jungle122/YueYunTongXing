@@ -13,28 +13,13 @@
         <view class="feature-symbol audio-symbol">🎵</view>
         <view class="feature-copy">
           <text class="feature-title">音频学习</text>
-          <text class="feature-description">听粤语童谣，跟着标准发音慢慢学。</text>
+          <text class="feature-description">听童谣、看歌词、录下自己的跟唱。</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>
       <view class="learning-progress">
         <view class="progress-info"><text>学习进度</text><text>75%</text></view>
         <view class="progress-track"><view class="progress-fill audio-progress" style="width:75%"></view></view>
-      </view>
-    </view>
-
-    <view class="feature-card parent-card" bindtap="goParent" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="进入亲子传唱">
-      <view class="feature-main">
-        <view class="feature-symbol parent-symbol">👨‍👩‍👧</view>
-        <view class="feature-copy">
-          <text class="feature-title">亲子传唱</text>
-          <text class="feature-description">和家人一起唱，把童谣变成温暖陪伴。</text>
-        </view>
-        <text class="feature-arrow">›</text>
-      </view>
-      <view class="learning-progress">
-        <view class="progress-info"><text>学习进度</text><text>45%</text></view>
-        <view class="progress-track"><view class="progress-fill parent-progress" style="width:45%"></view></view>
       </view>
     </view>
 

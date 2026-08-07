@@ -6,11 +6,9 @@
 .learn-hero .chapter-seal { color: #9a5e24; }
 
 .audio-card { border-left: 8rpx solid #efb841; }
-.parent-card { border-left: 8rpx solid #e78b9a; }
 .text-card { border-left: 8rpx solid #76b982; }
 
 .audio-symbol { background: #fff0bd; }
-.parent-symbol { background: #ffe1e5; font-size: 32rpx; }
 .text-symbol { background: #ddf3df; }
 
 .learning-progress {
@@ -42,7 +40,6 @@
 }
 
 .audio-progress { background: #efb841; }
-.parent-progress { background: #e78b9a; }
 .text-progress { background: #76b982; }
 
 /* 初版分层入场动画，使用显式 class 以便 TabBar 页面再次显示时重播。 */
@@ -65,10 +62,6 @@
 
 .learn-page.page-enter-active .feature-card:nth-child(2) {
   animation: cardBounceIn-learn 550ms ease-out 320ms both;
-}
-
-.learn-page.page-enter-active .feature-card:nth-child(3) {
-  animation: cardBounceIn-learn 550ms ease-out 440ms both;
 }
 
 @keyframes pageEnter-learn {

@@ -1,35 +1,38 @@
-<view class="audio-learning-page">
-  <view class="bg-stars"></view>
-  <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">音频学习</text>
-      <view></view>
-    </view>
-    <view wx:if="{{showToast}}" class="collect-toast">
-      <text class="toast-icon">{{toastIcon}}</text>
-      <text class="toast-text">{{toastText}}</text>
-    </view>
-    <view class="content">
-      <view wx:if="{{songs.length === 0}}" class="empty-tip">加载中...</view>
-      <view wx:for="{{songs}}" wx:for-item="song" wx:key="id" class="audio-card">
-        <view class="audio-header">
-          <view class="audio-icon">{{song.icon || '🎵'}}</view>
-          <view class="audio-info">
-            <text class="audio-title">{{song.title}}</text>
-            <text class="audio-author">{{song.artist}}</text>
+<view class="audio-library-page">
+  <view class="library-shell">
+    <view class="song-list">
+      <view
+        wx:for="{{songs}}"
+        wx:for-item="song"
+        wx:key="id"
+        class="song-row"
+        bindtap="openSong"
+        data-id="{{song.id}}"
+        hover-class="song-row-press"
+        hover-stay-time="120"
+        aria-role="button"
+        aria-label="播放{{song.title}}"
+      >
+        <view class="cover-box {{song.themeClass}}">
+          <image wx:if="{{song.backgroundImage}}" class="cover-image" src="{{song.backgroundImage}}" mode="aspectFill" aria-label="{{song.title}}封面"></image>
+          <view wx:else class="cover-placeholder" aria-label="歌曲封面图占位">
+            <text class="cover-note">♪</text>
+            <text class="cover-order">{{song.orderText}}</text>
           </view>
         </view>
-        <view class="audio-actions">
-          <button class="play-btn" bindtap="togglePlay" data-song="{{song}}">{{song.playBtnText || '▶️'}}</button>
-          <button class="like-btn {{song.isLiked ? 'liked' : ''}}" bindtap="toggleLike" data-song="{{song}}">{{song.likeText || '❤️'}}</button>
+
+        <view class="song-copy">
+          <view class="title-row">
+            <text class="song-title">{{song.title}}</text>
+            <text wx:if="{{song.isLiked}}" class="liked-mark" aria-label="已收藏">♥</text>
+          </view>
+          <text class="song-meta">{{song.lesson}} · {{song.progressText}}</text>
+          <view class="progress-track">
+            <view class="progress-fill" style="width: {{song.progress}}%;"></view>
+          </view>
         </view>
-        <view class="card-actions">
-          <button class="lyric-btn" bindtap="toggleLyric" data-song="{{song}}">{{song.lyricToggleText || '展开歌词'}}</button>
-        </view>
-        <view wx:if="{{song.lyricOpen}}" class="lyrics">
-          <text wx:for="{{song.lyrics}}" wx:for-item="l" wx:key="*this" class="lyric-line">{{l}}</text>
-        </view>
+
+        <text class="row-arrow" aria-hidden="true">›</text>
       </view>
     </view>
   </view>

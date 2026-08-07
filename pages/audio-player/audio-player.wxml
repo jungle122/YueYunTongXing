@@ -1,0 +1,109 @@
+<view wx:if="{{song}}" class="audio-player-page {{song.themeClass}}">
+  <view class="player-shell">
+    <view class="cover-stage">
+      <image
+        wx:if="{{song.backgroundImage}}"
+        class="cover-image"
+        src="{{song.backgroundImage}}"
+        mode="aspectFill"
+        aria-label="{{song.title}}封面图"
+      ></image>
+      <view wx:else class="cover-placeholder" aria-label="歌曲封面图占位">
+        <view class="record-ring ring-one"></view>
+        <view class="record-ring ring-two"></view>
+        <view class="record-center"></view>
+        <text class="placeholder-note">♫</text>
+        <text class="placeholder-text">歌曲封面图占位</text>
+      </view>
+    </view>
+
+    <view class="song-info">
+      <view class="song-title-row">
+        <text class="song-title">{{song.title}}</text>
+        <button class="favorite-btn {{isLiked ? 'favorite-btn-active' : ''}}" bindtap="toggleLike" aria-label="{{isLiked ? '取消收藏' : '收藏歌曲'}}">
+          {{isLiked ? '♥' : '♡'}}
+        </button>
+      </view>
+      <text class="song-meta">{{song.lesson}}</text>
+    </view>
+
+    <view class="progress-area">
+      <slider
+        class="progress-slider"
+        min="0"
+        max="{{duration || 1}}"
+        value="{{currentTime}}"
+        block-size="16"
+        activeColor="#c85f48"
+        backgroundColor="rgba(107, 72, 55, 0.2)"
+        bindchange="handleSliderChange"
+        aria-label="歌曲播放进度"
+      />
+      <view class="time-row">
+        <text>{{currentTimeText}}</text>
+        <text>{{durationText}}</text>
+      </view>
+    </view>
+
+    <view class="player-controls">
+      <button class="side-control" bindtap="playPrevious" aria-label="上一首">
+        <text class="previous-mark">|◀</text>
+      </button>
+      <button class="main-play-btn {{playing ? 'main-play-btn-active' : ''}}" bindtap="togglePlay" aria-label="{{playing ? '暂停' : '播放'}}">
+        <text wx:if="{{isLoading}}" class="loading-mark">···</text>
+        <text wx:elif="{{playing}}" class="pause-mark">Ⅱ</text>
+        <text wx:else class="play-mark">▶</text>
+      </button>
+      <button class="side-control" bindtap="playNext" aria-label="下一首">
+        <text class="next-mark">▶|</text>
+      </button>
+    </view>
+
+    <view class="singing-tools">
+      <button class="singing-tool singing-tool-record {{isRecording ? 'singing-tool-recording' : ''}}" bindtap="toggleRecording">
+        <text class="singing-tool-icon">{{isRecording ? '■' : '●'}}</text>
+        <text>{{isRecording ? '停止录音' : '开始录音'}}</text>
+      </button>
+      <button class="singing-tool {{playingRecording ? 'singing-tool-active' : ''}}" bindtap="playRecording">
+        <text class="singing-tool-icon">{{playingRecording ? 'Ⅱ' : '↻'}}</text>
+        <text>{{playingRecording ? '暂停回听' : '回听录音'}}</text>
+      </button>
+      <text class="recording-status">{{isSavingRecording ? '正在保存录音…' : (hasRecording ? '已保存本曲录音' : '完成录音后即可回听')}}</text>
+    </view>
+
+    <view class="lyrics-section">
+      <view class="lyrics-heading">
+        <text class="lyrics-title">歌词</text>
+        <text class="lyrics-hint">跟着音乐轻声唱</text>
+      </view>
+      <view class="lyrics-lines">
+        <text wx:for="{{song.lyrics}}" wx:for-item="line" wx:key="*this" class="lyric-line">{{line}}</text>
+      </view>
+    </view>
+
+    <view class="tips-section">
+      <view class="tips-heading">
+        <text class="tips-title">传唱小贴士</text>
+        <text class="tips-badge">亲子一起唱</text>
+      </view>
+      <view class="tips-list">
+        <view wx:for="{{singingTips}}" wx:for-item="tip" wx:for-index="tipIndex" wx:key="*this" class="tip-row">
+          <text class="tip-index">{{tipIndex + 1}}</text>
+          <text class="tip-text">{{tip}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showRecordingModal}}" class="recording-mask" bindtap="stopRecording">
+    <view class="recording-dialog" catchtap="noop">
+      <view class="recording-pulse"><view class="recording-dot"></view></view>
+      <text class="recording-title">正在录音</text>
+      <text class="recording-copy">和家人一起大胆唱出来吧</text>
+      <text class="recording-limit">最长可录制 60 秒</text>
+      <button class="stop-recording-btn" bindtap="stopRecording">停止并保存</button>
+    </view>
+  </view>
+
+  <view wx:if="{{showRecordingComplete}}" class="recording-toast">录音已保存，可以回听啦</view>
+</view>

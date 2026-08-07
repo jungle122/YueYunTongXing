@@ -10,8 +10,9 @@
     "pages/history/history",
     "pages/learning-stats/learning-stats",
     "pages/audio-learning/audio-learning",
-    "pages/parent-child-singing/parent-child-singing",
+    "pages/audio-player/audio-player",
     "pages/text-science/text-science",
+    "pages/article-reader/article-reader",
     "pages/chain-game/chain-game",
     "pages/elimination-game/elimination-game",
     "pages/puzzle-game/puzzle-game",
@@ -22,7 +23,7 @@
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "粤语童谣时光屋",
-    "navigationBarBackgroundColor": "#FFFFFF",
+    "navigationBarBackgroundColor": "#FFF7E8",
     "backgroundColor": "#F6F7FF"
   },
   "tabBar": {
