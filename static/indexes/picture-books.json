@@ -2,55 +2,53 @@
   {
     "id": "yueguang",
     "title": "月光光",
-    "cover": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page1.jpg",
+    "cover": "/static/picture-books/moonlight/cover.png",
     "pages": [
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page1.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page2.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page3.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page4.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page5.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page6.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page7.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page8.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page9.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page10.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page11.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page12.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page13.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page14.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page15.jpg"
+      "/static/picture-books/moonlight/page1.jpg",
+      "/static/picture-books/moonlight/page2.jpg",
+      "/static/picture-books/moonlight/page3.jpg",
+      "/static/picture-books/moonlight/page4.jpg",
+      "/static/picture-books/moonlight/page5.jpg",
+      "/static/picture-books/moonlight/page6.jpg",
+      "/static/picture-books/moonlight/page7.jpg",
+      "/static/picture-books/moonlight/page8.jpg",
+      "/static/picture-books/moonlight/page9.jpg",
+      "/static/picture-books/moonlight/page10.jpg",
+      "/static/picture-books/moonlight/page11.jpg",
+      "/static/picture-books/moonlight/page12.jpg",
+      "/static/picture-books/moonlight/page13.jpg",
+      "/static/picture-books/moonlight/page14.jpg"
     ]
   },
   {
     "id": "qiqi",
     "title": "齐齐望过去",
-    "cover": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page1.jpg",
+    "cover": "/static/picture-books/look/cover.png",
     "pages": [
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page1.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page2.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page3.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page4.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page5.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page6.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page7.jpg"
+      "/static/picture-books/look/page1.jpg",
+      "/static/picture-books/look/page2.jpg",
+      "/static/picture-books/look/page3.jpg",
+      "/static/picture-books/look/page4.jpg",
+      "/static/picture-books/look/page5.jpg",
+      "/static/picture-books/look/page6.jpg",
+      "/static/picture-books/look/page7.jpg"
     ]
   },
   {
     "id": "dangdang",
     "title": "氹氹转",
-    "cover": "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page1.jpg",
+    "cover": "/static/picture-books/dangdang/cover.png",
     "pages": [
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page1.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page2.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page3.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page4.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page5.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page6.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page7.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page8.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page9.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page10.jpg",
-      "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page11.jpg"
+      "/static/picture-books/dangdang/page1.jpg",
+      "/static/picture-books/dangdang/page2.jpg",
+      "/static/picture-books/dangdang/page3.jpg",
+      "/static/picture-books/dangdang/page4.jpg",
+      "/static/picture-books/dangdang/page5.jpg",
+      "/static/picture-books/dangdang/page6.jpg",
+      "/static/picture-books/dangdang/page7.jpg",
+      "/static/picture-books/dangdang/page8.jpg",
+      "/static/picture-books/dangdang/page9.jpg",
+      "/static/picture-books/dangdang/page10.jpg"
     ]
   }
 ]
