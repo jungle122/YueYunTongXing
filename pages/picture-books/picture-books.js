@@ -2,55 +2,29 @@ Page({
   data: {
     books: [
       { id: "dangdang", title: "氹氹转", pages: ["https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page1.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page2.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page3.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page4.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page5.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page6.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page7.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page8.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page9.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page10.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page11.jpg"] },
-      { id: "qiqi", title: "齐齐望过去", pages: ["https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page1.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page2.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page3.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page4.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page5.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page6.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/qiqi/qiqi/page7.jpg"] },
-      { id: "yueguang", title: "月光光", pages: ["https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page1.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page2.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page3.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page4.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page5.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page6.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page7.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page8.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page9.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page10.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page11.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page12.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page13.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page14.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/yueguang/yueguang/page15.jpg"] }
+      { id: "qiqi", title: "齐齐望过去", pages: ["/static/picture-books/look/page1.jpg","/static/picture-books/look/page2.jpg","/static/picture-books/look/page3.jpg","/static/picture-books/look/page4.jpg","/static/picture-books/look/page5.jpg","/static/picture-books/look/page6.jpg","/static/picture-books/look/page7.jpg"] },
+      { id: "yueguang", title: "月光光", pages: ["/static/picture-books/moonlight/page1.jpg","/static/picture-books/moonlight/page2.jpg","/static/picture-books/moonlight/page3.jpg","/static/picture-books/moonlight/page4.jpg","/static/picture-books/moonlight/page5.jpg","/static/picture-books/moonlight/page6.jpg","/static/picture-books/moonlight/page7.jpg","/static/picture-books/moonlight/page8.jpg","/static/picture-books/moonlight/page9.jpg","/static/picture-books/moonlight/page10.jpg","/static/picture-books/moonlight/page11.jpg","/static/picture-books/moonlight/page12.jpg","/static/picture-books/moonlight/page13.jpg","/static/picture-books/moonlight/page14.jpg"] }
     ],
     currentBookId: "dangdang",
     currentPageIndex: 0,
     imageKey: 0,
     currentBook: null,
-    favorites: {},
-    isCurrentFavorite: false,
     currentPagePath: "",
     totalPages: 0,
     currentTitle: "",
-    currentPageNumber: 1,
-    readingProgress: 0,
     isLastPage: false,
     isFirstPage: true,
     displayBooks: []
   },
   onLoad() {
-    this.loadFavorites();
-    this.loadBooksFromJSON();
-  },
-  onShow() {
-    this.loadFavorites();
-    if (this.data.currentBook) this.refreshCurrentBook();
-  },
-  loadFavorites() {
-    var favorites = wx.getStorageSync("picture_book_favorites") || {};
-    this.setData({ favorites: favorites });
-  },
-  loadBooksFromJSON() {
-    var self = this;
-    wx.request({
-      url: "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/static/indexes/picture-books.json",
-      success: function(res) {
-        if (res.statusCode === 200 && Array.isArray(res.data) && res.data.length > 0) {
-          var books = res.data.map(function(book) {
-            var pages = (book.pages || []).map(function(page) {
-              if (typeof page === "string" && (page.indexOf("http://") === 0 || page.indexOf("https://") === 0)) return page.trim();
-              return page;
-            });
-            return { id: book.id, title: book.title, pages: pages };
-          });
-          self.setData({ books: books });
-        }
-        self.refreshCurrentBook();
-      },
-      fail: function() { self.refreshCurrentBook(); }
+    this.setData({
+      books: [
+        { id: "dangdang", title: "氹氹转", pages: ["https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page1.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page2.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page3.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page4.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page5.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page6.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page7.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page8.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page9.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page10.jpg","https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com/picture-books/dangdang/dangdang/page11.jpg"] },
+        { id: "yueguang", title: "月光光", pages: ["/static/picture-books/moonlight/page1.jpg","/static/picture-books/moonlight/page2.jpg","/static/picture-books/moonlight/page3.jpg","/static/picture-books/moonlight/page4.jpg","/static/picture-books/moonlight/page5.jpg","/static/picture-books/moonlight/page6.jpg","/static/picture-books/moonlight/page7.jpg","/static/picture-books/moonlight/page8.jpg","/static/picture-books/moonlight/page9.jpg","/static/picture-books/moonlight/page10.jpg","/static/picture-books/moonlight/page11.jpg","/static/picture-books/moonlight/page12.jpg","/static/picture-books/moonlight/page13.jpg","/static/picture-books/moonlight/page14.jpg"] },
+        { id: "qiqi", title: "齐齐望过去", pages: ["/static/picture-books/look/page1.jpg","/static/picture-books/look/page2.jpg","/static/picture-books/look/page3.jpg","/static/picture-books/look/page4.jpg","/static/picture-books/look/page5.jpg","/static/picture-books/look/page6.jpg","/static/picture-books/look/page7.jpg"] }
+      ]
     });
+    this.refreshCurrentBook();
   },
   getCurrentBook() {
     for (var i = 0; i < this.data.books.length; i++) {
@@ -61,49 +35,29 @@ Page({
   getCurrentPagePath() {
     var book = this.getCurrentBook();
     if (!book || !book.pages || this.data.currentPageIndex >= book.pages.length) return "";
-    return this.resolvePagePath(book, this.data.currentPageIndex);
-  },
-  resolvePagePath(book, pageIndex) {
-    if (!book || !book.pages || !book.pages[pageIndex]) return "";
-    var page = book.pages[pageIndex];
+    var page = book.pages[this.data.currentPageIndex];
     if (typeof page === "string") {
       if (page.indexOf("http") === 0) return page;
-      var base = "https://yueyun-videos.oss-cn-guangzhou.aliyuncs.com";
-      return base + "/picture-books/" + book.id + "/" + book.id + "/" + page;
+      return page;
     }
     return "";
   },
   refreshCurrentBook() {
     var book = this.getCurrentBook();
-    var totalPages = book.pages.length;
-    var currentPageNumber = this.data.currentPageIndex + 1;
     this.setData({
       currentBook: book,
       currentTitle: book.title,
-      isCurrentFavorite: !!this.data.favorites[book.id],
-      totalPages: totalPages,
-      currentPageNumber: currentPageNumber,
-      readingProgress: totalPages ? Math.round(currentPageNumber / totalPages * 100) : 0,
+      totalPages: book.pages.length,
       currentPagePath: this.getCurrentPagePath(),
       isFirstPage: this.data.currentPageIndex === 0,
-      isLastPage: this.data.currentPageIndex >= totalPages - 1
+      isLastPage: this.data.currentPageIndex >= book.pages.length - 1
     });
     this.refreshDisplayBooks();
   },
   refreshDisplayBooks() {
     var self = this;
-    var themes = ["book-coral", "book-sage", "book-moon"];
-    var displayBooks = self.data.books.map(function(book, index) {
-      return {
-        id: book.id,
-        title: book.title,
-        coverPath: self.resolvePagePath(book, 0),
-        pageCount: book.pages.length,
-        orderText: index < 9 ? "0" + (index + 1) : String(index + 1),
-        themeClass: themes[index % themes.length],
-        isFavorite: !!self.data.favorites[book.id],
-        isActive: book.id === self.data.currentBookId
-      };
+    var displayBooks = self.data.books.map(function(book) {
+      return { id: book.id, title: book.title, isActive: book.id === self.data.currentBookId };
     });
     this.setData({ displayBooks: displayBooks });
   },
@@ -114,25 +68,6 @@ Page({
     var bookId = e.currentTarget.dataset.bookid;
     this.setData({ currentBookId: bookId, currentPageIndex: 0, imageKey: this.data.imageKey + 1 });
     this.refreshCurrentBook();
-  },
-  toggleFavorite() {
-    var book = this.getCurrentBook();
-    if (!book) return;
-    var favorites = this.data.favorites || {};
-    var nextFavorite = !favorites[book.id];
-    if (nextFavorite) {
-      favorites[book.id] = {
-        title: book.title,
-        coverPath: this.resolvePagePath(book, 0),
-        favoritedAt: new Date().toISOString()
-      };
-    } else {
-      delete favorites[book.id];
-    }
-    try { wx.setStorageSync("picture_book_favorites", favorites); } catch (e) {}
-    this.setData({ favorites: favorites, isCurrentFavorite: nextFavorite });
-    this.refreshDisplayBooks();
-    wx.showToast({ title: nextFavorite ? "已收藏这本绘本" : "已取消收藏", icon: "none" });
   },
   previousPage() {
     if (this.data.currentPageIndex > 0) {
