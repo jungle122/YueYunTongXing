@@ -2,7 +2,7 @@ var userModule = require('../../utils/user.js');
 
 Page({
   data: {
-    alinImageSrc: "/static/alin.png",
+    alinImageSrc: "/static/ui/alin.png",
     hasRecentLearning: false,
     recentLearning: {
       type: "",
@@ -134,9 +134,5 @@ Page({
 
   goToCommunity() {
     wx.navigateTo({ url: "/pages/community/community" });
-  },
-
-  goToFeedback() {
-    wx.navigateTo({ url: "/pages/feedback/feedback" });
   }
 });

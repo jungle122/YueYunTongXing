@@ -10,27 +10,6 @@
   padding: 40rpx 28rpx 60rpx 28rpx;
   box-sizing: border-box;
 }
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 30rpx;
-}
-.back-btn {
-  width: 60rpx;
-  height: 60rpx;
-  line-height: 60rpx;
-  text-align: center;
-  border-radius: 50%;
-  background: rgba(207, 104, 75, 0.12);
-  color: #cf684b;
-  font-size: 32rpx;
-}
-.page-title {
-  font-size: 36rpx;
-  font-weight: 800;
-  color: #49352d;
-}
 .book-selector {
   background: #fff;
   border-radius: 28rpx;
@@ -54,17 +33,27 @@
 }
 .bookshelf {
   display: flex;
-  gap: 20rpx;
-  justify-content: space-around;
+  width: 100%;
+  height: 420rpx;
+  white-space: nowrap;
 }
 .book-card {
-  flex: 1;
-  max-width: 220rpx;
+  flex: 0 0 200rpx;
+  width: 200rpx;
+  height: 404rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
   text-align: center;
   padding: 12rpx;
+  margin-right: 20rpx;
   border-radius: 16rpx;
   border: 4rpx solid transparent;
   transition: all 0.3s;
+}
+.book-card:last-child {
+  margin-right: 0;
 }
 .book-card.active {
   border-color: #cf684b;
@@ -74,21 +63,31 @@
 .book-cover {
   width: 100%;
   height: 280rpx;
+  flex-shrink: 0;
+  background: #fffaf2;
   border-radius: 12rpx;
   box-shadow: 0 8rpx 24rpx rgba(0, 0, 0, 0.1);
 }
 .book-card-title {
   display: block;
+  width: 100%;
+  overflow: hidden;
   color: #49352d;
   font-size: 26rpx;
   font-weight: 700;
   margin-top: 12rpx;
   margin-bottom: 4rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .book-card-pages {
   display: block;
+  width: 100%;
+  overflow: hidden;
   color: #998;
   font-size: 20rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .book-viewer {
   background: #fff;
@@ -141,4 +140,38 @@
   background: #ddd;
   color: #999;
   opacity: 0.6;
+}
+.media-state-card {
+  min-height: 420rpx;
+  padding: 60rpx 40rpx;
+  border-radius: 28rpx;
+  background: #fff;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(73, 53, 45, 0.06);
+}
+.media-state-title {
+  color: #49352d;
+  font-size: 32rpx;
+  font-weight: 700;
+  margin-bottom: 16rpx;
+}
+.media-state-message {
+  color: #887a73;
+  font-size: 26rpx;
+  line-height: 1.6;
+}
+.retry-btn {
+  margin-top: 32rpx;
+  min-width: 220rpx;
+  border: none;
+  border-radius: 20rpx;
+  background: #cf684b;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 700;
 }

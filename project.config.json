@@ -24,9 +24,23 @@
     "disableSWC": true
   },
   "compileType": "miniprogram",
+  "cloudfunctionRoot": "cloudfunctions/",
   "simulatorPluginLibVersion": {},
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      { "type": "folder", "value": "static/home" },
+      { "type": "folder", "value": "static/learn" },
+      { "type": "folder", "value": "static/games" },
+      { "type": "folder", "value": "static/profile" },
+      { "type": "folder", "value": "static/original" },
+      { "type": "folder", "value": "static/text-science" },
+      { "type": "folder", "value": "static/picture-books" },
+      { "type": "folder", "value": "cloudbase" },
+      { "type": "file", "value": "static/alin.png" },
+      { "type": "file", "value": "static/头像图片A.webp" },
+      { "type": "file", "value": "static/头像图片B.webp" },
+      { "type": "file", "value": "static/头像图片C.webp" }
+    ],
     "include": []
   },
   "appid": "wx8cd8f77196c7dc35",

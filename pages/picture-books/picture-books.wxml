@@ -1,29 +1,37 @@
 <view class="picture-books-page">
   <view class="container">
-    <view class="header">
-      <view class="back-btn" bindtap="goBack">←</view>
-      <text class="page-title">绘本欣赏</text>
-      <view></view>
+    <view wx:if="{{isLoading}}" class="media-state-card">
+      <text class="media-state-title">正在加载绘本</text>
+      <text class="media-state-message">正在从云端获取资源，请稍候</text>
     </view>
-    <view class="book-selector">
-      <text class="selector-title">绘本书架</text>
-      <text class="book-count">共 {{displayBooks.length}} 本</text>
-      <view class="bookshelf">
-        <view wx:for="{{displayBooks}}" wx:for-item="book" wx:key="id" class="book-card {{book.isActive ? 'active' : ''}}" bindtap="selectBook" data-bookid="{{book.id}}">
-          <image src="{{book.cover}}" mode="aspectFill" class="book-cover" lazy-load="{{true}}"/>
-          <text class="book-card-title">{{book.title}}</text>
-          <text class="book-card-pages">{{book.pages}} 页 · 粤语绘本</text>
+
+    <view wx:elif="{{loadError}}" class="media-state-card">
+      <text class="media-state-title">绘本暂时无法加载</text>
+      <text class="media-state-message">{{loadError}}</text>
+      <button class="retry-btn" bindtap="retryMedia">重新加载</button>
+    </view>
+
+    <block wx:else>
+      <view class="book-selector">
+        <text class="selector-title">绘本书架</text>
+        <text class="book-count">共 {{displayBooks.length}} 本</text>
+        <scroll-view class="bookshelf" scroll-x="{{true}}" enable-flex="{{true}}" show-scrollbar="{{false}}">
+          <view wx:for="{{displayBooks}}" wx:for-item="book" wx:key="id" class="book-card {{book.isActive ? 'active' : ''}}" bindtap="selectBook" data-bookid="{{book.id}}">
+            <image src="{{book.cover}}" mode="aspectFit" class="book-cover" lazy-load="{{true}}" binderror="onImageError"/>
+            <text class="book-card-title">{{book.title}}</text>
+            <text class="book-card-pages">{{book.pages}} 页 · 粤语绘本</text>
+          </view>
+        </scroll-view>
+      </view>
+      <view class="book-viewer">
+        <text class="book-title">{{currentTitle}}</text>
+        <text class="book-page-info">第 {{currentPageIndex + 1}} 页 / 共 {{totalPages}} 页</text>
+        <image key="{{imageKey}}-{{currentPageIndex}}" src="{{currentPagePath}}" mode="widthFix" class="book-image" lazy-load="{{false}}" show-menu-by-longpress="{{false}}" binderror="onImageError"/>
+        <view class="page-controls">
+          <button class="page-btn" disabled="{{isFirstPage}}" bindtap="previousPage">← 上一页</button>
+          <button class="page-btn" disabled="{{isLastPage}}" bindtap="nextPage">下一页 →</button>
         </view>
       </view>
-    </view>
-    <view class="book-viewer">
-      <text class="book-title">{{currentTitle}}</text>
-      <text class="book-page-info">第 {{currentPageIndex + 1}} 页 / 共 {{totalPages}} 页</text>
-      <image key="{{imageKey}}-{{currentPageIndex}}" src="{{currentPagePath}}" mode="widthFix" class="book-image" lazy-load="{{false}}" show-menu-by-longpress="{{false}}" binderror="onImageError" bindload="onImageLoad"/>
-      <view class="page-controls">
-        <button class="page-btn" disabled="{{isFirstPage}}" bindtap="previousPage">← 上一页</button>
-        <button class="page-btn" disabled="{{isLastPage}}" bindtap="nextPage">下一页 →</button>
-      </view>
-    </view>
+    </block>
   </view>
 </view>

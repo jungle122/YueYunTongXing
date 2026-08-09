@@ -15,7 +15,7 @@ var articles = [
   {
     id: "festival-rhymes",
     icon: "灯",
-    iconImage: "/static/text-science/节日童谣.png",
+    iconImage: "/static/ui/text-science/节日童谣.jpg",
     themeClass: "theme-festival",
     sectionName: "节日民俗",
     title: "传统节日的粤语童谣",
@@ -29,7 +29,7 @@ var articles = [
   {
     id: "language-features",
     icon: "声",
-    iconImage: "/static/text-science/语言特色.png",
+    iconImage: "/static/ui/text-science/语言特色.jpg",
     themeClass: "theme-language",
     sectionName: "语言奥秘",
     title: "粤语童谣的语言特色",
@@ -43,7 +43,7 @@ var articles = [
   {
     id: "modern-development",
     icon: "新",
-    iconImage: "/static/text-science/现代发展.png",
+    iconImage: "/static/ui/text-science/现代发展.jpg",
     themeClass: "theme-modern",
     sectionName: "今日传承",
     title: "现代粤语童谣的发展",
