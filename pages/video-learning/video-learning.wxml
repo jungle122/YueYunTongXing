@@ -77,7 +77,12 @@
       </view>
     </view>
 
-    <text class="library-note">部分作品仍在整理视频资源，后续接入后即可直接播放。</text>
+    <text wx:if="{{mediaLoading}}" class="library-note">正在从云端加载视频资源…</text>
+    <view wx:elif="{{mediaLoadError}}" class="library-note media-error-note">
+      <text>{{mediaLoadError}}</text>
+      <text class="media-retry-link" bindtap="loadVideoMedia">重新加载</text>
+    </view>
+    <text wx:else class="library-note">10 部视频资源已接入，点击作品即可播放。</text>
   </view>
 
   <view wx:if="{{showToast}}" class="favorite-toast {{toastType}}">

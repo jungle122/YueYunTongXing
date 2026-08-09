@@ -21,12 +21,35 @@ Page({
     recordingAudio: null,
     playingRecording: false,
     hasRecording: false,
-    isSavingRecording: false
+    isSavingRecording: false,
+    loadError: ""
   },
 
   onLoad(options) {
-    var songId = options && options.itemId ? decodeURIComponent(options.itemId) : "song1";
+    var songId = options && options.itemId ? decodeURIComponent(options.itemId) : "song18";
+    this.currentSongId = songId;
+    this.initRecorder();
+    this.loadSong(songId);
+  },
+
+  async loadSong(songId, force) {
+    this.setData({ isLoading: true, loadError: "" });
+    try {
+      await audioCatalog.loadCloudSources(!!force);
+    } catch (error) {
+      console.error("加载音频资源失败:", error);
+      this.setData({
+        isLoading: false,
+        loadError: error && error.message ? error.message : "音频服务暂时不可用，请稍后重试"
+      });
+      return;
+    }
+
     var song = audioCatalog.getSongById(songId) || audioCatalog.getSongs()[0];
+    if (!song || !song.audioSrc) {
+      this.setData({ isLoading: false, loadError: "音频资源暂时不可用，请稍后重试" });
+      return;
+    }
     var likes = wx.getStorageSync("audio_likes") || {};
     var progressMap = wx.getStorageSync("audio_progress") || {};
     var progress = Number(progressMap[song.id]) || 0;
@@ -39,7 +62,10 @@ Page({
       hasRecording: !!this.getRecordingPath(song.id)
     });
     this.initAudio(song);
-    this.initRecorder();
+  },
+
+  retryAudioMedia() {
+    this.loadSong(this.currentSongId || "song18", true);
   },
 
   onHide() {
@@ -65,7 +91,6 @@ Page({
   initAudio(song) {
     var self = this;
     var audio = wx.createInnerAudioContext();
-    audio.obeyMuteSwitch = false;
     audio.volume = 1;
     audio.loop = false;
     audio._restoredPosition = false;
@@ -283,7 +308,6 @@ Page({
     var self = this;
     if (!this.data.recordingAudio) {
       var recordingAudio = wx.createInnerAudioContext();
-      recordingAudio.obeyMuteSwitch = false;
       recordingAudio.volume = 1;
       recordingAudio.loop = false;
       recordingAudio.onPlay(function() { self.setData({ playingRecording: true }); });

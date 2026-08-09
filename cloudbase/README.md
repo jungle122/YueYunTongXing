@@ -6,9 +6,11 @@
 
 1. 在 CloudBase 控制台的文档数据库中新建集合 `mediaAssets`。
 2. 将集合的数据权限设为“所有用户不可读写”。
-3. 在集合管理中选择“导入”，上传 `mediaAssets.seed.json`。
+3. 在集合管理中选择“导入”，上传 `mediaAssets.seed.jsonl`，文件格式仍选择 JSON。
 4. 文件格式选择 JSON，首次导入选择 Insert；以后使用同一批 `_id` 更新时选择 Upsert。
 5. 部署 `cloudfunctions/getMediaAssets`，选择“上传并部署：云端安装依赖”。
+
+仅新增音频和视频时，可以导入 `mediaAssets.audio-video.insert.json`；首次使用 Insert，重复导入同一 `_id` 时使用 Upsert。
 
 导入文件采用 JSON Lines 格式，每行是一个完整文档。File ID 可以放入数据库，但临时 HTTPS 地址不能入库；临时地址由云函数在用户打开页面时生成。
 

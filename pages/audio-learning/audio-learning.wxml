@@ -1,5 +1,10 @@
 <view class="audio-library-page">
   <view class="library-shell">
+    <text wx:if="{{mediaLoading}}" class="media-notice">正在从云端加载音频…</text>
+    <view wx:elif="{{mediaLoadError}}" class="media-notice media-error">
+      <text>{{mediaLoadError}}</text>
+      <text class="media-retry" bindtap="loadAudioMedia">重新加载</text>
+    </view>
     <view class="song-list">
       <view
         wx:for="{{songs}}"

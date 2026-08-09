@@ -18,8 +18,8 @@
         <text class="feature-arrow">›</text>
       </view>
       <view class="learning-progress">
-        <view class="progress-info"><text>学习进度</text><text>75%</text></view>
-        <view class="progress-track"><view class="progress-fill audio-progress" style="width:75%"></view></view>
+        <view class="progress-info"><text>学习进度</text><text>{{audioProgress}}%</text></view>
+        <view class="progress-track"><view class="progress-fill audio-progress" style="{{audioProgressStyle}}"></view></view>
       </view>
     </view>
 
@@ -33,8 +33,8 @@
         <text class="feature-arrow">›</text>
       </view>
       <view class="learning-progress">
-        <view class="progress-info"><text>学习进度</text><text>30%</text></view>
-        <view class="progress-track"><view class="progress-fill text-progress" style="width:30%"></view></view>
+        <view class="progress-info"><text>学习进度</text><text>{{textProgress}}%</text></view>
+        <view class="progress-track"><view class="progress-fill text-progress" style="{{textProgressStyle}}"></view></view>
       </view>
     </view>
   </view>

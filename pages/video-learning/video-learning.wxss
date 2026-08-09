@@ -107,6 +107,8 @@
 .favorite-button:active, .watch-button:active, .fullscreen-button:active, .close-player-btn:active { opacity: 0.72; transform: scale(0.97); }
 
 .library-note { display: block; margin: 24rpx 18rpx 0; color: #a08778; font-size: 18rpx; line-height: 1.55; text-align: center; }
+.media-error-note { color: #b45f4a; }
+.media-retry-link { margin-left: 14rpx; color: #c85f48; font-weight: 800; }
 
 .favorite-toast { position: fixed; left: 50%; top: 50%; z-index: 3000; padding: 22rpx 32rpx; display: flex; align-items: center; gap: 10rpx; border: 2rpx solid rgba(255, 255, 255, 0.42); border-radius: 20rpx; color: #fff; box-shadow: 0 14rpx 32rpx rgba(64, 42, 32, 0.22); transform: translate(-50%, -50%); animation: toastShow 280ms ease-out; }
 .favorite-toast.success { background: #6f9a73; }

@@ -137,7 +137,20 @@
 }
 .main-play-btn-active { box-shadow: 0 7rpx 16rpx rgba(70, 45, 34, 0.2); }
 .play-mark { margin-left: 7rpx; font-size: 43rpx; }
-.pause-mark { font-size: 40rpx; font-weight: 900; letter-spacing: -5rpx; }
+.pause-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+}
+.pause-bar {
+  width: 12rpx;
+  height: 42rpx;
+  border-radius: 6rpx;
+  background: currentColor;
+}
+.pause-icon-small { height: 32rpx; gap: 7rpx; }
+.pause-icon-small .pause-bar { width: 7rpx; height: 27rpx; border-radius: 4rpx; }
 .loading-mark { font-size: 37rpx; font-weight: 900; letter-spacing: 2rpx; }
 .side-control:active,
 .main-play-btn:active,
@@ -325,4 +338,26 @@
   .favorite-btn,
   .singing-tool,
   .recording-pulse { animation: none; transition: none; }
+}
+.audio-load-state {
+  min-height: 100vh;
+  padding: 80rpx 40rpx;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #49372f;
+  text-align: center;
+  background: #fff8eb;
+}
+.audio-load-title { font-size: 32rpx; font-weight: 800; }
+.audio-load-message { margin-top: 16rpx; color: #8c776a; font-size: 24rpx; line-height: 1.6; }
+.audio-retry-btn {
+  margin-top: 28rpx;
+  border: none;
+  border-radius: 18rpx;
+  background: #c85f48;
+  color: #fff;
+  font-size: 26rpx;
 }
