@@ -1,7 +1,7 @@
 var articles = [
   {
     id: "cantonese-history",
-    iconPath: "/static/icons/science/book-open-line.svg",
+    icon: "卷",
     themeClass: "theme-history",
     sectionName: "童谣故事",
     title: "粤语童谣的历史起源",
@@ -14,7 +14,8 @@ var articles = [
   },
   {
     id: "festival-rhymes",
-    iconPath: "/static/icons/science/calendar-event-line.svg",
+    icon: "灯",
+    iconImage: "/static/text-science/节日童谣.png",
     themeClass: "theme-festival",
     sectionName: "节日民俗",
     title: "传统节日的粤语童谣",
@@ -27,7 +28,8 @@ var articles = [
   },
   {
     id: "language-features",
-    iconPath: "/static/icons/science/chat-voice-line.svg",
+    icon: "声",
+    iconImage: "/static/text-science/语言特色.png",
     themeClass: "theme-language",
     sectionName: "语言奥秘",
     title: "粤语童谣的语言特色",
@@ -40,7 +42,8 @@ var articles = [
   },
   {
     id: "modern-development",
-    iconPath: "/static/icons/science/rocket-line.svg",
+    icon: "新",
+    iconImage: "/static/text-science/现代发展.png",
     themeClass: "theme-modern",
     sectionName: "今日传承",
     title: "现代粤语童谣的发展",

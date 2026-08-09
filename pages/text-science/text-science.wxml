@@ -12,7 +12,7 @@
       aria-role="button"
       aria-label="阅读{{featuredArticle.title}}"
     >
-      <image class="featured-watermark" src="{{featuredArticle.iconPath}}" mode="aspectFit" aria-hidden="true"></image>
+      <view class="featured-watermark">{{featuredArticle.icon}}</view>
       <text class="featured-kicker">岭南童谣小报 · {{featuredArticle.sectionName}}</text>
       <text class="featured-title">{{featuredArticle.title}}</text>
       <text class="featured-subtitle">{{featuredArticle.subtitle}}</text>
@@ -37,9 +37,7 @@
         aria-role="button"
         aria-label="阅读{{article.title}}"
       >
-        <view class="article-icon {{article.themeClass}}">
-          <image class="article-icon-image" src="{{article.iconPath}}" mode="aspectFit" aria-hidden="true"></image>
-        </view>
+        <view class="article-icon {{article.themeClass}}"><image src="{{article.iconImage}}" mode="aspectFill"></image></view>
         <view class="article-copy">
           <view class="article-heading">
             <text class="article-title">{{article.title}}</text>

@@ -40,17 +40,17 @@
     <text class="section-caption menu-heading">学习记录</text>
     <view class="menu-list">
       <view class="menu-row enter-menu-1" bindtap="goToMyCollection" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看我的收藏">
-        <view class="menu-symbol collection-symbol">⭐</view>
-        <view class="menu-copy"><text class="menu-title">我的收藏</text><text class="menu-description">童谣、视频、绘本和文章</text></view>
+        <view class="menu-symbol collection-symbol"><image src="/static/profile/我的收藏.png" mode="aspectFill"></image></view>
+        <view class="menu-copy"><text class="menu-title">我的收藏</text><text class="menu-description">童谣、视频和文章</text></view>
         <text class="feature-arrow">›</text>
       </view>
       <view class="menu-row enter-menu-2" bindtap="goToHistory" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看历史记录">
-        <view class="menu-symbol history-symbol">🕰</view>
+        <view class="menu-symbol history-symbol"><image src="/static/profile/历史记录.png" mode="aspectFill"></image></view>
         <view class="menu-copy"><text class="menu-title">历史记录</text><text class="menu-description">最近学习过的内容</text></view>
         <text class="feature-arrow">›</text>
       </view>
       <view class="menu-row enter-menu-3" bindtap="goToLearningStats" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看学习统计">
-        <view class="menu-symbol stats-symbol">📈</view>
+        <view class="menu-symbol stats-symbol"><image src="/static/profile/学习统计.png" mode="aspectFill"></image></view>
         <view class="menu-copy"><text class="menu-title">学习统计</text><text class="menu-description">查看天数和学习趋势</text></view>
         <text class="feature-arrow">›</text>
       </view>
@@ -61,12 +61,12 @@
     <text class="section-caption menu-heading">互动与反馈</text>
     <view class="menu-list">
       <view class="menu-row enter-menu-4" bindtap="goToCommunity" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="进入互动社区">
-        <view class="menu-symbol community-symbol">🤝</view>
+        <view class="menu-symbol community-symbol"><image src="/static/profile/互动社区.png" mode="aspectFill"></image></view>
         <view class="menu-copy"><text class="menu-title">互动社区</text><text class="menu-description">打卡排行 · 成就徽章</text></view>
         <text class="feature-arrow">›</text>
       </view>
       <view class="menu-row enter-menu-5" bindtap="goToFeedback" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="提交建议反馈">
-        <view class="menu-symbol feedback-symbol">💌</view>
+        <view class="menu-symbol feedback-symbol"><image src="/static/profile/建议反馈.png" mode="aspectFill"></image></view>
         <view class="menu-copy"><text class="menu-title">建议反馈</text><text class="menu-description">帮助我们做得更好</text></view>
         <text class="feature-arrow">›</text>
       </view>
@@ -77,7 +77,7 @@
     <text class="section-caption menu-heading">偏好设置</text>
     <view class="menu-list">
       <view class="menu-row enter-menu-6" bindtap="goToSettings" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="打开个性化设置">
-        <view class="menu-symbol settings-symbol">⚙</view>
+        <view class="menu-symbol settings-symbol"><image src="/static/profile/个性化设置.png" mode="aspectFill"></image></view>
         <view class="menu-copy"><text class="menu-title">个性化设置</text><text class="menu-description">头像、昵称和学习偏好</text></view>
         <text class="feature-arrow">›</text>
       </view>
