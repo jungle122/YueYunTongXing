@@ -22,10 +22,21 @@
 - `coverFileID`：封面文件的 CloudBase File ID
 - `sourceFileID`：可选的原始 PDF 或源文件 File ID，不直接返回给小程序
 - `items`：分组内页面、音频或视频条目
+- `items[].posterFileID`：视频条目的私有云存储封面 File ID；由云函数转换为临时 `posterUrl`
 - `sort`：显示顺序
 - `enabled`：是否允许小程序读取
 
 普通用户不能向云函数传入任意 File ID。云函数只解析 `mediaAssets` 中由管理员登记且 `enabled: true` 的文件。
+
+## 视频封面迁移
+
+1. 在私有云存储中新建目录 `media/video/covers/`。
+2. 将 `static/covers/video1.png`～`video10.png` 上传到该目录，云端文件名保持不变。
+3. 向 `mediaAssets` 集合导入 `mediaAssets.video-covers.upsert.json`，导入模式选择 Upsert。
+4. 重新部署 `getMediaAssets` 云函数，选择“上传并部署：云端安装依赖”。
+5. 真机确认 10 张封面和 10 个视频都能正常加载后，才能从小程序代码包删除 `static/covers/`。
+
+封面与视频一样保持私有；小程序只使用 `getMediaAssets` 返回的临时地址，不配置公开读取规则。
 
 ## 云端成长分享墙
 

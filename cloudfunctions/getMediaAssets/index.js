@@ -23,6 +23,7 @@ function collectFileIDs(groups) {
     if (group.coverFileID) fileIDs.push(group.coverFileID);
     (group.items || []).forEach(function(item) {
       if (item.fileID) fileIDs.push(item.fileID);
+      if (item.posterFileID) fileIDs.push(item.posterFileID);
     });
   });
 
@@ -55,7 +56,8 @@ function buildGroups(groups, urlMap) {
         id: item.id,
         title: item.title || '',
         sort: Number(item.sort || 0),
-        url: urlMap[item.fileID] || ''
+        url: urlMap[item.fileID] || '',
+        posterUrl: urlMap[item.posterFileID] || ''
       };
     }).filter(function(item) {
       return item.url;
