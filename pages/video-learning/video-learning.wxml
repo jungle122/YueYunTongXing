@@ -39,6 +39,7 @@
           aria-role="button"
           aria-label="观看{{v.title}}"
         >
+          <image class="cover-poster-img" src="{{v.poster}}" mode="aspectFill"></image>
           <text class="cover-order">{{v.orderText}}</text>
           <view class="cover-play"><text>{{v.playIcon}}</text></view>
           <text class="cover-caption">粤韵童行 · 原创</text>

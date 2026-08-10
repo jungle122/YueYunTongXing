@@ -21,7 +21,8 @@
     "pages/puzzle-game/puzzle-game",
     "pages/daily-quiz/daily-quiz",
     "pages/picture-books/picture-books",
-    "pages/video-learning/video-learning"
+    "pages/video-learning/video-learning",
+    "pages/admin-upload/admin-upload"
   ],
   "window": {
     "navigationBarTextStyle": "black",

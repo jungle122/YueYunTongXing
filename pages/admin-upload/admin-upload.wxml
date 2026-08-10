@@ -1,0 +1,27 @@
+<view class="admin-page">
+  <view class="header">
+    <text class="title">视频资源上传</text>
+    <text class="desc">逐个点击下方按钮，选择对应视频文件上传到云存储。上传完成后可删除此页面。</text>
+  </view>
+
+  <view class="status-bar" wx:if="{{statusText}}">
+    <text class="status-text">{{statusText}}</text>
+  </view>
+
+  <view class="upload-list">
+    <view wx:for="{{videoList}}" wx:key="id" class="upload-item">
+      <view class="upload-info">
+        <text class="video-id">{{item.cloudName}}</text>
+        <text class="video-title">{{item.title}}</text>
+        <text class="upload-status {{item.uploaded ? 'done' : ''}}">{{item.uploaded ? '✓ 已上传' : '未上传'}}</text>
+      </view>
+      <button class="upload-btn {{item.uploaded ? 'btn-done' : ''}}" bindtap="uploadVideo" data-index="{{index}}" disabled="{{item.uploaded}}">
+        {{item.uploaded ? '已完成' : '选择并上传'}}
+      </button>
+    </view>
+  </view>
+
+  <view class="batch-section">
+    <button class="batch-btn" bindtap="checkAll">检查上传状态</button>
+  </view>
+</view>

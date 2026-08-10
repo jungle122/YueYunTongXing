@@ -39,16 +39,16 @@ Page({
   },
   initVideos() {
     var videos = [
-      { id: "video1", title: "氹氹转", subtitle: "经典粤语童谣动画", description: "氹氹转，菊花圆，炒米饼，糯米团...", tags: ["经典","童谣","粤语"] },
-      { id: "video2", title: "齐齐望过去", subtitle: "中秋节特别版", description: "齐齐望过去，一起过中秋...", tags: ["节日","童谣","中秋"] },
-      { id: "video3", title: "月光光", subtitle: "睡前故事版", description: "月光光，照地堂，虾仔你乖乖瞓落床...", tags: ["睡前","经典","温馨"] },
-      { id: "video4", title: "小猪佩奇洗白白大作战", subtitle: "动画联动版", description: "小猪佩奇带你学粤语童谣...", tags: ["动画","趣味","互动"] },
-      { id: "video5", title: "喜羊羊带你齐齐望过去", subtitle: "喜羊羊联动版", description: "喜羊羊带你了解粤语童谣文化...", tags: ["动画","文化","教育"] },
-      { id: "video6", title: "火鸡总动员之何家公鸡魔性对决", subtitle: "动画电影版", description: "火鸡总动员遇上粤语童谣...", tags: ["电影","搞笑","经典"] },
-      { id: "video7", title: "海绵宝宝带你扒龙船", subtitle: "端午节特别版", description: "海绵宝宝学粤语童谣...", tags: ["动画","节日","趣味"] },
-      { id: "video8", title: "走进小马宝莉的细小世界", subtitle: "小马宝莉联动版", description: "小马宝莉的粤语童谣之旅...", tags: ["动画","奇幻","童谣"] },
-      { id: "video9", title: "当哪吒遇见氹氹转", subtitle: "国漫联动版", description: "哪吒学唱粤语童谣...", tags: ["国漫","经典","趣味"] },
-      { id: "video10", title: "当葫芦娃唱起月光光", subtitle: "葫芦娃联动版", description: "葫芦娃的粤语童谣...", tags: ["国漫","经典","睡前"] }
+      { id: "video1", title: "氹氹转", subtitle: "经典粤语童谣动画", description: "氹转，菊花圆，炒米饼，糯米团...", tags: ["经典","童谣","粤语"], poster: "/static/covers/video1.png" },
+      { id: "video2", title: "齐齐望过去", subtitle: "中秋节特别版", description: "齐齐望过去，一起过中秋...", tags: ["节日","童谣","中秋"], poster: "/static/covers/video2.png" },
+      { id: "video3", title: "月光光", subtitle: "睡前故事版", description: "月光光，照地堂，虾仔你乖乖瞓落床...", tags: ["睡前","经典","温馨"], poster: "/static/covers/video3.png" },
+      { id: "video4", title: "小猪佩奇洗白白大作战", subtitle: "动画联动版", description: "小猪佩奇带你学粤语童谣...", tags: ["动画","趣味","互动"], poster: "/static/covers/video4.png" },
+      { id: "video5", title: "喜羊羊带你齐齐望过去", subtitle: "喜羊羊联动版", description: "喜羊羊带你了解粤语童谣文化...", tags: ["动画","文化","教育"], poster: "/static/covers/video5.png" },
+      { id: "video6", title: "火鸡总动员之何家公鸡魔性对决", subtitle: "动画电影版", description: "火鸡总动员遇上粤语童谣...", tags: ["电影","搞笑","经典"], poster: "/static/covers/video6.png" },
+      { id: "video7", title: "海绵宝宝带你扒龙船", subtitle: "端午节特别版", description: "海绵宝宝学粤语童谣...", tags: ["动画","节日","趣味"], poster: "/static/covers/video7.png" },
+      { id: "video8", title: "走进小马宝莉的细小世界", subtitle: "小马宝莉联动版", description: "小马宝莉的粤语童谣之旅...", tags: ["动画","奇幻","童谣"], poster: "/static/covers/video8.png" },
+      { id: "video9", title: "当哪吒遇见氹氹转", subtitle: "国漫联动版", description: "哪吒学唱粤语童谣...", tags: ["国漫","经典","趣味"], poster: "/static/covers/video9.png" },
+      { id: "video10", title: "当葫芦娃唱起月光光", subtitle: "葫芦娃联动版", description: "葫芦娃的粤语童谣...", tags: ["国漫","经典","睡前"], poster: "/static/covers/video10.png" }
     ];
     this.setData({ videos: videos });
     this.refreshDisplayVideos();
