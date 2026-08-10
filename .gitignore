@@ -8,7 +8,13 @@ project.private.config.json
 .DS_Store
 .idea/
 .vscode/
+.playwright-cli/
 
 # Local Codex design skills and generated design references
 .agents/
 design-system/
+
+# Cloud function local dependencies and environment files
+cloudfunctions/**/node_modules/
+.env
+.env.*

@@ -12,6 +12,23 @@
   box-sizing: border-box;
 }
 
+.media-notice {
+  display: block;
+  margin-bottom: 20rpx;
+  padding: 18rpx 22rpx;
+  border-radius: 18rpx;
+  color: #806d61;
+  font-size: 22rpx;
+  text-align: center;
+  background: rgba(255, 254, 249, 0.92);
+}
+.media-error { color: #b45f4a; }
+.media-retry {
+  margin-left: 16rpx;
+  color: #c85f48;
+  font-weight: 700;
+}
+
 .song-list {
   overflow: hidden;
   border: 2rpx solid #ead9be;

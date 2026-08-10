@@ -42,9 +42,6 @@ Page({
   goToLogin() {
     wx.navigateTo({ url: "/pages/login/login" });
   },
-  goToCommunity() {
-    wx.navigateTo({ url: "/pages/community/community" });
-  },
   goToFeedback() {
     wx.navigateTo({ url: "/pages/feedback/feedback" });
   },

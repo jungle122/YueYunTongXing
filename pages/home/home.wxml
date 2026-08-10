@@ -143,25 +143,10 @@
       aria-role="button"
       aria-label="互动社区"
     >
-      <image class="extra-icon" src="/static/home/互动社区.png" mode="aspectFit" />
+      <image class="extra-icon" src="/static/ui/home/互动社区.jpg" mode="aspectFit" />
       <view class="extra-copy">
         <text class="extra-title">互动社区</text>
         <text class="extra-desc">打卡排行 · 成就徽章</text>
-      </view>
-      <text class="feature-arrow">›</text>
-    </view>
-    <view
-      class="extra-entry extra-feedback"
-      bindtap="goToFeedback"
-      hover-class="entry-press"
-      hover-stay-time="120"
-      aria-role="button"
-      aria-label="建议反馈"
-    >
-      <image class="extra-icon" src="/static/home/建议反馈.png" mode="aspectFit" />
-      <view class="extra-copy">
-        <text class="extra-title">建议反馈</text>
-        <text class="extra-desc">告诉我们你的想法</text>
       </view>
       <text class="feature-arrow">›</text>
     </view>

@@ -1,5 +1,13 @@
 <view wx:if="{{article}}" class="reader-page">
-  <scroll-view class="reader-scroll" scroll-y="true" enhanced="true" show-scrollbar="false" bindscroll="onScroll">
+  <scroll-view
+    class="reader-scroll"
+    scroll-y="true"
+    enhanced="true"
+    show-scrollbar="false"
+    lower-threshold="40"
+    bindscroll="onScroll"
+    bindscrolltolower="onScrollToLower"
+  >
     <view class="reader-content">
       <view class="article-hero {{article.themeClass}}">
         <image class="hero-watermark" src="{{article.iconPath}}" mode="aspectFit" aria-hidden="true"></image>

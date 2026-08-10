@@ -2,11 +2,11 @@
   <view class="page-intro community-hero">
     <text class="chapter-seal">第五章</text>
     <text class="intro-title">和小伙伴们一起成长</text>
-    <text class="intro-description">打卡记录、学习排行、成就徽章、互动留言。</text>
+    <text class="intro-description">本机打卡、成就徽章、云端成长分享。</text>
     <text class="hero-ornament">🌟</text>
   </view>
 
-  <text class="section-caption">🔥 每日打卡墙</text>
+  <text class="section-caption">🔥 每日打卡墙 · 本机记录</text>
   <view class="checkin-card">
     <view class="checkin-header">
       <view class="checkin-info">
@@ -34,32 +34,7 @@
     </view>
   </view>
 
-  <text class="section-caption">🏆 学习排行榜</text>
-  <view class="leaderboard-card">
-    <view wx:for="{{leaderboard}}" wx:key="userId" class="leaderboard-item">
-      <view class="rank-badge rank-{{index < 3 ? index + 1 : 'other'}}">
-        <text wx:if="{{index < 3}}">{{['🥇','🥈','🥉'][index]}}</text>
-        <text wx:else>{{index + 1}}</text>
-      </view>
-      <view class="rank-avatar">
-        <text wx:if="{{item.avatarType === 'emoji'}}">{{item.avatar || '👤'}}</text>
-        <image wx:else src="{{item.avatar}}" class="rank-avatar-img" mode="aspectFill" />
-      </view>
-      <view class="rank-info">
-        <text class="rank-name">{{item.nickname}}</text>
-        <text class="rank-minutes">学习 {{item.totalStudyMinutes}} 分钟</text>
-      </view>
-      <view class="rank-score">
-        <text class="score-number">{{item.totalStudyMinutes}}</text>
-        <text class="score-unit">分钟</text>
-      </view>
-    </view>
-    <view wx:if="{{leaderboard.length === 0}}" class="empty-hint">
-      <text>还没有学习记录，快去打卡学习吧～</text>
-    </view>
-  </view>
-
-  <text class="section-caption">🎖 成就墙</text>
+  <text class="section-caption">🎖 我的成就墙 · 本机记录</text>
   <view class="achievements-card">
     <view wx:for="{{achievements}}" wx:key="id" class="achievement-item {{item.unlocked ? 'achievement-unlocked' : 'achievement-locked'}}">
       <view class="achievement-icon">
@@ -74,21 +49,83 @@
     </view>
   </view>
 
-  <text class="section-caption">💬 留言板</text>
+  <text class="section-caption">💬 云端成长分享墙</text>
   <view class="messageboard-card">
-    <view class="message-input-wrap">
-      <input
-        class="message-input"
-        placeholder="写点什么吧..."
-        placeholder-style="color:#b8a99a"
-        value="{{newMessage}}"
-        bindinput="onMessageInput"
-        maxlength="100"
-      />
-      <view class="message-send-btn {{!newMessage ? 'send-disabled' : ''}}" bindtap="sendMessage">发送</view>
+    <view class="share-intro">
+      <view>
+        <text class="share-title">选择一句话，分享今天的学习心情</text>
+        <text class="share-subtitle">正文由固定模板生成，大家都能看到</text>
+      </view>
+      <text class="study-pill">{{todayStudyText}}</text>
     </view>
+
+    <view class="share-form">
+      <view class="form-field">
+        <text class="form-label">分享类型</text>
+        <picker
+          mode="selector"
+          range="{{templateGroupLabels}}"
+          value="{{selectedGroupIndex}}"
+          bindchange="onTemplateGroupChange"
+        >
+          <view class="picker-control {{selectedGroupLabel ? '' : 'picker-placeholder'}}">
+            <text>{{selectedGroupLabel || '请选择分享类型'}}</text>
+            <text class="picker-arrow">⌄</text>
+          </view>
+        </picker>
+      </view>
+
+      <view class="form-field">
+        <text class="form-label">想说的话</text>
+        <picker
+          mode="selector"
+          range="{{currentTemplateOptions}}"
+          range-key="displayText"
+          value="{{selectedTemplateIndex}}"
+          disabled="{{selectedGroupIndex === -1}}"
+          bindchange="onTemplateChange"
+        >
+          <view class="picker-control {{selectedGroupIndex === -1 ? 'picker-disabled' : ''}} {{selectedTemplateLabel ? '' : 'picker-placeholder'}}">
+            <text>{{selectedTemplateLabel || (selectedGroupIndex === -1 ? '请先选择分享类型' : '请选择一句话')}}</text>
+            <text class="picker-arrow">⌄</text>
+          </view>
+        </picker>
+      </view>
+    </view>
+
+    <view wx:if="{{selectedTemplateText}}" class="share-preview">
+      <text class="preview-label">发布预览</text>
+      <text class="preview-text">{{selectedTemplateText}}</text>
+      <text class="preview-note">带时长的内容来自这台手机的今日学习记录</text>
+    </view>
+    <view
+      class="publish-btn {{!selectedTemplateId || isPublishing ? 'publish-disabled' : ''}}"
+      bindtap="publishPost"
+      hover-class="publish-btn-press"
+    >
+      <text>{{isPublishing ? '正在发布...' : '发布到成长墙'}}</text>
+    </view>
+  </view>
+
+  <view class="community-feed">
+    <view class="feed-heading">
+      <text class="feed-title">小伙伴们的分享</text>
+      <text class="feed-refresh" bindtap="retryLoadPosts">刷新</text>
+    </view>
+
+    <view wx:if="{{postsLoading && posts.length === 0}}" class="empty-hint">
+      <text>正在加载成长分享...</text>
+    </view>
+    <view wx:elif="{{postsError && posts.length === 0}}" class="empty-hint error-hint" bindtap="retryLoadPosts">
+      <text>{{postsError}}</text>
+      <text class="retry-text">点击重试</text>
+    </view>
+    <view wx:elif="{{posts.length === 0}}" class="empty-hint">
+      <text>还没有成长分享，来发布第一句话吧～</text>
+    </view>
+
     <view class="messages-list">
-      <view wx:for="{{messages}}" wx:key="id" class="message-item">
+      <view wx:for="{{posts}}" wx:key="id" class="message-item">
         <view class="msg-avatar">
           <text wx:if="{{item.avatarType === 'emoji'}}">{{item.avatar || '👤'}}</text>
           <image wx:else src="{{item.avatar}}" class="msg-avatar-img" mode="aspectFill" />
@@ -97,13 +134,19 @@
           <view class="msg-header">
             <text class="msg-name">{{item.nickname}}</text>
             <text class="msg-time">{{item.timeText}}</text>
+            <text wx:if="{{item.isMine}}" class="mine-badge">我的</text>
           </view>
-          <text class="msg-text">{{item.text}}</text>
+          <text class="msg-text">{{item.content}}</text>
+          <view class="msg-footer">
+            <text wx:if="{{item.usesStudyTime}}" class="source-note">本机学习记录</text>
+            <text wx:if="{{item.isMine}}" class="delete-post" bindtap="requestDeletePost" data-id="{{item.id}}">删除</text>
+          </view>
         </view>
       </view>
-      <view wx:if="{{messages.length === 0}}" class="empty-hint">
-        <text>还没有留言，来说第一句话吧～</text>
-      </view>
     </view>
+
+    <view wx:if="{{postsLoadingMore}}" class="load-more">正在加载...</view>
+    <view wx:elif="{{hasMorePosts}}" class="load-more load-more-action" bindtap="loadMorePosts">查看更多分享</view>
+    <view wx:elif="{{posts.length > 0}}" class="load-more">已经看到全部分享啦</view>
   </view>
 </view>

@@ -418,7 +418,7 @@
   }
 }
 
-/* 社区和反馈入口 */
+/* 社区入口 */
 .extra-entries {
   margin-top: 30rpx;
   display: flex;
@@ -440,11 +440,6 @@
 .extra-community {
   border-color: #b9ddb9;
   background: linear-gradient(135deg, #f0faee, #fffdf5);
-}
-
-.extra-feedback {
-  border-color: #d4b8e8;
-  background: linear-gradient(135deg, #f8f0fd, #fffdf5);
 }
 
 .extra-icon {

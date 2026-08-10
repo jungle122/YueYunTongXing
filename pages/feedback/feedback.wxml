@@ -44,16 +44,24 @@
         placeholder-style="color:#b8a99a"
         value="{{contactInfo}}"
         bindinput="onContactInput"
+        maxlength="100"
       />
     </view>
 
-    <view class="submit-btn {{!feedbackContent ? 'submit-disabled' : ''}}" bindtap="submitFeedback" hover-class="submit-btn-press">
-      <text>提交反馈</text>
+    <view class="submit-btn {{!feedbackContent || isSubmitting ? 'submit-disabled' : ''}}" bindtap="submitFeedback" hover-class="submit-btn-press">
+      <text>{{isSubmitting ? '提交中...' : '提交反馈'}}</text>
     </view>
   </view>
 
   <text class="section-caption">📋 我的反馈记录</text>
   <view class="feedback-list-card">
+    <view wx:if="{{isLoading}}" class="loading-hint">
+      <text>正在加载云端反馈...</text>
+    </view>
+    <view wx:if="{{loadError}}" class="load-error">
+      <text>{{loadError}}</text>
+      <text class="retry-link" bindtap="retryLoadFeedback">重新加载</text>
+    </view>
     <view wx:for="{{feedbackList}}" wx:key="id" class="feedback-item">
       <view class="feedback-item-header">
         <view class="feedback-type-badge type-{{item.type}}">
@@ -69,7 +77,25 @@
         <text wx:if="{{item.reply}}" class="feedback-reply">💬 已回复: {{item.reply}}</text>
       </view>
     </view>
-    <view wx:if="{{feedbackList.length === 0}}" class="empty-hint">
+    <view wx:if="{{legacyFeedbackList.length > 0}}" class="legacy-divider">
+      <text>本机旧记录（未同步）</text>
+    </view>
+    <view wx:for="{{legacyFeedbackList}}" wx:key="id" class="feedback-item legacy-feedback-item">
+      <view class="feedback-item-header">
+        <view class="feedback-type-badge type-{{item.type}}">
+          <text>{{item.typeLabel}}</text>
+        </view>
+        <view class="feedback-status status-{{item.status}}">
+          <text>{{item.statusText}}</text>
+        </view>
+      </view>
+      <text class="feedback-content-text">{{item.content}}</text>
+      <view class="feedback-item-footer">
+        <text class="feedback-time">{{item.timeText}}</text>
+        <text wx:if="{{item.reply}}" class="feedback-reply">💬 已回复: {{item.reply}}</text>
+      </view>
+    </view>
+    <view wx:if="{{!isLoading && feedbackList.length === 0 && legacyFeedbackList.length === 0}}" class="empty-hint">
       <text>还没有提交过反馈，期待你的建议～</text>
     </view>
   </view>

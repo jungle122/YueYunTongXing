@@ -96,16 +96,15 @@ Page({
     return map[id] || "未知文章";
   },
   getPictureBookTitleById(id) {
-    var map = { dangdang: "氹氹转", qiqi: "齐齐望过去", yueguang: "月光光" };
+    var map = { dangdang: "氹氹转", qiqi: "齐齐望过去", yueguang: "月光光", "duizai-kitchen": "堆仔小厨房" };
     return map[id] || "粤语童谣绘本";
   },
   getAudioDataById(id) {
     var numId = typeof id === "string" ? parseInt(id.replace("song", "")) : id;
     var list = [
-      { id: 1, title: "小星星" }, { id: 2, title: "三只小猪" }, { id: 3, title: "小小姑娘" },
-      { id: 4, title: "小鸭学游泳" }, { id: 5, title: "花 树 草" }, { id: 6, title: "河边有只羊" },
       { id: 18, title: "月光光" }, { id: 19, title: "落雨大" }, { id: 20, title: "氹氹转" },
-      { id: 21, title: "何家公鸡何家猜" }, { id: 22, title: "洗白白" }
+      { id: 21, title: "何家公鸡何家猜" }, { id: 22, title: "洗白白" },
+      { id: 23, title: "齐齐望过去" }
     ];
     for (var i = 0; i < list.length; i++) { if (list[i].id === numId) return list[i]; }
     return null;

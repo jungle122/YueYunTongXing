@@ -51,7 +51,10 @@
       </button>
       <button class="main-play-btn {{playing ? 'main-play-btn-active' : ''}}" bindtap="togglePlay" aria-label="{{playing ? '暂停' : '播放'}}">
         <text wx:if="{{isLoading}}" class="loading-mark">···</text>
-        <text wx:elif="{{playing}}" class="pause-mark">Ⅱ</text>
+        <view wx:elif="{{playing}}" class="pause-icon" aria-hidden="true">
+          <view class="pause-bar"></view>
+          <view class="pause-bar"></view>
+        </view>
         <text wx:else class="play-mark">▶</text>
       </button>
       <button class="side-control" bindtap="playNext" aria-label="下一首">
@@ -65,7 +68,11 @@
         <text>{{isRecording ? '停止录音' : '开始录音'}}</text>
       </button>
       <button class="singing-tool {{playingRecording ? 'singing-tool-active' : ''}}" bindtap="playRecording">
-        <text class="singing-tool-icon">{{playingRecording ? 'Ⅱ' : '↻'}}</text>
+        <view wx:if="{{playingRecording}}" class="singing-tool-icon pause-icon pause-icon-small" aria-hidden="true">
+          <view class="pause-bar"></view>
+          <view class="pause-bar"></view>
+        </view>
+        <text wx:else class="singing-tool-icon">↻</text>
         <text>{{playingRecording ? '暂停回听' : '回听录音'}}</text>
       </button>
       <text class="recording-status">{{isSavingRecording ? '正在保存录音…' : (hasRecording ? '已保存本曲录音' : '完成录音后即可回听')}}</text>
@@ -106,4 +113,10 @@
   </view>
 
   <view wx:if="{{showRecordingComplete}}" class="recording-toast">录音已保存，可以回听啦</view>
+</view>
+
+<view wx:else class="audio-load-state">
+  <text class="audio-load-title">{{isLoading ? '正在加载音频' : '音频暂时无法加载'}}</text>
+  <text wx:if="{{loadError}}" class="audio-load-message">{{loadError}}</text>
+  <button wx:if="{{loadError}}" class="audio-retry-btn" bindtap="retryAudioMedia">重新加载</button>
 </view>

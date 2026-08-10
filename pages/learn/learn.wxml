@@ -10,7 +10,7 @@
   <view class="feature-list">
     <view class="feature-card audio-card" bindtap="goAudio" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="进入音频学习">
       <view class="feature-main">
-        <image class="feature-symbol audio-symbol" src="/static/learn/音频学习.png" mode="aspectFit" />
+        <image class="feature-symbol audio-symbol" src="/static/ui/learn/音频学习.jpg" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">音频学习</text>
           <text class="feature-description">听童谣、看歌词、录下自己的跟唱。</text>
@@ -18,14 +18,14 @@
         <text class="feature-arrow">›</text>
       </view>
       <view class="learning-progress">
-        <view class="progress-info"><text>学习进度</text><text>75%</text></view>
-        <view class="progress-track"><view class="progress-fill audio-progress" style="width:75%"></view></view>
+        <view class="progress-info"><text>学习进度</text><text>{{audioProgress}}%</text></view>
+        <view class="progress-track"><view class="progress-fill audio-progress" style="{{audioProgressStyle}}"></view></view>
       </view>
     </view>
 
     <view class="feature-card text-card" bindtap="goText" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="进入文字科普">
       <view class="feature-main">
-        <image class="feature-symbol text-symbol" src="/static/learn/文字科普.png" mode="aspectFit" />
+        <image class="feature-symbol text-symbol" src="/static/ui/learn/文字科普.jpg" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">文字科普</text>
           <text class="feature-description">了解童谣背后的岭南生活与传统文化。</text>
@@ -33,8 +33,8 @@
         <text class="feature-arrow">›</text>
       </view>
       <view class="learning-progress">
-        <view class="progress-info"><text>学习进度</text><text>30%</text></view>
-        <view class="progress-track"><view class="progress-fill text-progress" style="width:30%"></view></view>
+        <view class="progress-info"><text>学习进度</text><text>{{textProgress}}%</text></view>
+        <view class="progress-track"><view class="progress-fill text-progress" style="{{textProgressStyle}}"></view></view>
       </view>
     </view>
   </view>

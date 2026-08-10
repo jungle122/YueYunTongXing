@@ -30,6 +30,26 @@ Page({
     this.recordLearningHistory(article);
   },
 
+  onReady() {
+    this.detectNonScrollableArticle();
+  },
+
+  detectNonScrollableArticle() {
+    var self = this;
+    wx.createSelectorQuery()
+      .select(".reader-scroll")
+      .fields({ size: true, scrollOffset: true })
+      .exec(function(results) {
+        var scrollInfo = results && results[0];
+        if (!scrollInfo || !self.data.article) return;
+        var viewportHeight = Number(scrollInfo.height) || 0;
+        var contentHeight = Number(scrollInfo.scrollHeight) || 0;
+        if (viewportHeight > 0 && contentHeight > 0 && contentHeight <= viewportHeight + 1) {
+          self.markArticleComplete();
+        }
+      });
+  },
+
   onScroll(event) {
     if (!this.data.article) return;
     var detail = event.detail || {};
@@ -42,6 +62,17 @@ Page({
     this.setData({ progress: progress, progressStyle: "width:" + progress + "%" });
     this.persistProgress(progress);
     this.updateLearningHistory(progress);
+  },
+
+  onScrollToLower() {
+    this.markArticleComplete();
+  },
+
+  markArticleComplete() {
+    if (!this.data.article || this.data.progress >= 100) return;
+    this.setData({ progress: 100, progressStyle: "width:100%" });
+    this.persistProgress(100);
+    this.updateLearningHistory(100);
   },
 
   toggleCollect() {
