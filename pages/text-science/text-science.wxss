@@ -38,9 +38,10 @@
   position: absolute;
   right: 22rpx;
   top: 24rpx;
-  width: 136rpx;
-  height: 136rpx;
-  opacity: 0.14;
+  color: rgba(84, 54, 39, 0.12);
+  font-size: 136rpx;
+  font-weight: 900;
+  line-height: 1;
   transform: rotate(-9deg);
 }
 
@@ -57,8 +58,8 @@
 .article-row { position: relative; min-height: 186rpx; padding: 24rpx 20rpx; display: flex; align-items: center; box-sizing: border-box; transition: opacity 150ms ease-out, background-color 150ms ease-out; }
 .article-row + .article-row::before { content: ""; position: absolute; left: 132rpx; right: 20rpx; top: 0; height: 2rpx; background: #f0e4d2; }
 .row-press { opacity: 0.72; background: #fff4df; }
-.article-icon { width: 92rpx; height: 108rpx; margin-right: 20rpx; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 2rpx solid rgba(100, 68, 49, 0.12); border-radius: 18rpx 18rpx 24rpx 18rpx; color: rgba(74, 52, 42, 0.62); font-size: 38rpx; font-weight: 900; box-shadow: 0 6rpx 12rpx rgba(76, 52, 39, 0.1); }
-.article-icon-image { width: 46rpx; height: 46rpx; opacity: 0.74; }
+.article-icon { width: 92rpx; height: 108rpx; margin-right: 20rpx; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 18rpx 18rpx 24rpx 18rpx; overflow: hidden; }
+.article-icon image { width: 100%; height: 100%; }
 .article-copy { flex: 1; min-width: 0; }
 .article-heading { display: flex; align-items: center; }
 .article-title { overflow: hidden; color: #49372f; font-size: 27rpx; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }

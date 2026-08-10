@@ -10,7 +10,7 @@
   <view class="feature-list">
     <view class="feature-card chain-card" bindtap="startChain" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="开始童谣接龙">
       <view class="feature-main">
-        <view class="feature-symbol chain-symbol">🔗</view>
+        <image class="feature-symbol chain-symbol" src="/static/games/童谣接龙.png" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">童谣接龙</text>
           <text class="feature-description">根据上一句接出下一句，练习记忆和表达。</text>
@@ -35,7 +35,7 @@
 
     <view class="feature-card match-card" bindtap="startElimination" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="开始童谣消消乐">
       <view class="feature-main">
-        <view class="feature-symbol match-symbol">✨</view>
+        <image class="feature-symbol match-symbol" src="/static/games/童谣消消乐.png" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">童谣消消乐</text>
           <text class="feature-description">配对相同词语，在游戏里熟悉童谣词汇。</text>
@@ -60,7 +60,7 @@
 
     <view class="feature-card puzzle-card" bindtap="startPuzzle" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="开始童谣拼图">
       <view class="feature-main">
-        <view class="feature-symbol puzzle-symbol">🧩</view>
+        <image class="feature-symbol puzzle-symbol" src="/static/games/童谣拼图.png" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">童谣拼图</text>
           <text class="feature-description">重新排列打乱的句子，锻炼语序和逻辑。</text>

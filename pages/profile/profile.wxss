@@ -116,8 +116,8 @@
   flex: 0 0 auto;
   align-items: center;
   justify-content: center;
-  border: 2rpx solid rgba(92, 61, 43, 0.08);
-  box-shadow: inset 0 3rpx 0 rgba(255, 255, 255, 0.55);
+  
+  
 }
 
 .login-symbol {
@@ -159,16 +159,19 @@
 .menu-symbol {
   width: 68rpx;
   height: 68rpx;
+  overflow: hidden;
+  border-radius: 20rpx;
   margin-right: 20rpx;
   border-radius: 20rpx;
   font-size: 31rpx;
 }
 
-.collection-symbol { background: #ffe1e5; }
-.history-symbol { background: #ffe8c7; }
-.stats-symbol { background: #dff1e1; }
-.settings-symbol { background: #e1effb; }
 
+
+
+
+
+.menu-symbol image { width: 100%; height: 100%; }
 .menu-title {
   color: #49352d;
   font-size: 27rpx;
@@ -270,5 +273,5 @@
 }
 
 /* 社区和反馈菜单项 */
-.community-symbol { background: #e1f5e1; }
-.feedback-symbol { background: #f3e8fd; }
+
+
