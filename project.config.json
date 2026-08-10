@@ -36,6 +36,7 @@
       { "type": "folder", "value": "static/text-science" },
       { "type": "folder", "value": "static/picture-books" },
       { "type": "folder", "value": "cloudbase" },
+      { "type": "folder", "value": ".playwright-cli" },
       { "type": "file", "value": "static/alin.png" },
       { "type": "file", "value": "static/头像图片A.webp" },
       { "type": "file", "value": "static/头像图片B.webp" },

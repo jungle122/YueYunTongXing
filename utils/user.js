@@ -52,7 +52,13 @@ function register(userInfo) {
   // 检查是否已存在同昵称用户
   for (var i = 0; i < users.length; i++) {
     if (users[i].nickname === userInfo.nickname) {
-      // 已有该用户，直接登录
+      // 已有该用户，保留原资料；明确选择新头像时同步更新。
+      if (userInfo.avatar) {
+        users[i].avatar = userInfo.avatar;
+        users[i].avatarType = userInfo.avatarType || 'emoji';
+        delete users[i].communityAvatarFileID;
+        saveUsers(users);
+      }
       setCurrentUser(users[i]);
       return { success: true, message: '登录成功', user: users[i], isNew: false };
     }

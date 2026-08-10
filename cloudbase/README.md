@@ -26,3 +26,38 @@
 - `enabled`：是否允许小程序读取
 
 普通用户不能向云函数传入任意 File ID。云函数只解析 `mediaAssets` 中由管理员登记且 `enabled: true` 的文件。
+
+## 云端成长分享墙
+
+互动社区的自由留言已改为固定模板分享。动态正文由云函数根据模板编号生成，前端不能提交任意正文、OpenID、状态或发布时间。
+
+### 初始化 `communityPosts`
+
+1. 在文档数据库中新建集合 `communityPosts`。
+2. 将集合的数据权限设为“所有用户不可读写”，小程序仅通过云函数访问。
+3. 新建组合索引 `openid + createdAt`，其中 `openid` 升序、`createdAt` 降序。
+4. 新建组合索引 `status + createdAt`，其中 `status` 升序、`createdAt` 降序。
+5. 部署以下云函数，均选择“上传并部署：云端安装依赖”：
+   - `publishCommunityPost`
+   - `listCommunityPosts`
+   - `deleteMyCommunityPost`
+6. `publishCommunityPost/config.json` 声明了昵称文本安全检测所需的 `security.msgSecCheck` 云调用权限，部署时不要漏掉该文件。
+
+### 身份和头像
+
+- 动态归属使用云函数微信上下文中的 OpenID，前端不能指定。
+- 展示昵称沿用登录页中用户填写的昵称，云函数限制为 1～12 个字并进行内容安全检测。
+- 登录页内置 Emoji 头像直接保存到动态记录。
+- “使用微信头像”取得的是本机临时路径。用户第一次发布时，小程序会将头像上传到私有云存储的 `community-avatars/` 目录，数据库只保存 File ID。
+- `listCommunityPosts` 通过云函数为头像生成临时地址；不要把头像目录改成公开读取。
+- 需要在云存储权限中允许已登录的小程序用户向 `community-avatars/` 上传文件，同时保持该目录不可被客户端直接公开读取。
+
+### 发布规则
+
+- 每个微信用户两次发布至少间隔30秒。
+- 每个微信用户每天最多发布3条。
+- 同一个模板同一天只能发布一次。
+- 带时长的句子使用当前手机 `learningHistory` 的今日时长快照，记录会标注 `dataSource: local_device`，不能作为权威排行榜或奖励依据。
+- 用户只能软删除自己的动态；管理员可在控制台将异常记录的 `status` 改为 `hidden`。
+
+原来的本机自由留言不迁移到云端。每日打卡和成就仍保存在本机，页面已明确标注；原本不真实的本机角色排行榜暂不展示。
