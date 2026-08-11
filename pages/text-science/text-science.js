@@ -1,4 +1,5 @@
 var articleCatalog = require("./article-catalog.js");
+var userModule = require("../../utils/user.js");
 
 Page({
   data: {
@@ -21,8 +22,8 @@ Page({
   },
 
   refreshArticles() {
-    var collections = wx.getStorageSync("text_science_collections") || {};
-    var progressMap = wx.getStorageSync("text_science_read_progress") || {};
+    var collections = userModule.getUserStorage("text_science_collections", {});
+    var progressMap = userModule.getUserStorage("text_science_read_progress", {});
     var articles = articleCatalog.getArticles().map(function(article) {
       var progress = Math.max(0, Math.min(100, Number(progressMap[article.id]) || 0));
       article.progress = progress;

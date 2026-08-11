@@ -10,6 +10,15 @@ const MAX_DAILY_POSTS = 3;
 const MAX_NICKNAME_LENGTH = 12;
 const MAX_STUDY_SECONDS = 24 * 60 * 60;
 const ALLOWED_EMOJI_AVATARS = ['🦊', '🐱', '🐶', ''];
+const ALLOWED_STICKER_AVATARS = [
+  '/static/avatars/sticker-01.jpg',
+  '/static/avatars/sticker-02.jpg',
+  '/static/avatars/sticker-03.jpg',
+  '/static/avatars/sticker-04.jpg',
+  '/static/avatars/sticker-05.jpg',
+  '/static/avatars/sticker-06.jpg',
+  '/static/avatars/sticker-07.jpg'
+];
 const TEMPLATES = {
   study_great: { text: '今天我学习了{minutesText}，我真是太棒啦！', requiresStudy: true },
   study_energy: { text: '今日粤语能量 +{minutes}，继续努力！', requiresStudy: true },
@@ -61,11 +70,17 @@ function renderTemplate(template, todayStudySeconds) {
 }
 
 function validateAvatar(input) {
-  const avatarType = input.avatarType === 'wechat' ? 'wechat' : 'emoji';
+  const avatarType = input.avatarType === 'wechat'
+    ? 'wechat'
+    : (input.avatarType === 'sticker' ? 'sticker' : 'emoji');
   const avatar = typeof input.avatar === 'string' ? input.avatar.trim() : '';
   if (avatarType === 'emoji') {
     if (ALLOWED_EMOJI_AVATARS.indexOf(avatar) === -1) return null;
     return { avatar: avatar, avatarType: 'emoji' };
+  }
+  if (avatarType === 'sticker') {
+    if (ALLOWED_STICKER_AVATARS.indexOf(avatar) === -1) return null;
+    return { avatar: avatar, avatarType: 'sticker' };
   }
   if (
     !avatar ||

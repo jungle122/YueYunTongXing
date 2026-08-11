@@ -26,15 +26,13 @@
         <text class="option-label">选择角色头像</text>
         <view class="avatar-choices">
           <view
-            wx:for="{{emojiAvatars}}"
-            wx:key="emoji"
-            class="avatar-choice-item {{selectedEmoji === index ? 'choice-selected' : ''}}"
-            bindtap="selectEmoji"
+            wx:for="{{stickerAvatars}}"
+            wx:key="id"
+            class="avatar-choice-item {{selectedSticker === index ? 'choice-selected' : ''}}"
+            bindtap="selectSticker"
             data-index="{{index}}"
           >
-            <view class="choice-circle" style="background:{{item.bg}};">
-              <text class="choice-emoji">{{item.emoji}}</text>
-            </view>
+            <image class="choice-image" src="{{item.src}}" mode="aspectFill" />
             <text class="choice-name">{{item.name}}</text>
           </view>
         </view>
@@ -60,14 +58,19 @@
       <view class="input-wrap">
         <text class="input-icon">✏️</text>
         <input
+          type="nickname"
           class="settings-input"
           placeholder="输入你的昵称"
           placeholder-style="color:#b8a99a"
           value="{{nickname}}"
           bindinput="onNicknameInput"
+          bindblur="onNicknameBlur"
+          focus="{{nicknameFocused}}"
           maxlength="12"
         />
+        <view class="wechat-nickname-action" bindtap="useWechatNickname">使用微信昵称</view>
       </view>
+      <text class="nickname-helper">真机点击后，可从微信提供的昵称中快速选择</text>
     </view>
 
     <!-- 学习偏好 -->
@@ -89,13 +92,16 @@
     </view>
 
     <!-- 保存按钮 -->
-    <view class="save-btn" bindtap="saveSettings" hover-class="save-btn-press">
-      <text class="save-btn-text">保存设置</text>
+    <view class="save-btn {{isRestoring ? 'save-btn-disabled' : ''}}" bindtap="saveSettings" hover-class="save-btn-press">
+      <text class="save-btn-text">{{isRestoring ? '正在确认微信身份...' : (isSaving ? '正在同步...' : '保存并同步资料')}}</text>
     </view>
 
-    <!-- 登出按钮 -->
-    <view wx:if="{{isLoggedIn}}" class="logout-btn" bindtap="handleLogout">
-      <text class="logout-text">退出登录</text>
+    <view class="account-note {{identityError ? 'account-note-error' : ''}}">
+      <text class="account-note-title">{{isRestoring ? '正在确认微信身份' : (isLoggedIn ? '微信身份已关联' : '微信身份尚未关联')}}</text>
+      <text class="account-note-copy" wx:if="{{isRestoring}}">确认完成后即可修改昵称和头像。</text>
+      <text class="account-note-copy" wx:elif="{{identityError}}">{{identityError}}</text>
+      <text class="account-note-copy" wx:elif="{{isLoggedIn}}">昵称和头像只用于展示，可以随时修改，不再作为账号标识。</text>
+      <text class="account-note-copy" wx:else>点击保存后，将使用当前微信身份创建并同步资料。</text>
     </view>
   </view>
 </view>

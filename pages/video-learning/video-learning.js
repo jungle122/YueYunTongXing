@@ -1,5 +1,7 @@
 const VIDEO_GROUP_ID = "video-library";
 const TEMP_URL_REFRESH_INTERVAL = 90 * 60 * 1000;
+var userModule = require("../../utils/user.js");
+var learningSyncModule = require("../../utils/learning-sync.js");
 
 Page({
   data: {
@@ -27,7 +29,7 @@ Page({
   },
   onLoad() {
     this.initVideos();
-    var favorites = wx.getStorageSync("video_favorites") || {};
+    var favorites = userModule.getUserStorage("video_favorites", {});
     this.setData({ favorites: favorites });
     this.refreshDisplayVideos();
     this.loadVideoMedia();
@@ -190,7 +192,10 @@ Page({
     var prev = !!this.data.favorites[video.id];
     var key = "favorites." + video.id;
     this.setData({ [key]: !prev });
-    try { wx.setStorageSync("video_favorites", this.data.favorites); } catch(e) {}
+    try {
+      userModule.setUserStorage("video_favorites", this.data.favorites);
+      learningSyncModule.markDirty();
+    } catch(e) {}
     this.setData({ toastText: !prev ? "收藏成功" : "取消收藏", toastIcon: !prev ? "💖" : "❤️", toastType: !prev ? "success" : "cancel", showToast: true });
     this.refreshDisplayVideos();
     var self = this;
@@ -203,8 +208,7 @@ Page({
   },
   recordLearningHistory(type, title, itemId) {
     try {
-      var historyStr = wx.getStorageSync("learningHistory") || "[]";
-      var history = JSON.parse(historyStr);
+      var history = userModule.getUserStorage("learningHistory", []);
       var today = new Date().toDateString();
       var existingIndex = -1;
       for (var i = 0; i < history.length; i++) {
@@ -213,17 +217,18 @@ Page({
       if (existingIndex >= 0) { history[existingIndex].timestamp = new Date().toISOString(); }
       else { history.push({ type: type, title: title, itemId: itemId, timestamp: new Date().toISOString(), duration: 0 }); }
       if (history.length > 100) { history.splice(0, history.length - 100); }
-      wx.setStorageSync("learningHistory", JSON.stringify(history));
+      userModule.setUserStorage("learningHistory", history);
+      learningSyncModule.markDirty();
     } catch (e) { console.error("记录学习历史失败:", e); }
   },
   updateLearningHistoryDuration(type, itemId, duration) {
     try {
-      var historyStr = wx.getStorageSync("learningHistory") || "[]";
-      var history = JSON.parse(historyStr);
+      var history = userModule.getUserStorage("learningHistory", []);
       for (var i = history.length - 1; i >= 0; i--) {
         if (history[i].itemId === itemId && history[i].type === type) { history[i].duration = (history[i].duration || 0) + duration; break; }
       }
-      wx.setStorageSync("learningHistory", JSON.stringify(history));
+      userModule.setUserStorage("learningHistory", history);
+      learningSyncModule.markDirty();
     } catch (e) { console.error("更新学习历史时长失败:", e); }
   }
 });

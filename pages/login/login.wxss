@@ -151,44 +151,100 @@
   margin-bottom: 28rpx;
 }
 
-.emoji-avatars {
+.sticker-avatars {
   display: flex;
-  justify-content: space-around;
-  gap: 20rpx;
+  flex-wrap: wrap;
+  gap: 14rpx 10rpx;
 }
 
-.emoji-avatar-item {
+.wechat-nickname-action {
+  flex-shrink: 0;
+  margin-left: 10rpx;
+  padding: 8rpx 12rpx;
+  border-radius: 12rpx;
+  background: rgba(7, 193, 96, 0.08);
+  color: #07c160;
+  font-size: 19rpx;
+  font-weight: 700;
+}
+
+.nickname-helper {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 19rpx;
+  color: #927263;
+}
+
+.identity-loading-card {
+  margin-top: 80rpx;
+  padding: 70rpx 30rpx;
+  border: 2rpx solid #ecd2aa;
+  border-radius: 34rpx;
+  background: #fffdf5;
+  box-shadow: 0 14rpx 36rpx rgba(104, 66, 43, 0.1);
+  text-align: center;
+}
+
+.identity-loading-icon {
+  font-size: 72rpx;
+  color: #e8a87c;
+}
+
+.identity-loading-title,
+.identity-loading-copy {
+  display: block;
+}
+
+.identity-loading-title {
+  margin-top: 18rpx;
+  font-size: 28rpx;
+  font-weight: 750;
+  color: #49352d;
+}
+
+.identity-loading-copy {
+  margin-top: 10rpx;
+  font-size: 22rpx;
+  color: #927263;
+}
+
+.identity-error {
+  margin-bottom: 24rpx;
+  padding: 16rpx 18rpx;
+  border-radius: 14rpx;
+  background: rgba(207, 104, 75, 0.08);
+  color: #b9503b;
+  font-size: 22rpx;
+  line-height: 1.5;
+}
+
+.sticker-avatar-item {
+  box-sizing: border-box;
+  width: calc(25% - 8rpx);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 10rpx;
-  padding: 16rpx 20rpx;
+  padding: 12rpx 6rpx;
   border-radius: 20rpx;
   border: 3rpx solid transparent;
   transition: all 0.2s ease;
 }
 
-.emoji-selected {
+.sticker-selected {
   border-color: #cf684b;
   background: rgba(207, 104, 75, 0.08);
   transform: scale(1.05);
 }
 
-.emoji-circle {
+.sticker-image {
   width: 100rpx;
   height: 100rpx;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-shadow: 0 8rpx 20rpx rgba(0, 0, 0, 0.1);
 }
 
-.emoji-text {
-  font-size: 48rpx;
-}
-
-.emoji-name {
+.sticker-name {
   font-size: 20rpx;
   color: #634b40;
   font-weight: 600;

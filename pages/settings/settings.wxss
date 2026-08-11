@@ -146,17 +146,19 @@
 
 .avatar-choices {
   display: flex;
-  justify-content: space-around;
-  gap: 16rpx;
+  flex-wrap: wrap;
+  gap: 14rpx 10rpx;
   margin-bottom: 24rpx;
 }
 
 .avatar-choice-item {
+  box-sizing: border-box;
+  width: calc(25% - 8rpx);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 8rpx;
-  padding: 14rpx 16rpx;
+  padding: 12rpx 6rpx;
   border-radius: 18rpx;
   border: 3rpx solid transparent;
   transition: all 0.2s ease;
@@ -167,18 +169,11 @@
   background: rgba(207, 104, 75, 0.08);
 }
 
-.choice-circle {
+.choice-image {
   width: 88rpx;
   height: 88rpx;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.1);
-}
-
-.choice-emoji {
-  font-size: 42rpx;
 }
 
 .choice-name {
@@ -338,6 +333,10 @@
   transform: scale(0.97);
 }
 
+.save-btn-disabled {
+  opacity: 0.6;
+}
+
 .save-btn-text {
   font-size: 28rpx;
   font-weight: 750;
@@ -345,26 +344,58 @@
   letter-spacing: 2rpx;
 }
 
-/* 登出按钮 */
-.logout-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80rpx;
-  border-radius: 40rpx;
-  border: 2rpx solid #e6cba8;
-  background: #fffdf5;
-  margin-top: 10rpx;
+.account-note {
+  margin-top: 18rpx;
+  padding: 20rpx 24rpx;
+  border: 2rpx solid #ead5b5;
+  border-radius: 20rpx;
+  background: rgba(255, 253, 245, 0.8);
+  text-align: center;
 }
 
-.logout-text {
-  font-size: 26rpx;
-  font-weight: 600;
-  color: #cf684b;
+.account-note-error {
+  border-color: #e6b09f;
+  background: rgba(255, 241, 235, 0.9);
+}
+
+.wechat-nickname-action {
+  flex-shrink: 0;
+  margin-left: 10rpx;
+  padding: 8rpx 12rpx;
+  border-radius: 12rpx;
+  background: rgba(7, 193, 96, 0.08);
+  color: #07c160;
+  font-size: 19rpx;
+  font-weight: 700;
+}
+
+.nickname-helper {
+  display: block;
+  margin-top: 10rpx;
+  font-size: 19rpx;
+  color: #927263;
+}
+
+.account-note-title,
+.account-note-copy {
+  display: block;
+}
+
+.account-note-title {
+  font-size: 23rpx;
+  font-weight: 700;
+  color: #634b40;
+}
+
+.account-note-copy {
+  margin-top: 8rpx;
+  font-size: 20rpx;
+  color: #927263;
+  line-height: 1.5;
 }
 
 @media (max-width: 340px) {
   .settings-page { padding-left: 22rpx; padding-right: 22rpx; }
   .avatar-choices { gap: 10rpx; }
-  .choice-circle { width: 76rpx; height: 76rpx; }
+  .choice-image { width: 76rpx; height: 76rpx; }
 }

@@ -6,45 +6,56 @@
 
   <view class="login-hero">
     <view class="hero-badge">粤语童谣时光屋</view>
-    <text class="hero-title">欢迎来到故事书的世界</text>
-    <text class="hero-subtitle">选一个头像，给自己取个名字吧～</text>
+    <text class="hero-title">建立你的学习角色</text>
+    <text class="hero-subtitle">微信身份会自动识别学习角色，昵称可以随时修改</text>
   </view>
 
-  <view class="login-card">
+  <view wx:if="{{isRestoring}}" class="identity-loading-card">
+    <view class="identity-loading-icon">☁</view>
+    <text class="identity-loading-title">正在恢复学习资料</text>
+    <text class="identity-loading-copy">无需输入账号或密码</text>
+  </view>
+
+  <view wx:else class="login-card">
     <view class="card-title-row">
-      <text class="card-seal">启程章</text>
-      <text class="card-title">创建你的角色</text>
+      <text class="card-seal">微信身份</text>
+      <text class="card-title">完善角色资料</text>
     </view>
 
+    <view wx:if="{{identityError}}" class="identity-error">{{identityError}}</view>
+
     <view class="nickname-section">
-      <text class="input-label">你的名字</text>
+      <text class="input-label">角色昵称（可重复、可随时修改）</text>
       <view class="nickname-input-wrap">
         <text class="input-icon">✏️</text>
         <input
+          type="nickname"
           class="nickname-input"
           placeholder="输入昵称"
           placeholder-style="color:#b8a99a"
           value="{{nickname}}"
           bindinput="onNicknameInput"
+          bindblur="onNicknameBlur"
+          focus="{{nicknameFocused}}"
           maxlength="12"
         />
+        <view class="wechat-nickname-action" bindtap="useWechatNickname">使用微信昵称</view>
       </view>
+      <text class="nickname-helper">真机点击后，可从微信提供的昵称中快速选择</text>
     </view>
 
     <view class="avatar-section">
       <text class="input-label">选择头像</text>
-      <view class="emoji-avatars">
+      <view class="sticker-avatars">
         <view
-          wx:for="{{emojiAvatars}}"
-          wx:key="emoji"
-          class="emoji-avatar-item {{selectedEmoji === index ? 'emoji-selected' : ''}}"
-          bindtap="selectEmoji"
+          wx:for="{{stickerAvatars}}"
+          wx:key="id"
+          class="sticker-avatar-item {{selectedSticker === index ? 'sticker-selected' : ''}}"
+          bindtap="selectSticker"
           data-index="{{index}}"
         >
-          <view class="emoji-circle" style="background:{{item.bg}};">
-            <text class="emoji-text">{{item.emoji}}</text>
-          </view>
-          <text class="emoji-name">{{item.name}}</text>
+          <image class="sticker-image" src="{{item.src}}" mode="aspectFill" />
+          <text class="sticker-name">{{item.name}}</text>
         </view>
       </view>
     </view>
@@ -61,13 +72,13 @@
     </view>
 
     <view class="login-btn-wrap">
-      <view class="login-btn {{!nickname ? 'login-btn-disabled' : ''}}" bindtap="handleLogin" hover-class="login-btn-press">
-        <text class="login-btn-text">{{isLoggedIn ? '更新信息' : '创建角色 · 开始冒险'}}</text>
+      <view class="login-btn {{!nickname || isSaving ? 'login-btn-disabled' : ''}}" bindtap="handleLogin" hover-class="login-btn-press">
+        <text class="login-btn-text">{{isSaving ? '正在保存...' : '保存资料 · 开始学习'}}</text>
       </view>
     </view>
   </view>
 
   <view class="login-footer">
-    <text class="footer-text">每天翻一页，让乡音陪着长大</text>
+    <text class="footer-text">角色资料与当前微信身份关联，无需记住昵称或密码</text>
   </view>
 </view>

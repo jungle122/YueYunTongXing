@@ -1,3 +1,5 @@
+var userModule = require("../../utils/user.js");
+
 Page({
   data: {
     historyList: [],
@@ -14,8 +16,7 @@ Page({
   },
   loadHistory() {
     var self = this;
-    var historyStr = wx.getStorageSync("learningHistory") || "[]";
-    var history = JSON.parse(historyStr);
+    var history = userModule.getUserStorage("learningHistory", []);
     var sorted = history.sort(function(a, b) { return new Date(b.timestamp) - new Date(a.timestamp); });
     sorted.forEach(function(item) {
       item.icon = self.getItemIcon(item.type);

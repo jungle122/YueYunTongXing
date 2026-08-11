@@ -1,4 +1,7 @@
 var userModule = require('../../utils/user.js');
+var avatarModule = require('../../utils/avatars.js');
+var cloudUserModule = require('../../utils/cloud-user.js');
+var learningSyncModule = require('../../utils/learning-sync.js');
 
 Page({
   data: {
@@ -7,19 +10,38 @@ Page({
     dailyReminder: true,
     difficultyLevels: ['入门', '初级', '中级', '高级'],
     difficultyIndex: 1,
-    emojiAvatars: [
-      { emoji: '🦊', name: '小狐狸', bg: 'linear-gradient(135deg, #FFB347, #FF8C42)' },
-      { emoji: '🐱', name: '小猫咪', bg: 'linear-gradient(135deg, #87CEEB, #6BB5E0)' },
-      { emoji: '🐶', name: '小狗狗', bg: 'linear-gradient(135deg, #98D8C8, #7BC8B5)' }
-    ],
-    selectedEmoji: -1,
+    stickerAvatars: avatarModule.STICKER_AVATARS,
+    selectedSticker: -1,
     currentAvatar: '',
     avatarType: 'emoji',
-    wechatAvatarUrl: ''
+    wechatAvatarUrl: '',
+    isRestoring: true,
+    isSaving: false,
+    identityError: '',
+    nicknameFocused: false
   },
 
   onLoad: function() {
-    this.loadSettings();
+    this.initializeSettings();
+  },
+
+  initializeSettings: async function() {
+    var app = getApp();
+    try {
+      var profileReady = app.globalData.profileReady;
+      if (profileReady && typeof profileReady.then === 'function') await profileReady;
+      this.loadSettings();
+      this.setData({
+        isRestoring: false,
+        identityError: app.globalData.profileError || ''
+      });
+    } catch (error) {
+      this.loadSettings();
+      this.setData({
+        isRestoring: false,
+        identityError: error && error.message ? error.message : '微信身份服务暂时不可用'
+      });
+    }
   },
 
   loadSettings: function() {
@@ -34,19 +56,14 @@ Page({
 
     var currentAvatar = '';
     var avatarType = 'emoji';
-    var selectedEmoji = -1;
+    var selectedSticker = -1;
     var wechatAvatarUrl = '';
 
     if (user) {
       currentAvatar = user.avatar || '';
       avatarType = user.avatarType || 'emoji';
-      if (avatarType === 'emoji') {
-        for (var i = 0; i < this.data.emojiAvatars.length; i++) {
-          if (this.data.emojiAvatars[i].emoji === currentAvatar) {
-            selectedEmoji = i;
-            break;
-          }
-        }
+      if (avatarType === 'sticker') {
+        selectedSticker = avatarModule.findStickerIndex(currentAvatar);
       } else if (avatarType === 'wechat') {
         wechatAvatarUrl = currentAvatar;
       }
@@ -71,17 +88,17 @@ Page({
       difficultyIndex: idx,
       currentAvatar: currentAvatar,
       avatarType: avatarType,
-      selectedEmoji: selectedEmoji,
+      selectedSticker: selectedSticker,
       wechatAvatarUrl: wechatAvatarUrl
     });
   },
 
-  selectEmoji: function(e) {
+  selectSticker: function(e) {
     var index = e.currentTarget.dataset.index;
     this.setData({
-      selectedEmoji: index,
-      currentAvatar: this.data.emojiAvatars[index].emoji,
-      avatarType: 'emoji',
+      selectedSticker: index,
+      currentAvatar: this.data.stickerAvatars[index].src,
+      avatarType: 'sticker',
       wechatAvatarUrl: ''
     });
   },
@@ -93,13 +110,24 @@ Page({
         wechatAvatarUrl: avatarUrl,
         currentAvatar: avatarUrl,
         avatarType: 'wechat',
-        selectedEmoji: -1
+        selectedSticker: -1
       });
     }
   },
 
   onNicknameInput: function(e) {
     this.setData({ nickname: e.detail.value });
+  },
+
+  useWechatNickname: function() {
+    var self = this;
+    this.setData({ nicknameFocused: false }, function() {
+      self.setData({ nicknameFocused: true });
+    });
+  },
+
+  onNicknameBlur: function() {
+    this.setData({ nicknameFocused: false });
   },
 
   onReminderChange: function(e) {
@@ -110,61 +138,56 @@ Page({
     this.setData({ difficultyIndex: e.detail.value });
   },
 
-  saveSettings: function() {
+  saveSettings: async function() {
+    if (this.data.isSaving || this.data.isRestoring) return;
     var nickname = this.data.nickname.trim();
     if (!nickname) {
       wx.showToast({ title: '请输入昵称', icon: 'none' });
       return;
     }
 
-    // Update user module
-    if (userModule.isLoggedIn()) {
-      userModule.updateCurrentUser({
+    var currentUser = userModule.getCurrentUser();
+    this.setData({ isSaving: true, identityError: '' });
+    try {
+      var reusableAvatarFileID = currentUser && this.data.avatarType === 'wechat' && this.data.currentAvatar === currentUser.avatar
+        ? (currentUser.communityAvatarFileID || '')
+        : '';
+      var result = await cloudUserModule.saveProfile({
+        userId: currentUser ? (currentUser.userId || '') : '',
         nickname: nickname,
         avatar: this.data.currentAvatar,
-        avatarType: this.data.avatarType
+        avatarType: this.data.avatarType,
+        communityAvatarFileID: reusableAvatarFileID
       });
-    } else {
-      // Register/update via user module
-      userModule.register({
-        nickname: nickname,
-        avatar: this.data.currentAvatar,
-        avatarType: this.data.avatarType
-      });
-    }
+      if (!currentUser) await learningSyncModule.restore();
+      getApp().globalData.profileError = '';
+      this.setData({ isLoggedIn: true, identityError: '' });
 
-    // Save legacy storage keys for backward compatibility
-    wx.setStorageSync('userNickname', nickname);
-    wx.setStorageSync('dailyReminder', this.data.dailyReminder);
-    wx.setStorageSync('difficultyLevel', this.data.difficultyLevels[this.data.difficultyIndex]);
+      // 学习偏好暂时保留为本机设置，不参与账号识别。
+      wx.setStorageSync('userNickname', nickname);
+      wx.setStorageSync('dailyReminder', this.data.dailyReminder);
+      wx.setStorageSync('difficultyLevel', this.data.difficultyLevels[this.data.difficultyIndex]);
 
-    wx.showToast({ title: '设置已保存', icon: 'success', duration: 1500 });
+      wx.showToast({ title: '资料已同步', icon: 'success', duration: 1500 });
 
-    var self = this;
-    setTimeout(function() {
-      var pages = getCurrentPages();
-      if (pages && pages.length > 1) {
-        wx.navigateBack();
-      } else {
-        wx.switchTab({ url: '/pages/profile/profile' });
-      }
-    }, 1500);
-  },
-
-  handleLogout: function() {
-    wx.showModal({
-      title: '退出登录',
-      content: '确定要退出登录吗？',
-      success: function(res) {
-        if (res.confirm) {
-          userModule.logout();
-          wx.showToast({ title: '已退出登录', icon: 'success' });
-          setTimeout(function() {
-            wx.navigateTo({ url: '/pages/login/login' });
-          }, 1500);
+      setTimeout(function() {
+        var pages = getCurrentPages();
+        if (pages && pages.length > 1) {
+          wx.navigateBack();
+        } else {
+          wx.switchTab({ url: '/pages/profile/profile' });
         }
-      }
-    });
+      }, 1500);
+    } catch (error) {
+      var message = error && error.message ? error.message : '资料同步失败，请稍后再试';
+      this.setData({ identityError: message });
+      wx.showToast({
+        title: message,
+        icon: 'none'
+      });
+    } finally {
+      this.setData({ isSaving: false });
+    }
   },
 
   goBack: function() {

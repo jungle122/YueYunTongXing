@@ -1,3 +1,5 @@
+var userModule = require('./user.js');
+
 var TEMPLATE_GROUPS = [
   {
     id: 'achievement',
@@ -59,7 +61,7 @@ function parseHistory(value) {
 }
 
 function getLearningStats() {
-  var history = parseHistory(wx.getStorageSync('learningHistory') || '[]');
+  var history = parseHistory(userModule.getUserStorage('learningHistory', []));
   var now = new Date();
   var todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
   var tomorrowStart = todayStart + 24 * 60 * 60 * 1000;

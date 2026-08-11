@@ -1,3 +1,5 @@
+var userModule = require("../../utils/user.js");
+
 Page({
   data: {
     stats: {
@@ -22,8 +24,7 @@ Page({
     else { wx.switchTab({ url: "/pages/profile/profile" }); }
   },
   calculateStats() {
-    var historyStr = wx.getStorageSync("learningHistory") || "[]";
-    var history = JSON.parse(historyStr);
+    var history = userModule.getUserStorage("learningHistory", []);
     var totalSeconds = history.reduce(function(total, item) { return total + (item.duration || 0); }, 0);
     var totalHours = Math.floor(totalSeconds / 3600);
     var totalMinutes = Math.floor(totalSeconds / 60);
@@ -38,7 +39,7 @@ Page({
     var currentStreak = this.calculateStreak(history);
     var favoriteGroups = ["audio_likes", "video_favorites", "text_science_collections", "picture_book_favorites"];
     var favoriteCount = favoriteGroups.reduce(function(total, storageKey) {
-      var group = wx.getStorageSync(storageKey) || {};
+      var group = userModule.getUserStorage(storageKey, {});
       return total + Object.keys(group).filter(function(key) { return !!group[key]; }).length;
     }, 0);
     var catStats = { audio: { count: 0, totalTime: 0 }, video: { count: 0, totalTime: 0 }, article: { count: 0, totalTime: 0 } };

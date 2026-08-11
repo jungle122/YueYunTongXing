@@ -1,4 +1,6 @@
 var audioCatalog = require("../audio-learning/audio-catalog.js");
+var userModule = require("../../utils/user.js");
+var learningSyncModule = require("../../utils/learning-sync.js");
 
 Page({
   data: {
@@ -50,8 +52,8 @@ Page({
       this.setData({ isLoading: false, loadError: "音频资源暂时不可用，请稍后重试" });
       return;
     }
-    var likes = wx.getStorageSync("audio_likes") || {};
-    var progressMap = wx.getStorageSync("audio_progress") || {};
+    var likes = userModule.getUserStorage("audio_likes", {});
+    var progressMap = userModule.getUserStorage("audio_progress", {});
     var progress = Number(progressMap[song.id]) || 0;
 
     this.setData({
@@ -227,10 +229,11 @@ Page({
   toggleLike() {
     var song = this.data.song;
     if (!song) return;
-    var likes = wx.getStorageSync("audio_likes") || {};
+    var likes = userModule.getUserStorage("audio_likes", {});
     var nextLiked = !this.data.isLiked;
     likes[song.id] = nextLiked;
-    wx.setStorageSync("audio_likes", likes);
+    userModule.setUserStorage("audio_likes", likes);
+    learningSyncModule.markDirty();
     this.setData({ isLiked: nextLiked });
     wx.showToast({ title: nextLiked ? "已收藏这首歌" : "已取消收藏", icon: "none" });
   },
@@ -378,9 +381,10 @@ Page({
 
   persistProgress(progress) {
     if (!this.data.song) return;
-    var progressMap = wx.getStorageSync("audio_progress") || {};
+    var progressMap = userModule.getUserStorage("audio_progress", {});
     progressMap[this.data.song.id] = Math.max(0, Math.min(100, Math.round(progress || 0)));
-    wx.setStorageSync("audio_progress", progressMap);
+    userModule.setUserStorage("audio_progress", progressMap);
+    learningSyncModule.markDirty();
   },
 
   formatTime(seconds) {
@@ -394,8 +398,7 @@ Page({
     var song = this.data.song;
     if (!song) return;
     try {
-      var historyValue = wx.getStorageSync("learningHistory") || "[]";
-      var history = Array.isArray(historyValue) ? historyValue : JSON.parse(historyValue);
+      var history = userModule.getUserStorage("learningHistory", []);
       var today = new Date().toDateString();
       var existingIndex = -1;
       for (var i = 0; i < history.length; i++) {
@@ -410,7 +413,8 @@ Page({
         history.push({ type: "audio", title: song.title, itemId: song.id, timestamp: new Date().toISOString(), duration: 0 });
       }
       if (history.length > 100) history.splice(0, history.length - 100);
-      wx.setStorageSync("learningHistory", JSON.stringify(history));
+      userModule.setUserStorage("learningHistory", history);
+      learningSyncModule.markDirty();
     } catch (e) {
       console.error("记录学习历史失败:", e);
     }
@@ -422,15 +426,15 @@ Page({
     this.setData({ playStartedAt: 0 });
     if (!seconds) return;
     try {
-      var historyValue = wx.getStorageSync("learningHistory") || "[]";
-      var history = Array.isArray(historyValue) ? historyValue : JSON.parse(historyValue);
+      var history = userModule.getUserStorage("learningHistory", []);
       for (var i = history.length - 1; i >= 0; i--) {
         if (history[i].itemId === this.data.song.id && history[i].type === "audio") {
           history[i].duration = (history[i].duration || 0) + seconds;
           break;
         }
       }
-      wx.setStorageSync("learningHistory", JSON.stringify(history));
+      userModule.setUserStorage("learningHistory", history);
+      learningSyncModule.markDirty();
     } catch (e) {
       console.error("更新学习时长失败:", e);
     }

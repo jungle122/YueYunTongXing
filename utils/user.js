@@ -5,6 +5,15 @@
 
 var USER_KEY = 'current_user';
 var USERS_KEY = 'registered_users';
+var LEGACY_LEARNING_KEYS = [
+  'learningHistory',
+  'audio_likes',
+  'audio_progress',
+  'video_favorites',
+  'text_science_collections',
+  'text_science_read_progress',
+  'picture_book_favorites'
+];
 
 /**
  * 生成唯一用户ID
@@ -69,7 +78,7 @@ function register(userInfo) {
     userId: generateUserId(),
     nickname: userInfo.nickname,
     avatar: userInfo.avatar || '',
-    avatarType: userInfo.avatarType || 'emoji', // emoji | wechat
+    avatarType: userInfo.avatarType || 'emoji', // emoji | sticker | wechat
     createTime: new Date().toISOString(),
     totalStudyMinutes: 0,
     checkinDays: 0,
@@ -113,6 +122,65 @@ function setCurrentUser(user) {
     wx.setStorageSync(USER_KEY, JSON.stringify(user));
   } catch (e) {
     console.error('设置当前用户失败:', e);
+  }
+}
+
+/**
+ * 缓存由云端微信身份返回的用户资料，不再按昵称判断账号。
+ */
+function cacheProfile(profile) {
+  if (!profile || !profile.userId) return null;
+  var users = getUsers();
+  var cached = null;
+  for (var i = 0; i < users.length; i++) {
+    if (users[i].userId === profile.userId) {
+      cached = Object.assign({}, users[i], profile);
+      users[i] = cached;
+      break;
+    }
+  }
+  if (!cached) {
+    cached = Object.assign({
+      createTime: new Date().toISOString(),
+      totalStudyMinutes: 0,
+      checkinDays: 0,
+      lastCheckinDate: '',
+      achievements: []
+    }, profile);
+    users.push(cached);
+  }
+  saveUsers(users);
+  setCurrentUser(cached);
+  return cached;
+}
+
+/**
+ * 首次绑定微信身份时复制旧本地账号的数据，原键保留用于回退。
+ */
+function copyUserStorage(oldUserId, newUserId) {
+  if (!oldUserId || !newUserId || oldUserId === newUserId) return;
+  try {
+    var keys = wx.getStorageInfoSync().keys || [];
+    var oldPrefix = 'user_' + oldUserId + '_';
+    var newPrefix = 'user_' + newUserId + '_';
+    keys.forEach(function(key) {
+      if (key.indexOf(oldPrefix) !== 0) return;
+      var newKey = newPrefix + key.slice(oldPrefix.length);
+      var existing = wx.getStorageSync(newKey);
+      if (existing === '' || existing === undefined || existing === null) {
+        wx.setStorageSync(newKey, wx.getStorageSync(key));
+      }
+    });
+    LEGACY_LEARNING_KEYS.forEach(function(key) {
+      var newKey = newPrefix + key;
+      var existing = wx.getStorageSync(newKey);
+      var legacy = wx.getStorageSync(key);
+      if ((existing === '' || existing === undefined || existing === null) && legacy !== '' && legacy !== undefined && legacy !== null) {
+        wx.setStorageSync(newKey, legacy);
+      }
+    });
+  } catch (error) {
+    console.error('迁移旧用户本地数据失败:', error);
   }
 }
 
@@ -262,5 +330,7 @@ module.exports = {
   setUserStorage: setUserStorage,
   getUserStorage: getUserStorage,
   getUsers: getUsers,
-  getLeaderboard: getLeaderboard
+  getLeaderboard: getLeaderboard,
+  cacheProfile: cacheProfile,
+  copyUserStorage: copyUserStorage
 };

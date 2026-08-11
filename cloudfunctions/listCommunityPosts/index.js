@@ -5,8 +5,10 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 const db = cloud.database();
 const _ = db.command;
 const POSTS_COLLECTION = 'communityPosts';
+const PROFILES_COLLECTION = 'userProfiles';
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 20;
+const PROFILE_QUERY_BATCH_SIZE = 10;
 
 function failure(code, message) {
   return { ok: false, code: code, message: message };
@@ -18,6 +20,34 @@ function toDate(value) {
   if (value.$date) return new Date(value.$date);
   const date = new Date(value);
   return Number.isNaN(date.getTime()) ? null : date;
+}
+
+async function getProfilesByOpenid(records) {
+  const openids = [];
+  records.forEach(function(record) {
+    if (record.openid && openids.indexOf(record.openid) === -1) openids.push(record.openid);
+  });
+  if (openids.length === 0) return {};
+
+  const tasks = [];
+  for (let index = 0; index < openids.length; index += PROFILE_QUERY_BATCH_SIZE) {
+    const batch = openids.slice(index, index + PROFILE_QUERY_BATCH_SIZE);
+    tasks.push(
+      db.collection(PROFILES_COLLECTION)
+        .where({ openid: _.in(batch) })
+        .limit(batch.length)
+        .get()
+    );
+  }
+
+  const results = await Promise.all(tasks);
+  const profilesByOpenid = {};
+  results.forEach(function(result) {
+    (result.data || []).forEach(function(profile) {
+      if (profile.openid) profilesByOpenid[profile.openid] = profile;
+    });
+  });
+  return profilesByOpenid;
 }
 
 exports.main = async function(event) {
@@ -39,10 +69,14 @@ exports.main = async function(event) {
       .limit(limit)
       .get();
     const records = result.data || [];
+    const profilesByOpenid = await getProfilesByOpenid(records);
     const avatarFileIDs = [];
     records.forEach(function(record) {
-      if (record.avatarType === 'wechat' && record.avatar && avatarFileIDs.indexOf(record.avatar) === -1) {
-        avatarFileIDs.push(record.avatar);
+      const profile = profilesByOpenid[record.openid];
+      const avatarType = profile ? profile.avatarType : record.avatarType;
+      const avatar = profile ? profile.avatar : record.avatar;
+      if (avatarType === 'wechat' && avatar && avatarFileIDs.indexOf(avatar) === -1) {
+        avatarFileIDs.push(avatar);
       }
     });
 
@@ -56,11 +90,17 @@ exports.main = async function(event) {
 
     const posts = records.map(function(record) {
       const createdAt = toDate(record.createdAt);
+      const profile = profilesByOpenid[record.openid];
+      const nickname = profile && profile.nickname ? profile.nickname : record.nickname;
+      const avatar = profile && profile.avatar !== undefined ? profile.avatar : record.avatar;
+      const avatarType = profile && profile.avatarType ? profile.avatarType : record.avatarType;
       return {
         id: record._id,
-        nickname: record.nickname || '粤韵小伙伴',
-        avatar: record.avatarType === 'wechat' ? (avatarUrls[record.avatar] || '') : (record.avatar || ''),
-        avatarType: record.avatarType === 'wechat' && avatarUrls[record.avatar] ? 'wechat' : 'emoji',
+        nickname: nickname || '粤韵小伙伴',
+        avatar: avatarType === 'wechat' ? (avatarUrls[avatar] || '') : (avatar || ''),
+        avatarType: avatarType === 'wechat'
+          ? (avatarUrls[avatar] ? 'wechat' : 'emoji')
+          : (avatarType === 'sticker' ? 'sticker' : 'emoji'),
         content: record.content || '',
         time: createdAt ? createdAt.toISOString() : '',
         isMine: record.openid === openid,
