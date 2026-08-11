@@ -1,4 +1,6 @@
 var articleCatalog = require("../text-science/article-catalog.js");
+var userModule = require("../../utils/user.js");
+var learningSyncModule = require("../../utils/learning-sync.js");
 
 Page({
   data: {
@@ -14,8 +16,8 @@ Page({
   onLoad(options) {
     var articleId = options && options.itemId ? decodeURIComponent(options.itemId) : "cantonese-history";
     var article = articleCatalog.getArticleById(articleId) || articleCatalog.getArticles()[0];
-    var collections = wx.getStorageSync("text_science_collections") || {};
-    var progressMap = wx.getStorageSync("text_science_read_progress") || {};
+    var collections = userModule.getUserStorage("text_science_collections", {});
+    var progressMap = userModule.getUserStorage("text_science_read_progress", {});
     var progress = Math.max(10, Math.min(100, Number(progressMap[article.id]) || 0));
     var systemInfo = wx.getSystemInfoSync();
 
@@ -77,10 +79,11 @@ Page({
 
   toggleCollect() {
     if (!this.data.article) return;
-    var collections = wx.getStorageSync("text_science_collections") || {};
+    var collections = userModule.getUserStorage("text_science_collections", {});
     var nextCollected = !this.data.collected;
     collections[this.data.article.id] = nextCollected;
-    wx.setStorageSync("text_science_collections", collections);
+    userModule.setUserStorage("text_science_collections", collections);
+    learningSyncModule.markDirty();
     this.setData({
       collected: nextCollected,
       showToast: true,
@@ -92,15 +95,15 @@ Page({
 
   persistProgress(progress) {
     if (!this.data.article) return;
-    var progressMap = wx.getStorageSync("text_science_read_progress") || {};
+    var progressMap = userModule.getUserStorage("text_science_read_progress", {});
     progressMap[this.data.article.id] = progress;
-    wx.setStorageSync("text_science_read_progress", progressMap);
+    userModule.setUserStorage("text_science_read_progress", progressMap);
+    learningSyncModule.markDirty();
   },
 
   recordLearningHistory(article) {
     try {
-      var historyValue = wx.getStorageSync("learningHistory") || "[]";
-      var history = Array.isArray(historyValue) ? historyValue : JSON.parse(historyValue);
+      var history = userModule.getUserStorage("learningHistory", []);
       var today = new Date().toDateString();
       var existingIndex = -1;
       for (var i = 0; i < history.length; i++) {
@@ -116,7 +119,8 @@ Page({
         history.push({ type: "article", title: article.title, itemId: article.id, timestamp: new Date().toISOString(), duration: Math.floor(this.data.progress / 10) * 60 });
       }
       if (history.length > 100) history.splice(0, history.length - 100);
-      wx.setStorageSync("learningHistory", JSON.stringify(history));
+      userModule.setUserStorage("learningHistory", history);
+      learningSyncModule.markDirty();
     } catch (error) {
       console.error("记录文章学习历史失败:", error);
     }
@@ -125,15 +129,15 @@ Page({
   updateLearningHistory(progress) {
     if (!this.data.article) return;
     try {
-      var historyValue = wx.getStorageSync("learningHistory") || "[]";
-      var history = Array.isArray(historyValue) ? historyValue : JSON.parse(historyValue);
+      var history = userModule.getUserStorage("learningHistory", []);
       for (var i = history.length - 1; i >= 0; i--) {
         if (history[i].itemId === this.data.article.id && history[i].type === "article") {
           history[i].duration = Math.floor(progress / 10) * 60;
           break;
         }
       }
-      wx.setStorageSync("learningHistory", JSON.stringify(history));
+      userModule.setUserStorage("learningHistory", history);
+      learningSyncModule.markDirty();
     } catch (error) {
       console.error("更新文章学习历史失败:", error);
     }

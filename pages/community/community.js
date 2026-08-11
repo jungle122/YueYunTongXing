@@ -1,5 +1,6 @@
 var userModule = require('../../utils/user.js');
 var communityModule = require('../../utils/community.js');
+var learningSyncModule = require('../../utils/learning-sync.js');
 
 Page({
   data: {
@@ -150,6 +151,7 @@ Page({
     var checkins = userModule.getUserStorage('checkins', []);
     if (checkins.indexOf(today) < 0) checkins.push(today);
     userModule.setUserStorage('checkins', checkins);
+    learningSyncModule.markDirty();
 
     var user = userModule.getCurrentUser();
     if (user) userModule.updateCurrentUser({ checkinDays: checkins.length });
@@ -204,7 +206,7 @@ Page({
     var postsSent = userModule.getUserStorage('community_posts_sent', 0);
     var favoriteGroups = ['audio_likes', 'video_favorites', 'text_science_collections', 'picture_book_favorites'];
     var favCount = favoriteGroups.reduce(function(total, storageKey) {
-      var group = wx.getStorageSync(storageKey) || {};
+      var group = userModule.getUserStorage(storageKey, {});
       return total + Object.keys(group).filter(function(key) { return !!group[key]; }).length;
     }, 0);
 
@@ -293,6 +295,7 @@ Page({
 
       var sentCount = userModule.getUserStorage('community_posts_sent', 0);
       userModule.setUserStorage('community_posts_sent', sentCount + 1);
+      learningSyncModule.markDirty();
       this.setData({
         selectedTemplateIndex: -1,
         selectedTemplateLabel: '',
@@ -311,6 +314,9 @@ Page({
   },
 
   prepareCommunityAvatar: async function(user) {
+    if (user.avatarType === 'sticker' && user.avatar) {
+      return { avatar: user.avatar, avatarType: 'sticker' };
+    }
     if (user.avatarType !== 'wechat' || !user.avatar) {
       return { avatar: user.avatar || '', avatarType: 'emoji' };
     }

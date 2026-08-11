@@ -1,3 +1,5 @@
+var userModule = require("../../utils/user.js");
+
 Page({
   data: {
     favorites: [],
@@ -15,7 +17,7 @@ Page({
     var favorites = [];
     var self = this;
     try {
-      var audioLikes = wx.getStorageSync("audio_likes") || {};
+      var audioLikes = userModule.getUserStorage("audio_likes", {});
       Object.keys(audioLikes).forEach(function(songId) {
         if (audioLikes[songId] === true) {
           var numId = songId.replace("song", "");
@@ -32,7 +34,7 @@ Page({
       });
     } catch (e) { console.error("读取音频收藏失败:", e); }
     try {
-      var videoFavorites = wx.getStorageSync("video_favorites") || {};
+      var videoFavorites = userModule.getUserStorage("video_favorites", {});
       Object.keys(videoFavorites).forEach(function(videoId) {
         if (videoFavorites[videoId] === true) {
           var videoData = self.getVideoDataById(videoId);
@@ -48,7 +50,7 @@ Page({
       });
     } catch (e) { console.error("读取视频收藏失败:", e); }
     try {
-      var textCollections = wx.getStorageSync("text_science_collections") || {};
+      var textCollections = userModule.getUserStorage("text_science_collections", {});
       Object.keys(textCollections).forEach(function(articleId) {
         if (textCollections[articleId] === true) {
           favorites.push({
@@ -61,7 +63,7 @@ Page({
       });
     } catch (e) { console.error("读取文章收藏失败:", e); }
     try {
-      var pictureBookFavorites = wx.getStorageSync("picture_book_favorites") || {};
+      var pictureBookFavorites = userModule.getUserStorage("picture_book_favorites", {});
       Object.keys(pictureBookFavorites).forEach(function(bookId) {
         var bookFavorite = pictureBookFavorites[bookId];
         if (bookFavorite) {

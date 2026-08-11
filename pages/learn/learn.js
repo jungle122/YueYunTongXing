@@ -1,5 +1,6 @@
 var audioCatalog = require("../audio-learning/audio-catalog");
 var articleCatalog = require("../text-science/article-catalog");
+var userModule = require("../../utils/user.js");
 
 Page({
   data: {
@@ -29,11 +30,7 @@ Page({
   calculateCategoryProgress(storageKey, itemIds) {
     if (!itemIds.length) return 0;
 
-    var progressMap = wx.getStorageSync(storageKey) || {};
-    if (typeof progressMap === "string") {
-      try { progressMap = JSON.parse(progressMap); }
-      catch (error) { progressMap = {}; }
-    }
+    var progressMap = userModule.getUserStorage(storageKey, {});
     if (!progressMap || typeof progressMap !== "object" || Array.isArray(progressMap)) {
       progressMap = {};
     }

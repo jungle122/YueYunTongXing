@@ -1,4 +1,5 @@
 var audioCatalog = require("./audio-catalog.js");
+var userModule = require("../../utils/user.js");
 
 Page({
   data: {
@@ -18,8 +19,8 @@ Page({
   },
 
   refreshSongs() {
-    var likes = wx.getStorageSync("audio_likes") || {};
-    var progressMap = wx.getStorageSync("audio_progress") || {};
+    var likes = userModule.getUserStorage("audio_likes", {});
+    var progressMap = userModule.getUserStorage("audio_progress", {});
     var songs = audioCatalog.getSongs().map(function(song, index) {
       var progress = Number(progressMap[song.id]) || 0;
       return Object.assign({}, song, {

@@ -23,7 +23,11 @@ Page({
     this.loadRecentLearning();
   },
 
-  checkLogin() {
+  async checkLogin() {
+    var profileReady = getApp().globalData.profileReady;
+    if (profileReady && typeof profileReady.then === 'function') {
+      await profileReady;
+    }
     if (!userModule.isLoggedIn()) {
       wx.navigateTo({ url: '/pages/login/login' });
     }
@@ -31,13 +35,7 @@ Page({
 
   loadRecentLearning() {
     try {
-      const historyKey = userModule.isLoggedIn() ? userModule.getUserKey('learningHistory') : 'learningHistory';
-      let storedHistory = wx.getStorageSync(historyKey);
-      if (!storedHistory && historyKey !== 'learningHistory') {
-        storedHistory = wx.getStorageSync('learningHistory');
-      }
-      storedHistory = storedHistory || "[]";
-      const history = Array.isArray(storedHistory) ? storedHistory : JSON.parse(storedHistory);
+      const history = userModule.getUserStorage('learningHistory', []);
       const validHistory = history
         .filter(function(item) {
           return item && item.title && item.timestamp && !Number.isNaN(new Date(item.timestamp).getTime());

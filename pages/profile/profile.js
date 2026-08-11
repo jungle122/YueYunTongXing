@@ -59,13 +59,7 @@ Page({
     }
   },
   loadStats() {
-    var historyKey = userModule.isLoggedIn() ? userModule.getUserKey('learningHistory') : 'learningHistory';
-    var history = wx.getStorageSync(historyKey);
-    if (!history && historyKey !== 'learningHistory') {
-      history = wx.getStorageSync('learningHistory');
-    }
-    history = history || "[]";
-    var historyList = typeof history === 'string' ? JSON.parse(history) : history;
+    var historyList = userModule.getUserStorage('learningHistory', []);
     if (!Array.isArray(historyList)) historyList = [];
 
     var learningDaysSet = new Set();
@@ -77,7 +71,7 @@ Page({
     });
     var favoriteGroups = ["audio_likes", "video_favorites", "text_science_collections", "picture_book_favorites"];
     var favCount = favoriteGroups.reduce(function(total, storageKey) {
-      var group = wx.getStorageSync(storageKey) || {};
+      var group = userModule.getUserStorage(storageKey, {});
       return total + Object.keys(group).filter(function(key) { return !!group[key]; }).length;
     }, 0);
     var currentStreak = this.calculateStreak(historyList);
