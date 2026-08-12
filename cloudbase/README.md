@@ -12,6 +12,16 @@
 
 仅新增音频和视频时，可以导入 `mediaAssets.audio-video.insert.json`；首次使用 Insert，重复导入同一 `_id` 时使用 Upsert。
 
+游戏童谣使用同一个 `audio-lessons` 清单，但不会显示在音频学习列表。上传到 `media/audio/` 时按以下名称保存：
+
+- `song24.m4a`：有只雀仔跌落水
+- `song25.m4a`：点虫虫
+- `song26.m4a`：排排坐
+- `song27.m4a`：打开蚊帐
+- `song28.m4a`：鸡公仔
+
+如需替换现有《落雨大》，覆盖 `media/audio/song19.m4a`。上传完成后，以 Upsert 模式导入仅包含音频记录的 `mediaAssets.audio-lessons.upsert.json`，不要为这次操作导入视频清单。
+
 导入文件采用 JSON Lines 格式，每行是一个完整文档。File ID 可以放入数据库，但临时 HTTPS 地址不能入库；临时地址由云函数在用户打开页面时生成。
 
 ## 统一字段

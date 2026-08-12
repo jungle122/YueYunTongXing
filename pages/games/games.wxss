@@ -20,7 +20,6 @@
 }
 
 .difficulty-row,
-.score-row,
 .difficulty-dots {
   display: flex;
   align-items: center;
@@ -51,22 +50,6 @@
 .active-dot {
   background: #efb841;
   box-shadow: inset 0 2rpx 0 rgba(255, 255, 255, 0.5);
-}
-
-.score-row {
-  margin-top: 10rpx;
-  justify-content: space-between;
-  color: #765f54;
-  font-size: 21rpx;
-}
-
-.accuracy-text,
-.best-score-text {
-  white-space: nowrap;
-}
-
-@media (max-width: 340px) {
-  .score-row { font-size: 19rpx; }
 }
 
 /* 初版分层入场动画，使用显式 class 以便 TabBar 页面再次显示时重播。 */

@@ -26,10 +26,6 @@
             <view class="difficulty-dot active-dot"></view>
           </view>
         </view>
-        <view class="score-row">
-          <text class="accuracy-text">🎯 准确率：72%</text>
-          <text class="best-score-text">🏆 最高分：980</text>
-        </view>
       </view>
     </view>
 
@@ -51,10 +47,6 @@
             <view class="difficulty-dot"></view>
           </view>
         </view>
-        <view class="score-row">
-          <text class="accuracy-text">🎯 准确率：78%</text>
-          <text class="best-score-text">🏆 最高分：1200</text>
-        </view>
       </view>
     </view>
 
@@ -75,10 +67,6 @@
             <view class="difficulty-dot active-dot"></view>
             <view class="difficulty-dot"></view>
           </view>
-        </view>
-        <view class="score-row">
-          <text class="accuracy-text">🎯 准确率：85%</text>
-          <text class="best-score-text">🏆 最高分：300</text>
         </view>
       </view>
     </view>
