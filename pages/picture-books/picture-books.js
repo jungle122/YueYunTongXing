@@ -1,5 +1,21 @@
 const MEDIA_TYPE = 'pictureBook';
 const TEMP_URL_REFRESH_INTERVAL = 90 * 60 * 1000;
+const BOOK_SUBTITLES = {
+  yueguang: {
+    1: '月光光 照地堂',
+    3: '虾仔你乖乖睡落床',
+    4: '明天阿妈要赶插秧',
+    5: '爷爷放牛他上山岗',
+    6: '虾仔你快高长大啦',
+    7: '帮忙爷爷去看牛羊',
+    8: '月光光 照地堂',
+    9: '虾仔你乖乖睡落床',
+    11: '明天爸爸要捕鱼虾啦',
+    12: '奶奶织网要织到天亮',
+    13: '虾仔你快高长大啦',
+    14: '划船撒网就更在行'
+  }
+};
 
 function getMediaLoadError(error) {
   if (error && error.isUserMessage) return error.message;
@@ -23,6 +39,7 @@ Page({
     currentPagePath: '',
     totalPages: 0,
     currentTitle: '',
+    currentSubtitle: '',
     isLastPage: false,
     isFirstPage: true,
     displayBooks: [],
@@ -104,7 +121,8 @@ Page({
         id: group.groupId,
         title: group.title,
         cover: group.coverUrl,
-        pages: pages
+        pages: pages,
+        subtitles: BOOK_SUBTITLES[group.groupId] || null
       };
     }).filter(function(book) {
       return book.id && book.title && book.cover && book.pages.length;
@@ -129,7 +147,12 @@ Page({
       ? book.pages[this.data.currentPageIndex]
       : '';
   },
-
+  getCurrentSubtitle() {
+    var book = this.getCurrentBook();
+    if (!book || !book.subtitles) return '';
+    var subtitle = book.subtitles[this.data.currentPageIndex + 1];
+    return subtitle || '';
+  },
   refreshCurrentBook() {
     var book = this.getCurrentBook();
     if (!book) return;
@@ -141,6 +164,7 @@ Page({
       currentTitle: book.title,
       totalPages: book.pages.length,
       currentPagePath: this.getCurrentPagePath(),
+      currentSubtitle: this.getCurrentSubtitle(),
       isFirstPage: currentPageIndex === 0,
       isLastPage: currentPageIndex >= book.pages.length - 1
     });
