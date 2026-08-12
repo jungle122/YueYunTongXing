@@ -2,6 +2,32 @@ var audioCatalog = require("../audio-learning/audio-catalog.js");
 var userModule = require("../../utils/user.js");
 var learningSyncModule = require("../../utils/learning-sync.js");
 
+var PLAY_MODE_STORAGE_KEY = "audio_play_mode";
+var PLAY_MODES = [
+  {
+    value: "sequence",
+    text: "顺序播放",
+    hint: "播完当前歌曲后播放下一首，最后一首播完后停止",
+    icon: "/static/icons/audio/list-music.png"
+  },
+  {
+    value: "single",
+    text: "单曲循环",
+    hint: "播完后重新播放当前歌曲",
+    icon: "/static/icons/audio/repeat-1.png"
+  },
+  {
+    value: "random",
+    text: "随机播放",
+    hint: "播完或点击下一首时随机播放其他歌曲",
+    icon: "/static/icons/audio/shuffle.png"
+  }
+];
+
+function getPlayMode(mode) {
+  return PLAY_MODES.find(function(item) { return item.value === mode; }) || PLAY_MODES[0];
+}
+
 Page({
   data: {
     song: null,
@@ -24,21 +50,35 @@ Page({
     playingRecording: false,
     hasRecording: false,
     isSavingRecording: false,
-    loadError: ""
+    loadError: "",
+    playModeOptions: PLAY_MODES,
+    playMode: "sequence",
+    playModeText: "顺序播放",
+    playModeHint: "播完当前歌曲后播放下一首，最后一首播完后停止"
   },
 
   onLoad(options) {
     var songId = options && options.itemId ? decodeURIComponent(options.itemId) : "song18";
+    var playMode = getPlayMode(userModule.getUserStorage(PLAY_MODE_STORAGE_KEY, "sequence"));
     this.currentSongId = songId;
+    this.setData({
+      playMode: playMode.value,
+      playModeText: playMode.text,
+      playModeHint: playMode.hint
+    });
     this.initRecorder();
     this.loadSong(songId);
   },
 
-  async loadSong(songId, force) {
+  async loadSong(songId, force, playbackOptions) {
+    playbackOptions = playbackOptions || {};
+    var loadToken = (this.songLoadToken || 0) + 1;
+    this.songLoadToken = loadToken;
     this.setData({ isLoading: true, loadError: "" });
     try {
       await audioCatalog.loadCloudSources(!!force);
     } catch (error) {
+      if (loadToken !== this.songLoadToken) return;
       console.error("加载音频资源失败:", error);
       this.setData({
         isLoading: false,
@@ -46,6 +86,7 @@ Page({
       });
       return;
     }
+    if (loadToken !== this.songLoadToken) return;
 
     var song = audioCatalog.getSongById(songId) || audioCatalog.getSongs()[0];
     if (!song || !song.audioSrc) {
@@ -55,15 +96,21 @@ Page({
     var likes = userModule.getUserStorage("audio_likes", {});
     var progressMap = userModule.getUserStorage("audio_progress", {});
     var progress = Number(progressMap[song.id]) || 0;
+    var visibleProgress = playbackOptions.restoreProgress === false ? 0 : progress;
 
     this.setData({
       song: song,
       isLiked: !!likes[song.id],
-      progress: Math.max(0, Math.min(100, progress)),
+      progress: Math.max(0, Math.min(100, visibleProgress)),
+      currentTime: 0,
+      duration: 0,
+      currentTimeText: "00:00",
+      durationText: "--:--",
       singingTips: song.tips || [],
       hasRecording: !!this.getRecordingPath(song.id)
     });
-    this.initAudio(song);
+    this.currentSongId = song.id;
+    this.initAudio(song, playbackOptions);
   },
 
   retryAudioMedia() {
@@ -90,16 +137,20 @@ Page({
     }
   },
 
-  initAudio(song) {
+  initAudio(song, playbackOptions) {
     var self = this;
     var audio = wx.createInnerAudioContext();
+    var shouldAutoPlay = !!playbackOptions.autoPlay;
+    var shouldRestoreProgress = playbackOptions.restoreProgress !== false;
     audio.volume = 1;
     audio.loop = false;
-    audio._restoredPosition = false;
+    audio._restoredPosition = !shouldRestoreProgress;
+    audio._autoPlayPending = shouldAutoPlay;
+    audio._isDisposing = false;
 
     audio.onCanplay(function() {
       setTimeout(function() {
-        if (!self.data.audio) return;
+        if (self.data.audio !== audio || audio._isDisposing) return;
         var duration = Number(audio.duration) || 0;
         self.setData({
           isLoading: false,
@@ -110,27 +161,37 @@ Page({
           audio._restoredPosition = true;
           try { audio.seek(duration * self.data.progress / 100); } catch (e) {}
         }
+        if (audio._autoPlayPending) {
+          audio._autoPlayPending = false;
+          try { audio.play(); } catch (e) {
+            self.setData({ isLoading: false });
+          }
+        }
       }, 120);
     });
 
     audio.onPlay(function() {
+      if (audio._isDisposing) return;
       self.setData({ playing: true, isLoading: false, playStartedAt: Date.now() });
       self.recordLearningHistory();
     });
 
     audio.onPause(function() {
+      if (audio._isDisposing) return;
       self.commitListeningDuration();
       self.persistProgress(self.data.progress);
       self.setData({ playing: false, isLoading: false });
     });
 
     audio.onStop(function() {
+      if (audio._isDisposing) return;
       self.commitListeningDuration();
       self.persistProgress(self.data.progress);
       self.setData({ playing: false, isLoading: false });
     });
 
     audio.onEnded(function() {
+      if (audio._isDisposing) return;
       self.commitListeningDuration();
       self.persistProgress(100);
       self.setData({
@@ -140,9 +201,11 @@ Page({
         currentTimeText: "00:00",
         progress: 100
       });
+      self.handlePlaybackEnded();
     });
 
     audio.onTimeUpdate(function() {
+      if (audio._isDisposing || self.data.audio !== audio) return;
       var duration = Number(audio.duration) || self.data.duration || 0;
       var currentTime = Number(audio.currentTime) || 0;
       var progress = duration > 0 ? Math.min(100, Math.round(currentTime / duration * 100)) : 0;
@@ -156,6 +219,7 @@ Page({
     });
 
     audio.onError(function(error) {
+      if (audio._isDisposing) return;
       console.error("音频播放失败:", error);
       self.setData({ playing: false, isLoading: false });
       wx.showToast({ title: "音频暂时无法播放", icon: "none" });
@@ -186,14 +250,72 @@ Page({
   },
 
   playPrevious() {
-    this.openAdjacentSong(-1);
+    this.openAdjacentSong(-1, true);
   },
 
   playNext() {
-    this.openAdjacentSong(1);
+    if (this.data.playMode === "random") {
+      this.openRandomSong(true);
+      return;
+    }
+    this.openAdjacentSong(1, true);
   },
 
-  openAdjacentSong(offset) {
+  selectPlayMode(event) {
+    var nextMode = getPlayMode(event.currentTarget.dataset.mode);
+    if (nextMode.value === this.data.playMode) return;
+    userModule.setUserStorage(PLAY_MODE_STORAGE_KEY, nextMode.value);
+    this.setData({
+      playMode: nextMode.value,
+      playModeText: nextMode.text,
+      playModeHint: nextMode.hint
+    });
+    wx.showToast({ title: "已切换为" + nextMode.text, icon: "none" });
+  },
+
+  handlePlaybackEnded() {
+    if (!this.data.song) return;
+    if (this.data.playMode === "single") {
+      var audio = this.data.audio;
+      if (!audio) return;
+      this.setData({ currentTime: 0, currentTimeText: "00:00", progress: 0, isLoading: true });
+      try {
+        audio.seek(0);
+        audio.play();
+      } catch (e) {
+        this.setData({ isLoading: false });
+      }
+      return;
+    }
+
+    var songs = audioCatalog.getSongs();
+    var currentId = this.data.song.id;
+    var currentIndex = songs.findIndex(function(item) { return item.id === currentId; });
+    if (currentIndex < 0 || !songs.length) return;
+
+    if (this.data.playMode === "random") {
+      this.openRandomSong(true);
+      return;
+    }
+
+    if (currentIndex < songs.length - 1) {
+      this.switchSong(songs[currentIndex + 1].id, true, false);
+    }
+  },
+
+  openRandomSong(autoPlay) {
+    if (!this.data.song) return;
+    var currentId = this.data.song.id;
+    var candidates = audioCatalog.getSongs().filter(function(item) {
+      return item.id !== currentId;
+    });
+    if (!candidates.length) candidates = audioCatalog.getSongs();
+    if (!candidates.length) return;
+    var randomSong = candidates[Math.floor(Math.random() * candidates.length)];
+    this.switchSong(randomSong.id, !!autoPlay, false);
+  },
+
+  openAdjacentSong(offset, autoPlay) {
     if (!this.data.song) return;
     var songs = audioCatalog.getSongs();
     var currentId = this.data.song.id;
@@ -202,10 +324,16 @@ Page({
     });
     if (currentIndex < 0) return;
     var nextSong = songs[(currentIndex + offset + songs.length) % songs.length];
+    this.switchSong(nextSong.id, !!autoPlay, true);
+  },
+
+  switchSong(songId, autoPlay, restoreProgress) {
     this.disposeAudio();
     this.disposeRecordingAudio();
-    wx.redirectTo({
-      url: "/pages/audio-player/audio-player?itemId=" + encodeURIComponent(nextSong.id)
+    this.currentSongId = songId;
+    this.loadSong(songId, false, {
+      autoPlay: !!autoPlay,
+      restoreProgress: restoreProgress !== false
     });
   },
 
@@ -372,6 +500,7 @@ Page({
 
   disposeAudio() {
     if (!this.data.audio) return;
+    this.data.audio._isDisposing = true;
     this.commitListeningDuration();
     this.persistProgress(this.data.progress);
     try { this.data.audio.stop(); } catch (e) {}

@@ -31,10 +31,10 @@
 ## 视频封面迁移
 
 1. 在私有云存储中新建目录 `media/video/covers/`。
-2. 将 `static/covers/video1.png`～`video10.png` 上传到该目录，云端文件名保持不变。
+2. 将 `video1.png`～`video10.png` 以及 `video11.jpg`～`video18.jpg` 上传到该目录，云端文件名保持不变。
 3. 向 `mediaAssets` 集合导入 `mediaAssets.video-covers.upsert.json`，导入模式选择 Upsert。
 4. 重新部署 `getMediaAssets` 云函数，选择“上传并部署：云端安装依赖”。
-5. 真机确认 10 张封面和 10 个视频都能正常加载后，才能从小程序代码包删除 `static/covers/`。
+5. 真机确认 18 张封面和 18 个视频都能正常加载。
 
 封面与视频一样保持私有；小程序只使用 `getMediaAssets` 返回的临时地址，不配置公开读取规则。
 

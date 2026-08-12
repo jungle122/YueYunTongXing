@@ -117,7 +117,11 @@ Page({
       { id: "video3", title: "《月光光》" }, { id: "video4", title: "小猪佩奇洗白白大作战！" },
       { id: "video5", title: "喜羊羊带你齐齐望过去！" }, { id: "video6", title: "火鸡总动员之何家公鸡魔性对决" },
       { id: "video7", title: "海绵宝宝带你扒龙船！" }, { id: "video8", title: "《走进小马宝莉的细小世界》" },
-      { id: "video9", title: "当哪吒遇见氹氹转" }, { id: "video10", title: "《当葫芦娃唱起月光光》" }
+      { id: "video9", title: "当哪吒遇见氹氹转" }, { id: "video10", title: "《当葫芦娃唱起月光光》" },
+      { id: "video11", title: "数字人带你看粤剧" }, { id: "video12", title: "数字人介绍齐齐望过去" },
+      { id: "video13", title: "数字人介绍粤语童谣" }, { id: "video14", title: "数字人介绍月光光" },
+      { id: "video15", title: "氹氹转改编" }, { id: "video16", title: "落雨大改编" },
+      { id: "video17", title: "落雨大改编（二）" }, { id: "video18", title: "月光光改编" }
     ];
     for (var i = 0; i < list.length; i++) { if (list[i].id === id) return list[i]; }
     return null;

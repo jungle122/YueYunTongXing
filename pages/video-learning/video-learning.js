@@ -1,5 +1,4 @@
 const VIDEO_GROUP_ID = "video-library";
-const TEMP_URL_REFRESH_INTERVAL = 90 * 60 * 1000;
 var userModule = require("../../utils/user.js");
 var learningSyncModule = require("../../utils/learning-sync.js");
 
@@ -19,7 +18,9 @@ Page({
     currentVideo: null,
     videoSrc: "",
     videoId: "",
-    contain: "contain",
+    playerLoading: false,
+    playerLoadSlow: false,
+    playerLoadError: "",
     isSeeking: false,
     lastVideoTime: 0,
     videoPlayStartTime: null,
@@ -35,22 +36,30 @@ Page({
     this.loadVideoMedia();
   },
   onShow() {
-    if (this.lastMediaLoadedAt && Date.now() - this.lastMediaLoadedAt >= TEMP_URL_REFRESH_INTERVAL) {
+    if (this.lastMediaLoadedAt) {
       this.loadVideoMedia({ silent: true });
     }
   },
   initVideos() {
     var videos = [
-      { id: "video1", title: "氹氹转", subtitle: "经典粤语童谣动画", description: "氹转，菊花圆，炒米饼，糯米团...", tags: ["经典","童谣","粤语"], poster: "" },
-      { id: "video2", title: "齐齐望过去", subtitle: "中秋节特别版", description: "齐齐望过去，一起过中秋...", tags: ["节日","童谣","中秋"], poster: "" },
-      { id: "video3", title: "月光光", subtitle: "睡前故事版", description: "月光光，照地堂，虾仔你乖乖瞓落床...", tags: ["睡前","经典","温馨"], poster: "" },
-      { id: "video4", title: "小猪佩奇洗白白大作战", subtitle: "动画联动版", description: "小猪佩奇带你学粤语童谣...", tags: ["动画","趣味","互动"], poster: "" },
-      { id: "video5", title: "喜羊羊带你齐齐望过去", subtitle: "喜羊羊联动版", description: "喜羊羊带你了解粤语童谣文化...", tags: ["动画","文化","教育"], poster: "" },
-      { id: "video6", title: "火鸡总动员之何家公鸡魔性对决", subtitle: "动画电影版", description: "火鸡总动员遇上粤语童谣...", tags: ["电影","搞笑","经典"], poster: "" },
-      { id: "video7", title: "海绵宝宝带你扒龙船", subtitle: "端午节特别版", description: "海绵宝宝学粤语童谣...", tags: ["动画","节日","趣味"], poster: "" },
-      { id: "video8", title: "走进小马宝莉的细小世界", subtitle: "小马宝莉联动版", description: "小马宝莉的粤语童谣之旅...", tags: ["动画","奇幻","童谣"], poster: "" },
-      { id: "video9", title: "当哪吒遇见氹氹转", subtitle: "国漫联动版", description: "哪吒学唱粤语童谣...", tags: ["国漫","经典","趣味"], poster: "" },
-      { id: "video10", title: "当葫芦娃唱起月光光", subtitle: "葫芦娃联动版", description: "葫芦娃的粤语童谣...", tags: ["国漫","经典","睡前"], poster: "" }
+      { id: "video1", title: "氹氹转", subtitle: "经典粤语童谣动画", description: "氹转，菊花圆，炒米饼，糯米团...", tags: ["经典","童谣","粤语"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video2", title: "齐齐望过去", subtitle: "中秋节特别版", description: "齐齐望过去，一起过中秋...", tags: ["节日","童谣","中秋"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video3", title: "月光光", subtitle: "睡前故事版", description: "月光光，照地堂，虾仔你乖乖瞓落床...", tags: ["睡前","经典","温馨"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video4", title: "小猪佩奇洗白白大作战", subtitle: "动画联动版", description: "小猪佩奇带你学粤语童谣...", tags: ["动画","趣味","互动"], poster: "", orientation: "portrait", fullscreenDirection: 0 },
+      { id: "video5", title: "喜羊羊带你齐齐望过去", subtitle: "喜羊羊联动版", description: "喜羊羊带你了解粤语童谣文化...", tags: ["动画","文化","教育"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video6", title: "火鸡总动员之何家公鸡魔性对决", subtitle: "动画电影版", description: "火鸡总动员遇上粤语童谣...", tags: ["电影","搞笑","经典"], poster: "", orientation: "portrait", fullscreenDirection: 0 },
+      { id: "video7", title: "海绵宝宝带你扒龙船", subtitle: "端午节特别版", description: "海绵宝宝学粤语童谣...", tags: ["动画","节日","趣味"], poster: "", orientation: "portrait", fullscreenDirection: 0 },
+      { id: "video8", title: "走进小马宝莉的细小世界", subtitle: "小马宝莉联动版", description: "小马宝莉的粤语童谣之旅...", tags: ["动画","奇幻","童谣"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video9", title: "当哪吒遇见氹氹转", subtitle: "国漫联动版", description: "哪吒学唱粤语童谣...", tags: ["国漫","经典","趣味"], poster: "", orientation: "portrait", fullscreenDirection: 0 },
+      { id: "video10", title: "当葫芦娃唱起月光光", subtitle: "葫芦娃联动版", description: "葫芦娃的粤语童谣...", tags: ["国漫","经典","睡前"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video11", title: "数字人带你看粤剧", subtitle: "数字人文化讲解", description: "跟随数字人走近粤剧艺术与岭南文化...", tags: ["数字人","粤剧","文化"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video12", title: "数字人介绍齐齐望过去", subtitle: "童谣数字人讲解", description: "从画面与唱词认识童谣《齐齐望过去》...", tags: ["数字人","童谣","讲解"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video13", title: "数字人介绍粤语童谣", subtitle: "岭南童谣入门", description: "跟随数字人了解粤语童谣的文化魅力...", tags: ["数字人","入门","文化"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video14", title: "数字人介绍月光光", subtitle: "童谣数字人讲解", description: "跟随数字人认识经典童谣《月光光》...", tags: ["数字人","月光光","讲解"], poster: "", orientation: "landscape", fullscreenDirection: 90 },
+      { id: "video15", title: "氹氹转改编", subtitle: "童谣创意改编", description: "用全新画面演绎经典粤语童谣《氹氹转》...", tags: ["改编","氹氹转","创意"], poster: "", orientation: "portrait", fullscreenDirection: 0 },
+      { id: "video16", title: "落雨大改编", subtitle: "童谣创意改编", description: "生活场景里的《落雨大》趣味新演绎...", tags: ["改编","落雨大","生活"], poster: "", orientation: "portrait", fullscreenDirection: 0 },
+      { id: "video17", title: "落雨大改编（二）", subtitle: "童谣创意改编", description: "岭南风情画面中的《落雨大》新演绎...", tags: ["改编","落雨大","岭南"], poster: "", orientation: "portrait", fullscreenDirection: 0 },
+      { id: "video18", title: "月光光改编", subtitle: "童谣创意改编", description: "温馨亲子画面演绎经典童谣《月光光》...", tags: ["改编","月光光","亲子"], poster: "", orientation: "portrait", fullscreenDirection: 0 }
     ];
     this.setData({ videos: videos });
     this.refreshDisplayVideos();
@@ -139,16 +148,20 @@ Page({
       this.refreshDisplayVideos();
       return;
     }
-    this.setData({ currentPlaying: video.id, playing: true, currentVideo: video, showPlayer: true, videoSrc: video.src || "", videoId: "video-" + video.id });
+    this.clearPlayerLoadTimer();
+    this.setData({ currentPlaying: video.id, playing: true, currentVideo: video, showPlayer: true, videoSrc: video.src || "", videoId: "video-" + video.id, playerLoading: true, playerLoadSlow: false, playerLoadError: "" });
+    this.startPlayerLoadTimer();
     this.refreshDisplayVideos();
     this.recordLearningHistory("video", video.title, video.id);
   },
   closePlayer() {
-    this.setData({ showPlayer: false, currentVideo: null, playing: false, currentPlaying: null, videoPlayDuration: 0 });
+    this.clearPlayerLoadTimer();
+    this.setData({ showPlayer: false, currentVideo: null, playing: false, currentPlaying: null, videoPlayDuration: 0, playerLoading: false, playerLoadSlow: false, playerLoadError: "" });
     this.refreshDisplayVideos();
   },
   onVideoPlay() {
-    this.setData({ playing: true, videoPlayStartTime: Date.now() });
+    this.clearPlayerLoadTimer();
+    this.setData({ playing: true, isSeeking: false, videoPlayStartTime: Date.now(), playerLoading: false, playerLoadSlow: false, playerLoadError: "" });
     this.refreshDisplayVideos();
     if (this.data.currentVideo) { this.recordLearningHistory("video", this.data.currentVideo.title, this.data.currentVideo.id); }
   },
@@ -168,14 +181,46 @@ Page({
   },
   onVideoError(e) {
     console.error("视频播放错误:", e);
-    wx.showModal({ title: "视频播放提示", content: "视频加载失败，请检查网络连接", showCancel: false });
-    this.closePlayer();
+    this.clearPlayerLoadTimer();
+    this.setData({ playing: false, playerLoading: false, playerLoadSlow: false, playerLoadError: "视频加载失败，请检查网络后重试" });
+    this.refreshDisplayVideos();
   },
-  onVideoLoaded() {},
-  onVideoWaiting() {},
+  onUnload() {
+    this.clearPlayerLoadTimer();
+  },
+  onVideoLoaded() {
+    this.clearPlayerLoadTimer();
+    this.setData({ playerLoading: false, playerLoadSlow: false, playerLoadError: "" });
+  },
+  onVideoWaiting() {
+    if (this.data.isSeeking || this.bufferNoticeTimer) return;
+    var self = this;
+    this.bufferNoticeTimer = setTimeout(function() {
+      self.bufferNoticeTimer = null;
+      if (!self.data.showPlayer || self.data.isSeeking || self.data.playerLoadError) return;
+      self.setData({ playerLoading: true, playerLoadSlow: false });
+      self.startPlayerLoadTimer();
+    }, 800);
+  },
   onVideoProgress() {},
-  onVideoTimeUpdate() {},
-  onVideoSeeked() {},
+  onVideoTimeUpdate() {
+    if (this.bufferNoticeTimer) {
+      clearTimeout(this.bufferNoticeTimer);
+      this.bufferNoticeTimer = null;
+    }
+    if (this.data.playerLoading && !this.data.playerLoadError) {
+      this.clearPlayerLoadTimer();
+      this.setData({ playerLoading: false, playerLoadSlow: false });
+    }
+  },
+  onVideoSeeking() {
+    this.clearPlayerLoadTimer();
+    this.setData({ isSeeking: true, playerLoading: false, playerLoadSlow: false });
+  },
+  onVideoSeeked() {
+    this.clearPlayerLoadTimer();
+    this.setData({ isSeeking: false, playerLoading: false, playerLoadSlow: false });
+  },
   onVideoFullscreenChange(e) {
     if (!e || !e.detail) return;
   },
@@ -183,8 +228,38 @@ Page({
     if (!this.data.currentVideo) return;
     try {
       var ctx = wx.createVideoContext("video-" + this.data.currentVideo.id);
-      if (ctx && ctx.requestFullScreen) { ctx.requestFullScreen({ direction: 90 }); }
+      if (ctx && ctx.requestFullScreen) { ctx.requestFullScreen({ direction: this.data.currentVideo.fullscreenDirection || 0 }); }
     } catch(err) { console.error("进入全屏失败:", err); }
+  },
+  retryVideo() {
+    if (!this.data.currentVideo) return;
+    this.clearPlayerLoadTimer();
+    this.setData({ videoSrc: "", playerLoading: true, playerLoadSlow: false, playerLoadError: "" });
+    var self = this;
+    setTimeout(function() {
+      if (!self.data.currentVideo) return;
+      self.setData({ videoSrc: self.data.currentVideo.src });
+      self.startPlayerLoadTimer();
+    }, 80);
+  },
+  startPlayerLoadTimer() {
+    this.clearPlayerLoadTimer();
+    var self = this;
+    this.playerLoadTimer = setTimeout(function() {
+      if (self.data.showPlayer && self.data.playerLoading && !self.data.playerLoadError) {
+        self.setData({ playerLoadSlow: true });
+      }
+    }, 5000);
+  },
+  clearPlayerLoadTimer() {
+    if (this.playerLoadTimer) {
+      clearTimeout(this.playerLoadTimer);
+      this.playerLoadTimer = null;
+    }
+    if (this.bufferNoticeTimer) {
+      clearTimeout(this.bufferNoticeTimer);
+      this.bufferNoticeTimer = null;
+    }
   },
   noop() {},
   toggleFavorite(e) {

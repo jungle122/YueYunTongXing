@@ -62,6 +62,24 @@
       </button>
     </view>
 
+    <view class="play-mode-area">
+      <view class="play-mode-switch" aria-label="播放模式">
+        <button
+          wx:for="{{playModeOptions}}"
+          wx:for-item="mode"
+          wx:key="value"
+          class="play-mode-btn {{playMode === mode.value ? 'play-mode-btn-active' : ''}}"
+          bindtap="selectPlayMode"
+          data-mode="{{mode.value}}"
+          aria-label="{{mode.text}}{{playMode === mode.value ? '，当前已选中' : ''}}"
+        >
+          <image class="play-mode-icon" src="{{mode.icon}}" mode="aspectFit"></image>
+          <text class="play-mode-text">{{mode.text}}</text>
+        </button>
+      </view>
+      <text class="play-mode-hint">{{playModeHint}}</text>
+    </view>
+
     <view class="singing-tools">
       <button class="singing-tool singing-tool-record {{isRecording ? 'singing-tool-recording' : ''}}" bindtap="toggleRecording">
         <text class="singing-tool-icon">{{isRecording ? '■' : '●'}}</text>
