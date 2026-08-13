@@ -1,0 +1,108 @@
+<view class="picture-puzzle-page">
+  <view wx:if="{{isLoading}}" class="state-card">
+    <text class="state-title">正在准备绘本拼图</text>
+    <text class="state-message">从小程序现有绘本中挑选本轮画面</text>
+  </view>
+
+  <view wx:elif="{{loadError}}" class="state-card">
+    <text class="state-title">绘本拼图暂时无法开始</text>
+    <text class="state-message">{{loadError}}</text>
+    <button class="state-button" bindtap="retryLoad">重新加载</button>
+  </view>
+
+  <view wx:else class="game-shell">
+    <view class="game-overview">
+      <view class="overview-copy">
+        <text class="overview-kicker">绘本拼图 · 3×3</text>
+        <text class="overview-title">第 {{currentRound + 1}} 关</text>
+      </view>
+      <view class="overview-stats">
+        <view class="overview-stat"><text class="stat-number">{{placedCount}}/9</text><text class="stat-label">已归位</text></view>
+        <view class="stat-divider"></view>
+        <view class="overview-stat"><text class="stat-number">{{score}}</text><text class="stat-label">得分</text></view>
+      </view>
+    </view>
+
+    <view class="round-progress" aria-label="当前第{{currentRound + 1}}关，共{{rounds.length}}关">
+      <view wx:for="{{rounds}}" wx:for-item="round" wx:for-index="roundIndex" wx:key="id" class="round-dot {{currentRound >= roundIndex ? 'round-dot-active' : ''}}"></view>
+    </view>
+
+    <view class="story-card">
+      <view class="story-heading">
+        <view>
+          <text class="story-label">本关绘本</text>
+          <text class="story-title">{{currentGame.bookTitle}}</text>
+        </view>
+        <text wx:if="{{phase === 'preview'}}" class="countdown">{{previewCountdown}}</text>
+      </view>
+      <text class="instruction">{{promptText}}</text>
+
+      <view wx:if="{{phase === 'preview'}}" class="preview-wrap" style="{{previewStyle}}">
+        <image class="preview-image" src="{{currentGame.imageUrl}}" mode="scaleToFill" binderror="onImageError" />
+        <button class="preview-skip" bindtap="skipPreview">我记住了</button>
+      </view>
+
+      <block wx:else>
+        <view class="puzzle-board {{boardIncorrect ? 'board-incorrect' : ''}}" style="{{boardStyle}}">
+          <view
+            wx:for="{{boardSlots}}"
+            wx:for-item="slot"
+            wx:for-index="slotIndex"
+            wx:key="index"
+            class="board-slot {{slot.filled ? 'slot-filled' : ''}} {{slot.selected ? 'slot-selected' : ''}}"
+            style="{{slotStyle}}"
+            data-index="{{slotIndex}}"
+            bindtap="placeTile"
+            aria-role="button"
+            aria-label="拼图第{{slotIndex + 1}}格{{slot.selected ? '，已选中' : ''}}"
+          >
+            <view wx:if="{{slot.filled}}" class="tile-window" style="{{slotStyle}}">
+              <image class="tile-image" src="{{slot.tile.imageUrl}}" mode="scaleToFill" style="{{slot.tile.boardImageStyle}}" />
+            </view>
+            <text wx:else class="slot-number">{{slotIndex + 1}}</text>
+          </view>
+        </view>
+
+        <view wx:if="{{phase === 'puzzle' && placedCount !== 9}}" class="tile-tray" style="{{trayStyle}}">
+          <view
+            wx:for="{{availableTiles}}"
+            wx:for-item="tile"
+            wx:for-index="tileIndex"
+            wx:key="id"
+            class="tray-tile {{tile.selected ? 'tile-selected' : ''}} {{tile.used ? 'tile-used' : ''}}"
+            style="{{trayTileStyle}}"
+            data-index="{{tileIndex}}"
+            bindtap="selectTile"
+            aria-role="button"
+            aria-label="{{tile.used ? '已归位' : '选择'}}图片块"
+          >
+            <view class="tile-window" style="{{trayTileStyle}}">
+              <image class="tile-image" src="{{tile.imageUrl}}" mode="scaleToFill" style="{{tile.trayImageStyle}}" />
+            </view>
+            <text wx:if="{{tile.selected}}" class="selected-mark">已选</text>
+          </view>
+        </view>
+
+        <view wx:if="{{phase === 'roundComplete'}}" class="round-complete-panel">
+          <view class="round-complete-mark">✓</view>
+          <view class="round-complete-copy">
+            <text class="round-complete-title">完整画面拼好啦</text>
+            <text class="round-complete-score">本关 +100 分</text>
+          </view>
+          <button class="round-complete-button" bindtap="nextRound">{{currentRound + 1 >= rounds.length ? '查看成绩' : '下一幅'}}</button>
+        </view>
+
+      </block>
+    </view>
+  </view>
+
+  <view wx:if="{{showGameOver}}" class="modal">
+    <view class="modal-card" catchtap="noop">
+      <view class="modal-symbol trophy-symbol">★</view>
+      <text class="modal-title">绘本拼图完成</text>
+      <text class="modal-text">本轮 {{rounds.length}} 幅绘本都回到正确位置了</text>
+      <text class="final-score">{{score}} 分</text>
+      <button class="modal-btn" bindtap="restartGame">再玩一次</button>
+    </view>
+  </view>
+</view>

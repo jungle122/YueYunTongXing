@@ -1,0 +1,77 @@
+.picture-puzzle-page {
+  min-height: 100vh;
+  color: #49372f;
+  background:
+    radial-gradient(circle at 92% 3%, rgba(101, 140, 187, 0.2), transparent 24%),
+    radial-gradient(circle at 4% 58%, rgba(238, 177, 91, 0.14), transparent 22%),
+    #fff8eb;
+  animation: pageEnter 360ms ease-out both;
+}
+.game-shell { min-height: 100vh; padding: 24rpx 28rpx 76rpx; box-sizing: border-box; }
+.state-card { margin: 120rpx 32rpx; padding: 48rpx 36rpx; display: flex; flex-direction: column; align-items: center; border: 2rpx solid #e6d2b4; border-radius: 30rpx; background: #fffdf7; text-align: center; }
+.state-title { color: #4d392f; font-size: 30rpx; font-weight: 900; }
+.state-message { margin-top: 14rpx; color: #8f7668; font-size: 22rpx; line-height: 1.6; }
+.state-button { min-width: 240rpx; margin-top: 28rpx; border: 0; border-radius: 22rpx; background: #668cae; color: #fff; font-size: 23rpx; font-weight: 800; }
+.state-button::after, .preview-skip::after, .modal-btn::after { border: 0; }
+
+.game-overview { min-height: 116rpx; padding: 20rpx 24rpx; display: flex; align-items: center; justify-content: space-between; border: 2rpx solid #ead8bc; border-radius: 26rpx; background: rgba(255, 253, 246, 0.95); box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08); box-sizing: border-box; }
+.overview-copy { display: flex; flex-direction: column; }
+.overview-kicker { color: #7c8491; font-size: 19rpx; font-weight: 750; letter-spacing: 1rpx; }
+.overview-title { margin-top: 4rpx; color: #4d392f; font-size: 30rpx; font-weight: 900; }
+.overview-stats { display: flex; align-items: center; }
+.overview-stat { min-width: 86rpx; display: flex; flex-direction: column; align-items: center; }
+.stat-number { color: #5f86aa; font-size: 28rpx; font-weight: 900; font-variant-numeric: tabular-nums; }
+.stat-label { margin-top: 2rpx; color: #9b8272; font-size: 18rpx; }
+.stat-divider { width: 2rpx; height: 48rpx; margin: 0 8rpx; background: #eadcc9; }
+.round-progress { margin: 20rpx 8rpx 24rpx; display: flex; gap: 10rpx; }
+.round-dot { height: 8rpx; flex: 1; border-radius: 999rpx; background: #eadfce; }
+.round-dot-active { background: linear-gradient(90deg, #8eb0cf, #5f85aa); }
+
+.story-card { padding: 27rpx 24rpx 30rpx; border: 2rpx solid #e1d0b8; border-radius: 30rpx; background: #fffdf7; box-shadow: 0 14rpx 30rpx rgba(91, 58, 40, 0.1); }
+.story-heading { display: flex; align-items: center; justify-content: space-between; }
+.story-label { display: block; color: #998173; font-size: 18rpx; }
+.story-title { display: block; margin-top: 5rpx; color: #4b392f; font-size: 29rpx; font-weight: 900; }
+.countdown { width: 58rpx; height: 58rpx; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #e1edf6; color: #527da3; font-size: 30rpx; font-weight: 900; }
+.instruction { display: block; margin: 18rpx 0; padding: 13rpx 18rpx; border-radius: 16rpx; background: #f4eadb; color: #785f50; font-size: 21rpx; line-height: 1.45; text-align: center; }
+.preview-wrap { position: relative; margin: 0 auto; overflow: hidden; border: 4rpx solid #6d93b5; border-radius: 24rpx; background: #e7eef2; box-shadow: 0 10rpx 22rpx rgba(66, 98, 126, 0.16); box-sizing: content-box; }
+.preview-image { width: 100%; height: 100%; display: block; background: #f4efe5; }
+.preview-skip { position: absolute; right: 18rpx; bottom: 18rpx; min-width: 168rpx; margin: 0; border: 2rpx solid rgba(255,255,255,0.82); border-radius: 999rpx; background: rgba(56, 83, 105, 0.84); color: #fff; font-size: 20rpx; font-weight: 800; line-height: 62rpx; backdrop-filter: blur(8px); }
+
+.puzzle-board { margin: 0 auto; display: grid; overflow: hidden; border: 4rpx solid #8d8b83; border-radius: 22rpx; background: #f4efe5; box-shadow: 0 10rpx 24rpx rgba(78, 68, 58, 0.14); box-sizing: content-box; transition: border-color 160ms ease-out, box-shadow 160ms ease-out; }
+.board-incorrect { border-color: #d28a55; box-shadow: 0 0 0 7rpx rgba(210, 138, 85, 0.13), 0 10rpx 24rpx rgba(78, 68, 58, 0.14); }
+.board-slot { position: relative; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 0; background: #f4efe5; box-sizing: border-box; }
+.slot-number { color: #9aabb7; font-size: 26rpx; font-weight: 850; }
+.slot-filled { animation: tilePlaced 360ms ease-out; }
+.slot-selected::after { content: ""; position: absolute; inset: 8rpx; z-index: 2; border: 6rpx solid #cb6e4d; border-radius: 15rpx; pointer-events: none; box-shadow: inset 0 0 0 3rpx rgba(255,255,255,0.72); }
+.tile-window { position: relative; overflow: hidden; }
+.tile-image { position: absolute; max-width: none; background: #f4efe5; }
+
+.tile-tray { margin-top: 24rpx; padding: 18rpx; display: grid; justify-content: space-between; gap: 16rpx; border: 2rpx solid #e8d6ba; border-radius: 22rpx; background: #fff5e4; }
+.tray-tile { position: relative; overflow: hidden; border: 4rpx solid #ead1aa; border-radius: 18rpx; background: #e8eef2; box-shadow: 0 6rpx 12rpx rgba(101, 69, 47, 0.1); box-sizing: content-box; transition: transform 150ms ease-out, opacity 150ms ease-out, border-color 150ms ease-out; }
+.tile-selected { border-color: #cb6e4d; transform: translateY(-5rpx) scale(1.03); box-shadow: 0 9rpx 18rpx rgba(166, 87, 51, 0.18); }
+.tile-used { opacity: 0.12; pointer-events: none; transform: scale(0.94); }
+.selected-mark { position: absolute; right: 5rpx; top: 5rpx; padding: 4rpx 8rpx; border-radius: 999rpx; background: #cb6e4d; color: #fff; font-size: 14rpx; font-weight: 850; }
+
+.round-complete-panel { margin-top: 24rpx; padding: 18rpx 18rpx 18rpx 20rpx; display: flex; align-items: center; border: 2rpx solid #c9dbea; border-radius: 22rpx; background: linear-gradient(110deg, #edf6fc, #fff9e8); box-sizing: border-box; animation: resultReveal 280ms ease-out both; }
+.round-complete-mark { width: 58rpx; height: 58rpx; display: flex; flex: 0 0 auto; align-items: center; justify-content: center; border-radius: 50%; background: #6389aa; color: #fff; font-size: 31rpx; font-weight: 900; box-shadow: 0 5rpx 12rpx rgba(70, 111, 145, 0.2); }
+.round-complete-copy { min-width: 0; margin-left: 16rpx; display: flex; flex: 1; flex-direction: column; }
+.round-complete-title { color: #4b392f; font-size: 23rpx; font-weight: 900; }
+.round-complete-score { margin-top: 4rpx; color: #6389aa; font-size: 19rpx; font-weight: 750; }
+.round-complete-button { min-width: 158rpx; min-height: 64rpx; margin: 0 0 0 14rpx; padding: 0 20rpx; border: 0; border-radius: 18rpx; background: #6389aa; color: #fff; font-size: 21rpx; font-weight: 850; line-height: 64rpx; }
+.round-complete-button::after { border: 0; }
+
+.modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 34rpx; background: rgba(67, 46, 35, 0.46); box-sizing: border-box; }
+.modal-card { width: 560rpx; padding: 42rpx 38rpx 36rpx; display: flex; flex-direction: column; align-items: center; border: 3rpx solid #d7c7ae; border-radius: 30rpx; background: #fffaf0; box-shadow: 0 22rpx 50rpx rgba(58, 38, 28, 0.22); box-sizing: border-box; animation: modalPop 300ms cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.modal-symbol { width: 76rpx; height: 76rpx; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: #dce9f3; color: #537fa5; font-size: 38rpx; font-weight: 900; }
+.trophy-symbol { background: #ffe9b8; color: #b77a2b; }
+.modal-title { margin-top: 18rpx; color: #4a372e; font-size: 32rpx; font-weight: 900; }
+.modal-text { margin-top: 10rpx; color: #907565; font-size: 22rpx; line-height: 1.6; text-align: center; }
+.final-score { margin-top: 14rpx; color: #5f86aa; font-size: 44rpx; font-weight: 900; }
+.modal-btn { width: 100%; min-height: 78rpx; margin-top: 28rpx; padding: 0; border: 0; border-radius: 22rpx; background: #6389aa; color: #fff; font-size: 24rpx; font-weight: 850; line-height: 78rpx; }
+
+@keyframes pageEnter { from { opacity: 0; transform: translateY(24rpx); } to { opacity: 1; transform: translateY(0); } }
+@keyframes tilePlaced { 0% { transform: scale(0.9); opacity: 0.55; } 70% { transform: scale(1.035); opacity: 1; } 100% { transform: scale(1); } }
+@keyframes modalPop { from { opacity: 0; transform: scale(0.84); } to { opacity: 1; transform: scale(1); } }
+@keyframes resultReveal { from { opacity: 0; transform: translateY(12rpx); } to { opacity: 1; transform: translateY(0); } }
+@media (max-width: 340px) { .game-shell { padding-left: 20rpx; padding-right: 20rpx; } .story-card { padding-left: 18rpx; padding-right: 18rpx; } }
+@media (prefers-reduced-motion: reduce) { .picture-puzzle-page, .slot-filled, .modal-card, .round-complete-panel { animation: none; } .tray-tile, .puzzle-board { transition: none; } }
