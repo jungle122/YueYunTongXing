@@ -75,6 +75,64 @@
 
 .answer-panel { margin-top: 28rpx; padding-top: 26rpx; border-top: 2rpx dashed #e5d5bf; }
 .answer-label { display: block; margin: 0 4rpx 12rpx; color: #634a3e; font-size: 23rpx; font-weight: 900; }
+/* === 选项卡片 === */
+.options-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+  margin-top: 4rpx;
+}
+.option-card {
+  width: calc(50% - 8rpx);
+  padding: 22rpx 18rpx;
+  display: flex;
+  align-items: center;
+  border: 2rpx solid #e6cfb0;
+  border-radius: 18rpx;
+  background: #fffaf0;
+  box-shadow: 0 4rpx 10rpx rgba(104, 66, 43, 0.06);
+  box-sizing: border-box;
+  transition: all 150ms ease;
+}
+.option-card:active {
+  opacity: 0.78;
+  transform: scale(0.97);
+}
+.option-index {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #efe2d0;
+  color: #927463;
+  font-size: 18rpx;
+  font-weight: 900;
+}
+.option-text {
+  flex: 1;
+  color: #5a4438;
+  font-size: 22rpx;
+  line-height: 1.45;
+}
+.option-selected {
+  border-color: #c8654b;
+  background: #fff3ec;
+  box-shadow: 0 4rpx 14rpx rgba(200, 101, 75, 0.14);
+}
+.option-selected .option-index {
+  background: #c8654b;
+  color: #fffaf1;
+}
+.option-selected .option-text {
+  color: #49372f;
+  font-weight: 700;
+}
+
+/* === 旧输入框（保留以防引用） === */
 .answer-input { width: 100%; min-height: 92rpx; padding: 0 24rpx; border: 3rpx solid #e6cfb0; border-radius: 22rpx; background: #fffaf0; color: #49372f; font-size: 27rpx; line-height: 92rpx; box-sizing: border-box; }
 .game-controls { margin-top: 18rpx; display: flex; gap: 14rpx; }
 .control-btn { min-height: 82rpx; margin: 0; padding: 0 20rpx; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 22rpx; font-size: 24rpx; font-weight: 850; line-height: 1; }

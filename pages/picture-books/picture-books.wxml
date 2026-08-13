@@ -27,6 +27,7 @@
         <text class="book-title">{{currentTitle}}</text>
         <text class="book-page-info">第 {{currentPageIndex + 1}} 页 / 共 {{totalPages}} 页</text>
         <image key="{{imageKey}}-{{currentPageIndex}}" src="{{currentPagePath}}" mode="widthFix" class="book-image" lazy-load="{{false}}" show-menu-by-longpress="{{false}}" binderror="onImageError"/>
+        <text wx:if="{{currentSubtitle}}" class="book-subtitle">{{currentSubtitle}}</text>
         <view class="page-controls">
           <button class="page-btn" disabled="{{isFirstPage}}" bindtap="previousPage">← 上一页</button>
           <button class="page-btn" disabled="{{isLastPage}}" bindtap="nextPage">下一页 →</button>

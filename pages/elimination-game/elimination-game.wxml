@@ -3,7 +3,7 @@
     <view class="game-overview">
       <view class="overview-copy">
         <text class="overview-kicker">童谣词语配对</text>
-        <text class="overview-title">找出相同卡片</text>
+        <text class="overview-title">翻牌记忆</text>
       </view>
       <view class="overview-stats">
         <view class="overview-stat"><text class="stat-number">{{score}}</text><text class="stat-label">得分</text></view>
@@ -28,30 +28,35 @@
     <view class="board-card">
       <view class="board-heading">
         <text class="board-title">童谣卡片桌</text>
-        <text class="board-hint">一次选择两张</text>
+        <text class="board-hint" wx:if="{{isPreviewing}}">记住卡片位置！{{previewCountdown}}秒</text>
+        <text class="board-hint" wx:else>一次翻开两张</text>
       </view>
+
       <view class="game-board">
         <view
           wx:for="{{gameBoard}}"
           wx:for-item="cell"
           wx:for-index="idx"
           wx:key="index"
-          class="game-cell {{cell.selected ? 'selected' : ''}} {{cell.matched ? 'matched hidden' : ''}}"
+          class="game-cell {{cell.flipped || isPreviewing ? 'flipped' : ''}} {{cell.matched ? 'matched' : ''}} {{cell.selected ? 'selected' : ''}} {{isPreviewing ? 'previewing' : ''}} {{!cell.flipped && !cell.matched && !cell.selected ? 'face-down' : ''}}"
           bindtap="selectCell"
           data-index="{{idx}}"
-          aria-role="button"
-          aria-label="{{cell.matched ? '已配对' : cell.word}}"
         >
-          <text class="cell-corner">{{idx + 1}}</text>
-          <text class="cell-word">{{cell.word}}</text>
-          <text wx:if="{{cell.selected}}" class="selected-mark">✓</text>
+          <view class="cell-face cell-back">
+            <text class="back-pattern">🎵</text>
+          </view>
+          <view class="cell-face cell-front">
+            <text class="cell-corner">{{idx + 1}}</text>
+            <text class="cell-word">{{cell.word}}</text>
+            <text wx:if="{{cell.selected}}" class="selected-mark">✓</text>
+          </view>
         </view>
       </view>
     </view>
 
     <view class="controls">
       <button class="game-btn new-game-btn" bindtap="startNewGame"><text class="btn-icon">↻</text><text>重新开局</text></button>
-      <button class="game-btn hint-btn" bindtap="showHint" disabled="{{!isGameActive}}"><text class="btn-icon">💡</text><text>给我提示</text></button>
+      <button class="game-btn hint-btn" bindtap="showHint" disabled="{{!isGameActive || isPreviewing}}"><text class="btn-icon">💡</text><text>给我提示</text></button>
     </view>
   </view>
 </view>

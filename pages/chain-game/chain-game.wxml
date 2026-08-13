@@ -50,21 +50,17 @@
       </view>
 
       <view wx:if="{{!showNextBtn}}" class="answer-panel">
-        <text class="answer-label">轮到你啦</text>
-        <input
-          class="answer-input"
-          placeholder="输入下一句童谣"
-          placeholder-style="color:#b8a18f"
-          confirm-type="done"
-          bindconfirm="submitAnswer"
-          disabled="{{gameOver}}"
-          value="{{userAnswer}}"
-          bindinput="onAnswerInput"
-        />
+        <text class="answer-label">轮到你啦，选择下一句</text>
+        <view class="options-grid">
+          <view wx:for="{{currentOptions}}" wx:for-item="opt" wx:for-index="optIndex" wx:key="text" class="option-card {{selectedOption === optIndex ? 'option-selected' : ''}}" bindtap="onSelectOption" data-index="{{optIndex}}">
+            <text class="option-index">{{optIndex + 1}}</text>
+            <text class="option-text">{{opt.text}}</text>
+          </view>
+        </view>
         <view class="game-controls">
-          <button class="control-btn primary-btn" bindtap="submitAnswer" disabled="{{gameOver}}">提交答案</button>
+          <button class="control-btn primary-btn" bindtap="submitAnswer" disabled="{{gameOver || selectedOption === -1}}">提交答案</button>
           <button class="control-btn hint-btn" bindtap="showHint" disabled="{{gameOver}}">
-            <text class="button-icon">💡</text>
+            <text class="button-icon"></text>
             <text>给我提示</text>
           </button>
         </view>
@@ -102,22 +98,21 @@
   </view>
 
   <view wx:if="{{showGameOverModal}}" class="modal" bindtap="closeGameOverModal">
-    <view class="modal-card game-over-card" catchtap="noop">
-      <view class="modal-symbol trophy-symbol">★</view>
-      <text class="modal-title">三关完成</text>
-      <text class="modal-text">这次接龙获得</text>
-      <text class="final-score">{{score}} 分</text>
-      <button class="modal-btn" bindtap="restartGame">再玩一次</button>
+    <view class="modal-card" catchtap="noop">
+      <view class="modal-symbol trophy-symbol">🏆</view>
+      <text class="modal-title">挑战结束</text>
+      <text class="modal-text">最终得分 {{score}} 分，最高连胜 {{bestStreak}}</text>
+      <button class="modal-btn" bindtap="restartGame">再来一局</button>
     </view>
   </view>
 
   <view wx:if="{{showHintModal}}" class="modal" bindtap="closeHintModal">
-    <view class="modal-card hint-card" catchtap="noop">
-      <view class="modal-symbol hint-symbol">?</view>
-      <text class="modal-title">接龙提示</text>
-      <text class="modal-text">下一句是</text>
-      <text class="answer-reveal">{{hintAnswer}}</text>
-      <button class="modal-btn" bindtap="closeHintModal">继续作答</button>
+    <view class="modal-card" catchtap="noop">
+      <view class="modal-symbol hint-symbol">💡</view>
+      <text class="modal-title">提示来了</text>
+      <text class="modal-text">试试想这几个字开头的句子</text>
+      <text class="answer-reveal">{{hintAnswer}}...</text>
+      <button class="modal-btn" bindtap="closeHintModal">知道了</button>
     </view>
   </view>
 </view>

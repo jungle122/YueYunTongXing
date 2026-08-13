@@ -12,6 +12,16 @@
 
 仅新增音频和视频时，可以导入 `mediaAssets.audio-video.insert.json`；首次使用 Insert，重复导入同一 `_id` 时使用 Upsert。
 
+游戏童谣使用同一个 `audio-lessons` 清单，但不会显示在音频学习列表。上传到 `media/audio/` 时按以下名称保存：
+
+- `song24.m4a`：有只雀仔跌落水
+- `song25.m4a`：点虫虫
+- `song26.m4a`：排排坐
+- `song27.m4a`：打开蚊帐
+- `song28.m4a`：鸡公仔
+
+如需替换现有《落雨大》，覆盖 `media/audio/song19.m4a`。上传完成后，以 Upsert 模式导入仅包含音频记录的 `mediaAssets.audio-lessons.upsert.json`，不要为这次操作导入视频清单。
+
 导入文件采用 JSON Lines 格式，每行是一个完整文档。File ID 可以放入数据库，但临时 HTTPS 地址不能入库；临时地址由云函数在用户打开页面时生成。
 
 ## 统一字段
@@ -31,10 +41,10 @@
 ## 视频封面迁移
 
 1. 在私有云存储中新建目录 `media/video/covers/`。
-2. 将 `static/covers/video1.png`～`video10.png` 上传到该目录，云端文件名保持不变。
+2. 将 `video1.png`～`video10.png` 以及 `video11.jpg`～`video18.jpg` 上传到该目录，云端文件名保持不变。
 3. 向 `mediaAssets` 集合导入 `mediaAssets.video-covers.upsert.json`，导入模式选择 Upsert。
 4. 重新部署 `getMediaAssets` 云函数，选择“上传并部署：云端安装依赖”。
-5. 真机确认 10 张封面和 10 个视频都能正常加载后，才能从小程序代码包删除 `static/covers/`。
+5. 真机确认 18 张封面和 18 个视频都能正常加载。
 
 封面与视频一样保持私有；小程序只使用 `getMediaAssets` 返回的临时地址，不配置公开读取规则。
 

@@ -83,7 +83,7 @@
       <text>{{mediaLoadError}}</text>
       <text class="media-retry-link" bindtap="loadVideoMedia">重新加载</text>
     </view>
-    <text wx:else class="library-note">10 部视频资源已接入，点击作品即可播放。</text>
+    <text wx:else class="library-note">{{displayVideos.length}} 部视频资源已接入，点击作品即可播放。</text>
   </view>
 
   <view wx:if="{{showToast}}" class="favorite-toast {{toastType}}">
@@ -92,7 +92,7 @@
   </view>
 
   <view wx:if="{{showPlayer && currentVideo}}" class="video-player-modal" bindtap="closePlayer">
-    <view class="player-card" catchtap="noop">
+    <view class="player-card {{currentVideo.orientation === 'portrait' ? 'player-card-portrait' : ''}}" catchtap="noop">
       <view class="player-header">
         <view class="player-copy">
           <text class="player-kicker">正在观看</text>
@@ -103,9 +103,9 @@
 
       <video
         wx:if="{{currentVideo.src}}"
-        src="{{currentVideo.src}}"
+        src="{{videoSrc}}"
         controls
-        class="video-player"
+        class="video-player {{currentVideo.orientation === 'portrait' ? 'video-player-portrait' : ''}}"
         id="video-{{currentVideo.id}}"
         bindplay="onVideoPlay"
         bindpause="onVideoPause"
@@ -115,6 +115,7 @@
         bindwaiting="onVideoWaiting"
         bindprogress="onVideoProgress"
         bindtimeupdate="onVideoTimeUpdate"
+        bindseeking="onVideoSeeking"
         bindseeked="onVideoSeeked"
         bindfullscreenchange="onVideoFullscreenChange"
         enable-play-gesture="{{true}}"
@@ -125,10 +126,23 @@
         show-play-btn="{{true}}"
         enable-fullscreen="{{true}}"
         page-gesture="{{false}}"
-        direction="{{90}}"
+        direction="{{currentVideo.fullscreenDirection || 0}}"
       ></video>
 
-      <view wx:else class="player-placeholder">
+      <view wx:if="{{currentVideo.src && (playerLoading || playerLoadError)}}" class="player-status-layer">
+        <view wx:if="{{playerLoading}}" class="loading-film" aria-hidden="true">
+          <view class="loading-film-frame"></view>
+          <view class="loading-film-frame"></view>
+          <view class="loading-film-frame"></view>
+        </view>
+        <text wx:if="{{playerLoading}}" class="player-status-title">{{playerLoadSlow ? '网络较慢，仍在加载…' : '视频正在加载…'}}</text>
+        <text wx:if="{{playerLoading}}" class="player-status-description">请稍候，画面很快就来</text>
+        <text wx:if="{{playerLoadError}}" class="player-status-title">加载失败</text>
+        <text wx:if="{{playerLoadError}}" class="player-status-description">{{playerLoadError}}</text>
+        <button wx:if="{{playerLoadError}}" class="player-retry-button" bindtap="retryVideo">重新加载</button>
+      </view>
+
+      <view wx:if="{{!currentVideo.src}}" class="player-placeholder">
         <view class="placeholder-symbol">▶</view>
         <text class="placeholder-title">视频资源整理中</text>
         <text class="placeholder-description">这部作品的画面暂未接入，完成资源整理后即可在这里播放。</text>

@@ -119,6 +119,20 @@
   box-shadow: 0 16rpx 48rpx rgba(0, 0, 0, 0.1);
   margin-bottom: 30rpx;
 }
+.book-subtitle {
+  display: block;
+  max-width: 100%;
+  margin-bottom: 30rpx;
+  padding: 20rpx 32rpx;
+  border-radius: 16rpx;
+  background: rgba(207, 104, 75, 0.08);
+  border-left: 6rpx solid #cf684b;
+  color: #6b4837;
+  font-size: 30rpx;
+  font-weight: 700;
+  letter-spacing: 2rpx;
+  line-height: 1.6;
+}
 .page-controls {
   display: flex;
   justify-content: center;

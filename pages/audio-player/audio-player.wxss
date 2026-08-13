@@ -94,6 +94,7 @@
 .favorite-btn::after,
 .side-control::after,
 .main-play-btn::after,
+.play-mode-btn::after,
 .singing-tool::after,
 .stop-recording-btn::after { border: 0; }
 .song-meta { display: block; margin-top: 8rpx; color: rgba(75, 54, 45, 0.66); font-size: 22rpx; }
@@ -154,7 +155,54 @@
 .loading-mark { font-size: 37rpx; font-weight: 900; letter-spacing: 2rpx; }
 .side-control:active,
 .main-play-btn:active,
-.favorite-btn:active { opacity: 0.68; transform: scale(0.95); }
+.favorite-btn:active,
+.play-mode-btn:active { opacity: 0.68; transform: scale(0.96); }
+
+.play-mode-area {
+  margin-top: 30rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.play-mode-switch {
+  width: 100%;
+  padding: 8rpx;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8rpx;
+  border: 2rpx solid rgba(92, 64, 50, 0.12);
+  border-radius: 24rpx;
+  background: rgba(255, 252, 241, 0.3);
+  box-sizing: border-box;
+}
+.play-mode-btn {
+  min-width: 0;
+  height: 92rpx;
+  margin: 0;
+  padding: 10rpx 4rpx 8rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5rpx;
+  border: 0;
+  border-radius: 18rpx;
+  background: transparent;
+  color: #5e463a;
+  line-height: 1;
+}
+.play-mode-btn-active {
+  background: rgba(255, 250, 238, 0.94);
+  box-shadow: 0 6rpx 16rpx rgba(83, 56, 43, 0.14);
+}
+.play-mode-icon { width: 38rpx; height: 38rpx; }
+.play-mode-text { font-size: 18rpx; font-weight: 800; }
+.play-mode-hint {
+  margin-top: 12rpx;
+  color: rgba(78, 57, 48, 0.56);
+  font-size: 18rpx;
+  text-align: center;
+}
 
 .singing-tools {
   margin-top: 46rpx;

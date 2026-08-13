@@ -40,15 +40,74 @@
 .board-card { margin-top: 18rpx; padding: 24rpx 20rpx 20rpx; border: 2rpx solid #e7d5bb; border-radius: 28rpx; background: #fffdf7; box-shadow: 0 14rpx 30rpx rgba(91, 58, 40, 0.09); }
 .board-heading { padding: 0 5rpx 18rpx; display: flex; align-items: baseline; justify-content: space-between; }
 .board-title { color: #503c32; font-size: 26rpx; font-weight: 900; }
-.board-hint { color: #a18a7a; font-size: 18rpx; }
+.board-hint { color: #cf684b; font-size: 18rpx; font-weight: 700; }
+
+/* === 翻牌卡片 === */
 .game-board { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12rpx; }
-.game-cell { position: relative; min-width: 0; min-height: 128rpx; padding: 20rpx 8rpx 14rpx; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 3rpx solid #d8e3df; border-radius: 20rpx; background: linear-gradient(145deg, #eef7f3, #dfeee9); color: #506a63; box-shadow: 0 5rpx 10rpx rgba(67, 91, 82, 0.08); box-sizing: border-box; transition: transform 160ms ease-out, opacity 260ms ease-out, background-color 160ms ease-out; }
+.game-cell {
+  position: relative;
+  min-width: 0;
+  min-height: 128rpx;
+  perspective: 600rpx;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.cell-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20rpx;
+  backface-visibility: hidden;
+  transition: transform 0.5s ease;
+  box-sizing: border-box;
+}
+.cell-front {
+  border: 3rpx solid #d8e3df;
+  background: linear-gradient(145deg, #eef7f3, #dfeee9);
+  color: #506a63;
+  box-shadow: 0 5rpx 10rpx rgba(67, 91, 82, 0.08);
+  flex-direction: column;
+  padding: 20rpx 8rpx 14rpx;
+}
+.cell-back {
+  border: 3rpx solid #c9a87a;
+  background: linear-gradient(145deg, #fce8c8, #f0d4a0);
+  transform: rotateY(180deg);
+  box-shadow: 0 5rpx 10rpx rgba(160, 110, 40, 0.1);
+}
+.back-pattern { font-size: 36rpx; }
+
+/* 默认背面朝上（牌面朝下） */
+.game-cell:not(.flipped):not(.previewing):not(.matched) .cell-front { transform: rotateY(180deg); }
+.game-cell:not(.flipped):not(.previewing):not(.matched) .cell-back { transform: rotateY(0deg); }
+
+/* 预览/翻开时正面朝上 */
+.game-cell.flipped .cell-front,
+.game-cell.previewing .cell-front { transform: rotateY(0deg); }
+.game-cell.flipped .cell-back,
+.game-cell.previewing .cell-back { transform: rotateY(180deg); }
+
+/* 选中高亮 */
+.game-cell.selected .cell-front {
+  border-color: #e0a16e;
+  background: linear-gradient(145deg, #fff1d8, #f5cf9e);
+  color: #724c36;
+  transform: rotateY(0deg);
+}
+.game-cell.selected .cell-back { transform: rotateY(180deg); }
+
+/* 已配对 */
+.game-cell.matched .cell-front {
+  border-color: #a9cda6;
+  background: #dcefd9;
+}
+.game-cell.matched .cell-back { transform: rotateY(180deg); }
+
 .cell-corner { position: absolute; left: 8rpx; top: 6rpx; color: rgba(74, 94, 86, 0.38); font-size: 14rpx; font-weight: 900; }
 .cell-word { overflow-wrap: anywhere; font-size: 21rpx; font-weight: 850; line-height: 1.35; text-align: center; }
 .selected-mark { position: absolute; right: 7rpx; top: 6rpx; width: 25rpx; height: 25rpx; display: flex; align-items: center; justify-content: center; border-radius: 50%; background: rgba(255, 255, 255, 0.76); color: #b36045; font-size: 15rpx; font-weight: 900; }
-.game-cell.selected { border-color: #e0a16e; background: linear-gradient(145deg, #fff1d8, #f5cf9e); color: #724c36; transform: translateY(-4rpx) scale(1.02); box-shadow: 0 9rpx 18rpx rgba(156, 95, 54, 0.16); }
-.game-cell.matched { border-color: #a9cda6; background: #dcefd9; }
-.game-cell.hidden { opacity: 0.12; pointer-events: none; transform: scale(0.9); box-shadow: none; }
 
 .controls { margin-top: 20rpx; display: flex; gap: 14rpx; }
 .game-btn { flex: 1; min-height: 82rpx; margin: 0; padding: 0 16rpx; display: flex; align-items: center; justify-content: center; border: 0; border-radius: 22rpx; font-size: 23rpx; font-weight: 850; line-height: 1; }
@@ -61,4 +120,4 @@
 
 @keyframes gamePageEnter { from { opacity: 0; transform: translateY(24rpx); } to { opacity: 1; transform: translateY(0); } }
 @media (max-width: 340px) { .game-shell { padding-left: 22rpx; padding-right: 22rpx; } .game-board { gap: 8rpx; } .game-cell { min-height: 116rpx; } .cell-word { font-size: 19rpx; } }
-@media (prefers-reduced-motion: reduce) { .elimination-game-page, .game-cell, .timer-fill { animation: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .elimination-game-page, .cell-face, .timer-fill { animation: none; transition: none; } }

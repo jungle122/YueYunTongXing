@@ -1,0 +1,17 @@
+UI Audio
+
+Created by Kenney (https://www.kenney.nl)
+Original pack: https://www.kenney.nl/assets/ui-audio
+WAV package source: https://github.com/Calinou/kenney-ui-audio
+
+License: Creative Commons Zero (CC0 1.0 Universal)
+https://creativecommons.org/publicdomain/zero/1.0/
+
+These assets may be used in personal, educational, and commercial projects.
+Credit is appreciated but not required.
+
+Files used and renamed:
+- click3.wav -> select.wav
+- switch16.wav -> correct.wav
+- switch31.wav -> wrong.wav
+- switch33.wav -> complete.wav
