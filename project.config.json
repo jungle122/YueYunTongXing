@@ -21,7 +21,9 @@
     "disableUseStrict": false,
     "condition": false,
     "swc": false,
-    "disableSWC": true
+    "disableSWC": true,
+    "ignoreDevUnusedFiles": false,
+    "ignoreUploadUnusedFiles": false
   },
   "compileType": "miniprogram",
   "cloudfunctionRoot": "cloudfunctions/",
