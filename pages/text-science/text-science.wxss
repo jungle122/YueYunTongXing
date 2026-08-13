@@ -22,38 +22,6 @@
   letter-spacing: 2rpx;
 }
 
-.featured-card {
-  position: relative;
-  min-height: 334rpx;
-  padding: 36rpx 34rpx 28rpx;
-  overflow: hidden;
-  border: 3rpx solid rgba(114, 75, 50, 0.12);
-  border-radius: 32rpx;
-  box-shadow: 0 16rpx 34rpx rgba(92, 58, 39, 0.12);
-  box-sizing: border-box;
-  transition: opacity 160ms ease-out, transform 160ms ease-out;
-}
-
-.featured-watermark {
-  position: absolute;
-  right: 22rpx;
-  top: 24rpx;
-  color: rgba(84, 54, 39, 0.12);
-  font-size: 136rpx;
-  font-weight: 900;
-  line-height: 1;
-  transform: rotate(-9deg);
-}
-
-.featured-kicker { position: relative; color: #8a5c3e; font-size: 20rpx; font-weight: 800; letter-spacing: 1rpx; }
-.featured-title { position: relative; width: 82%; display: block; margin-top: 22rpx; color: #47342b; font-size: 38rpx; font-weight: 900; line-height: 1.35; }
-.featured-subtitle { position: relative; width: 82%; display: block; margin-top: 12rpx; color: #765d50; font-size: 22rpx; line-height: 1.55; }
-.featured-footer { position: relative; margin-top: 30rpx; display: flex; justify-content: space-between; color: #7d6253; font-size: 20rpx; font-weight: 700; }
-.featured-progress { position: relative; height: 7rpx; margin-top: 14rpx; overflow: hidden; border-radius: 999rpx; background: rgba(98, 68, 49, 0.12); }
-.featured-progress-fill { height: 100%; border-radius: inherit; background: #c86d4c; }
-.card-press { opacity: 0.78; transform: scale(0.985); }
-
-.more-label { margin-top: 36rpx; }
 .article-list { overflow: hidden; border: 2rpx solid #ead9be; border-radius: 28rpx; background: rgba(255, 254, 249, 0.96); box-shadow: 0 12rpx 28rpx rgba(93, 61, 42, 0.08); }
 .article-row { position: relative; min-height: 186rpx; padding: 24rpx 20rpx; display: flex; align-items: center; box-sizing: border-box; transition: opacity 150ms ease-out, background-color 150ms ease-out; }
 .article-row + .article-row::before { content: ""; position: absolute; left: 132rpx; right: 20rpx; top: 0; height: 2rpx; background: #f0e4d2; }
@@ -77,12 +45,10 @@
 
 @media (max-width: 340px) {
   .knowledge-shell { padding-left: 22rpx; padding-right: 22rpx; }
-  .featured-card { padding-left: 28rpx; padding-right: 28rpx; }
-  .featured-title, .featured-subtitle { width: 88%; }
   .article-icon { width: 82rpx; margin-right: 16rpx; }
   .article-row + .article-row::before { left: 118rpx; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .featured-card, .article-row { transition: none; }
+  .article-row { transition: none; }
 }
