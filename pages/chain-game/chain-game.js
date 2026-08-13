@@ -87,7 +87,8 @@ Page({
           "齐齐望过去，山窿里面有只狮子竟饮醉"
         ]
       },
-      { title: "鸡公仔", songId: "song28", chain: ["鸡公仔，尾婆婆", "三岁孩儿学唱歌", "唔使爹娘教导我", "自己精乖冇奈何"] }
+      { title: "鸡公仔", songId: "song28", chain: ["鸡公仔，尾婆婆", "三岁孩儿学唱歌", "唔使爹娘教导我", "自己精乖冇奈何"] },
+      { title: "跳橡筋", chain: ["小皮球，香蕉油", "一盘炒米二盘豆", "炒得豆豆好", "阿妈翻嚟吃饭啦"] }
     ],
     selectedGames: [],
     currentRound: 0,
@@ -96,7 +97,6 @@ Page({
     currentChain: [],
     currentChainIndex: 0,
     displayedChain: [],
-    userAnswer: "",
     currentQuestion: null,
     showNextBtn: false,
     showResultModal: false,
@@ -106,7 +106,10 @@ Page({
     correctAnswer: "",
     hintAnswer: "",
     currentScore: 0,
-    gameOver: false
+    gameOver: false,
+    selectedOption: -1,
+    currentOptions: [],
+    bestStreak: 0
   },
   onLoad() {
     this.gameAudio = gameAudioModule.createGameAudio();
@@ -119,10 +122,20 @@ Page({
     var shuffled = array.slice().sort(function() { return Math.random() - 0.5; });
     return shuffled.slice(0, count);
   },
+  shuffleArray(array) {
+    var a = array.slice();
+    for (var i = a.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = a[i];
+      a[i] = a[j];
+      a[j] = temp;
+    }
+    return a;
+  },
   initGame() {
     this.setData({
       selectedGames: this.randomSelectUniques(this.data.gameData, 3),
-      currentRound: 0, score: 0, streak: 0, gameOver: false
+      currentRound: 0, score: 0, streak: 0, gameOver: false, bestStreak: 0
     });
     this.loadNewChain();
   },
@@ -140,11 +153,12 @@ Page({
       currentQuestion: question,
       currentChain: question.chain.slice(),
       currentChainIndex: 0,
-      userAnswer: "",
+      selectedOption: -1,
       showNextBtn: false
     });
     if (this.gameAudio) this.gameAudio.playMusic(question.songId || "");
     this.updateChainDisplay();
+    this.generateOptions();
   },
   updateChainDisplay() {
     var displayed = [];
@@ -153,33 +167,67 @@ Page({
     }
     this.setData({ displayedChain: displayed });
   },
+  generateOptions() {
+    var correctText = this.data.currentChain[this.data.currentChainIndex + 1];
+    var allLines = [];
+    var games = this.data.gameData;
+    for (var g = 0; g < games.length; g++) {
+      for (var c = 0; c < games[g].chain.length; c++) {
+        var line = games[g].chain[c];
+        if (line !== correctText && allLines.indexOf(line) === -1) {
+          allLines.push(line);
+        }
+      }
+    }
+    var shuffled = this.shuffleArray(allLines);
+    var wrongOptions = shuffled.slice(0, 3);
+    var options = [{ text: correctText, isCorrect: true }];
+    for (var i = 0; i < wrongOptions.length; i++) {
+      options.push({ text: wrongOptions[i], isCorrect: false });
+    }
+    this.setData({ currentOptions: this.shuffleArray(options) });
+  },
+  onSelectOption(e) {
+    var idx = parseInt(e.currentTarget.dataset.index);
+    if (this.gameAudio) this.gameAudio.playEffect("select");
+    this.setData({ selectedOption: idx });
+  },
   submitAnswer() {
-    if (!this.data.userAnswer.trim()) {
-      if (this.gameAudio) this.gameAudio.playEffect("wrong");
-      this.setData({ correctAnswer: this.data.currentChain[this.data.currentChainIndex + 1], showWrongModal: true });
+    var selectedOption = this.data.selectedOption;
+    if (selectedOption === -1) {
       return;
     }
     var correctAnswer = this.data.currentChain[this.data.currentChainIndex + 1];
-    if (this.data.userAnswer.trim() === correctAnswer) {
+    if (this.data.currentOptions[selectedOption] && this.data.currentOptions[selectedOption].isCorrect) {
       if (this.gameAudio) this.gameAudio.playEffect("correct");
       var points = 10 + this.data.streak * 5;
-      this.setData({ score: this.data.score + points, currentScore: points, streak: this.data.streak + 1, showResultModal: true });
-      this.setData({ currentChainIndex: this.data.currentChainIndex + 1 });
-      if (this.data.currentChainIndex + 1 >= this.data.currentChain.length) {
-        this.setData({ showNextBtn: true });
+      var newStreak = this.data.streak + 1;
+      this.setData({
+        score: this.data.score + points,
+        currentScore: points,
+        streak: newStreak,
+        bestStreak: Math.max(this.data.bestStreak, newStreak),
+        showResultModal: true
+      });
+      var newIndex = this.data.currentChainIndex + 1;
+      if (newIndex + 1 >= this.data.currentChain.length) {
+        this.setData({ currentChainIndex: newIndex, showNextBtn: true });
       } else {
+        this.setData({ currentChainIndex: newIndex });
         this.updateChainDisplay();
+        this.generateOptions();
+        this.setData({ selectedOption: -1 });
       }
     } else {
       if (this.gameAudio) this.gameAudio.playEffect("wrong");
       this.setData({ streak: 0, correctAnswer: correctAnswer, showWrongModal: true });
     }
-    this.setData({ userAnswer: "" });
   },
-  onAnswerInput(e) { this.setData({ userAnswer: e.detail.value }); },
   showHint() {
     if (this.gameAudio) this.gameAudio.playEffect("select");
-    this.setData({ hintAnswer: this.data.currentChain[this.data.currentChainIndex + 1], showHintModal: true });
+    var fullText = this.data.currentChain[this.data.currentChainIndex + 1];
+    var hintLen = fullText.length >= 4 ? 2 : 1;
+    this.setData({ hintAnswer: fullText.substring(0, hintLen), showHintModal: true });
   },
   nextRound() {
     if (this.gameAudio) this.gameAudio.playEffect("select");
