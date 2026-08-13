@@ -39,11 +39,11 @@
           <view class="chain-line">
             <text class="line-order">{{lineIndex + 1}}</text>
             <text class="line-text">{{line.text}}</text>
-            <text wx:if="{{line.isLast}}" class="current-label">从这里接</text>
+            <text wx:if="{{line.isLast && !showNextBtn}}" class="current-label">从这里接</text>
           </view>
         </view>
 
-        <view class="waiting-row">
+        <view wx:if="{{!showNextBtn}}" class="waiting-row">
           <view class="chain-marker"><view class="marker-dot waiting-dot"></view></view>
           <view class="waiting-line">下一句是……</view>
         </view>
@@ -52,9 +52,11 @@
       <view wx:if="{{!showNextBtn}}" class="answer-panel">
         <text class="answer-label">轮到你啦，选择下一句</text>
         <view class="options-grid">
-          <view wx:for="{{currentOptions}}" wx:for-item="opt" wx:for-index="optIndex" wx:key="text" class="option-card {{selectedOption === optIndex ? 'option-selected' : ''}}" bindtap="onSelectOption" data-index="{{optIndex}}">
-            <text class="option-index">{{optIndex + 1}}</text>
-            <text class="option-text">{{opt.text}}</text>
+          <view wx:for="{{optionRows}}" wx:for-item="optionRow" wx:key="rowId" class="option-row">
+            <view wx:for="{{optionRow.options}}" wx:for-item="opt" wx:key="optionIndex" class="option-card {{selectedOption === opt.optionIndex ? 'option-selected' : ''}}" bindtap="onSelectOption" data-index="{{opt.optionIndex}}">
+              <text class="option-index">{{opt.optionIndex + 1}}</text>
+              <text class="option-text">{{opt.text}}</text>
+            </view>
           </view>
         </view>
         <view class="game-controls">

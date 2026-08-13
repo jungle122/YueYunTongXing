@@ -40,14 +40,32 @@ Page({
         ]
       },
       { title: "有只雀仔跌落水", songId: "song24", chain: ["有只雀仔跌落水", "跌落水，跌落水", "有只雀仔跌落水", "被水冲去"] },
-      { title: "点虫虫", songId: "song25", chain: ["点虫虫，虫虫飞", "飞到荔枝基", "荔枝熟，摘满桶", "荔枝生，摘满筐"] },
-      { title: "排排坐", songId: "song26", chain: ["排排坐，食粉果", "猫儿担凳姑婆坐", "猪拉柴，狗透火", "坐烂个屎忽唔好赖我"] },
+      {
+        title: "点虫虫",
+        songId: "song25",
+        chain: [
+          "点虫虫，虫虫飞",
+          "飞来飞去似飞机",
+          "一阵飞上天",
+          "一阵飞落地",
+          "荔枝熟，开飞机",
+          "载满荔枝来探你",
+          "大家都是老友记",
+          "齐齐坐下吃佳果",
+          "嘻嘻哈哈笑开眉"
+        ]
+      },
+      {
+        title: "排排坐",
+        songId: "song26",
+        chain: ["排排坐，吃粉果", "猪拉柴，狗透火", "猫儿担凳，俾姑婆坐", "坐烂个凳柄，唔好赖我啵"]
+      },
       {
         title: "落雨大",
         songId: "song19",
         chain: ["落雨大，水浸街", "阿哥担柴上街卖", "阿嫂出街着花鞋", "花鞋、花袜、花腰带", "珍珠蝴蝶两边排"]
       },
-      { title: "打开蚊帐", songId: "song27", chain: ["打开蚊帐，打开蚊帐", "有只蚊，有只蚊", "快啲攞把扇嚟", "快啲攞把扇嚟"] },
+      { title: "打开蚊帐", songId: "song27", chain: ["打开蚊帐，打开蚊帐", "有只蚊，有只蚊", "快啲攞把扇嚟，快啲攞把扇嚟", "拨走佢，拨走佢。"] },
       {
         title: "何家公鸡何家猜",
         songId: "song21",
@@ -87,7 +105,7 @@ Page({
           "齐齐望过去，山窿里面有只狮子竟饮醉"
         ]
       },
-      { title: "鸡公仔", songId: "song28", chain: ["鸡公仔，尾婆婆", "三岁孩儿学唱歌", "唔使爹娘教导我", "自己精乖冇奈何"] },
+      { title: "鸡公仔", songId: "song28", chain: ["鸡公仔，尾婆娑", "三岁孩儿学唱歌", "唔使爹娘教导我", "自己精乖无奈何"] },
       { title: "跳橡筋", chain: ["小皮球，香蕉油", "一盘炒米二盘豆", "炒得豆豆好", "阿妈翻嚟吃饭啦"] }
     ],
     selectedGames: [],
@@ -109,6 +127,7 @@ Page({
     gameOver: false,
     selectedOption: -1,
     currentOptions: [],
+    optionRows: [],
     bestStreak: 0
   },
   onLoad() {
@@ -185,7 +204,17 @@ Page({
     for (var i = 0; i < wrongOptions.length; i++) {
       options.push({ text: wrongOptions[i], isCorrect: false });
     }
-    this.setData({ currentOptions: this.shuffleArray(options) });
+    var currentOptions = this.shuffleArray(options);
+    var optionRows = [];
+    for (var rowStart = 0; rowStart < currentOptions.length; rowStart += 2) {
+      optionRows.push({
+        rowId: "row-" + rowStart,
+        options: currentOptions.slice(rowStart, rowStart + 2).map(function(option, offset) {
+          return Object.assign({}, option, { optionIndex: rowStart + offset });
+        })
+      });
+    }
+    this.setData({ currentOptions: currentOptions, optionRows: optionRows });
   },
   onSelectOption(e) {
     var idx = parseInt(e.currentTarget.dataset.index);
@@ -210,11 +239,11 @@ Page({
         showResultModal: true
       });
       var newIndex = this.data.currentChainIndex + 1;
+      this.setData({ currentChainIndex: newIndex });
+      this.updateChainDisplay();
       if (newIndex + 1 >= this.data.currentChain.length) {
-        this.setData({ currentChainIndex: newIndex, showNextBtn: true });
+        this.setData({ showNextBtn: true });
       } else {
-        this.setData({ currentChainIndex: newIndex });
-        this.updateChainDisplay();
         this.generateOptions();
         this.setData({ selectedOption: -1 });
       }

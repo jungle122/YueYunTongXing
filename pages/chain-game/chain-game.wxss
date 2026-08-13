@@ -78,12 +78,19 @@
 /* === 选项卡片 === */
 .options-grid {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 16rpx;
   margin-top: 4rpx;
 }
+.option-row {
+  width: 100%;
+  display: flex;
+  gap: 16rpx;
+}
 .option-card {
-  width: calc(50% - 8rpx);
+  width: 0;
+  flex: 1;
+  min-width: 0;
   padding: 22rpx 18rpx;
   display: flex;
   align-items: center;
@@ -114,9 +121,12 @@
 }
 .option-text {
   flex: 1;
+  min-width: 0;
   color: #5a4438;
   font-size: 22rpx;
   line-height: 1.45;
+  overflow-wrap: anywhere;
+  word-break: break-all;
 }
 .option-selected {
   border-color: #c8654b;
