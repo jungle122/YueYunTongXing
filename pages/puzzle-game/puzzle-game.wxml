@@ -1,8 +1,52 @@
 <view class="puzzle-game-page">
-  <view class="game-shell">
+  <view wx:if="{{!selectedMode}}" class="mode-shell">
+    <view class="mode-hero">
+      <text class="mode-kicker">童谣拼图</text>
+      <text class="mode-title">选择一种歌词挑战</text>
+      <text class="mode-description">从逐字寻找开始，或者挑战整句排序。</text>
+      <text class="mode-hero-ornament">字</text>
+    </view>
+    <text class="mode-section-caption">选择玩法</text>
+    <view class="mode-list">
+      <view class="mode-card tap-mode" data-mode="tap" bindtap="chooseMode" hover-class="mode-pressed" hover-stay-time="120" aria-role="button" aria-label="开始歌词点字简单模式">
+        <view class="mode-card-main">
+          <image class="mode-symbol" src="/static/ui/games/lyric-tap.png" mode="aspectFit" />
+          <view class="mode-card-copy">
+            <text class="mode-card-title">歌词点字</text>
+            <text class="mode-card-description">听童谣，按歌词顺序点出打乱的字。</text>
+          </view>
+          <text class="mode-card-arrow">›</text>
+        </view>
+        <view class="mode-card-meta">
+          <text class="mode-meta-label">难度</text>
+          <view class="mode-difficulty" aria-label="难度一颗星">
+            <view class="mode-dot mode-dot-active"></view><view class="mode-dot"></view><view class="mode-dot"></view>
+          </view>
+        </view>
+      </view>
+      <view class="mode-card sort-mode" data-mode="sort" bindtap="chooseMode" hover-class="mode-pressed" hover-stay-time="120" aria-role="button" aria-label="开始整句排序进阶模式">
+        <view class="mode-card-main">
+          <image class="mode-symbol" src="/static/ui/games/lyric-sort.png" mode="aspectFit" />
+          <view class="mode-card-copy">
+            <text class="mode-card-title">整句排序</text>
+            <text class="mode-card-description">把打乱的歌词句子放回原本顺序。</text>
+          </view>
+          <text class="mode-card-arrow">›</text>
+        </view>
+        <view class="mode-card-meta">
+          <text class="mode-meta-label">难度</text>
+          <view class="mode-difficulty" aria-label="难度两颗星">
+            <view class="mode-dot mode-dot-active"></view><view class="mode-dot mode-dot-active"></view><view class="mode-dot"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view wx:else class="game-shell">
     <view class="game-overview">
       <view class="overview-copy">
-        <text class="overview-kicker">歌词排序挑战</text>
+        <text class="overview-kicker">{{selectedMode === 'tap' ? '歌词点字 · 简单' : '整句排序 · 进阶'}}</text>
         <text class="overview-title">第 {{currentPuzzle + 1}} 关</text>
       </view>
       <view class="overview-stats">
@@ -12,29 +56,63 @@
       </view>
     </view>
 
-    <view class="round-progress" aria-label="当前第{{currentPuzzle + 1}}关，共{{selectedPuzzles.length}}关">
-      <view wx:for="{{selectedPuzzles}}" wx:for-item="puzzle" wx:for-index="roundIndex" wx:key="title" class="round-dot {{currentPuzzle >= roundIndex ? 'round-dot-active' : ''}}"></view>
+    <view class="game-toolbar">
+      <button class="back-mode-btn" bindtap="backToModes">‹ 换个玩法</button>
+      <view class="round-progress" aria-label="当前第{{currentPuzzle + 1}}关">
+        <view wx:for="{{selectedMode === 'tap' ? tapChallenges : selectedPuzzles}}" wx:for-item="puzzle" wx:for-index="roundIndex" wx:key="songId" class="round-dot {{currentPuzzle >= roundIndex ? 'round-dot-active' : ''}}"></view>
+      </view>
     </view>
 
-    <view class="puzzle-card">
+    <view wx:if="{{selectedMode === 'tap'}}" class="puzzle-card tap-card">
+      <view class="puzzle-heading">
+        <text class="puzzle-kicker">第 {{currentPhraseIndex + 1}} 句 / 共 {{currentPuzzleData.phrases.length}} 句</text>
+        <text class="puzzle-title">{{currentPuzzleData.title}}</text>
+      </view>
+
+      <view class="tap-guide">
+        <text class="tap-guide-label">已经点出的歌词</text>
+        <view class="target-characters">
+          <text wx:for="{{targetCharacters}}" wx:for-item="character" wx:key="id" class="target-character target-{{character.state}}">{{character.text || '　'}}</text>
+        </view>
+        <text class="tap-prompt">{{tapPrompt}}</text>
+      </view>
+
+      <view class="character-board">
+        <view
+          wx:for="{{characterCards}}"
+          wx:for-item="card"
+          wx:for-index="cardIndex"
+          wx:key="id"
+          class="character-card {{card.used ? 'character-used' : ''}} {{wrongCharacterId === card.id ? 'character-wrong' : ''}}"
+          data-index="{{cardIndex}}"
+          bindtap="selectCharacter"
+          aria-role="button"
+          aria-label="{{card.used ? '已完成' : '选择'}}{{card.text}}"
+        >{{card.text}}</view>
+      </view>
+
+      <text class="game-note">点错不扣分，可以继续听童谣再试</text>
+    </view>
+
+    <view wx:else class="puzzle-card">
       <view class="puzzle-heading">
         <text class="puzzle-kicker">先选句子，再放进对应位置</text>
         <text class="puzzle-title">{{currentPuzzleData.title}}</text>
       </view>
 
       <view class="slot-section">
-        <view class="section-heading"><text class="section-title">童谣顺序</text><text class="section-hint">点击空位放入</text></view>
+        <view class="section-heading"><text class="section-title">童谣顺序</text><text class="section-hint">点已放句子可取回</text></view>
         <view class="puzzle-slots">
           <view
             wx:for="{{puzzleSlots}}"
             wx:for-item="slot"
             wx:for-index="idx"
             wx:key="position"
-            class="puzzle-slot {{slot.content ? 'slot-filled' : ''}} {{slot.placed ? 'slot-placed' : ''}}"
+            class="puzzle-slot {{slot.content ? 'slot-filled' : ''}} {{slot.placed ? 'slot-placed' : ''}} {{sortHintSlotIndex === idx ? 'slot-hint-target' : ''}} {{sortHintSourceSlotIndex === idx ? 'slot-hint-source' : ''}}"
             data-position="{{idx}}"
             bindtap="placePiece"
             aria-role="button"
-            aria-label="第{{idx + 1}}句，{{slot.content || slot.placeholder}}"
+            aria-label="第{{idx + 1}}句，{{slot.content || slot.placeholder}}{{slot.content ? '，点击取回或替换' : ''}}"
           >
             <text class="slot-number">{{idx + 1}}</text>
             <text class="slot-content">{{slot.content || slot.placeholder}}</text>
@@ -50,7 +128,7 @@
             wx:for-item="piece"
             wx:for-index="idx"
             wx:key="index"
-            class="puzzle-piece {{piece.selected ? 'piece-selected' : ''}} {{piece.used ? 'piece-used' : ''}}"
+            class="puzzle-piece {{piece.selected ? 'piece-selected' : ''}} {{piece.used ? 'piece-used' : ''}} {{sortHintPieceIndex === idx ? 'piece-hint' : ''}}"
             data-piece="{{piece}}"
             data-index="{{idx}}"
             bindtap="selectPiece"
@@ -64,23 +142,24 @@
         </view>
       </view>
 
+      <view wx:if="{{sortHintText}}" class="sort-hint-message">{{sortHintText}}</view>
+
       <view class="game-controls">
         <button class="control-btn primary-btn" bindtap="checkAnswer"><text class="button-icon">✓</text><text>检查顺序</text></button>
+        <button class="control-btn hint-control-btn" bindtap="showSortHint"><text class="button-icon">◇</text><text>提示</text></button>
         <button class="control-btn reset-btn" bindtap="resetPuzzle"><text class="button-icon">↻</text><text>重新排列</text></button>
       </view>
       <button class="skip-btn" bindtap="nextPuzzle">跳过本题</button>
     </view>
-
-    <text class="game-note">按童谣原本的顺序，把歌词放回正确位置</text>
   </view>
 
   <view wx:if="{{showResultModal}}" class="modal" bindtap="nextPuzzle">
     <view class="modal-card correct-card" catchtap="noop">
       <view class="modal-symbol correct-symbol">✓</view>
-      <text class="modal-title">顺序正确</text>
-      <text class="modal-text">完整童谣已经拼好啦</text>
+      <text class="modal-title">{{selectedMode === 'tap' ? '歌词点完啦' : '顺序正确'}}</text>
+      <text class="modal-text">{{selectedMode === 'tap' ? '这一关的歌词都按顺序找到了' : '完整童谣已经拼好啦'}}</text>
       <text class="score-reward">+100 分</text>
-      <button class="modal-btn" bindtap="nextPuzzle">{{currentPuzzle + 1 >= selectedPuzzles.length ? '查看成绩' : '下一题'}}</button>
+      <button class="modal-btn" bindtap="nextPuzzle">{{currentPuzzle + 1 >= (selectedMode === 'tap' ? tapChallenges.length : selectedPuzzles.length) ? '查看成绩' : '下一题'}}</button>
     </view>
   </view>
 
@@ -88,7 +167,7 @@
     <view class="modal-card wrong-card" catchtap="noop">
       <view class="modal-symbol wrong-symbol">×</view>
       <text class="modal-title">顺序还不对</text>
-      <text class="modal-text">有些句子还没有回到正确位置，可以重新排列再试一次</text>
+      <text class="modal-text">当前排列会保留。关闭后点已放入的句子取回，也可以选择新句子直接替换</text>
       <button class="modal-btn" bindtap="closeWrongModal">继续调整</button>
     </view>
   </view>
@@ -96,10 +175,11 @@
   <view wx:if="{{showGameOverModal}}" class="modal" bindtap="noop">
     <view class="modal-card game-over-card" catchtap="noop">
       <view class="modal-symbol trophy-symbol">★</view>
-      <text class="modal-title">拼图完成</text>
-      <text class="modal-text">本轮 {{selectedPuzzles.length}} 首童谣都挑战结束了</text>
+      <text class="modal-title">挑战完成</text>
+      <text class="modal-text">本轮 {{selectedMode === 'tap' ? tapChallenges.length : selectedPuzzles.length}} 首童谣都挑战结束了</text>
       <text class="final-score">{{score}} 分</text>
       <button class="modal-btn" bindtap="restartGame">再玩一次</button>
+      <button class="modal-secondary" bindtap="backToModes">换个玩法</button>
     </view>
   </view>
 </view>

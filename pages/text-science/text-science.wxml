@@ -1,29 +1,6 @@
 <view class="knowledge-page">
   <view class="knowledge-shell">
-    <text class="section-label">本期推荐</text>
-
-    <view
-      wx:if="{{featuredArticle}}"
-      class="featured-card {{featuredArticle.themeClass}}"
-      bindtap="openArticle"
-      data-id="{{featuredArticle.id}}"
-      hover-class="card-press"
-      hover-stay-time="120"
-      aria-role="button"
-      aria-label="阅读{{featuredArticle.title}}"
-    >
-      <view class="featured-watermark">{{featuredArticle.icon}}</view>
-      <text class="featured-kicker">岭南童谣小报 · {{featuredArticle.sectionName}}</text>
-      <text class="featured-title">{{featuredArticle.title}}</text>
-      <text class="featured-subtitle">{{featuredArticle.subtitle}}</text>
-      <view class="featured-footer">
-        <text>约 {{featuredArticle.readTime}} 分钟</text>
-        <text>{{featuredArticle.statusText}} ›</text>
-      </view>
-      <view class="featured-progress"><view class="featured-progress-fill" style="{{featuredArticle.progressStyle}}"></view></view>
-    </view>
-
-    <text class="section-label more-label">更多小知识</text>
+    <text class="section-label">童谣小知识</text>
     <view class="article-list">
       <view
         wx:for="{{articles}}"

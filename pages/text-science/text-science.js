@@ -3,7 +3,6 @@ var userModule = require("../../utils/user.js");
 
 Page({
   data: {
-    featuredArticle: null,
     articles: []
   },
 
@@ -33,8 +32,7 @@ Page({
       return article;
     });
     this.setData({
-      featuredArticle: articles[0] || null,
-      articles: articles.slice(1)
+      articles: articles
     });
   },
 

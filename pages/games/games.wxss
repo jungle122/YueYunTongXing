@@ -8,10 +8,12 @@
 .chain-card { border-left: 8rpx solid #ed9b4b; }
 .match-card { border-left: 8rpx solid #7ba9dc; }
 .puzzle-card { border-left: 8rpx solid #72b57f; }
+.picture-puzzle-card { border-left: 8rpx solid #668eaf; }
 
 .chain-symbol { background: #ffe7c9; }
 .match-symbol { background: #e0effc; }
 .puzzle-symbol { background: #ddf2df; }
+.picture-puzzle-symbol { background: #e2edf6; }
 
 .game-meta {
   margin-top: 20rpx;
@@ -76,6 +78,10 @@
 
 .games-page.page-enter-active .feature-card:nth-child(3) {
   animation: cardSpringIn-games 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 420ms both;
+}
+
+.games-page.page-enter-active .feature-card:nth-child(4) {
+  animation: cardSpringIn-games 600ms cubic-bezier(0.34, 1.56, 0.64, 1) 540ms both;
 }
 
 @keyframes pageEnter-games {

@@ -2,6 +2,7 @@ var articles = [
   {
     id: "cantonese-history",
     icon: "卷",
+    iconImage: "/static/ui/text-science/历史起源.jpg",
     themeClass: "theme-history",
     sectionName: "童谣故事",
     title: "粤语童谣的历史起源",

@@ -18,5 +18,8 @@ Page({
   },
   startPuzzle() {
     wx.navigateTo({ url: "/pages/puzzle-game/puzzle-game" });
+  },
+  startPicturePuzzle() {
+    wx.navigateTo({ url: "/pages/picture-puzzle-game/picture-puzzle-game" });
   }
 });

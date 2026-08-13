@@ -55,7 +55,28 @@
         <image class="feature-symbol puzzle-symbol" src="/static/ui/games/童谣拼图.jpg" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">童谣拼图</text>
-          <text class="feature-description">重新排列打乱的句子，锻炼语序和逻辑。</text>
+          <text class="feature-description">逐字寻找或排列整句，用两种难度熟悉歌词。</text>
+        </view>
+        <text class="feature-arrow">›</text>
+      </view>
+      <view class="game-meta">
+        <view class="difficulty-row">
+          <text class="meta-label">难度</text>
+          <view class="difficulty-dots" aria-label="难度两颗星">
+            <view class="difficulty-dot active-dot"></view>
+            <view class="difficulty-dot active-dot"></view>
+            <view class="difficulty-dot"></view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="feature-card picture-puzzle-card" bindtap="startPicturePuzzle" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="开始绘本拼图">
+      <view class="feature-main">
+        <image class="feature-symbol picture-puzzle-symbol" src="/static/ui/games/picture-puzzle.png" mode="aspectFit" />
+        <view class="feature-copy">
+          <text class="feature-title">绘本拼图</text>
+          <text class="feature-description">挑战3本绘本的3×3拼图，边听童谣边还原完整画面。</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>
