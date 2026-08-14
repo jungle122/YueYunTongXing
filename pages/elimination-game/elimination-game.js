@@ -13,8 +13,8 @@ Page({
     previewTimer: null,
     isGameActive: false,
     isPreviewing: true,
-    previewCountdown: 5,
-    messageText: "记住卡片位置，5秒后开始！",
+    previewCountdown: 10,
+    messageText: "记住卡片位置，10秒后开始！",
     messageClass: "",
     musicLoading: false,
     showGameOver: false,
@@ -54,8 +54,8 @@ Page({
       timeProgress: 100,
       isGameActive: false,
       isPreviewing: true,
-      previewCountdown: 5,
-      messageText: "记住卡片位置，5秒后开始！",
+      previewCountdown: 10,
+      messageText: "记住卡片位置，10秒后开始！",
       messageClass: "",
       showGameOver: false,
       gameWon: false
@@ -65,7 +65,7 @@ Page({
   },
   startPreview() {
     var self = this;
-    var countdown = 5;
+    var countdown = 10;
     self.setData({ isPreviewing: true, previewCountdown: countdown });
     if (self.data.previewTimer) { clearInterval(self.data.previewTimer); }
     var tick = setInterval(function() {
