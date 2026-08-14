@@ -1,6 +1,13 @@
 var gameAudioModule = require("../audio-learning/audio-catalog.js");
 var gameCatalog = require("../games/game-catalog.js");
 
+function formatAudioTime(seconds) {
+  var value = Math.max(0, Math.floor(Number(seconds) || 0));
+  var minutes = Math.floor(value / 60);
+  var remainder = value % 60;
+  return (minutes < 10 ? "0" : "") + minutes + ":" + (remainder < 10 ? "0" : "") + remainder;
+}
+
 function createTargetCharacters(text, matchedCount) {
   return text.split("").map(function(character, index) {
     return {
@@ -51,11 +58,22 @@ Page({
     tapPrompt: "听童谣，按歌词顺序点字",
     showResultModal: false,
     showWrongModal: false,
-    showGameOverModal: false
+    showGameOverModal: false,
+    musicAvailable: false,
+    musicPlaying: false,
+    musicLoading: false,
+    musicCurrentTime: 0,
+    musicDuration: 0,
+    musicCurrentTimeText: "00:00",
+    musicDurationText: "--:--"
   },
 
   onLoad(options) {
-    this.gameAudio = gameAudioModule.createGameAudio();
+    var self = this;
+    this.isAudioDragging = false;
+    this.gameAudio = gameAudioModule.createGameAudio({
+      onMusicStateChange: function(state) { self.updateMusicPlayer(state); }
+    });
     var mode = options && options.mode;
     if (mode === "tap" || mode === "sort") {
       this.setData({
@@ -83,6 +101,36 @@ Page({
   onUnload() {
     this.clearGameTimer();
     if (this.gameAudio) this.gameAudio.destroy();
+  },
+
+  updateMusicPlayer(state) {
+    var currentTime = this.isAudioDragging ? this.data.musicCurrentTime : state.currentTime;
+    this.setData({
+      musicAvailable: state.available,
+      musicPlaying: state.playing,
+      musicLoading: state.loading,
+      musicCurrentTime: currentTime,
+      musicDuration: state.duration,
+      musicCurrentTimeText: formatAudioTime(currentTime),
+      musicDurationText: state.duration > 0 ? formatAudioTime(state.duration) : "--:--"
+    });
+  },
+
+  toggleMusic() {
+    if (this.gameAudio) this.gameAudio.toggleMusic();
+  },
+
+  onMusicProgressChanging(e) {
+    this.isAudioDragging = true;
+    var seconds = Number(e.detail.value) || 0;
+    this.setData({ musicCurrentTime: seconds, musicCurrentTimeText: formatAudioTime(seconds) });
+  },
+
+  onMusicProgressChange(e) {
+    var seconds = Number(e.detail.value) || 0;
+    this.isAudioDragging = false;
+    this.setData({ musicCurrentTime: seconds, musicCurrentTimeText: formatAudioTime(seconds) });
+    if (this.gameAudio) this.gameAudio.seekMusic(seconds);
   },
 
   chooseMode(e) {

@@ -34,6 +34,8 @@
 .round-progress { margin: 20rpx 8rpx 24rpx; display: flex; gap: 10rpx; }
 .round-dot { height: 8rpx; flex: 1; overflow: hidden; border-radius: 999rpx; background: #eadfce; }
 .round-dot-active { background: linear-gradient(90deg, #e9a052, #cd6a4e); }
+.chain-game-page .game-music-toggle { background: #c7754e; box-shadow: 0 6rpx 14rpx rgba(156, 81, 52, 0.2); }
+.chain-game-page .game-music-toggle[disabled] { background: #c8c2b5; }
 
 .challenge-card {
   padding: 28rpx 26rpx 30rpx;

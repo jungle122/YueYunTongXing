@@ -142,7 +142,8 @@ function safeStopAndDestroy(audio) {
   try { audio.destroy(); } catch (error) {}
 }
 
-function createGameAudio() {
+function createGameAudio(options) {
+  options = options || {};
   var musicAudio = null;
   var effectAudio = null;
   var currentSongId = "";
@@ -150,6 +151,21 @@ function createGameAudio() {
   var pageVisible = true;
   var destroyed = false;
   var loadToken = 0;
+  var musicState = {
+    available: false,
+    playing: false,
+    loading: false,
+    currentTime: 0,
+    duration: 0
+  };
+
+  function notifyMusicState(changes) {
+    if (destroyed) return;
+    musicState = Object.assign({}, musicState, changes || {});
+    if (typeof options.onMusicStateChange === "function") {
+      options.onMusicStateChange(Object.assign({}, musicState));
+    }
+  }
 
   function ensureEffectAudio() {
     if (effectAudio || destroyed) return effectAudio;
@@ -178,29 +194,99 @@ function createGameAudio() {
     musicRequested = !!songId;
     safeStopAndDestroy(musicAudio);
     musicAudio = null;
+    notifyMusicState({
+      available: !!songId,
+      playing: false,
+      loading: !!songId,
+      currentTime: 0,
+      duration: 0
+    });
     if (!songId || destroyed) return false;
 
     try {
       await loadCloudSources();
       if (destroyed || token !== loadToken || currentSongId !== songId) return false;
       var audioSrc = audioSourceMap[songId];
-      if (!audioSrc) return false;
+      if (!audioSrc) {
+        notifyMusicState({ available: false, loading: false });
+        return false;
+      }
       var audio = wx.createInnerAudioContext();
       audio.volume = 0.2;
       audio.loop = true;
-      audio.onError(function(error) {
-        if (!destroyed) console.error("播放游戏童谣失败:", error);
+      audio.onCanplay(function() {
+        if (destroyed || audio !== musicAudio) return;
+        notifyMusicState({
+          available: true,
+          loading: false,
+          duration: Number(audio.duration) || musicState.duration || 0
+        });
       });
-      audio.src = audioSrc;
+      audio.onPlay(function() {
+        if (destroyed || audio !== musicAudio) return;
+        notifyMusicState({ playing: true, loading: false });
+      });
+      audio.onPause(function() {
+        if (destroyed || audio !== musicAudio) return;
+        notifyMusicState({ playing: false });
+      });
+      audio.onStop(function() {
+        if (destroyed || audio !== musicAudio) return;
+        notifyMusicState({ playing: false, currentTime: 0 });
+      });
+      audio.onTimeUpdate(function() {
+        if (destroyed || audio !== musicAudio) return;
+        notifyMusicState({
+          currentTime: Number(audio.currentTime) || 0,
+          duration: Number(audio.duration) || musicState.duration || 0
+        });
+      });
+      audio.onWaiting(function() {
+        if (destroyed || audio !== musicAudio) return;
+        notifyMusicState({ loading: true });
+      });
+      audio.onError(function(error) {
+        if (!destroyed) {
+          notifyMusicState({ available: false, playing: false, loading: false });
+          console.error("播放游戏童谣失败:", error);
+        }
+      });
       musicAudio = audio;
+      audio.src = audioSrc;
       if (pageVisible && musicRequested) {
         try { audio.play(); } catch (error) {}
       }
       return true;
     } catch (error) {
-      if (!destroyed && token === loadToken) console.error("加载游戏童谣失败:", error);
+      if (!destroyed && token === loadToken) {
+        notifyMusicState({ available: false, playing: false, loading: false });
+        console.error("加载游戏童谣失败:", error);
+      }
       return false;
     }
+  }
+
+  function toggleMusic() {
+    if (!musicAudio || !musicState.available || destroyed) return;
+    if (musicState.playing || musicRequested) {
+      musicRequested = false;
+      try { musicAudio.pause(); } catch (error) {}
+      notifyMusicState({ playing: false });
+      return;
+    }
+    musicRequested = true;
+    if (pageVisible) {
+      try { musicAudio.play(); } catch (error) {}
+    }
+  }
+
+  function seekMusic(seconds) {
+    if (!musicAudio || !musicState.available || destroyed) return;
+    var duration = Number(musicAudio.duration) || musicState.duration || 0;
+    var target = Math.max(0, Number(seconds) || 0);
+    if (duration > 0) target = Math.min(target, duration);
+    try { musicAudio.seek(target); } catch (error) {}
+    notifyMusicState({ currentTime: target, duration: duration });
   }
 
   function setPageVisible(visible) {
@@ -225,6 +311,7 @@ function createGameAudio() {
     musicRequested = false;
     safeStopAndDestroy(musicAudio);
     musicAudio = null;
+    notifyMusicState({ available: false, playing: false, loading: false, currentTime: 0, duration: 0 });
   }
 
   function destroy() {
@@ -239,6 +326,8 @@ function createGameAudio() {
   return {
     playEffect: playEffect,
     playMusic: playMusic,
+    toggleMusic: toggleMusic,
+    seekMusic: seekMusic,
     setPageVisible: setPageVisible,
     stopMusic: stopMusic,
     destroy: destroy

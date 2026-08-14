@@ -15,10 +15,18 @@ Page({
     isPreviewing: true,
     previewCountdown: 5,
     messageText: "记住卡片位置，5秒后开始！",
-    messageClass: ""
+    messageClass: "",
+    musicLoading: false,
+    showGameOver: false,
+    gameWon: false
   },
   onLoad() {
-    this.gameAudio = gameAudioModule.createGameAudio();
+    var self = this;
+    this.gameAudio = gameAudioModule.createGameAudio({
+      onMusicStateChange: function(state) {
+        self.setData({ musicLoading: state.loading });
+      }
+    });
     this.initGame();
   },
   onShow() { if (this.gameAudio) this.gameAudio.setPageVisible(true); },
@@ -48,7 +56,9 @@ Page({
       isPreviewing: true,
       previewCountdown: 5,
       messageText: "记住卡片位置，5秒后开始！",
-      messageClass: ""
+      messageClass: "",
+      showGameOver: false,
+      gameWon: false
     });
     if (self.gameAudio) self.gameAudio.playMusic("song20");
     self.startPreview();
@@ -126,8 +136,14 @@ Page({
       });
     }
     this.setData({ selectedCells: [] });
-    var self = this;
-    setTimeout(function() { self.setData({ messageText: "翻开两张相同文字配对吧！", messageClass: "" }); }, 1500);
+    if (this.data.isGameActive) {
+      var self = this;
+      setTimeout(function() {
+        if (self.data.isGameActive && !self.data.isPreviewing) {
+          self.setData({ messageText: "翻开两张相同文字配对吧！", messageClass: "" });
+        }
+      }, 1500);
+    }
   },
   startTimer() {
     var self = this;
@@ -142,14 +158,19 @@ Page({
     self.setData({ gameTimer: timer });
   },
   endGame(won) {
-    this.setData({ isGameActive: false });
+    if (this.data.showGameOver) return;
+    this.setData({
+      isGameActive: false,
+      showGameOver: true,
+      gameWon: !!won,
+      messageText: won ? "全部配对完成！" : "时间到，本轮挑战结束",
+      messageClass: won ? "success" : "error"
+    });
     if (this.data.gameTimer) { clearInterval(this.data.gameTimer); }
     if (this.gameAudio) {
       this.gameAudio.stopMusic();
       this.gameAudio.playEffect(won ? "complete" : "wrong");
     }
-    if (won) { this.setData({ messageText: "🎉 恭喜你！游戏胜利！最终得分: " + this.data.score, messageClass: "success" }); }
-    else { this.setData({ messageText: "⏰ 时间到！游戏结束！最终得分: " + this.data.score, messageClass: "error" }); }
   },
   startNewGame() {
     if (this.gameAudio) this.gameAudio.playEffect("select");
@@ -182,5 +203,6 @@ Page({
         }
       }
     }
-  }
+  },
+  noop() {}
 });

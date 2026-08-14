@@ -97,11 +97,17 @@ Page({
     slotStyle: "",
     promptText: "先看看完整绘本，记住画面位置",
     score: 0,
-    showGameOver: false
+    showGameOver: false,
+    musicLoading: false
   },
 
   onLoad() {
-    this.gameAudio = gameAudioModule.createGameAudio();
+    var self = this;
+    this.gameAudio = gameAudioModule.createGameAudio({
+      onMusicStateChange: function(state) {
+        self.setData({ musicLoading: state.loading });
+      }
+    });
     this.loadGames();
   },
 

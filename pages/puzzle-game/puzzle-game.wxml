@@ -1,7 +1,7 @@
 <view class="puzzle-game-page">
   <view wx:if="{{!selectedMode}}" class="mode-shell">
     <view class="mode-hero">
-      <text class="mode-kicker">童谣拼图</text>
+      <text class="mode-kicker">歌词挑战</text>
       <text class="mode-title">选择一种歌词挑战</text>
       <text class="mode-description">从逐字寻找开始，或者挑战整句排序。</text>
       <text class="mode-hero-ornament">字</text>
@@ -60,6 +60,21 @@
       <button class="back-mode-btn" bindtap="backToModes">‹ 换个玩法</button>
       <view class="round-progress" aria-label="当前第{{currentPuzzle + 1}}关">
         <view wx:for="{{selectedMode === 'tap' ? tapChallenges : selectedPuzzles}}" wx:for-item="puzzle" wx:for-index="roundIndex" wx:key="songId" class="round-dot {{currentPuzzle >= roundIndex ? 'round-dot-active' : ''}}"></view>
+      </view>
+    </view>
+
+    <view class="game-music-player">
+      <button class="game-music-toggle" bindtap="toggleMusic" disabled="{{!musicAvailable}}" aria-label="{{musicPlaying ? '暂停童谣' : '播放童谣'}}">
+        <view wx:if="{{musicPlaying}}" class="game-music-pause"><view></view><view></view></view>
+        <view wx:else class="game-music-play"></view>
+      </button>
+      <view class="game-music-main">
+        <view class="game-music-heading">
+          <text class="game-music-title">{{currentPuzzleData.songTitle || '本关童谣'}}</text>
+          <text class="game-music-status">{{musicLoading ? '加载中' : (musicAvailable ? (musicPlaying ? '播放中' : '已暂停') : '暂无配乐')}}</text>
+        </view>
+        <slider class="game-music-slider" min="0" max="{{musicDuration || 1}}" step="1" value="{{musicCurrentTime}}" disabled="{{!musicAvailable}}" activeColor="#6f9d71" backgroundColor="#e2dfcf" block-color="#fffaf0" block-size="16" bindchanging="onMusicProgressChanging" bindchange="onMusicProgressChange" aria-label="童谣播放进度" />
+        <view class="game-music-time"><text>{{musicCurrentTimeText}}</text><text>{{musicDurationText}}</text></view>
       </view>
     </view>
 

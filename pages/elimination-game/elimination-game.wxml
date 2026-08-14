@@ -20,6 +20,8 @@
       <view class="timer-track"><view class="timer-fill" style="width:{{timeProgress}}%"></view></view>
     </view>
 
+    <view wx:if="{{musicLoading}}" class="game-audio-loading-hint" aria-live="polite">音乐正在加载中，不影响继续游戏</view>
+
     <view class="message-card {{messageClass}}">
       <view class="message-symbol">{{messageClass === 'success' ? '✓' : (messageClass === 'error' ? '×' : 'i')}}</view>
       <text class="message-text">{{messageText}}</text>
@@ -57,6 +59,21 @@
     <view class="controls">
       <button class="game-btn new-game-btn" bindtap="startNewGame"><text class="btn-icon">↻</text><text>重新开局</text></button>
       <button class="game-btn hint-btn" bindtap="showHint" disabled="{{!isGameActive || isPreviewing}}"><text class="btn-icon">💡</text><text>给我提示</text></button>
+    </view>
+  </view>
+
+  <view wx:if="{{showGameOver}}" class="modal">
+    <view class="modal-card game-over-card" catchtap="noop">
+      <view class="modal-symbol {{gameWon ? 'win-symbol' : 'time-symbol'}}">{{gameWon ? '★' : '⌛'}}</view>
+      <text class="modal-title">{{gameWon ? '挑战完成' : '时间到'}}</text>
+      <text class="modal-text">{{gameWon ? '8 组童谣词语全部配对成功' : '本轮完成了 ' + matches + ' 组配对'}}</text>
+      <text class="final-score">{{score}} 分</text>
+      <view class="result-summary">
+        <view class="result-item"><text class="result-number">{{matches}}/8</text><text class="result-label">完成配对</text></view>
+        <view class="result-divider"></view>
+        <view class="result-item"><text class="result-number">{{timeLeft}}</text><text class="result-label">剩余秒数</text></view>
+      </view>
+      <button class="modal-btn" bindtap="startNewGame">再玩一次</button>
     </view>
   </view>
 </view>

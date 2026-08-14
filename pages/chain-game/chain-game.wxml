@@ -22,6 +22,21 @@
       <view wx:for="{{selectedGames}}" wx:for-item="game" wx:for-index="roundIndex" wx:key="title" class="round-dot {{currentRound >= roundIndex ? 'round-dot-active' : ''}}"></view>
     </view>
 
+    <view class="game-music-player">
+      <button class="game-music-toggle" bindtap="toggleMusic" disabled="{{!musicAvailable}}" aria-label="{{musicPlaying ? '暂停童谣' : '播放童谣'}}">
+        <view wx:if="{{musicPlaying}}" class="game-music-pause"><view></view><view></view></view>
+        <view wx:else class="game-music-play"></view>
+      </button>
+      <view class="game-music-main">
+        <view class="game-music-heading">
+          <text class="game-music-title">{{currentQuestion ? currentQuestion.title : '本关童谣'}}</text>
+          <text class="game-music-status">{{musicLoading ? '加载中' : (musicAvailable ? (musicPlaying ? '播放中' : '已暂停') : '暂无配乐')}}</text>
+        </view>
+        <slider class="game-music-slider" min="0" max="{{musicDuration || 1}}" step="1" value="{{musicCurrentTime}}" disabled="{{!musicAvailable}}" activeColor="#c7754e" backgroundColor="#eadfce" block-color="#fffaf0" block-size="16" bindchanging="onMusicProgressChanging" bindchange="onMusicProgressChange" aria-label="童谣播放进度" />
+        <view class="game-music-time"><text>{{musicCurrentTimeText}}</text><text>{{musicDurationText}}</text></view>
+      </view>
+    </view>
+
     <view class="challenge-card">
       <view class="challenge-heading">
         <view class="challenge-copy">

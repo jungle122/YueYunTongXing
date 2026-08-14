@@ -1,5 +1,12 @@
 var gameAudioModule = require("../audio-learning/audio-catalog.js");
 
+function formatAudioTime(seconds) {
+  var value = Math.max(0, Math.floor(Number(seconds) || 0));
+  var minutes = Math.floor(value / 60);
+  var remainder = value % 60;
+  return (minutes < 10 ? "0" : "") + minutes + ":" + (remainder < 10 ? "0" : "") + remainder;
+}
+
 Page({
   data: {
     gameData: [
@@ -128,10 +135,21 @@ Page({
     selectedOption: -1,
     currentOptions: [],
     optionRows: [],
-    bestStreak: 0
+    bestStreak: 0,
+    musicAvailable: false,
+    musicPlaying: false,
+    musicLoading: false,
+    musicCurrentTime: 0,
+    musicDuration: 0,
+    musicCurrentTimeText: "00:00",
+    musicDurationText: "--:--"
   },
   onLoad() {
-    this.gameAudio = gameAudioModule.createGameAudio();
+    var self = this;
+    this.isAudioDragging = false;
+    this.gameAudio = gameAudioModule.createGameAudio({
+      onMusicStateChange: function(state) { self.updateMusicPlayer(state); }
+    });
     this.initGame();
   },
   onShow() { if (this.gameAudio) this.gameAudio.setPageVisible(true); },
@@ -152,8 +170,9 @@ Page({
     return a;
   },
   initGame() {
+    var playableGames = this.data.gameData.filter(function(game) { return !!game.songId; });
     this.setData({
-      selectedGames: this.randomSelectUniques(this.data.gameData, 3),
+      selectedGames: this.randomSelectUniques(playableGames, 3),
       currentRound: 0, score: 0, streak: 0, gameOver: false, bestStreak: 0
     });
     this.loadNewChain();
@@ -178,6 +197,32 @@ Page({
     if (this.gameAudio) this.gameAudio.playMusic(question.songId || "");
     this.updateChainDisplay();
     this.generateOptions();
+  },
+  updateMusicPlayer(state) {
+    var currentTime = this.isAudioDragging ? this.data.musicCurrentTime : state.currentTime;
+    this.setData({
+      musicAvailable: state.available,
+      musicPlaying: state.playing,
+      musicLoading: state.loading,
+      musicCurrentTime: currentTime,
+      musicDuration: state.duration,
+      musicCurrentTimeText: formatAudioTime(currentTime),
+      musicDurationText: state.duration > 0 ? formatAudioTime(state.duration) : "--:--"
+    });
+  },
+  toggleMusic() {
+    if (this.gameAudio) this.gameAudio.toggleMusic();
+  },
+  onMusicProgressChanging(e) {
+    this.isAudioDragging = true;
+    var seconds = Number(e.detail.value) || 0;
+    this.setData({ musicCurrentTime: seconds, musicCurrentTimeText: formatAudioTime(seconds) });
+  },
+  onMusicProgressChange(e) {
+    var seconds = Number(e.detail.value) || 0;
+    this.isAudioDragging = false;
+    this.setData({ musicCurrentTime: seconds, musicCurrentTimeText: formatAudioTime(seconds) });
+    if (this.gameAudio) this.gameAudio.seekMusic(seconds);
   },
   updateChainDisplay() {
     var displayed = [];

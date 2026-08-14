@@ -9,11 +9,13 @@ var PICTURE_BOOK_GAME_GROUPS = [
 var EXTRA_SORT_PUZZLES = [
   {
     title: "拼出完整的童谣：有只雀仔跌落水",
+    songTitle: "有只雀仔跌落水",
     songId: "song24",
     pieces: ["有只雀仔跌落水", "跌落水，跌落水", "有只雀仔跌落水", "被水冲去"]
   },
   {
     title: "拼出完整的童谣：点虫虫",
+    songTitle: "点虫虫",
     songId: "song25",
     pieces: [
       "点虫虫，虫虫飞",
@@ -29,16 +31,19 @@ var EXTRA_SORT_PUZZLES = [
   },
   {
     title: "拼出完整的童谣：排排坐",
+    songTitle: "排排坐",
     songId: "song26",
     pieces: ["排排坐，吃粉果", "猪拉柴，狗透火", "猫儿担凳，俾姑婆坐", "坐烂个凳柄，唔好赖我啵"]
   },
   {
     title: "拼出完整的童谣：打开蚊帐",
+    songTitle: "打开蚊帐",
     songId: "song27",
     pieces: ["打开蚊帐，打开蚊帐", "有只蚊，有只蚊", "快啲攞把扇嚟，快啲攞把扇嚟", "拨走佢，拨走佢。"]
   },
   {
     title: "拼出完整的童谣：鸡公仔",
+    songTitle: "鸡公仔",
     songId: "song28",
     pieces: ["鸡公仔，尾婆娑", "三岁孩儿学唱歌", "唔使爹娘教导我", "自己精乖无奈何"]
   }
@@ -63,6 +68,7 @@ function getSortPuzzles() {
   var learningPuzzles = getLearningSongs().map(function(song) {
     return {
       title: "拼出完整的童谣：" + song.title,
+      songTitle: song.title,
       songId: song.id,
       pieces: song.lyrics.filter(function(line) { return !!line; })
     };
@@ -70,6 +76,7 @@ function getSortPuzzles() {
   return learningPuzzles.concat(EXTRA_SORT_PUZZLES).map(function(puzzle) {
     return {
       title: puzzle.title,
+      songTitle: puzzle.songTitle,
       songId: puzzle.songId,
       pieces: puzzle.pieces.slice()
     };

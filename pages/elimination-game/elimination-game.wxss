@@ -118,6 +118,23 @@
 .game-btn:active { opacity: 0.72; transform: scale(0.98); }
 .game-btn[disabled] { opacity: 0.48; }
 
+.modal { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 34rpx; background: rgba(67, 46, 35, 0.46); box-sizing: border-box; }
+.modal-card { width: 560rpx; padding: 42rpx 38rpx 36rpx; display: flex; flex-direction: column; align-items: center; border: 3rpx solid #d7c7ae; border-radius: 30rpx; background: #fffaf0; box-shadow: 0 22rpx 50rpx rgba(58, 38, 28, 0.22); box-sizing: border-box; animation: modalPop 300ms cubic-bezier(0.34, 1.56, 0.64, 1) both; }
+.modal-symbol { width: 76rpx; height: 76rpx; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 38rpx; font-weight: 900; }
+.win-symbol { background: #ffe9b8; color: #b77a2b; }
+.time-symbol { background: #e0edf3; color: #537f96; }
+.modal-title { margin-top: 18rpx; color: #4a372e; font-size: 32rpx; font-weight: 900; }
+.modal-text { margin-top: 10rpx; color: #907565; font-size: 22rpx; line-height: 1.6; text-align: center; }
+.final-score { margin-top: 12rpx; color: #6092ad; font-size: 46rpx; font-weight: 900; }
+.result-summary { width: 100%; margin-top: 22rpx; padding: 18rpx 0; display: flex; align-items: center; justify-content: center; border-top: 2rpx dashed #e4d4bd; border-bottom: 2rpx dashed #e4d4bd; }
+.result-item { min-width: 150rpx; display: flex; flex-direction: column; align-items: center; }
+.result-number { color: #5b473c; font-size: 27rpx; font-weight: 900; font-variant-numeric: tabular-nums; }
+.result-label { margin-top: 4rpx; color: #9b8272; font-size: 18rpx; }
+.result-divider { width: 2rpx; height: 50rpx; margin: 0 20rpx; background: #e2d3be; }
+.modal-btn { width: 100%; min-height: 78rpx; margin-top: 28rpx; padding: 0; border: 0; border-radius: 22rpx; background: #6599b2; color: #fff; font-size: 24rpx; font-weight: 850; line-height: 78rpx; }
+.modal-btn::after { border: 0; }
+
 @keyframes gamePageEnter { from { opacity: 0; transform: translateY(24rpx); } to { opacity: 1; transform: translateY(0); } }
+@keyframes modalPop { from { opacity: 0; transform: scale(0.84); } to { opacity: 1; transform: scale(1); } }
 @media (max-width: 340px) { .game-shell { padding-left: 22rpx; padding-right: 22rpx; } .game-board { gap: 8rpx; } .game-cell { min-height: 116rpx; } .cell-word { font-size: 19rpx; } }
-@media (prefers-reduced-motion: reduce) { .elimination-game-page, .cell-face, .timer-fill { animation: none; transition: none; } }
+@media (prefers-reduced-motion: reduce) { .elimination-game-page, .cell-face, .timer-fill, .modal-card { animation: none; transition: none; } }

@@ -165,3 +165,54 @@ page{--status-bar-height:25px;--top-window-height:0px;--window-top:0px;--window-
 @media (prefers-reduced-motion: reduce) {
   .feature-card { transition: none; }
 }
+.game-music-player {
+  margin: 0 0 22rpx;
+  padding: 18rpx 20rpx;
+  display: flex;
+  align-items: center;
+  border: 2rpx solid #e5d5bc;
+  border-radius: 24rpx;
+  background: rgba(255, 253, 246, 0.96);
+  box-shadow: 0 8rpx 20rpx rgba(91, 58, 40, 0.07);
+  box-sizing: border-box;
+}
+
+.game-music-toggle {
+  width: 72rpx;
+  height: 72rpx;
+  margin: 0 20rpx 0 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 50%;
+  background: #6f9d71;
+  box-shadow: 0 6rpx 14rpx rgba(77, 116, 76, 0.2);
+  line-height: 1;
+}
+
+.game-music-toggle::after { border: 0; }
+.game-music-toggle[disabled] { background: #c8c2b5; opacity: 0.72; }
+.game-music-toggle:active { transform: scale(0.95); }
+.game-music-play { width: 0; height: 0; margin-left: 5rpx; border-top: 13rpx solid transparent; border-bottom: 13rpx solid transparent; border-left: 20rpx solid #fff; }
+.game-music-pause { display: flex; gap: 8rpx; }
+.game-music-pause view { width: 7rpx; height: 25rpx; border-radius: 3rpx; background: #fff; }
+.game-music-main { min-width: 0; flex: 1; }
+.game-music-heading { display: flex; align-items: center; justify-content: space-between; gap: 16rpx; }
+.game-music-title { min-width: 0; overflow: hidden; color: #594238; font-size: 21rpx; font-weight: 850; text-overflow: ellipsis; white-space: nowrap; }
+.game-music-status { flex: 0 0 auto; color: #9a8172; font-size: 17rpx; }
+.game-music-slider { margin: 4rpx -16rpx -3rpx; }
+.game-music-time { margin-top: -5rpx; display: flex; justify-content: space-between; color: #9b8577; font-size: 16rpx; font-variant-numeric: tabular-nums; }
+
+.game-audio-loading-hint {
+  margin-top: 16rpx;
+  padding: 13rpx 18rpx;
+  border-radius: 16rpx;
+  background: #f4eadb;
+  color: #8a7465;
+  font-size: 20rpx;
+  line-height: 1.45;
+  text-align: center;
+}
