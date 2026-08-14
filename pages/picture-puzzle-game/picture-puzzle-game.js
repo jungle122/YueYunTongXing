@@ -5,8 +5,7 @@ var MEDIA_TYPE = "pictureBook";
 var GRID_SIZE = 3;
 var TILE_COUNT = GRID_SIZE * GRID_SIZE;
 var MAX_BOARD_WIDTH = 600;
-var MAX_BOARD_HEIGHT = 900;
-var MAX_TRAY_TILE_WIDTH = 160;
+var MAX_BOARD_HEIGHT = 780;
 var ROUND_COUNT = 3;
 
 function getLoadError(error) {
@@ -33,51 +32,52 @@ function createLayout(imageWidth, imageHeight, fallbackRatio) {
   tileHeight = roundLayoutValue(tileHeight);
   boardWidth = roundLayoutValue(tileWidth * GRID_SIZE);
   boardHeight = roundLayoutValue(tileHeight * GRID_SIZE);
-  var trayTileWidth = roundLayoutValue(Math.min(MAX_TRAY_TILE_WIDTH, tileWidth * 0.82));
-  var trayScale = trayTileWidth / tileWidth;
-  var trayTileHeight = roundLayoutValue(tileHeight * trayScale);
-  var trayImageWidth = roundLayoutValue(trayTileWidth * GRID_SIZE);
-  var trayImageHeight = roundLayoutValue(trayTileHeight * GRID_SIZE);
-
   return {
     ratio: ratio,
     boardWidth: boardWidth,
     boardHeight: boardHeight,
     tileWidth: tileWidth,
     tileHeight: tileHeight,
-    trayTileWidth: trayTileWidth,
-    trayTileHeight: trayTileHeight,
-    trayScale: trayScale,
-    trayImageWidth: trayImageWidth,
-    trayImageHeight: trayImageHeight,
     boardStyle: "width:" + boardWidth + "rpx;height:" + boardHeight + "rpx;grid-template-columns:repeat(3," + tileWidth + "rpx);grid-template-rows:repeat(3," + tileHeight + "rpx);",
     previewStyle: "width:" + boardWidth + "rpx;height:" + boardHeight + "rpx;",
-    slotStyle: "width:" + tileWidth + "rpx;height:" + tileHeight + "rpx;",
-    trayStyle: "grid-template-columns:repeat(3," + trayTileWidth + "rpx);",
-    trayTileStyle: "width:" + trayTileWidth + "rpx;height:" + trayTileHeight + "rpx;"
+    slotStyle: "width:" + tileWidth + "rpx;height:" + tileHeight + "rpx;"
   };
 }
 
-function createTiles(imageUrl, layout) {
+function createShuffledTiles(imageUrl, layout) {
   var tiles = [];
   for (var index = 0; index < TILE_COUNT; index++) {
     var row = Math.floor(index / GRID_SIZE);
     var column = index % GRID_SIZE;
     var boardOffsetX = roundLayoutValue(column * -layout.tileWidth);
     var boardOffsetY = roundLayoutValue(row * -layout.tileHeight);
-    var trayOffsetX = roundLayoutValue(boardOffsetX * layout.trayScale);
-    var trayOffsetY = roundLayoutValue(boardOffsetY * layout.trayScale);
     tiles.push({
       id: "tile-" + index,
       correctIndex: index,
       imageUrl: imageUrl,
-      boardImageStyle: "width:" + layout.boardWidth + "rpx;height:" + layout.boardHeight + "rpx;left:" + boardOffsetX + "rpx;top:" + boardOffsetY + "rpx;",
-      trayImageStyle: "width:" + layout.trayImageWidth + "rpx;height:" + layout.trayImageHeight + "rpx;left:" + trayOffsetX + "rpx;top:" + trayOffsetY + "rpx;",
-      used: false,
-      selected: false
+      boardImageStyle: "width:" + layout.boardWidth + "rpx;height:" + layout.boardHeight + "rpx;left:" + boardOffsetX + "rpx;top:" + boardOffsetY + "rpx;"
     });
   }
-  return gameCatalog.shuffle(tiles);
+  var shuffledTiles = [];
+  for (var attempt = 0; attempt < 20; attempt++) {
+    shuffledTiles = gameCatalog.shuffle(tiles);
+    if (shuffledTiles.every(function(tile, position) { return tile.correctIndex !== position; })) {
+      return shuffledTiles;
+    }
+  }
+  return tiles.slice(1).concat(tiles[0]);
+}
+
+function createShuffledBoard(imageUrl, layout) {
+  return createShuffledTiles(imageUrl, layout).map(function(tile, index) {
+    return { index: index, tile: tile, selected: false };
+  });
+}
+
+function countCorrectSlots(slots) {
+  return slots.filter(function(slot, index) {
+    return slot.tile && slot.tile.correctIndex === index;
+  }).length;
 }
 
 Page({
@@ -90,18 +90,12 @@ Page({
     phase: "preview",
     previewCountdown: 5,
     boardSlots: [],
-    availableTiles: [],
-    selectedTileIndex: -1,
-    selectedTileId: "",
     selectedBoardIndex: -1,
-    placedCount: 0,
+    correctCount: 0,
     boardStyle: "",
     previewStyle: "",
     slotStyle: "",
-    trayStyle: "",
-    trayTileStyle: "",
     promptText: "先看看完整绘本，记住画面位置",
-    boardIncorrect: false,
     score: 0,
     showGameOver: false
   },
@@ -213,27 +207,18 @@ Page({
     }
     if (this.gameAudio) this.gameAudio.stopMusic();
     var layout = game.layout || createLayout(0, 0, game.fallbackRatio);
-    var slots = [];
-    for (var index = 0; index < TILE_COUNT; index++) {
-      slots.push({ index: index, tile: null, filled: false });
-    }
+    var slots = createShuffledBoard(game.imageUrl, layout);
     this.setData({
       currentGame: game,
       phase: "preview",
       previewCountdown: 5,
       boardSlots: slots,
-      availableTiles: createTiles(game.imageUrl, layout),
-      selectedTileIndex: -1,
-      selectedTileId: "",
       selectedBoardIndex: -1,
-      placedCount: 0,
+      correctCount: 0,
       boardStyle: layout.boardStyle,
       previewStyle: layout.previewStyle,
       slotStyle: layout.slotStyle,
-      trayStyle: layout.trayStyle,
-      trayTileStyle: layout.trayTileStyle,
-      promptText: "先看看完整绘本，记住画面位置",
-      boardIncorrect: false
+      promptText: "先看看完整绘本，记住画面位置"
     });
     this.startPreviewTimer();
   },
@@ -258,74 +243,23 @@ Page({
   },
 
   enterPuzzle() {
+    var correctCount = countCorrectSlots(this.data.boardSlots);
     this.setData({
       phase: "puzzle",
       previewCountdown: 0,
-      promptText: "先选一块图片，再点想放的位置"
+      correctCount: correctCount,
+      promptText: "点一块图片，再点另一块交换位置"
     });
     if (this.gameAudio && this.data.currentGame.songId) {
       this.gameAudio.playMusic(this.data.currentGame.songId);
     }
   },
 
-  selectTile(e) {
-    if (this.data.phase !== "puzzle") return;
-    var tileIndex = Number(e.currentTarget.dataset.index);
-    var tile = this.data.availableTiles[tileIndex];
-    if (!tile || tile.used) return;
-    if (this.gameAudio) this.gameAudio.playEffect("select");
-    var changes = {};
-    if (this.data.selectedBoardIndex >= 0) {
-      changes["boardSlots[" + this.data.selectedBoardIndex + "].selected"] = false;
-      changes.selectedBoardIndex = -1;
-    }
-    if (this.data.selectedTileIndex >= 0) {
-      changes["availableTiles[" + this.data.selectedTileIndex + "].selected"] = false;
-    }
-    if (this.data.selectedTileIndex === tileIndex) {
-      changes.selectedTileIndex = -1;
-      changes.selectedTileId = "";
-    } else {
-      changes["availableTiles[" + tileIndex + "].selected"] = true;
-      changes.selectedTileIndex = tileIndex;
-      changes.selectedTileId = tile.id;
-    }
-    this.setData(changes);
-  },
-
   placeTile(e) {
     if (this.data.phase !== "puzzle") return;
     var slotIndex = Number(e.currentTarget.dataset.index);
     var slot = this.data.boardSlots[slotIndex];
-    if (!slot) return;
-
-    if (this.data.selectedTileIndex >= 0) {
-      if (slot.filled) return;
-      var tile = this.data.availableTiles[this.data.selectedTileIndex];
-      if (!tile) return;
-      if (this.gameAudio) this.gameAudio.playEffect("select");
-      var nextPlacedCount = this.data.placedCount + 1;
-      var placeChanges = {
-        selectedTileIndex: -1,
-        selectedTileId: "",
-        placedCount: nextPlacedCount,
-        boardIncorrect: false,
-        promptText: nextPlacedCount === TILE_COUNT ? "已经放满，正在检查完整画面" : "继续摆放，全部放满后再检查"
-      };
-      placeChanges["boardSlots[" + slotIndex + "].tile"] = tile;
-      placeChanges["boardSlots[" + slotIndex + "].filled"] = true;
-      placeChanges["availableTiles[" + this.data.selectedTileIndex + "].used"] = true;
-      placeChanges["availableTiles[" + this.data.selectedTileIndex + "].selected"] = false;
-      this.setData(placeChanges, () => {
-        if (nextPlacedCount === TILE_COUNT) this.checkCompletedBoard();
-      });
-      return;
-    }
-
-    if (!slot.filled) {
-      if (this.data.selectedBoardIndex >= 0) this.moveBoardTile(this.data.selectedBoardIndex, slotIndex);
-      return;
-    }
+    if (!slot || !slot.tile) return;
 
     if (this.gameAudio) this.gameAudio.playEffect("select");
     if (this.data.selectedBoardIndex < 0) {
@@ -340,23 +274,11 @@ Page({
       this.setData({
         selectedBoardIndex: -1,
         ["boardSlots[" + slotIndex + "].selected"]: false,
-        promptText: this.data.placedCount === TILE_COUNT ? "点两块图片可以交换位置" : "继续摆放，全部放满后再检查"
+        promptText: "点一块图片，再点另一块交换位置"
       });
       return;
     }
     this.swapBoardTiles(this.data.selectedBoardIndex, slotIndex);
-  },
-
-  moveBoardTile(fromIndex, toIndex) {
-    var slots = this.data.boardSlots.slice();
-    slots[toIndex] = Object.assign({}, slots[toIndex], { tile: slots[fromIndex].tile, filled: true, selected: false });
-    slots[fromIndex] = Object.assign({}, slots[fromIndex], { tile: null, filled: false, selected: false });
-    this.setData({
-      boardSlots: slots,
-      selectedBoardIndex: -1,
-      boardIncorrect: false,
-      promptText: "继续摆放，全部放满后再检查"
-    });
   },
 
   swapBoardTiles(firstIndex, secondIndex) {
@@ -364,35 +286,29 @@ Page({
     var firstTile = slots[firstIndex].tile;
     slots[firstIndex] = Object.assign({}, slots[firstIndex], { tile: slots[secondIndex].tile, selected: false });
     slots[secondIndex] = Object.assign({}, slots[secondIndex], { tile: firstTile, selected: false });
+    var correctCount = countCorrectSlots(slots);
     this.setData({
       boardSlots: slots,
       selectedBoardIndex: -1,
-      boardIncorrect: false,
-      promptText: "位置已交换，正在重新检查完整画面"
-    }, () => {
-      if (this.data.placedCount === TILE_COUNT) this.checkCompletedBoard();
-    });
+      correctCount: correctCount,
+      promptText: correctCount === TILE_COUNT ? "完整绘本拼好啦" : "继续交换，已有 " + correctCount + " 块回到正确位置"
+    }, () => this.checkCompletedBoard());
   },
 
   checkCompletedBoard() {
     var isCorrect = this.data.boardSlots.every(function(slot, index) {
-      return slot.filled && slot.tile && slot.tile.correctIndex === index;
+      return slot.tile && slot.tile.correctIndex === index;
     });
     if (isCorrect) {
       if (this.gameAudio) this.gameAudio.playEffect("complete");
       this.setData({
         phase: "roundComplete",
-        boardIncorrect: false,
+        correctCount: TILE_COUNT,
         promptText: "完整绘本拼好啦",
         score: this.data.score + 100
       });
       return;
     }
-    if (this.gameAudio) this.gameAudio.playEffect("wrong");
-    this.setData({
-      boardIncorrect: true,
-      promptText: "还没有拼成完整画面，点两块图片交换位置"
-    });
   },
 
   nextRound() {

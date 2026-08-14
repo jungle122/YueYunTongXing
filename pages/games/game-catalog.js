@@ -1,7 +1,7 @@
 var audioCatalog = require("../audio-learning/audio-catalog.js");
 
 var PICTURE_BOOK_GAME_GROUPS = [
-  { groupId: "yueguang", songId: "song18", pageNumbers: [1, 2, 3, 4, 5, 7, 10, 11, 12], fallbackRatio: 1.5 },
+  { groupId: "yueguang", songId: "song18", pageNumbers: [1, 3, 4, 5, 7, 10, 11, 12], fallbackRatio: 1.5 },
   { groupId: "dangdang", songId: "song20", pageNumbers: [2, 3, 4, 5, 6, 8, 9, 10], fallbackRatio: 1.5 },
   { groupId: "qiqi", songId: "song23", pageNumbers: [1, 2, 3, 4, 5, 6, 7], fallbackRatio: 1.5 }
 ];

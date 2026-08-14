@@ -17,7 +17,7 @@
         <text class="overview-title">第 {{currentRound + 1}} 关</text>
       </view>
       <view class="overview-stats">
-        <view class="overview-stat"><text class="stat-number">{{placedCount}}/9</text><text class="stat-label">已归位</text></view>
+        <view class="overview-stat"><text class="stat-number">{{correctCount}}/9</text><text class="stat-label">已归位</text></view>
         <view class="stat-divider"></view>
         <view class="overview-stat"><text class="stat-number">{{score}}</text><text class="stat-label">得分</text></view>
       </view>
@@ -43,43 +43,22 @@
       </view>
 
       <block wx:else>
-        <view class="puzzle-board {{boardIncorrect ? 'board-incorrect' : ''}}" style="{{boardStyle}}">
+        <view class="puzzle-board" style="{{boardStyle}}">
           <view
             wx:for="{{boardSlots}}"
             wx:for-item="slot"
             wx:for-index="slotIndex"
             wx:key="index"
-            class="board-slot {{slot.filled ? 'slot-filled' : ''}} {{slot.selected ? 'slot-selected' : ''}}"
+            class="board-slot slot-filled {{slot.selected ? 'slot-selected' : ''}}"
             style="{{slotStyle}}"
             data-index="{{slotIndex}}"
             bindtap="placeTile"
             aria-role="button"
             aria-label="拼图第{{slotIndex + 1}}格{{slot.selected ? '，已选中' : ''}}"
           >
-            <view wx:if="{{slot.filled}}" class="tile-window" style="{{slotStyle}}">
+            <view class="tile-window" style="{{slotStyle}}">
               <image class="tile-image" src="{{slot.tile.imageUrl}}" mode="scaleToFill" style="{{slot.tile.boardImageStyle}}" />
             </view>
-            <text wx:else class="slot-number">{{slotIndex + 1}}</text>
-          </view>
-        </view>
-
-        <view wx:if="{{phase === 'puzzle' && placedCount !== 9}}" class="tile-tray" style="{{trayStyle}}">
-          <view
-            wx:for="{{availableTiles}}"
-            wx:for-item="tile"
-            wx:for-index="tileIndex"
-            wx:key="id"
-            class="tray-tile {{tile.selected ? 'tile-selected' : ''}} {{tile.used ? 'tile-used' : ''}}"
-            style="{{trayTileStyle}}"
-            data-index="{{tileIndex}}"
-            bindtap="selectTile"
-            aria-role="button"
-            aria-label="{{tile.used ? '已归位' : '选择'}}图片块"
-          >
-            <view class="tile-window" style="{{trayTileStyle}}">
-              <image class="tile-image" src="{{tile.imageUrl}}" mode="scaleToFill" style="{{tile.trayImageStyle}}" />
-            </view>
-            <text wx:if="{{tile.selected}}" class="selected-mark">已选</text>
           </view>
         </view>
 
