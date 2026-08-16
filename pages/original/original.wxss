@@ -8,6 +8,10 @@
 .video-card { border-left: 8rpx solid #e78b9a; }
 .book-card { border-left: 8rpx solid #76b982; }
 
+.manual-card {
+  border-left: 8rpx solid #6d9fd1;
+}
+
 .video-symbol { background: #ffe1e5; }
 .book-symbol { background: #ddf3df; }
 
@@ -50,6 +54,10 @@
 
 .original-page.page-enter-active .feature-card:nth-child(2) {
   animation: cardSlideFromRight-orig 550ms ease-out 350ms both;
+}
+
+.original-page.page-enter-active .feature-card:nth-child(3) {
+  animation: cardSlideFromLeft-orig 550ms ease-out 500ms both;
 }
 
 @keyframes pageEnter-orig {
