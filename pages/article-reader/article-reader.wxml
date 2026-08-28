@@ -1,4 +1,6 @@
-<view wx:if="{{article}}" class="reader-page">
+﻿<view wx:if="{{article}}" class="reader-page {{article.themeClass}}">
+  <image class="reader-bg" src="{{article.bgImagePath}}" mode="aspectFill" style="{{bgImageStyle}}"></image>
+
   <scroll-view
     class="reader-scroll"
     scroll-y="true"

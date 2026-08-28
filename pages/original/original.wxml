@@ -39,5 +39,30 @@
         <text class="original-tag">故事</text>
       </view>
     </view>
+    <view
+      class="feature-card manual-card"
+      bindtap="openManual"
+      hover-class="soft-press"
+      hover-stay-time="120"
+      aria-role="button"
+      aria-label="阅读童谣课程手册"
+    >
+      <view class="feature-main">
+        <view class="feature-symbol manual-symbol"><image src="/static/ui/original/童谣课程手册.svg"></image></view>
+
+        <view class="feature-copy">
+          <text class="feature-title">童谣课程手册</text>
+          <text class="feature-description">{{manualOpening ? '手册加载中，请稍候…' : '阅读粤语童谣课程设计与教学实践手册。'}}</text>
+        </view>
+
+        <text class="feature-arrow">›</text>
+      </view>
+
+      <view class="original-tags">
+        <text class="original-tag">手册</text>
+        <text class="original-tag">教案</text>
+        <text class="original-tag">童谣</text>
+      </view>
+    </view>
   </view>
 </view>

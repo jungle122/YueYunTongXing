@@ -1,6 +1,7 @@
-var articles = [
+﻿var articles = [
   {
     id: "cantonese-history",
+    bgImagePath: "/static/ui/text-science/历史起源.jpg",
     icon: "卷",
     iconImage: "/static/ui/text-science/历史起源.jpg",
     themeClass: "theme-history",
@@ -15,6 +16,7 @@ var articles = [
   },
   {
     id: "festival-rhymes",
+    bgImagePath: "/static/ui/text-science/节日童谣.jpg",
     icon: "灯",
     iconImage: "/static/ui/text-science/节日童谣.jpg",
     themeClass: "theme-festival",
@@ -29,6 +31,7 @@ var articles = [
   },
   {
     id: "language-features",
+    bgImagePath: "/static/ui/text-science/语言特色.jpg",
     icon: "声",
     iconImage: "/static/ui/text-science/语言特色.jpg",
     themeClass: "theme-language",
@@ -43,6 +46,7 @@ var articles = [
   },
   {
     id: "modern-development",
+    bgImagePath: "/static/ui/text-science/现代发展.jpg",
     icon: "新",
     iconImage: "/static/ui/text-science/现代发展.jpg",
     themeClass: "theme-modern",

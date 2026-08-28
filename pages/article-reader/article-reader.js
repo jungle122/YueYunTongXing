@@ -10,7 +10,8 @@ Page({
     progressStyle: "width:0%",
     viewportHeight: 0,
     showToast: false,
-    toastText: ""
+    toastText: "",
+    bgImageStyle: ""
   },
 
   onLoad(options) {
@@ -21,12 +22,16 @@ Page({
     var progress = Math.max(10, Math.min(100, Number(progressMap[article.id]) || 0));
     var systemInfo = wx.getSystemInfoSync();
 
+    var vh = Number(systemInfo.windowHeight) || 0;
+    var vw = Number(systemInfo.windowWidth) || 375;
+    var bgImageStyle = 'position:fixed;top:0;left:0;width:' + vw + 'px;height:' + vh + 'px;opacity:0.45;z-index:0;pointer-events:none;';
     this.setData({
       article: article,
       collected: !!collections[article.id],
       progress: progress,
       progressStyle: "width:" + progress + "%",
-      viewportHeight: Number(systemInfo.windowHeight) || 0
+      viewportHeight: vh,
+      bgImageStyle: bgImageStyle
     });
     this.persistProgress(progress);
     this.recordLearningHistory(article);

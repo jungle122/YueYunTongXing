@@ -4,7 +4,7 @@ cloud.init({ env: cloud.DYNAMIC_CURRENT_ENV });
 
 const db = cloud.database();
 const MEDIA_COLLECTION = 'mediaAssets';
-const ALLOWED_MEDIA_TYPES = ['pictureBook', 'audio', 'video'];
+const ALLOWED_MEDIA_TYPES = ['pictureBook', 'audio', 'video', 'document'];
 const MAX_GROUP_COUNT = 100;
 const TEMP_URL_BATCH_SIZE = 50;
 
@@ -47,7 +47,7 @@ async function resolveTempURLs(fileIDs) {
   return urlMap;
 }
 
-function buildGroups(groups, urlMap) {
+function buildGroups(groups, urlMap, mediaType) {
   return groups.map(function(group) {
     var items = (group.items || []).slice().sort(function(a, b) {
       return Number(a.sort || 0) - Number(b.sort || 0);
@@ -71,7 +71,8 @@ function buildGroups(groups, urlMap) {
       items: items
     };
   }).filter(function(group) {
-    return group.groupId && group.title && group.coverUrl && group.items.length;
+    var coverIsValid = mediaType === 'document' || group.coverUrl;
+    return group.groupId && group.title && coverIsValid && group.items.length;
   }).sort(function(a, b) {
     return a.sort - b.sort;
   });
@@ -115,7 +116,7 @@ exports.main = async function(event) {
       });
       return failure('MEDIA_FILE_UNAVAILABLE', '部分媒体文件暂时不可用，请联系管理员检查云存储');
     }
-    const responseGroups = buildGroups(groups, urlMap);
+    const responseGroups = buildGroups(groups, urlMap, mediaType);
 
     if (responseGroups.length !== groups.length) {
       console.error('Some media files could not be resolved', {
