@@ -73,24 +73,6 @@
       <text class="nickname-helper">真机点击后，可从微信提供的昵称中快速选择</text>
     </view>
 
-    <!-- 学习偏好 -->
-    <view class="settings-section">
-      <text class="section-title">学习偏好</text>
-      <view class="setting-row">
-        <text class="row-label">每日学习提醒</text>
-        <switch checked="{{dailyReminder}}" bindchange="onReminderChange" color="#cf684b"/>
-      </view>
-      <view class="setting-row">
-        <text class="row-label">难度等级</text>
-        <picker range="{{difficultyLevels}}" value="{{difficultyIndex}}" bindchange="onDifficultyChange" mode="selector">
-          <view class="settings-picker">
-            <text>{{difficultyLevels[difficultyIndex]}}</text>
-            <text class="picker-arrow">▾</text>
-          </view>
-        </picker>
-      </view>
-    </view>
-
     <!-- 保存按钮 -->
     <view class="save-btn {{isRestoring ? 'save-btn-disabled' : ''}}" bindtap="saveSettings" hover-class="save-btn-press">
       <text class="save-btn-text">{{isRestoring ? '正在确认微信身份...' : (isSaving ? '正在同步...' : '保存并同步资料')}}</text>

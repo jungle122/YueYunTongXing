@@ -7,9 +7,6 @@ Page({
   data: {
     isLoggedIn: false,
     nickname: '',
-    dailyReminder: true,
-    difficultyLevels: ['入门', '初级', '中级', '高级'],
-    difficultyIndex: 1,
     stickerAvatars: avatarModule.STICKER_AVATARS,
     selectedSticker: -1,
     currentAvatar: '',
@@ -49,11 +46,6 @@ Page({
     var isLoggedIn = !!user;
 
     var nickname = user ? (user.nickname || '') : (wx.getStorageSync('userNickname') || '');
-    var dailyReminder = wx.getStorageSync('dailyReminder');
-    var difficulty = wx.getStorageSync('difficultyLevel') || '初级';
-    var idx = this.data.difficultyLevels.indexOf(difficulty);
-    if (idx === -1) idx = 1;
-
     var currentAvatar = '';
     var avatarType = 'emoji';
     var selectedSticker = -1;
@@ -84,8 +76,6 @@ Page({
     this.setData({
       isLoggedIn: isLoggedIn,
       nickname: nickname,
-      dailyReminder: dailyReminder !== false,
-      difficultyIndex: idx,
       currentAvatar: currentAvatar,
       avatarType: avatarType,
       selectedSticker: selectedSticker,
@@ -130,14 +120,6 @@ Page({
     this.setData({ nicknameFocused: false });
   },
 
-  onReminderChange: function(e) {
-    this.setData({ dailyReminder: e.detail.value });
-  },
-
-  onDifficultyChange: function(e) {
-    this.setData({ difficultyIndex: e.detail.value });
-  },
-
   saveSettings: async function() {
     if (this.data.isSaving || this.data.isRestoring) return;
     var nickname = this.data.nickname.trim();
@@ -163,10 +145,7 @@ Page({
       getApp().globalData.profileError = '';
       this.setData({ isLoggedIn: true, identityError: '' });
 
-      // 学习偏好暂时保留为本机设置，不参与账号识别。
       wx.setStorageSync('userNickname', nickname);
-      wx.setStorageSync('dailyReminder', this.data.dailyReminder);
-      wx.setStorageSync('difficultyLevel', this.data.difficultyLevels[this.data.difficultyIndex]);
 
       wx.showToast({ title: '资料已同步', icon: 'success', duration: 1500 });
 

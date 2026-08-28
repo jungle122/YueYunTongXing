@@ -280,43 +280,6 @@
   font-weight: 600;
 }
 
-/* 设置行 */
-.setting-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18rpx 0;
-  border-bottom: 2rpx dashed #eadbc4;
-}
-
-.setting-row:last-child {
-  border-bottom: none;
-}
-
-.row-label {
-  font-size: 26rpx;
-  font-weight: 600;
-  color: #49352d;
-}
-
-.settings-picker {
-  display: flex;
-  align-items: center;
-  gap: 8rpx;
-  padding: 10rpx 18rpx;
-  border: 2rpx solid #e6cba8;
-  border-radius: 14rpx;
-  background: #fff9ed;
-  font-size: 24rpx;
-  color: #49352d;
-  font-weight: 600;
-}
-
-.picker-arrow {
-  font-size: 20rpx;
-  color: #a08d82;
-}
-
 /* 保存按钮 */
 .save-btn {
   display: flex;
