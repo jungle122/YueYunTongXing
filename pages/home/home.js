@@ -14,23 +14,11 @@ Page({
   },
 
   onLoad() {
-    this.checkLogin();
     this.loadRecentLearning();
   },
 
   onShow() {
-    this.checkLogin();
     this.loadRecentLearning();
-  },
-
-  async checkLogin() {
-    var profileReady = getApp().globalData.profileReady;
-    if (profileReady && typeof profileReady.then === 'function') {
-      await profileReady;
-    }
-    if (!userModule.isLoggedIn()) {
-      wx.navigateTo({ url: '/pages/login/login' });
-    }
   },
 
   loadRecentLearning() {
