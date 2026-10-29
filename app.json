@@ -8,6 +8,7 @@
     "pages/login/login",
     "pages/community/community",
     "pages/feedback/feedback",
+    "pages/feedback-admin/feedback-admin",
     "pages/settings/settings",
     "pages/my-collection/my-collection",
     "pages/history/history",

@@ -1,0 +1,38 @@
+<view class="admin-page">
+  <text class="page-title">建议与评分</text>
+  <text wx:if="{{loading}}" class="note">正在加载…</text>
+  <view wx:if="{{error}}" class="error"><text>{{error}}</text><button wx:if="{{!checked}}" bindtap="checkAccess" disabled="{{loading}}">重试权限检查</button></view>
+  <view wx:if="{{checked && !isAdmin}}" class="card">
+    <text>当前微信账号未获得反馈管理权限。</text>
+    <text class="note">项目方首次使用：复制自己的授权标识，交给维护者加入服务端管理员名单。昵称、头像不会影响权限。</text>
+    <button bindtap="copyIdentity">复制我的授权标识</button>
+    <button bindtap="checkAccess" disabled="{{loading}}">重新检查权限</button>
+  </view>
+  <block wx:if="{{isAdmin}}">
+    <view class="filters">
+      <picker range="{{statusOptions}}" range-key="label" value="{{statusIndex}}" bindchange="changeStatus" disabled="{{loading || saving}}"><view class="filter">{{statusOptions[statusIndex].label}}</view></picker>
+      <picker range="{{ratingOptions}}" value="{{ratingIndex}}" bindchange="changeRating" disabled="{{loading || saving}}"><view class="filter">{{ratingOptions[ratingIndex]}}</view></picker>
+      <button size="mini" bindtap="refresh" disabled="{{loading || saving}}">刷新</button>
+    </view>
+    <text class="note">符合筛选条件的反馈共 {{total}} 条。旧记录未评分，不计为零分。</text>
+    <view wx:for="{{rows}}" wx:key="id" class="card">
+      <view class="row-head"><text>{{item.typeLabel}} · {{item.statusText}}</text><text>{{item.rating ? item.rating + ' / 5星' : '未评分'}}</text></view>
+      <text class="content" selectable="true">{{item.content || '仅提交评分'}}</text>
+      <text class="note">{{item.timeText}}</text>
+      <text wx:if="{{item.contact}}" class="note" selectable="true">联系方式：{{item.contact}}</text>
+      <text wx:if="{{item.reply}}" class="content">已回复：{{item.reply}}</text>
+      <button size="mini" data-index="{{index}}" bindtap="selectRow" disabled="{{saving || loading}}">处理 / 回复</button>
+    </view>
+    <text wx:if="{{!loading && !rows.length && !error}}" class="note">暂无符合条件的反馈。</text>
+    <view class="pagination"><button bindtap="previous" disabled="{{loading || saving || page === 0}}">上一页</button><text>第 {{page + 1}} 页</text><button bindtap="next" disabled="{{loading || saving || (page + 1) * 20 >= total}}">下一页</button></view>
+    <view wx:if="{{selected}}" id="feedback-editor" class="card editor">
+      <text class="editor-title">处理这条反馈</text>
+      <text class="content">{{selected.content || '仅提交评分'}}</text>
+      <picker range="{{editStatuses}}" range-key="label" value="{{editStatusIndex}}" bindchange="editStatus" disabled="{{saving}}"><view class="filter">状态：{{editStatuses[editStatusIndex].label}}</view></picker>
+      <textarea value="{{reply}}" bindinput="editReply" maxlength="500" placeholder="回复用户（选填，最多500字）" disabled="{{saving}}" />
+      <text class="note">回复会显示在用户自己的反馈记录里。</text>
+      <button bindtap="save" loading="{{saving}}" disabled="{{saving}}">保存状态和回复</button>
+      <button bindtap="cancel" disabled="{{saving}}">取消</button>
+    </view>
+  </block>
+</view>

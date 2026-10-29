@@ -33,12 +33,16 @@ exports.main = async function(event) {
   const type = typeof input.type === 'string' ? input.type : '';
   const content = typeof input.content === 'string' ? input.content.trim() : '';
   const contact = typeof input.contact === 'string' ? input.contact.trim() : '';
+  const rating = input.rating === undefined || input.rating === null ? null : input.rating;
 
   if (ALLOWED_TYPES.indexOf(type) === -1) {
     return failure('INVALID_TYPE', '反馈类型无效，请重新选择');
   }
-  if (!content) {
-    return failure('EMPTY_CONTENT', '请输入反馈内容');
+  if (rating !== null && (!Number.isInteger(rating) || rating < 1 || rating > 5)) {
+    return failure('INVALID_RATING', '评分必须是1至5星');
+  }
+  if (!content && rating === null) {
+    return failure('EMPTY_CONTENT', '请填写建议或选择评分');
   }
   if (content.length > MAX_CONTENT_LENGTH) {
     return failure('CONTENT_TOO_LONG', '反馈内容不能超过500字');
@@ -71,7 +75,8 @@ exports.main = async function(event) {
         itemTime &&
         now - itemTime < DUPLICATE_INTERVAL_MS &&
         item.type === type &&
-        item.content === content
+        item.content === content &&
+        (item.rating || null) === rating
       ) {
         return failure('DUPLICATE_FEEDBACK', '这条反馈刚刚已经提交过了');
       }
@@ -83,6 +88,7 @@ exports.main = async function(event) {
         type: type,
         content: content,
         contact: contact,
+        rating: rating,
         status: 'new',
         reply: '',
         createdAt: db.serverDate(),
@@ -96,6 +102,7 @@ exports.main = async function(event) {
         id: addResult._id,
         type: type,
         content: content,
+        rating: rating,
         status: 'new',
         reply: ''
       }

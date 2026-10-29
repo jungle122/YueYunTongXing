@@ -9,6 +9,14 @@
   <text class="section-caption">📝 提交反馈</text>
   <view class="feedback-form-card">
     <view class="form-row">
+      <text class="form-label">小程序整体体验（选填）</text>
+      <view class="rating-options">
+        <button wx:for="{{ratingOptions}}" wx:key="*this" class="rating-star {{rating >= item ? 'rating-selected' : ''}}" data-value="{{item}}" bindtap="selectRating" disabled="{{isSubmitting}}" aria-label="{{item}}星" aria-pressed="{{rating === item}}">{{rating >= item ? '★' : '☆'}}</button>
+      </view>
+      <text class="rating-description">{{rating ? rating + '星 / 5星' : '1星表示不满意，5星表示非常满意'}}</text>
+      <button wx:if="{{rating}}" size="mini" bindtap="clearRating" disabled="{{isSubmitting}}">取消评分</button>
+    </view>
+    <view class="form-row">
       <text class="form-label">反馈类型</text>
       <view class="type-selector">
         <view
@@ -48,7 +56,7 @@
       />
     </view>
 
-    <view class="submit-btn {{!feedbackContent || isSubmitting ? 'submit-disabled' : ''}}" bindtap="submitFeedback" hover-class="submit-btn-press">
+    <view class="submit-btn {{(!feedbackContent && !rating) || isSubmitting ? 'submit-disabled' : ''}}" bindtap="submitFeedback" hover-class="submit-btn-press">
       <text>{{isSubmitting ? '提交中...' : '提交反馈'}}</text>
     </view>
   </view>
@@ -71,7 +79,8 @@
           <text>{{item.statusText}}</text>
         </view>
       </view>
-      <text class="feedback-content-text">{{item.content}}</text>
+      <text wx:if="{{item.rating}}" class="feedback-rating">整体体验：{{item.rating}} / 5星</text>
+      <text class="feedback-content-text">{{item.content || '仅提交评分'}}</text>
       <view class="feedback-item-footer">
         <text class="feedback-time">{{item.timeText}}</text>
         <text wx:if="{{item.reply}}" class="feedback-reply">💬 已回复: {{item.reply}}</text>
@@ -99,4 +108,5 @@
       <text>还没有提交过反馈，期待你的建议～</text>
     </view>
   </view>
+  <button class="admin-entry" bindtap="goToFeedbackAdmin">项目方反馈管理</button>
 </view>
