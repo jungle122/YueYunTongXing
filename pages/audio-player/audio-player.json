@@ -1,4 +1,4 @@
 {
   "navigationBarTitleText": "音频学习",
-  "usingComponents": {}
+  "usingComponents": { "ai-explainer": "/components/ai-explainer/ai-explainer" }
 }

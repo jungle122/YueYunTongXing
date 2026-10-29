@@ -1,4 +1,4 @@
 {
   "navigationBarTitleText": "文字科普",
-  "usingComponents": {}
+  "usingComponents": { "ai-explainer": "/components/ai-explainer/ai-explainer" }
 }

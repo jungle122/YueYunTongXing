@@ -46,6 +46,8 @@
 
         <text wx:if="{{article.conclusion}}" class="article-paragraph conclusion">{{article.conclusion}}</text>
 
+        <ai-explainer content-type="article" content-id="{{article.id}}"></ai-explainer>
+
         <view class="article-ending">
           <text class="ending-ornament">❦</text>
           <text class="ending-text">读完了，去听一首粤语童谣吧</text>

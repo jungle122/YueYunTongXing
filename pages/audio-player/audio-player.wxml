@@ -106,6 +106,8 @@
       </view>
     </view>
 
+    <ai-explainer content-type="song" content-id="{{song.id}}"></ai-explainer>
+
     <view class="tips-section">
       <view class="tips-heading">
         <text class="tips-title">传唱小贴士</text>
