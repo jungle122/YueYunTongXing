@@ -2,7 +2,6 @@
   <view class="page-intro original-hero">
     <text class="chapter-seal">第三章</text>
     <text class="intro-title">一起看看会唱歌的故事</text>
-    <text class="intro-description">从画面和故事出发，感受粤语童谣里的生活气息。</text>
     <text class="hero-ornament">✿</text>
   </view>
 
@@ -13,7 +12,6 @@
         <view class="feature-symbol video-symbol"><image src="/static/ui/original/原创视频.jpg"></image></view>
         <view class="feature-copy">
           <text class="feature-title">原创视频</text>
-          <text class="feature-description">观看原创粤语童谣视频，在声音和画面中体验传统文化。</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>
@@ -29,7 +27,7 @@
         <view class="feature-symbol book-symbol"><image src="/static/ui/original/绘本故事.jpg"></image></view>
         <view class="feature-copy">
           <text class="feature-title">绘本故事</text>
-          <text class="feature-description">在《氹氹转》《月光光》等经典故事里认识童谣。</text>
+          <text class="feature-description">《氹氹转》《月光光》等童谣故事</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>
@@ -52,7 +50,7 @@
 
         <view class="feature-copy">
           <text class="feature-title">童谣课程手册</text>
-          <text class="feature-description">{{manualOpening ? '手册加载中，请稍候…' : '阅读粤语童谣课程设计与教学实践手册。'}}</text>
+          <text class="feature-description">{{manualOpening ? '手册加载中…' : '课程设计与教学实践'}}</text>
         </view>
 
         <text class="feature-arrow">›</text>

@@ -1,0 +1,5 @@
+/* Hallmark: selected C learning scrapbook; scope: prototype. */
+/* Critique: preserve the composition; replace the progress strip with a quiet footer. */
+:root{--footprint-icon:url('../audio-edges/footprints.svg')}
+.footprint h2{display:flex;align-items:center;gap:8px;font:normal 24px/1.5 var(--body);text-wrap:balance}
+.footprint-icon{display:inline-block;width:24px;height:24px;background:var(--study-muted);mask:var(--footprint-icon) center / contain no-repeat;-webkit-mask:var(--footprint-icon) center / contain no-repeat}

@@ -1,5 +1,5 @@
 <view class="ai-panel">
-  <button class="ai-toggle" bindtap="toggle" aria-expanded="{{expanded}}">{{expanded ? '收起 AI 讲解' : '问问阿霖 · AI 讲解'}}</button>
+  <button class="ai-toggle" bindtap="toggle" aria-expanded="{{expanded}}">{{expanded ? '收起 AI 讲解' : '问问阿霖（AI 讲解）'}}</button>
   <view wx:if="{{expanded}}" class="ai-content">
     <text class="ai-note">围绕当前童谣或文章提问，AI 回答可能有误，可和家长一起核对。</text>
     <view class="ai-suggestions">

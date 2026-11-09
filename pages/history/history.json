@@ -1,7 +1,7 @@
 {
   "navigationBarTitleText": "历史记录",
-  "navigationBarBackgroundColor": "#FFF7E8",
+  "navigationBarBackgroundColor": "#FFFDF5",
   "navigationBarTextStyle": "black",
-  "backgroundColor": "#FFF7E8",
+  "backgroundColor": "#FFFDF5",
   "usingComponents": {}
 }

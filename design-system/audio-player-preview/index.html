@@ -1,0 +1,14 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:,"><title>童谣播放器</title><link rel="stylesheet" href="../audio-options/audio.css"><link rel="stylesheet" href="../paper-global/global-paper.css"><link rel="stylesheet" href="player.css"><link rel="stylesheet" href="blossoms.css?v=tips-minimal">
+<body><main><header><a href="../audio-directory/list.html">‹ 目录</a><span>音频学习</span><small>交互演示</small></header><section id="sheet" hidden><div class="caption"><span id="lesson"></span><span id="folio"></span></div><div class="name"><span class="branch" aria-hidden="true"></span><h1 id="title"></h1></div>
+<div class="verse" tabindex="0" aria-label="完整歌词"></div><div class="times"><output id="time">0:00</output><span>1:00</span></div><input id="seek" type="range" min="0" max="60" value="0" aria-label="播放进度"><div class="controls">
+  <div class="mode-slot"><button id="mode" aria-label="顺序播放，切换模式"><img src="assets/regular/list-numbers.svg" alt=""></button><span id="mode-note" role="status"></span></div>
+  <button id="prev" aria-label="上一首"><img src="assets/regular/skip-back.svg" alt=""></button>
+  <button id="play" aria-label="播放"><img src="assets/regular/play.svg" alt=""></button>
+  <button id="next" aria-label="下一首"><img src="assets/regular/skip-forward.svg" alt=""></button>
+  <button id="fav" aria-label="收藏"><img src="assets/regular/star.svg" alt=""></button>
+</div>
+<div class="paper-fold" aria-hidden="true"></div><div class="tools">
+  <button id="record" aria-label="开始跟唱录音"><img src="assets/regular/microphone.svg" alt=""><span class="tool-label">录音</span><span class="meter" aria-hidden="true"><i></i><i></i><i></i></span><span class="timer"></span></button>
+  <button id="listen" aria-label="回听录音" disabled><img src="assets/regular/headphones.svg" alt=""><span class="tool-label">回听</span><span class="meter" aria-hidden="true"><i></i><i></i><i></i></span><span class="timer"></span></button>
+</div><p id="message" role="status"></p><ul id="takes" aria-label="本曲录音"></ul><section class="singing-tips" aria-labelledby="tips-heading"><h2 id="tips-heading"><button id="tips-toggle" type="button" aria-expanded="false" aria-controls="tips"><span class="tip-tab" aria-hidden="true"></span>传唱小贴士<span class="fold-mark" aria-hidden="true"></span></button></h2><ol id="tips" hidden></ol></section></section><p id="notice" role="status">正在加载童谣…</p></main><script src="player.js?v=tips-minimal"></script></body></html>
+

@@ -1,0 +1,14 @@
+{
+  "status": "preview-selected",
+  "book": "B 线装册精修",
+  "binding": "四眼订",
+  "resourceType": "无边框小字",
+  "headingFont": "Ma Shan Zheng",
+  "bodyFont": "LXGW WenKai TC",
+  "icons": "Phosphor Duotone",
+  "entryIcon": "play-duotone",
+  "background": "#fffdf5",
+  "character": "c-polish/assets/moon-alin-transparent.png",
+  "preview": "binding-study/selected.html",
+  "productionPagesChanged": false
+}

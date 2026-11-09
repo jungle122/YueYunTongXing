@@ -1,6 +1,6 @@
 .audio-player-page {
   min-height: 100vh;
-  color: #49372f;
+  color: var(--color-text);
   background: #efd09a;
 }
 
@@ -20,8 +20,8 @@
   margin-top: 0;
   overflow: hidden;
   border: 4rpx solid rgba(255, 252, 241, 0.55);
-  border-radius: 30rpx;
-  box-shadow: 0 24rpx 48rpx rgba(72, 47, 36, 0.2);
+  border-radius: var(--radius-label);
+  box-shadow: none;
   box-sizing: border-box;
 }
 .cover-image { width: 100%; height: 100%; }
@@ -42,10 +42,7 @@
   height: 520rpx;
   border: 3rpx solid rgba(77, 52, 42, 0.1);
   border-radius: 50%;
-  box-shadow:
-    0 0 0 38rpx rgba(255, 255, 255, 0.06),
-    0 0 0 76rpx rgba(77, 52, 42, 0.05),
-    0 0 0 114rpx rgba(255, 255, 255, 0.05);
+  box-shadow: none;
 }
 .record-ring { position: absolute; border: 3rpx solid rgba(76, 52, 42, 0.12); border-radius: 50%; }
 .ring-one { width: 270rpx; height: 270rpx; }
@@ -69,7 +66,7 @@
   flex: 1;
   min-width: 0;
   overflow: hidden;
-  color: #44332b;
+  color: var(--color-text);
   font-size: 40rpx;
   font-weight: 900;
   text-overflow: ellipsis;
@@ -86,7 +83,7 @@
   border: 0;
   border-radius: 50%;
   background: rgba(255, 252, 241, 0.36);
-  color: #765d50;
+  color: var(--color-text-secondary);
   font-size: 43rpx;
   line-height: 1;
 }
@@ -126,17 +123,17 @@
   justify-content: center;
   border: 0;
   border-radius: 50%;
-  color: #513d33;
+  color: var(--color-text);
 }
 .side-control { width: 82rpx; height: 82rpx; background: transparent; font-size: 31rpx; font-weight: 900; }
 .main-play-btn {
   width: 118rpx;
   height: 118rpx;
-  background: #49372f;
-  color: #fffaf0;
-  box-shadow: 0 12rpx 24rpx rgba(70, 45, 34, 0.22);
+  background: var(--color-primary);
+  color: var(--color-white);
+  box-shadow: none;
 }
-.main-play-btn-active { box-shadow: 0 7rpx 16rpx rgba(70, 45, 34, 0.2); }
+.main-play-btn-active { box-shadow: none; }
 .play-mark { margin-left: 7rpx; font-size: 43rpx; }
 .pause-icon {
   display: flex;
@@ -186,14 +183,14 @@
   justify-content: center;
   gap: 5rpx;
   border: 0;
-  border-radius: 18rpx;
+  border-radius: var(--radius-control);
   background: transparent;
-  color: #5e463a;
+  color: var(--color-text);
   line-height: 1;
 }
 .play-mode-btn-active {
   background: rgba(255, 250, 238, 0.94);
-  box-shadow: 0 6rpx 16rpx rgba(83, 56, 43, 0.14);
+  box-shadow: none;
 }
 .play-mode-icon { width: 38rpx; height: 38rpx; }
 .play-mode-text { font-size: 18rpx; font-weight: 800; }
@@ -211,7 +208,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16rpx;
   border: 2rpx solid rgba(107, 73, 55, 0.12);
-  border-radius: 28rpx;
+  border-radius: var(--radius-card);
   background: rgba(255, 253, 246, 0.52);
 }
 
@@ -251,11 +248,11 @@
   margin-top: 54rpx;
   padding: 28rpx 28rpx 30rpx;
   border: 2rpx solid rgba(107, 73, 55, 0.12);
-  border-radius: 28rpx;
+  border-radius: var(--radius-card);
   background: rgba(255, 253, 246, 0.5);
 }
 .lyrics-heading { display: flex; align-items: baseline; justify-content: space-between; }
-.lyrics-title { color: #4a382f; font-size: 28rpx; font-weight: 900; }
+.lyrics-title { color: var(--color-text); font-size: 28rpx; font-weight: 900; }
 .lyrics-hint { color: rgba(78, 57, 48, 0.58); font-size: 19rpx; }
 .lyrics-lines { margin-top: 20rpx; }
 .lyric-line { display: block; color: #665046; font-size: 24rpx; line-height: 1.9; text-align: center; }
@@ -264,11 +261,11 @@
   margin-top: 26rpx;
   padding: 28rpx;
   border: 2rpx dashed rgba(148, 99, 61, 0.24);
-  border-radius: 28rpx;
+  border-radius: var(--radius-card);
   background: rgba(255, 244, 218, 0.7);
 }
 .tips-heading { display: flex; align-items: center; justify-content: space-between; }
-.tips-title { color: #4a382f; font-size: 28rpx; font-weight: 900; }
+.tips-title { color: var(--color-text); font-size: 28rpx; font-weight: 900; }
 .tips-badge {
   padding: 7rpx 14rpx;
   border-radius: 999rpx;
@@ -294,7 +291,7 @@
   font-size: 17rpx;
   font-weight: 900;
 }
-.tip-text { flex: 1; color: #765c4d; font-size: 22rpx; line-height: 1.65; }
+.tip-text { flex: 1; color: var(--color-text-secondary); font-size: 22rpx; line-height: 1.65; }
 
 .recording-mask {
   position: fixed;
@@ -309,7 +306,7 @@
   width: 540rpx;
   padding: 48rpx 42rpx 38rpx;
   border: 3rpx solid #efd3ac;
-  border-radius: 30rpx;
+  border-radius: var(--radius-overlay);
   background: #fff9ed;
   text-align: center;
   box-shadow: 0 20rpx 48rpx rgba(59, 39, 29, 0.24);
@@ -327,16 +324,16 @@
   animation: recordingPulse 1.2s ease-in-out infinite;
 }
 .recording-dot { width: 24rpx; height: 24rpx; border-radius: 50%; background: #d85c52; }
-.recording-title { display: block; color: #553d32; font-size: 32rpx; font-weight: 900; }
-.recording-copy { display: block; margin-top: 12rpx; color: #856c5c; font-size: 23rpx; line-height: 1.55; }
-.recording-limit { display: block; margin-top: 5rpx; color: #ae9684; font-size: 19rpx; }
+.recording-title { display: block; color: var(--color-text); font-size: 32rpx; font-weight: 900; }
+.recording-copy { display: block; margin-top: 12rpx; color: var(--color-text-muted); font-size: 23rpx; line-height: 1.55; }
+.recording-limit { display: block; margin-top: 5rpx; color: var(--color-text-muted); font-size: 19rpx; }
 .stop-recording-btn {
   margin-top: 30rpx;
   padding: 18rpx 46rpx;
   border: 0;
-  border-radius: 50rpx;
+  border-radius: var(--radius-control);
   background: #c95e49;
-  color: #fffaf2;
+  color: var(--color-surface);
   font-size: 25rpx;
   font-weight: 800;
   line-height: 1;
@@ -347,9 +344,9 @@
   top: 50%;
   z-index: 2000;
   padding: 22rpx 38rpx;
-  border-radius: 18rpx;
+  border-radius: var(--radius-overlay);
   background: #5f9c70;
-  color: #fff;
+  color: var(--color-white);
   font-size: 24rpx;
   font-weight: 800;
   white-space: nowrap;
@@ -395,17 +392,20 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #49372f;
+  color: var(--color-text);
   text-align: center;
-  background: #fff8eb;
+  background: var(--color-bg);
 }
 .audio-load-title { font-size: 32rpx; font-weight: 800; }
-.audio-load-message { margin-top: 16rpx; color: #8c776a; font-size: 24rpx; line-height: 1.6; }
+.audio-load-message { margin-top: 16rpx; color: var(--color-text-muted); font-size: 24rpx; line-height: 1.6; }
 .audio-retry-btn {
   margin-top: 28rpx;
   border: none;
-  border-radius: 18rpx;
-  background: #c85f48;
-  color: #fff;
+  border-radius: var(--radius-control);
+  background: var(--color-primary);
+  color: var(--color-white);
   font-size: 26rpx;
 }
+
+.main-play-btn:active { background: var(--color-primary-pressed); }
+.main-play-btn[disabled] { background: var(--color-disabled-bg); color: var(--color-disabled-text); opacity: 1; }

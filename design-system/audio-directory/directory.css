@@ -1,0 +1,43 @@
+.directory-row {position:relative}
+.directory-row .song {text-decoration:none;grid-template-columns:30px minmax(0,1fr) 22px 80px;cursor:pointer}
+.directory-row .song strong {font-weight:normal}
+.directory-row svg.action {width:22px;height:22px;display:block}
+.directory-row .status {justify-self:center}
+.directory-row .arrow {justify-self:end;margin-right:8px;color:#725944}
+.directory-row .save {position:absolute;right:36px;top:50%;transform:translateY(-50%);width:44px;height:48px;border:0;background:transparent;color:#806448;display:grid;place-items:center;cursor:pointer}
+.save[aria-pressed=true] {color:#987033}
+.save:focus-visible,.retry:focus-visible {outline:2px solid #825833}
+.folio-a main.plain {margin:0;padding:0 20px;border:0;background:none}
+.folio-a main.plain:before {display:none}
+.failure {min-height:55vh;display:grid;place-content:center;justify-items:center;gap:16px}
+.failure h1 {font:22px var(--body)}
+.retry {padding:10px 24px;border:1px solid #aa8d70;background:#fff9ec;color:#604733;border-radius:4px;font:inherit;cursor:pointer}
+/* Shared by both loading lists. Placeholder bars do not change the row grid. */
+.placeholder,.loading .title h1::after,.loading .song-content::after,.loading .minutes::after {
+  display:inline-block;background:#e6e5df;border-radius:5px;vertical-align:middle;
+}
+.pending-heading {position:relative}
+.pending-heading span {visibility:hidden}
+.pending-heading::after {content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);width:104px;height:22px;background:#e6e5df;border-radius:5px}
+.name-placeholder {width:min(92%,116px);height:16px}
+.directory-row:nth-child(even) .name-placeholder {width:min(78%,96px)}
+.directory-row .song {padding-block:4px}
+.directory-row .song-content strong {min-width:0}
+[aria-busy=true] .summary {align-items:center;min-height:43px}
+[aria-busy=true] .arrow {width:22px;text-align:center}
+@media (max-width:350px) {
+  .directory-row .song {grid-template-columns:22px minmax(0,1fr) 20px 74px;column-gap:4px}
+  .directory-row .save {right:30px}
+}
+@font-face {
+  font-family: DirectoryWenKai;
+  src: url('/design-system/shared-fonts/wenkai.woff');
+  font-weight: 400;
+}
+.failure h1, .failure .retry {
+  font-family: DirectoryWenKai, var(--body);
+}
+
+.directory-row .song strong, .title h1.song-wenkai {
+  font-family: AudioWenKai, DirectoryWenKai, var(--body);
+}

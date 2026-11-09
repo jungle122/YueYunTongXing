@@ -1,16 +1,15 @@
 .original-hero {
-  border-color: #efbdc5;
-  background: linear-gradient(145deg, #fff0ef 0%, #ffe7e8 100%);
+  border-color: var(--color-chapter-original-border);
+  background: linear-gradient(145deg, var(--color-chapter-original-soft) 0%, #ffe7e8 100%);
 }
 
-.original-hero .chapter-seal { color: #a84f5e; }
+.original-hero .chapter-seal { color: var(--color-chapter-original); }
 
-.video-card { border-left: 8rpx solid #e78b9a; }
-.book-card { border-left: 8rpx solid #76b982; }
+.video-card { }
+.book-card { }
 
 .manual-card {
-  border-left: 8rpx solid #6d9fd1;
-}
+  }
 
 .video-symbol { background: #ffe1e5; }
 .book-symbol { background: #ddf3df; }
@@ -21,15 +20,15 @@
   display: flex;
   align-items: center;
   gap: 10rpx;
-  border-top: 2rpx dashed #eadac2;
+  border-top: 2rpx dashed var(--color-border);
 }
 
 .original-tag {
   padding: 7rpx 13rpx;
   border: 2rpx solid #dfc9aa;
-  border-radius: 13rpx;
+  border-radius: var(--radius-label);
   background: #fff9ed;
-  color: #76594b;
+  color: var(--color-text-secondary);
   font-size: 20rpx;
   font-weight: 650;
 }

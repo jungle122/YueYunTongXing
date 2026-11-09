@@ -46,7 +46,7 @@
   <view wx:else class="game-shell">
     <view class="game-overview">
       <view class="overview-copy">
-        <text class="overview-kicker">{{selectedMode === 'tap' ? '歌词点字 · 简单' : '整句排序 · 进阶'}}</text>
+        <text class="overview-kicker">{{selectedMode === 'tap' ? '歌词点字（简单）' : '整句排序（进阶）'}}</text>
         <text class="overview-title">第 {{currentPuzzle + 1}} 关</text>
       </view>
       <view class="overview-stats">
@@ -73,7 +73,7 @@
           <text class="game-music-title">{{currentPuzzleData.songTitle || '本关童谣'}}</text>
           <text class="game-music-status">{{musicLoading ? '加载中' : (musicAvailable ? (musicPlaying ? '播放中' : '已暂停') : '暂无配乐')}}</text>
         </view>
-        <slider class="game-music-slider" min="0" max="{{musicDuration || 1}}" step="1" value="{{musicCurrentTime}}" disabled="{{!musicAvailable}}" activeColor="#6f9d71" backgroundColor="#e2dfcf" block-color="#fffaf0" block-size="16" bindchanging="onMusicProgressChanging" bindchange="onMusicProgressChange" aria-label="童谣播放进度" />
+        <slider class="game-music-slider" min="0" max="{{musicDuration || 1}}" step="1" value="{{musicCurrentTime}}" disabled="{{!musicAvailable}}" activeColor="#a94736" backgroundColor="#ead8bc" block-color="#fffdf5" block-size="16" bindchanging="onMusicProgressChanging" bindchange="onMusicProgressChange" aria-label="童谣播放进度" />
         <view class="game-music-time"><text>{{musicCurrentTimeText}}</text><text>{{musicDurationText}}</text></view>
       </view>
     </view>

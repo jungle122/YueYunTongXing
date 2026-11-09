@@ -1,0 +1,3 @@
+/* Hallmark: approved home polish only; scope: app. */
+/* Critique: preserve book geometry, binding and role; refine paper and chapter edges only. */
+:root{--home-paper-texture:url('/design-system/light-guofeng/assets/paper.jpg');--home-edge:#e1d3b9;--home-paper-glaze:#fffef8f5;--home-surface:#fffef8;--home-primary:#a94736}.book-b .book-grid{background-image:linear-gradient(var(--home-paper-glaze),var(--home-paper-glaze)),var(--home-paper-texture);background-size:auto,360px}.book-b .chapter-link{outline-offset:-6px}.book-b .chapter-link:focus-visible{outline:2px solid var(--home-primary)}.book-b .chapter-link:hover{background:var(--home-surface)}.book-b .chapter-no{border-bottom:1px solid var(--home-edge);width:fit-content;padding-bottom:4px}

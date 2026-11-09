@@ -23,7 +23,6 @@
     <view class="section-heading">
       <view>
         <text class="section-title">全部作品</text>
-        <text class="section-description">选择一部童谣开始观看</text>
       </view>
       <text class="section-count">共 {{displayVideos.length}} 部</text>
     </view>
@@ -42,7 +41,7 @@
           <image class="cover-poster-img" src="{{v.poster}}" mode="aspectFill"></image>
           <text class="cover-order">{{v.orderText}}</text>
           <view class="cover-play"><text>{{v.playIcon}}</text></view>
-          <text class="cover-caption">粤韵童行 · 原创</text>
+          <text class="cover-caption">粤韵童行原创</text>
         </view>
 
         <view class="video-body">
@@ -78,12 +77,11 @@
       </view>
     </view>
 
-    <text wx:if="{{mediaLoading}}" class="library-note">正在从云端加载视频资源…</text>
+    <text wx:if="{{mediaLoading}}" class="library-note">视频加载中…</text>
     <view wx:elif="{{mediaLoadError}}" class="library-note media-error-note">
       <text>{{mediaLoadError}}</text>
       <text class="media-retry-link" bindtap="loadVideoMedia">重新加载</text>
     </view>
-    <text wx:else class="library-note">{{displayVideos.length}} 部视频资源已接入，点击作品即可播放。</text>
   </view>
 
   <view wx:if="{{showToast}}" class="favorite-toast {{toastType}}">
@@ -136,7 +134,6 @@
           <view class="loading-film-frame"></view>
         </view>
         <text wx:if="{{playerLoading}}" class="player-status-title">{{playerLoadSlow ? '网络较慢，仍在加载…' : '视频正在加载…'}}</text>
-        <text wx:if="{{playerLoading}}" class="player-status-description">请稍候，画面很快就来</text>
         <text wx:if="{{playerLoadError}}" class="player-status-title">加载失败</text>
         <text wx:if="{{playerLoadError}}" class="player-status-description">{{playerLoadError}}</text>
         <button wx:if="{{playerLoadError}}" class="player-retry-button" bindtap="retryVideo">重新加载</button>
@@ -145,7 +142,6 @@
       <view wx:if="{{!currentVideo.src}}" class="player-placeholder">
         <view class="placeholder-symbol">▶</view>
         <text class="placeholder-title">视频资源整理中</text>
-        <text class="placeholder-description">这部作品的画面暂未接入，完成资源整理后即可在这里播放。</text>
       </view>
 
       <view class="player-footer">

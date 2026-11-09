@@ -1,0 +1,47 @@
+/* 沿用暖色故事书品牌。按用途取色，章节色只用于插画、标签和内容分组。 */
+page {
+  --radius-card: 24rpx;
+  --radius-control: 16rpx;
+  --radius-label: 8rpx;
+  --radius-overlay: 24rpx;
+
+  --color-bg: #fffdf5;
+  --color-surface: #fffef8;
+  --color-surface-soft: #faf3e5;
+  --color-white: #ffffff;
+  --color-text: #49352d;
+  --color-text-secondary: #765f54;
+  --color-text-muted: #806b60;
+  --color-border: #ead8bc;
+  --color-border-strong: #cbb8a2;
+  --color-brand: #cf684b;
+  --color-primary: #a94736;
+  --color-primary-pressed: #8f3c29;
+  --color-primary-soft: #fff1ed;
+  --color-primary-border: #e8c0b2;
+  --color-disabled-bg: #efe2d0;
+  --color-disabled-text: #806b60;
+  --color-success: #4f7b4d;
+  --color-success-soft: #eef9df;
+  --color-success-border: #bcdcb7;
+  --color-error: #9b2828;
+  --color-error-soft: #fde8e8;
+  --color-error-border: #e8c0b2;
+  --color-warning: #9a5e24;
+  --color-warning-soft: #fff4cf;
+  --color-warning-border: #ecd08a;
+  --color-info: #416d8e;
+  --color-info-soft: #edf7fd;
+  --color-info-border: #bcd8e9;
+  --color-chapter-learn: #efb841;
+  --color-chapter-games: #76b982;
+  --color-chapter-original: #a84f5e;
+  --color-chapter-original-soft: #fff0ef;
+  --color-chapter-original-border: #efbdc5;
+  --color-chapter-profile: #6d9fd1;
+  --color-wechat: #07c160;
+  --color-wechat-text: #237349;
+  --color-wechat-soft: rgba(7, 193, 96, 0.06);
+  --color-wechat-border: rgba(7, 193, 96, 0.2);
+  --color-shadow: rgba(104, 66, 43, 0.1);
+}

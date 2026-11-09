@@ -1,0 +1,13 @@
+/* Hallmark: selected A, photographic frame and amber film; scope: original prototype. */
+/* Critique: retain actual photo borders and the existing six-page mosaic. */
+/* Waiver 24b: image-window geometry and tight title spacing follow the supplied photo frame. */
+@font-face{font-family:MaComplete;src:url('../material-study/assets/mashanzheng-titles.woff')}
+:root{--film-amber:#c58b4b;--film-light:#e7c98e;--film-warm:#d4a265;--play-icon:url('assets/play-circle-light.svg');--heading:MaComplete,Ma,serif}
+.video-entry:before{content:"";position:absolute;inset:6% 9%;z-index:-2;background:linear-gradient(110deg,var(--film-light),var(--film-warm) 60%,var(--film-amber));border-radius:2px}
+.video-copy{gap:8px}.video-copy strong{white-space:nowrap}.video-bottom{margin-top:0}
+.manual-copy strong{font:400 24px/1.4 var(--heading)}
+.photo-stack{display:block;width:92%;margin:0 auto;aspect-ratio:1200/941;position:relative;isolation:isolate}
+.works{gap:24px}.manual-entry{padding-top:16px!important;min-height:98px}.manual-copy strong{white-space:nowrap}
+.photo-frame{display:block;position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+.variant-a .photo-stack .collage{position:absolute;left:22%;top:16.7%;width:67%;height:54%;padding:0;border:0;background:var(--paper);gap:3px;transform-origin:0 0;transform:matrix(1,.111,-.16,1,0,0)}
+@media(max-width:350px){.video-copy{inset:17% 12%;gap:6px}.video-copy strong{font-size:24px}.manual-copy strong{font-size:24px}.manual-art{width:60px}.manual-entry{gap:10px}}

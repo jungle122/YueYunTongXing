@@ -13,7 +13,7 @@
     <view class="reader-content">
       <view class="article-hero {{article.themeClass}}">
         <image class="hero-watermark" src="{{article.iconPath}}" mode="aspectFit" aria-hidden="true"></image>
-        <text class="article-section">岭南童谣小报 · {{article.sectionName}}</text>
+        <text class="article-section">岭南童谣小报，{{article.sectionName}}</text>
         <text class="article-title">{{article.title}}</text>
         <text class="article-subtitle">{{article.subtitle}}</text>
         <view class="article-reading-meta">

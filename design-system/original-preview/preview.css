@@ -1,0 +1,3 @@
+/* Hallmark: prototype review canvas. */
+/* Critique: neutral review chrome is kept outside the product screen. */
+:root{--bg:#f4efe3;--ink:#493a30;--line:#cdbc9f;--font:system-ui,sans-serif}*{box-sizing:border-box}html,body{overflow-x:clip}body{margin:24px;background:var(--bg);color:var(--ink);font:16px/1.6 var(--font)}header{max-width:800px;margin:auto auto 24px}h1{font-size:24px}select{font:inherit;padding:8px}a{color:inherit}a:focus-visible,select:focus-visible{outline:2px solid var(--ink);outline-offset:4px}iframe{display:block;width:390px;max-width:100%;height:844px;border:1px solid var(--line);margin:auto}

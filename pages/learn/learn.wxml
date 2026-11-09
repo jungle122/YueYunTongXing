@@ -2,7 +2,6 @@
   <view class="page-intro learn-hero">
     <text class="chapter-seal">第一章</text>
     <text class="intro-title">选一种喜欢的方式开始吧</text>
-    <text class="intro-description">在童谣、陪伴和岭南故事里，自然认识粤语。</text>
     <text class="hero-ornament">♪</text>
   </view>
 
@@ -13,7 +12,7 @@
         <image class="feature-symbol audio-symbol" src="/static/ui/learn/音频学习.jpg" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">音频学习</text>
-          <text class="feature-description">听童谣、看歌词、录下自己的跟唱。</text>
+          <text class="feature-description">歌词跟唱与录音</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>
@@ -28,7 +27,7 @@
         <image class="feature-symbol text-symbol" src="/static/ui/learn/文字科普.jpg" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">文字科普</text>
-          <text class="feature-description">了解童谣背后的岭南生活与传统文化。</text>
+          <text class="feature-description">童谣里的岭南生活与文化</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>

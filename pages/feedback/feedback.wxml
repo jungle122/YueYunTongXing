@@ -2,7 +2,6 @@
   <view class="page-intro feedback-hero">
     <text class="chapter-seal">第六章</text>
     <text class="intro-title">告诉我们你的想法</text>
-    <text class="intro-description">每一条建议都是我们进步的动力，感谢你帮助时光屋变得更好。</text>
     <text class="hero-ornament">✉</text>
   </view>
 
@@ -35,8 +34,8 @@
       <text class="form-label">你的建议</text>
       <textarea
         class="feedback-textarea"
-        placeholder="请描述你的建议、问题或想法..."
-        placeholder-style="color:#b8a99a"
+        placeholder="填写建议或问题，也可仅评分"
+        placeholder-style="color:var(--color-text-muted)"
         value="{{feedbackContent}}"
         bindinput="onContentInput"
         maxlength="500"
@@ -49,7 +48,7 @@
       <input
         class="contact-input"
         placeholder="方便我们回复你"
-        placeholder-style="color:#b8a99a"
+        placeholder-style="color:var(--color-text-muted)"
         value="{{contactInfo}}"
         bindinput="onContactInput"
         maxlength="100"
@@ -105,7 +104,7 @@
       </view>
     </view>
     <view wx:if="{{!isLoading && feedbackList.length === 0 && legacyFeedbackList.length === 0}}" class="empty-hint">
-      <text>还没有提交过反馈，期待你的建议～</text>
+      <text>暂无反馈记录</text>
     </view>
   </view>
   <button class="admin-entry" bindtap="goToFeedbackAdmin">项目方反馈管理</button>

@@ -1,0 +1,47 @@
+{
+  "status": "prototype-reference-only",
+  "assets": [
+    {
+      "file": "assets/reference-film.png",
+      "reference": "用户参考图 1，codex-clipboard-1af57add-7862-4c05-befa-2e2538f07992.png",
+      "processing": "imagegen 横向适配及透明背景处理，非 CSS 绘制",
+      "license": "原始出处和授权未核实"
+    },
+    {
+      "file": "assets/reference-books.png",
+      "reference": "用户参考图 5，codex-clipboard-8c9c4cbe-024f-400c-85da-a878af8e9c05.png",
+      "processing": "imagegen 透明背景编辑",
+      "license": "原始出处和授权未核实"
+    },
+    {
+      "file": "assets/reference-clip.png",
+      "reference": "用户参考图 7，codex-clipboard-c2a555f0-32ad-4170-bd4f-c6f61947d8c3.png",
+      "processing": "imagegen 提取回形针",
+      "license": "原始出处和授权未核实"
+    },
+    {
+      "file": "assets/play-circle.svg",
+      "source": "https://github.com/phosphor-icons/core/blob/main/assets/regular/play-circle.svg",
+      "license": "MIT",
+      "licenseFile": "assets/PHOSPHOR-LICENSE.txt",
+      "processing": "官方完整 SVG 原样保存，CSS mask 统一整体颜色与大小"
+    },
+    {
+      "file": "assets/play-circle-light.svg",
+      "source": "https://github.com/phosphor-icons/core/blob/main/assets/light/play-circle-light.svg",
+      "license": "MIT",
+      "licenseFile": "assets/PHOSPHOR-LICENSE.txt",
+      "processing": "官方完整 SVG，未重绘"
+    }
+  ],
+  "pictureBookPages": [
+    "dangdang/page3.jpg",
+    "dangdang/page5.jpg",
+    "moonlight/page3.jpg",
+    "moonlight/page5.jpg",
+    "look/page3.jpg",
+    "look/page5.jpg"
+  ],
+  "pictureBookSource": "项目 static/picture-books，既有素材，原文件保持不变",
+  "layoutReferences": "用户参考图 2–4 的错落矩形拼图及图 7–8 的夹页关系"
+}

@@ -1,0 +1,363 @@
+{
+  "retrieved": "2026-10-31",
+  "assets": [
+    {
+      "family": "lucide",
+      "role": "home",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/house.svg",
+      "file": "assets\\lucide\\home.svg",
+      "sha256": "28216c479005731ef5e382e7d8627eda2b129b019eb1f3d9de9f5915576d448e"
+    },
+    {
+      "family": "lucide",
+      "role": "profile",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/user-round.svg",
+      "file": "assets\\lucide\\profile.svg",
+      "sha256": "84870f26f3faf8da45da84174517519e81b9e8f00319c78954fcbb74f50038a1"
+    },
+    {
+      "family": "lucide",
+      "role": "days",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/sun.svg",
+      "file": "assets\\lucide\\days.svg",
+      "sha256": "a3955c8b0425fcc5c9ba12d2bdd77fe53b2cd5dd05e7742a56f342e996fb2ef8"
+    },
+    {
+      "family": "lucide",
+      "role": "learn",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/book-open.svg",
+      "file": "assets\\lucide\\learn.svg",
+      "sha256": "9b9bed0ff057283d5c5c5a1c71f8d3e927db26a56639603a92fdf7b25961510e"
+    },
+    {
+      "family": "lucide",
+      "role": "clock",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/clock.svg",
+      "file": "assets\\lucide\\clock.svg",
+      "sha256": "e9d3e3acf4d1c280fcf8092293439dc0a4756a908ceb859de144b12451cd1cb9"
+    },
+    {
+      "family": "lucide",
+      "role": "games",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/gamepad-2.svg",
+      "file": "assets\\lucide\\games.svg",
+      "sha256": "b0671de7afbebdafc4d655d867d9851947170b906fb187e749410039df867509"
+    },
+    {
+      "family": "lucide",
+      "role": "original",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/clapperboard.svg",
+      "file": "assets\\lucide\\original.svg",
+      "sha256": "e4d78946cda7812f13c431c68b6d4d0077a92217c7f468667a203f237e247d7e"
+    },
+    {
+      "family": "lucide",
+      "role": "reading",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/book-open-text.svg",
+      "file": "assets\\lucide\\reading.svg",
+      "sha256": "a73c44b3e7586317a1766b529e345a2c94cdd70d838a61c7b05432737b81eb7f"
+    },
+    {
+      "family": "tabler",
+      "role": "home",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/home.svg",
+      "file": "assets\\tabler\\home.svg",
+      "sha256": "069600f461f3e967685765723a851af7b35f24b715e03d41a2928152cf75644c"
+    },
+    {
+      "family": "lucide",
+      "role": "settings",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/settings.svg",
+      "file": "assets\\lucide\\settings.svg",
+      "sha256": "0ae27fd0f81999229e3127ac96c5b32edfea448e291d509e76212b917551d66b"
+    },
+    {
+      "family": "lucide",
+      "role": "community",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/messages-square.svg",
+      "file": "assets\\lucide\\community.svg",
+      "sha256": "97733c58b74f8beddd569927f8453c86bca4afa394e6aad606db1acff4bd8355"
+    },
+    {
+      "family": "tabler",
+      "role": "learn",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/book.svg",
+      "file": "assets\\tabler\\learn.svg",
+      "sha256": "1f55b129a72746a98e1aaffc55ae7b43d004db036968afb022b3f9fbd7da87c9"
+    },
+    {
+      "family": "tabler",
+      "role": "original",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/bulb.svg",
+      "file": "assets\\tabler\\original.svg",
+      "sha256": "4f4688352f60a3d65ca9abb8cebc9fc3c3d3b9f2fbc47784b44b22008a69f0fc"
+    },
+    {
+      "family": "tabler",
+      "role": "days",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/sun.svg",
+      "file": "assets\\tabler\\days.svg",
+      "sha256": "6677490605af8987d55d6e4185b1f6c241eced65b63ccfece68cadb7ce90fbb5"
+    },
+    {
+      "family": "tabler",
+      "role": "clock",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/clock.svg",
+      "file": "assets\\tabler\\clock.svg",
+      "sha256": "971b0b2d3b5b17ae240cd3aac1a09710ab680d8c41900f1a37a0e430994d7fda"
+    },
+    {
+      "family": "tabler",
+      "role": "streak",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/trending-up.svg",
+      "file": "assets\\tabler\\streak.svg",
+      "sha256": "df5ab21c69d17e8d1a978ca86273b3390c109ae7b66fbe1016362ab279b9feb0"
+    },
+    {
+      "family": "tabler",
+      "role": "community",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/messages.svg",
+      "file": "assets\\tabler\\community.svg",
+      "sha256": "eb7841d7719e9b16fdad1810dbe15ddc9f247f69becbb5ee13299e46bd997c84"
+    },
+    {
+      "family": "tabler",
+      "role": "reading",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/book-2.svg",
+      "file": "assets\\tabler\\reading.svg",
+      "sha256": "b033f93e20d3c27a5123a603de584cdc54b50d32f53a16172726efcf05624505"
+    },
+    {
+      "family": "phosphor",
+      "role": "home",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/house-duotone.svg",
+      "file": "assets\\phosphor\\home.svg",
+      "sha256": "bd9f3502ab7d63c3cc8a3cf91657e5974188ede3bd1ac7249333d9ce5d0d932f"
+    },
+    {
+      "family": "tabler",
+      "role": "article",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/book-2.svg",
+      "file": "assets\\tabler\\article.svg",
+      "sha256": "b033f93e20d3c27a5123a603de584cdc54b50d32f53a16172726efcf05624505"
+    },
+    {
+      "family": "phosphor",
+      "role": "original",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/sparkle-duotone.svg",
+      "file": "assets\\phosphor\\original.svg",
+      "sha256": "c4740b4365131487e4b49b54fc554a6cbdde28aaad74c5a8a8be2195b5fb4c19"
+    },
+    {
+      "family": "phosphor",
+      "role": "clock",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/clock-duotone.svg",
+      "file": "assets\\phosphor\\clock.svg",
+      "sha256": "2f54d3367b48e1c7579b3fb33963240ee4060bd55ddd4e3c39cd59f840499539"
+    },
+    {
+      "family": "phosphor",
+      "role": "music",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/music-note-duotone.svg",
+      "file": "assets\\phosphor\\music.svg",
+      "sha256": "912200834e238b0f1d3b40509624b29a8d0efab6cd5129fa83f7bbbb3fc645c9"
+    },
+    {
+      "family": "phosphor",
+      "role": "learn",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/book-open-duotone.svg",
+      "file": "assets\\phosphor\\learn.svg",
+      "sha256": "114456d637f78d1a748ef70768d3635c8f927fdfeed095a4ca9ded6f975ab8f5"
+    },
+    {
+      "family": "phosphor",
+      "role": "games",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/game-controller-duotone.svg",
+      "file": "assets\\phosphor\\games.svg",
+      "sha256": "0ea6d7fd6dc328b3e2e1041b3575639e61a9546082553c0f4ca6101ee8f9f6b3"
+    },
+    {
+      "family": "phosphor",
+      "role": "reading",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/book-open-text-duotone.svg",
+      "file": "assets\\phosphor\\reading.svg",
+      "sha256": "523066f01683f1879bbc20219bfcfb1cb4452fb26c0e074a3f8da4e06a75b60a"
+    },
+    {
+      "family": "phosphor",
+      "role": "profile",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/user-duotone.svg",
+      "file": "assets\\phosphor\\profile.svg",
+      "sha256": "58708fccb6ecc622a23f9fcd4aae24912c660d8f3d502185693ba562bef85674"
+    },
+    {
+      "family": "phosphor",
+      "role": "days",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/sun-duotone.svg",
+      "file": "assets\\phosphor\\days.svg",
+      "sha256": "6a180204ea92f2501de811908395e6dad15ddf2ca0a577f420fad8bef0b4c5ca"
+    },
+    {
+      "family": "lucide",
+      "role": "streak",
+      "url": "https://cdn.jsdelivr.net/gh/lucide-icons/lucide@main/icons/trending-up.svg",
+      "file": "assets\\lucide\\streak.svg",
+      "sha256": "c86a4afe20ceccd7a28e829a2cd83dbc40a8af51ffa9547332a9bac9a50a90ae"
+    },
+    {
+      "family": "lucide",
+      "role": "favorite",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/heart.svg",
+      "file": "assets\\lucide\\favorite.svg",
+      "sha256": "70af5f30be9fcb500b852556b38dcdf8c04a4ba81fd262534fb0336bd39b3b52"
+    },
+    {
+      "family": "lucide",
+      "role": "video",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/clapperboard.svg",
+      "file": "assets\\lucide\\video.svg",
+      "sha256": "e4d78946cda7812f13c431c68b6d4d0077a92217c7f468667a203f237e247d7e"
+    },
+    {
+      "family": "lucide",
+      "role": "article",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/book-open-text.svg",
+      "file": "assets\\lucide\\article.svg",
+      "sha256": "a73c44b3e7586317a1766b529e345a2c94cdd70d838a61c7b05432737b81eb7f"
+    },
+    {
+      "family": "lucide",
+      "role": "puzzle",
+      "url": "https://cdn.jsdelivr.net/gh/lucide-icons/lucide@main/icons/puzzle.svg",
+      "file": "assets\\lucide\\puzzle.svg",
+      "sha256": "6d80d0c3b214c96945ed0f1c6ee0e4c4ea3911c6cc91c75751fdba08c31eab02"
+    },
+    {
+      "family": "lucide",
+      "role": "LICENSE",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/LICENSE",
+      "file": "assets\\lucide\\LICENSE.txt",
+      "sha256": "b495047bd93a9b06913511076f504daba17d5bbeb3e0650f3bb53a4220329c57"
+    },
+    {
+      "family": "tabler",
+      "role": "games",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/device-gamepad.svg",
+      "file": "assets\\tabler\\games.svg",
+      "sha256": "dbaf54ac19df124f36684831664dcaaea6bea7eaebf6ff183d1973cfee60a772"
+    },
+    {
+      "family": "tabler",
+      "role": "profile",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/user.svg",
+      "file": "assets\\tabler\\profile.svg",
+      "sha256": "63554429f551522ea578a9bf72d1d350bd0ffdb8ede3af92a05e92d71cab6b9c"
+    },
+    {
+      "family": "tabler",
+      "role": "music",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/music.svg",
+      "file": "assets\\tabler\\music.svg",
+      "sha256": "afd2fe98e580e1d4e9bf45d88165894b0e683e9141f63c312585d778b73d02c5"
+    },
+    {
+      "family": "tabler",
+      "role": "favorite",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/heart.svg",
+      "file": "assets\\tabler\\favorite.svg",
+      "sha256": "332be1c5c3a67df766c69da053a0eb29a11aa74a262f4422b82bceaaf098b1e8"
+    },
+    {
+      "family": "tabler",
+      "role": "video",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/movie.svg",
+      "file": "assets\\tabler\\video.svg",
+      "sha256": "c060349bd89cf44c1542de982d06c61f81240868a336eb5ce670d048f564554f"
+    },
+    {
+      "family": "tabler",
+      "role": "settings",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/settings.svg",
+      "file": "assets\\tabler\\settings.svg",
+      "sha256": "ef9cf42d822c00b4fad5bc5eeceddd4e1ec3774bb7ddd09891d0fba274bc3e95"
+    },
+    {
+      "family": "tabler",
+      "role": "puzzle",
+      "url": "https://raw.githubusercontent.com/tabler/tabler-icons/main/icons/outline/puzzle.svg",
+      "file": "assets\\tabler\\puzzle.svg",
+      "sha256": "b51d3edacb69bde36e0914ba64998fe47875f25f0699a599a5407adf3ba6d14c"
+    },
+    {
+      "family": "tabler",
+      "role": "LICENSE",
+      "url": "https://cdn.jsdelivr.net/gh/tabler/tabler-icons@main/LICENSE",
+      "file": "assets\\tabler\\LICENSE.txt",
+      "sha256": "b740a1d46122672da62833e97f7e7c8a13fa85cbc7445b584b297cc00dde93db"
+    },
+    {
+      "family": "phosphor",
+      "role": "favorite",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/heart-duotone.svg",
+      "file": "assets\\phosphor\\favorite.svg",
+      "sha256": "b1bc538e4f7626a2af3b3ac3dca543d8f8e628e9b45991fc7acb63ccaf2c289e"
+    },
+    {
+      "family": "phosphor",
+      "role": "video",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/film-slate-duotone.svg",
+      "file": "assets\\phosphor\\video.svg",
+      "sha256": "409f17cfc2b5113d9dcc27caf0bdcd89a7fcc32746a0179c110897c98ac0cb75"
+    },
+    {
+      "family": "phosphor",
+      "role": "article",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/book-open-text-duotone.svg",
+      "file": "assets\\phosphor\\article.svg",
+      "sha256": "523066f01683f1879bbc20219bfcfb1cb4452fb26c0e074a3f8da4e06a75b60a"
+    },
+    {
+      "family": "phosphor",
+      "role": "community",
+      "url": "https://cdn.jsdelivr.net/gh/phosphor-icons/core@main/assets/duotone/chats-circle-duotone.svg",
+      "file": "assets\\phosphor\\community.svg",
+      "sha256": "b760d5cc31d6e86191969557d908c1f3238f3742b4d991ec8ec67b74c578b552"
+    },
+    {
+      "family": "phosphor",
+      "role": "settings",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/gear-duotone.svg",
+      "file": "assets\\phosphor\\settings.svg",
+      "sha256": "844f6e041e4622283f651e76882c784af0627f950a6a2536e923b12e4ae5e590"
+    },
+    {
+      "family": "phosphor",
+      "role": "puzzle",
+      "url": "https://cdn.jsdelivr.net/gh/phosphor-icons/core@main/assets/duotone/puzzle-piece-duotone.svg",
+      "file": "assets\\phosphor\\puzzle.svg",
+      "sha256": "21b5ecfdd65a1aaced52daf72e1ac405e4de7c2a1363a9065800a40fb15cb602"
+    },
+    {
+      "family": "phosphor",
+      "role": "LICENSE",
+      "url": "https://cdn.jsdelivr.net/gh/phosphor-icons/core@main/LICENSE",
+      "file": "assets\\phosphor\\LICENSE.txt",
+      "sha256": "b5b1f1da112d18ea2147decfd48ddc1bf2b5aeb6c265381579340e95b15a2bb2"
+    },
+    {
+      "family": "lucide",
+      "role": "music",
+      "url": "https://raw.githubusercontent.com/lucide-icons/lucide/main/icons/eighth-notes.svg",
+      "file": "assets\\lucide\\music.svg",
+      "sha256": "528230f1df292eff5cdd6d20f80e80123676ca1efcc043e51b11e25222f7a4e9"
+    },
+    {
+      "family": "phosphor",
+      "role": "streak",
+      "url": "https://raw.githubusercontent.com/phosphor-icons/core/main/assets/duotone/clock-duotone.svg",
+      "file": "assets\\phosphor\\streak.svg",
+      "sha256": "2f54d3367b48e1c7579b3fb33963240ee4060bd55ddd4e3c39cd59f840499539",
+      "usage": "连续学习以时间图标表示"
+    }
+  ]
+}

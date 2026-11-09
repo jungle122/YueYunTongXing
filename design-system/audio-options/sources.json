@@ -1,0 +1,30 @@
+{
+  "content": "歌曲、课次及歌词取自pages/audio-learning/audio-catalog.js，固定现有六首顺序",
+  "icons": {
+    "name": "Phosphor Duotone",
+    "license": "MIT",
+    "source": "https://github.com/phosphor-icons/core/tree/main/assets/duotone",
+    "files": {
+      "bathtub.svg": "1632b919732e8f0855876a02a6e34b32cb3a5b3fbc19de7d06b7638be31995c0",
+      "binoculars.svg": "8fb8e2b85f5005e340a3ee99d9142a3d04943f601a227f13c3da6c6382b763dd",
+      "bird.svg": "60bfc2e30af59e76cb8b27ed078fbc4d67b615664207140a50bbb6346ce5d9e6",
+      "cloud-rain.svg": "b96c8f795c1c4964cb5331fd2d89a2a4d3d6f3148de1541539c87f0f19a02f93",
+      "moon-stars.svg": "05463280716f6ec28485c0ef4c25417f5d0f857ba635c3e011daabaa358f0984",
+      "windmill.svg": "54430d1dfffd85030940ec5e79073af817ac0bbb378b17d5f7bcb1dd4b62c65a"
+    }
+  },
+  "fonts": {
+    "families": [
+      "LXGW WenKai TC",
+      "Ma Shan Zheng"
+    ],
+    "license": "SIL OFL 1.1，许可附于assets，新增本页字符子集",
+    "source": "https://fonts.google.com/"
+  },
+  "paper": {
+    "source": "https://ambientcg.com/view?id=Paper001",
+    "license": "CC0",
+    "sharedStyle": "../paper-global/global-paper.css"
+  },
+  "scope": "A/C均为可交互选歌原型；不请求正式音频接口；目的播放器待下一页设计；学习状态是明确的演示数据"
+}

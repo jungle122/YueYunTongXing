@@ -3,9 +3,9 @@
   padding: 28rpx 28rpx 80rpx;
   box-sizing: border-box;
   background:
-    radial-gradient(circle at 94% 4%, rgba(244, 190, 80, 0.22), transparent 26%),
-    radial-gradient(circle at 2% 42%, rgba(224, 126, 98, 0.1), transparent 20%),
-    #fff7e8;
+    radial-gradient(circle at 94% 4%, rgba(244, 190, 80, 0.088), transparent 26%),
+    radial-gradient(circle at 2% 42%, rgba(224, 126, 98, 0.04), transparent 20%),
+    var(--color-bg);
   position: relative;
   overflow: hidden;
 }
@@ -55,14 +55,14 @@
 
 .back-arrow {
   font-size: 30rpx;
-  color: #cf684b;
+  color: var(--color-primary);
   font-weight: 700;
 }
 
 .page-title {
   font-size: 34rpx;
   font-weight: 850;
-  color: #49352d;
+  color: var(--color-text);
   letter-spacing: 2rpx;
 }
 
@@ -78,17 +78,17 @@
 
 .settings-section {
   padding: 28rpx;
-  border: 2rpx solid #ead5b5;
-  border-radius: 28rpx;
-  background: #fffdf5;
-  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: none;
 }
 
 .section-title {
   display: block;
   font-size: 24rpx;
   font-weight: 800;
-  color: #49352d;
+  color: var(--color-text);
   margin-bottom: 20rpx;
   letter-spacing: 1rpx;
 }
@@ -110,7 +110,7 @@
   border-radius: 50%;
   border: 6rpx solid #f1c96e;
   overflow: hidden;
-  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.12);
+  box-shadow: none;
 }
 
 .avatar-emoji-display {
@@ -140,7 +140,7 @@
   display: block;
   font-size: 22rpx;
   font-weight: 700;
-  color: #634b40;
+  color: var(--color-text);
   margin-bottom: 16rpx;
 }
 
@@ -165,7 +165,7 @@
 }
 
 .choice-selected {
-  border-color: #cf684b;
+  border-color: var(--color-primary);
   background: rgba(207, 104, 75, 0.08);
 }
 
@@ -173,12 +173,12 @@
   width: 88rpx;
   height: 88rpx;
   border-radius: 50%;
-  box-shadow: 0 6rpx 16rpx rgba(0, 0, 0, 0.1);
+  box-shadow: none;
 }
 
 .choice-name {
   font-size: 19rpx;
-  color: #634b40;
+  color: var(--color-text);
   font-weight: 600;
 }
 
@@ -195,13 +195,13 @@
   content: '';
   flex: 1;
   height: 2rpx;
-  background: #ead5b5;
+  background: var(--color-border);
 }
 
 .divider-text {
   padding: 0 20rpx;
   font-size: 20rpx;
-  color: #a08d82;
+  color: var(--color-text-muted);
 }
 
 .wechat-avatar-btn {
@@ -211,9 +211,9 @@
   gap: 10rpx;
   width: 100%;
   height: 80rpx;
-  border: 2rpx solid #07C160;
-  border-radius: 16rpx;
-  background: rgba(7, 193, 96, 0.06);
+  border: 2rpx solid var(--color-wechat);
+  border-radius: var(--radius-control);
+  background: var(--color-wechat-soft);
   line-height: 80rpx;
   padding: 0;
   margin: 0;
@@ -230,7 +230,7 @@
 
 .wechat-text {
   font-size: 26rpx;
-  color: #07C160;
+  color: var(--color-wechat-text);
   font-weight: 700;
 }
 
@@ -241,20 +241,20 @@
   margin-top: 16rpx;
   padding: 12rpx 16rpx;
   border-radius: 14rpx;
-  background: rgba(7, 193, 96, 0.06);
-  border: 2rpx solid rgba(7, 193, 96, 0.2);
+  background: var(--color-wechat-soft);
+  border: 2rpx solid var(--color-wechat-border);
 }
 
 .wechat-preview-img {
   width: 48rpx;
   height: 48rpx;
   border-radius: 50%;
-  border: 2rpx solid #07C160;
+  border: 2rpx solid var(--color-wechat);
 }
 
 .wechat-hint {
   font-size: 22rpx;
-  color: #07C160;
+  color: var(--color-wechat-text);
   font-weight: 600;
 }
 
@@ -263,8 +263,8 @@
   display: flex;
   align-items: center;
   padding: 18rpx 20rpx;
-  border: 2rpx solid #e6cba8;
-  border-radius: 18rpx;
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-control);
   background: #fff9ed;
 }
 
@@ -276,7 +276,7 @@
 .settings-input {
   flex: 1;
   font-size: 26rpx;
-  color: #49352d;
+  color: var(--color-text);
   font-weight: 600;
 }
 
@@ -286,10 +286,10 @@
   align-items: center;
   justify-content: center;
   height: 90rpx;
-  border-radius: 45rpx;
-  background: linear-gradient(135deg, #cf684b, #e8a87c);
-  box-shadow: 0 10rpx 24rpx rgba(207, 104, 75, 0.25);
-}
+  border-radius: var(--radius-control);
+  background: var(--color-primary);
+  box-shadow: none;
+ color: var(--color-white); }
 
 .save-btn-press {
   opacity: 0.85;
@@ -303,22 +303,22 @@
 .save-btn-text {
   font-size: 28rpx;
   font-weight: 750;
-  color: #fff;
+  color: var(--color-white);
   letter-spacing: 2rpx;
 }
 
 .account-note {
   margin-top: 18rpx;
   padding: 20rpx 24rpx;
-  border: 2rpx solid #ead5b5;
+  border: 2rpx solid var(--color-border);
   border-radius: 20rpx;
   background: rgba(255, 253, 245, 0.8);
   text-align: center;
 }
 
 .account-note-error {
-  border-color: #e6b09f;
-  background: rgba(255, 241, 235, 0.9);
+  border-color: var(--color-error-border);
+  background: var(--color-error-soft);
 }
 
 .wechat-nickname-action {
@@ -326,8 +326,8 @@
   margin-left: 10rpx;
   padding: 8rpx 12rpx;
   border-radius: 12rpx;
-  background: rgba(7, 193, 96, 0.08);
-  color: #07c160;
+  background: var(--color-wechat-soft);
+  color: var(--color-wechat-text);
   font-size: 19rpx;
   font-weight: 700;
 }
@@ -336,7 +336,7 @@
   display: block;
   margin-top: 10rpx;
   font-size: 19rpx;
-  color: #927263;
+  color: var(--color-text-muted);
 }
 
 .account-note-title,
@@ -347,13 +347,13 @@
 .account-note-title {
   font-size: 23rpx;
   font-weight: 700;
-  color: #634b40;
+  color: var(--color-text);
 }
 
 .account-note-copy {
   margin-top: 8rpx;
   font-size: 20rpx;
-  color: #927263;
+  color: var(--color-text-muted);
   line-height: 1.5;
 }
 
@@ -362,3 +362,14 @@
   .avatar-choices { gap: 10rpx; }
   .choice-image { width: 76rpx; height: 76rpx; }
 }
+
+/* 主操作统一使用品牌陶土红；按下和禁用状态与章节色分离。 */
+.save-btn:active { background: var(--color-primary-pressed); }
+.save-btn[disabled] { background: var(--color-disabled-bg); color: var(--color-disabled-text); opacity: 1; }
+
+.save-btn-disabled { background: var(--color-disabled-bg); color: var(--color-disabled-text); opacity: 1; }
+.save-btn-disabled .save-btn-text { color: var(--color-disabled-text); }
+
+.input-wrap:focus-within { border-color: var(--color-primary); }
+
+.account-note-error .account-note-copy { color: var(--color-error); }

@@ -34,8 +34,8 @@
         max="{{duration || 1}}"
         value="{{currentTime}}"
         block-size="16"
-        activeColor="#c85f48"
-        backgroundColor="rgba(107, 72, 55, 0.2)"
+        activeColor="#a94736"
+        backgroundColor="#ead8bc"
         bindchange="handleSliderChange"
         aria-label="歌曲播放进度"
       />
@@ -50,7 +50,7 @@
         <text class="previous-mark">|◀</text>
       </button>
       <button class="main-play-btn {{playing ? 'main-play-btn-active' : ''}}" bindtap="togglePlay" aria-label="{{playing ? '暂停' : '播放'}}">
-        <text wx:if="{{isLoading}}" class="loading-mark">···</text>
+        <text wx:if="{{isLoading}}" class="loading-mark">…</text>
         <view wx:elif="{{playing}}" class="pause-icon" aria-hidden="true">
           <view class="pause-bar"></view>
           <view class="pause-bar"></view>

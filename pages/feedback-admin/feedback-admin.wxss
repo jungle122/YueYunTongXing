@@ -1,16 +1,22 @@
-.admin-page { padding: 30rpx 28rpx 70rpx; color: #49352d; }
+.admin-page { padding: 30rpx 28rpx 70rpx; color: var(--color-text); }
 .page-title { display: block; font-size: 38rpx; font-weight: 700; margin-bottom: 24rpx; }
-.card { margin: 22rpx 0; padding: 24rpx; border: 2rpx solid #ead5b5; border-radius: 20rpx; background: #fffdf5; }
-.note { display: block; font-size: 25rpx; color: #765f54; line-height: 1.7; margin: 12rpx 0; }
+.card { margin: 22rpx 0; padding: 24rpx; border: 2rpx solid var(--color-border); border-radius: var(--radius-card); background: var(--color-surface); }
+.note { display: block; font-size: 25rpx; color: var(--color-text-secondary); line-height: 1.7; margin: 12rpx 0; }
 .content { display: block; font-size: 29rpx; line-height: 1.7; margin: 16rpx 0; white-space: pre-wrap; overflow-wrap: break-word; }
 .filters, .row-head, .pagination { display: flex; align-items: center; justify-content: space-between; gap: 12rpx; flex-wrap: wrap; }
 .row-head { font-size: 25rpx; }
-.filter { padding: 18rpx; background: #f6eddf; border-radius: 12rpx; font-size: 27rpx; }
+.filter { padding: 18rpx; background: var(--color-surface-soft); border-radius: 12rpx; font-size: 27rpx; }
 button { font-size: 27rpx; margin-top: 14rpx; }
 .filters button { margin: 0; }
 .pagination { margin: 26rpx 0; font-size: 25rpx; }
 .pagination button { margin: 0; }
-.editor { border-color: #a94736; }
+.editor { border-color: var(--color-primary); }
 .editor-title { font-size: 31rpx; font-weight: 700; }
-textarea { width: 100%; height: 200rpx; padding: 16rpx; box-sizing: border-box; margin-top: 20rpx; border: 2rpx solid #cbb8a2; font-size: 28rpx; line-height: 1.6; }
-.error { color: #9b2828; font-size: 27rpx; line-height: 1.6; }
+textarea { width: 100%; height: 200rpx; padding: 16rpx; box-sizing: border-box; margin-top: 20rpx; border: 2rpx solid var(--color-border-strong); font-size: 28rpx; line-height: 1.6; }
+.error { color: var(--color-error); font-size: 27rpx; line-height: 1.6; }
+
+button { background: var(--color-surface-soft); color: var(--color-text-secondary); }
+.editor button { background: var(--color-primary); color: var(--color-white); }
+.editor button:active { background: var(--color-primary-pressed); }
+button[disabled] { background: var(--color-disabled-bg); color: var(--color-disabled-text); }
+textarea:focus { border-color: var(--color-primary); }

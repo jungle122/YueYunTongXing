@@ -1,0 +1,3 @@
+/* Hallmark: community colour comparison only. */
+/* Critique: reuse the current entry structure and compare three quiet accent families. */
+:root{--community-bg:#fbefea;--community-edge:#dfbaae;--community-ink:#a94736}

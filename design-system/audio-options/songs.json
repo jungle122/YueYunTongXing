@@ -1,0 +1,44 @@
+[
+  {
+    "id": "song18",
+    "title": "月光光",
+    "lesson": "第一课",
+    "line": "月光光，照地堂",
+    "motif": "moon-stars"
+  },
+  {
+    "id": "song19",
+    "title": "落雨大",
+    "lesson": "第二课",
+    "line": "落雨大，水浸街",
+    "motif": "cloud-rain"
+  },
+  {
+    "id": "song20",
+    "title": "氹氹转",
+    "lesson": "第三课",
+    "line": "氹氹转，菊花园",
+    "motif": "windmill"
+  },
+  {
+    "id": "song21",
+    "title": "何家公鸡何家猜",
+    "lesson": "第四课",
+    "line": "真怪诞呀又有趣",
+    "motif": "bird"
+  },
+  {
+    "id": "song22",
+    "title": "洗白白",
+    "lesson": "第五课",
+    "line": "洗白白，洗白白，人人话我好宝宝。",
+    "motif": "bathtub"
+  },
+  {
+    "id": "song23",
+    "title": "齐齐望过去",
+    "lesson": "第六课",
+    "line": "齐齐望过去，清溪里有只青蛙想跳水",
+    "motif": "binoculars"
+  }
+]

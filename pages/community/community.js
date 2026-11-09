@@ -395,7 +395,7 @@ Page({
     wx.showModal({
       title: '删除分享',
       content: '确定删除这条成长分享吗？',
-      confirmColor: '#cf684b',
+      confirmColor: '#a94736',
       success: function(result) {
         if (result.confirm) self.deletePost(postId);
       }

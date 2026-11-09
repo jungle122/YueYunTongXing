@@ -1,0 +1,12 @@
+async page=>{
+ await page.setViewportSize({width:960,height:1130});await page.goto('http://127.0.0.1:8765/design-system/b-refined/');const results=[];
+ for(const size of ['320','430','375']){
+  await page.locator('#size').selectOption(size);await page.waitForFunction(()=>[...document.querySelectorAll('iframe')].every(f=>f.contentDocument?.readyState==='complete'&&!f.contentWindow.location.pathname.includes('book-shapes')));
+  for(const f of page.frames().filter(f=>f.parentFrame())){await f.evaluate(()=>document.fonts.ready);await f.locator('img').evaluateAll(async imgs=>Promise.all(imgs.map(i=>i.decode().catch(()=>{}))));}
+  const rows=await page.evaluate(()=>[...document.querySelectorAll('iframe')].map(f=>{const d=f.contentDocument,w=f.contentWindow,rect=sel=>{const r=d.querySelector(sel).getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height}};return {state:f.dataset.state,width:w.innerWidth,overflow:d.documentElement.scrollWidth>w.innerWidth,broken:[...d.images].filter(i=>!i.complete||!i.naturalWidth).length,chapters:d.querySelectorAll('.chapter-link').length,bindingHoles:d.querySelectorAll('.binding-hole').length,tagBorder:w.getComputedStyle(d.querySelector('.resource-type')).borderWidth,role:rect('.material-art'),title:rect('.material-heading'),button:rect('.material-action'),book:rect('.new-book')}}));
+  for(const sel of ['role','title','button','book'])for(const dim of ['x','y','width','height'])if(Math.abs(rows[0][sel][dim]-rows[1][sel][dim])>.5)throw Error('State layout moved');results.push(rows);
+ }
+ await page.screenshot({path:'D:/07_codeProjects/YueYunTongXing/design-system/b-refined/preview.png',fullPage:true});
+ const f=page.frames().find(f=>f.url().endsWith('/recent.html'));for(const role of ['learn','games','original','profile']){await f.locator('[data-chapter='+role+']').click();if(!await f.locator('dialog').evaluate(d=>d.open))throw Error('Missing navigation');await f.locator('dialog button').click()}
+ await page.locator('#compare').click();await page.waitForFunction(()=>[...document.querySelectorAll('iframe')].every(f=>f.contentWindow.location.pathname.includes('book-shapes')));await page.locator('#compare').click();return results;
+}

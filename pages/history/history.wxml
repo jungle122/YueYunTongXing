@@ -3,8 +3,8 @@
     <view wx:if="{{historyList.length > 0}}" class="history-overview">
       <view class="overview-copy">
         <text class="overview-kicker">学习足迹</text>
-        <text class="overview-title">最近共留下 {{recordCount}} 条记录</text>
-        <text class="overview-description">分布在 {{dayCount}} 个学习日里，每一次打开都是一点进步。</text>
+        <text class="overview-title">共 {{recordCount}} 条记录</text>
+        <text class="overview-description">学习 {{dayCount}} 天</text>
       </view>
       <text class="overview-mark" aria-hidden="true">迹</text>
     </view>
@@ -13,7 +13,7 @@
       <view wx:if="{{historyList.length === 0}}" class="empty-state">
         <view class="empty-symbol">⌁</view>
         <text class="empty-title">还没有学习足迹</text>
-        <text class="empty-description">听童谣、看视频或阅读文章后，最近的学习内容会记录在这里。</text>
+        <text class="empty-description">听童谣、看视频或读文章后自动记录</text>
       </view>
 
       <view wx:else class="history-groups">

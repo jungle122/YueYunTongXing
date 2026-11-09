@@ -61,7 +61,7 @@
           type="nickname"
           class="settings-input"
           placeholder="输入你的昵称"
-          placeholder-style="color:#b8a99a"
+          placeholder-style="color:var(--color-text-muted)"
           value="{{nickname}}"
           bindinput="onNicknameInput"
           bindblur="onNicknameBlur"
@@ -70,7 +70,7 @@
         />
         <view class="wechat-nickname-action" bindtap="useWechatNickname">使用微信昵称</view>
       </view>
-      <text class="nickname-helper">真机点击后，可从微信提供的昵称中快速选择</text>
+      <text class="nickname-helper">昵称最多12字，可重复</text>
     </view>
 
     <!-- 保存按钮 -->
@@ -80,10 +80,10 @@
 
     <view class="account-note {{identityError ? 'account-note-error' : ''}}">
       <text class="account-note-title">{{isRestoring ? '正在确认微信身份' : (isLoggedIn ? '微信身份已关联' : '微信身份尚未关联')}}</text>
-      <text class="account-note-copy" wx:if="{{isRestoring}}">确认完成后即可修改昵称和头像。</text>
+      <text class="account-note-copy" wx:if="{{isRestoring}}">确认后可编辑资料</text>
       <text class="account-note-copy" wx:elif="{{identityError}}">{{identityError}}</text>
-      <text class="account-note-copy" wx:elif="{{isLoggedIn}}">昵称和头像只用于展示，可以随时修改，不再作为账号标识。</text>
-      <text class="account-note-copy" wx:else>点击保存后，将使用当前微信身份创建并同步资料。</text>
+      <text class="account-note-copy" wx:elif="{{isLoggedIn}}">昵称和头像仅用于展示，可随时修改</text>
+      <text class="account-note-copy" wx:else>保存时将关联当前微信身份</text>
     </view>
   </view>
 </view>

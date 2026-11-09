@@ -1,0 +1,26 @@
+{
+  "patterns": {
+    "author": "Steve Schoger / Hero Patterns",
+    "source": "https://heropatterns.com/",
+    "sourceCode": "https://heropatterns.com/js/app.js",
+    "names": [
+      "Endless Clouds",
+      "Temple"
+    ],
+    "license": "CC BY 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "changes": "改色、缩放，CSS降低对比度",
+    "credit": "index.html已显示署名与许可链接"
+  },
+  "paper": {
+    "source": "https://ambientcg.com/view?id=Paper001",
+    "license": "CC0",
+    "file": "../light-guofeng/assets/paper.jpg",
+    "locations": [
+      "学习页整体纸面",
+      "学习页两张书页",
+      "首页书本内页"
+    ]
+  },
+  "history": "light-guofeng版本所有文件原样保留"
+}

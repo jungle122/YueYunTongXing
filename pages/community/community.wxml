@@ -6,7 +6,7 @@
     <text class="hero-ornament">🌟</text>
   </view>
 
-  <text class="section-caption">🔥 每日打卡墙 · 本机记录</text>
+  <text class="section-caption">🔥 每日打卡墙（本机记录）</text>
   <view class="checkin-card">
     <view class="checkin-header">
       <view class="checkin-info">
@@ -34,7 +34,7 @@
     </view>
   </view>
 
-  <text class="section-caption">🎖 我的成就墙 · 本机记录</text>
+  <text class="section-caption">🎖 我的成就墙（本机记录）</text>
   <view class="achievements-card">
     <view wx:for="{{achievements}}" wx:key="id" class="achievement-item {{item.unlocked ? 'achievement-unlocked' : 'achievement-locked'}}">
       <view class="achievement-icon">

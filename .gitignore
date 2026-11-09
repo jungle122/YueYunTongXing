@@ -12,9 +12,37 @@ project.private.config.json
 
 # Local Codex design skills and generated design references
 .agents/
-design-system/
+
+# Discarded interface prototypes are archived outside this repository
+/prototypes/
 
 # Cloud function local dependencies and environment files
 cloudfunctions/**/node_modules/
 .env
 .env.*
+
+# Reinstallable dependencies and local preview artifacts
+node_modules/
+design-system/**/.playwright-cli/
+design-system/**/__pycache__/
+
+# Prototype media and fonts are transferred separately via USB
+design-system/**/*.avif
+design-system/**/*.eot
+design-system/**/*.gif
+design-system/**/*.ico
+design-system/**/*.jpeg
+design-system/**/*.jpg
+design-system/**/*.mp3
+design-system/**/*.mp4
+design-system/**/*.otf
+design-system/**/*.pdf
+design-system/**/*.png
+design-system/**/*.svg
+design-system/**/*.ttf
+design-system/**/*.wav
+design-system/**/*.webm
+design-system/**/*.webp
+design-system/**/*.woff
+design-system/**/*.woff2
+design-system/**/*.zip

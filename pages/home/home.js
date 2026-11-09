@@ -52,7 +52,7 @@ Page({
           type: latest.type || "",
           title: latest.title,
           itemId: latest.itemId || "",
-          metaText: metaParts.join(" · "),
+          metaText: metaParts.join("，"),
           targetUrl: typeConfig.targetUrl
         }
       });

@@ -1,0 +1,25 @@
+{
+  "status": "confirmed",
+  "pages": [
+    "home-brick-first.html",
+    "home-brick-recent.html",
+    "learn.html"
+  ],
+  "communityColor": "brick",
+  "next": "音频学习列表",
+  "files": {
+    "blue.css": "f0196225326ed7fa1429615433df516a33ef71e6fe8037d86507aab15f236006",
+    "brick.css": "046d767c8fe522c9b6c55bbc441c3fc77ddee5564f516b1c02b63ceba9d027b8",
+    "global-paper.css": "c317f552177b0ca5c64192cc388ffcc0985b397e7acf9d0ef6175fa7d94bd281",
+    "home-blue-first.html": "003e52fa276473220f0c46687a743a6cbbd955f99b9c3972bcbeb2b0bc3b6192",
+    "home-blue-recent.html": "31c6f3ddacd2417df5420db7a152427552c86cf579257760dc3fd17f54809022",
+    "home-brick-first.html": "474ded5f60c14af673196889bbb29001672c2b981448f5516fee31dd330db3bd",
+    "home-brick-recent.html": "224acf6081ee2e30333468eef8e349125d1ded65fde1bde4b220badf9e779eda",
+    "home-tea-first.html": "85904db4747aa85ca8bf67f62a757c4dffdb55c44d1e09804dcb91b2dd61e0ed",
+    "home-tea-recent.html": "2492bd2ea1eee8658b1f00b5c0f4bf21c7705e1ffd3e89f10ccc799747adb21b",
+    "index.html": "9f667ecea4a4f006f6a53f9c70d2f4b9ea1fa869250445654d2ec6723b5569c4",
+    "learn.html": "4a341723b6ff298d84c6922b2971850eff92f8a7c2ad5161d1dfd3a9ebd5974e",
+    "learn.js": "f14ec220f6c7038da4419b49f8c84df8442c2c7dda9f56efc74838c91974ddbd",
+    "tea.css": "4bcb5bc7864f0cd4fd8936d22ac6258f156403a8a06705458fabe5cf07102f17"
+  }
+}

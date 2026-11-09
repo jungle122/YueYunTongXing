@@ -1,0 +1,97 @@
+{
+  "home": "confirmed",
+  "current": "pages/original/original",
+  "pages": {
+    "pages/home/home": "confirmed",
+    "pages/learn/learn": "confirmed",
+    "pages/games/games": "not-started",
+    "pages/original/original": "awaiting-confirmation",
+    "pages/profile/profile": "not-started",
+    "pages/login/login": "not-started",
+    "pages/community/community": "not-started",
+    "pages/feedback/feedback": "not-started",
+    "pages/feedback-admin/feedback-admin": "not-started",
+    "pages/settings/settings": "not-started",
+    "pages/my-collection/my-collection": "not-started",
+    "pages/history/history": "not-started",
+    "pages/learning-stats/learning-stats": "not-started",
+    "pages/audio-learning/audio-learning": "confirmed",
+    "pages/audio-player/audio-player": "confirmed",
+    "pages/text-science/text-science": "confirmed",
+    "pages/article-reader/article-reader": "confirmed",
+    "pages/chain-game/chain-game": "not-started",
+    "pages/elimination-game/elimination-game": "not-started",
+    "pages/puzzle-game/puzzle-game": "not-started",
+    "pages/picture-puzzle-game/picture-puzzle-game": "not-started",
+    "pages/daily-quiz/daily-quiz": "not-started",
+    "pages/picture-books/picture-books": "not-started",
+    "pages/video-learning/video-learning": "not-started"
+  },
+  "order": [
+    "learn",
+    "audio-learning",
+    "audio-player",
+    "text-science",
+    "article-reader",
+    "original",
+    "video-learning",
+    "picture-books",
+    "games",
+    "chain-game",
+    "elimination-game",
+    "puzzle-game",
+    "picture-puzzle-game",
+    "daily-quiz",
+    "profile",
+    "learning-stats",
+    "my-collection",
+    "history",
+    "login",
+    "settings",
+    "community",
+    "feedback",
+    "feedback-admin"
+  ],
+  "interaction": "主要流程可操作；登录、AI、录音、云端提交使用本地演示",
+  "currentPreview": "../original-preview/index.html",
+  "currentStatus": "学习天地 A 及原创剧场 A 细化待确认",
+  "next": "pages/video-learning/video-learning",
+  "learnSelection": {
+    "status": "confirmed",
+    "variant": "轻国风双书页纹样版，去除听读大字",
+    "preview": "../paper-global/learn.html",
+    "feedback": "完成数量，原型演示数据；正式进度逻辑未改"
+  },
+  "homeSelection": {
+    "status": "confirmed",
+    "preview": "../paper-global/home-tea-recent.html",
+    "communityColor": "B 茶棕，用户确认",
+    "paper": "Paper001，全局360px，透明度0.30",
+    "preserved": [
+      "书本主体",
+      "四眼订",
+      "月亮阿霖",
+      "现有布局与字体"
+    ]
+  },
+  "playerSelection": {
+    "status": "confirmed",
+    "preview": "../audio-player-preview/index.html",
+    "font": "霞鹜文楷原版",
+    "divider": "纸面浅压痕",
+    "tips": "整行折叠，加减号"
+  },
+  "currentComparison": "../material-study/preview.html",
+  "originalSelection": {
+    "variant": "A 规整拼图",
+    "preview": "../original-preview/index.html",
+    "status": "awaiting-confirmation",
+    "playIcon": "Phosphor Regular play-circle, MIT"
+  },
+  "learnRevision": {
+    "variant": "A 横向手账",
+    "status": "awaiting-confirmation",
+    "preview": "../material-study/index.html",
+    "previous": "../material-study/before-layout-a.html"
+  }
+}

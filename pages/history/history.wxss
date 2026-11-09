@@ -1,10 +1,10 @@
 .history-page {
   min-height: 100vh;
-  color: #49372f;
+  color: var(--color-text);
   background:
-    radial-gradient(circle at 96% 4%, rgba(235, 169, 82, 0.18), transparent 24%),
-    radial-gradient(circle at 2% 44%, rgba(118, 172, 151, 0.12), transparent 20%),
-    #fff7e8;
+    radial-gradient(circle at 96% 4%, rgba(235, 169, 82, 0.072), transparent 24%),
+    radial-gradient(circle at 2% 44%, rgba(118, 172, 151, 0.048), transparent 20%),
+    var(--color-bg);
 }
 
 .history-shell { min-height: 100vh; padding: 24rpx 28rpx 76rpx; box-sizing: border-box; animation: pageEnter 380ms ease-out both; }
@@ -16,17 +16,17 @@
   display: flex;
   align-items: center;
   overflow: hidden;
-  border: 2rpx solid #e5d0ad;
-  border-radius: 32rpx;
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-card);
   background: linear-gradient(145deg, #fff3dc 0%, #f8e5bf 100%);
-  box-shadow: 0 13rpx 28rpx rgba(104, 66, 43, 0.09);
+  box-shadow: none;
   box-sizing: border-box;
 }
 
 .overview-copy { z-index: 1; width: 82%; display: flex; flex-direction: column; }
 .overview-kicker { color: #a66d35; font-size: 17rpx; font-weight: 850; letter-spacing: 3rpx; }
-.overview-title { margin-top: 8rpx; color: #4d382f; font-size: 30rpx; font-weight: 900; line-height: 1.35; }
-.overview-description { margin-top: 10rpx; color: #846b5d; font-size: 19rpx; line-height: 1.55; }
+.overview-title { margin-top: 8rpx; color: var(--color-text); font-size: 30rpx; font-weight: 900; line-height: 1.35; }
+.overview-description { margin-top: 10rpx; color: var(--color-text-muted); font-size: 19rpx; line-height: 1.55; }
 .overview-mark { position: absolute; right: 18rpx; bottom: -12rpx; color: rgba(136, 87, 43, 0.09); font-family: serif; font-size: 116rpx; font-weight: 900; transform: rotate(7deg); }
 
 .history-content { margin-top: 30rpx; }
@@ -35,29 +35,29 @@
 
 .date-heading { height: 46rpx; margin: 0 5rpx 13rpx; display: flex; align-items: center; }
 .date-dot { width: 15rpx; height: 15rpx; margin-right: 11rpx; border: 5rpx solid #f6d8a6; border-radius: 50%; background: #bd7452; }
-.date-title { color: #5b4338; font-size: 23rpx; font-weight: 900; }
-.date-count { margin-left: auto; color: #9c8172; font-size: 17rpx; }
+.date-title { color: var(--color-text); font-size: 23rpx; font-weight: 900; }
+.date-count { margin-left: auto; color: var(--color-text-muted); font-size: 17rpx; }
 
 .history-list { position: relative; padding-left: 18rpx; display: flex; flex-direction: column; gap: 14rpx; }
-.history-list::before { content: ""; position: absolute; left: 4rpx; top: 0; bottom: 0; width: 2rpx; background: #e7d5b9; }
+.history-list::before { content: ""; position: absolute; left: 4rpx; top: 0; bottom: 0; width: 2rpx; background: var(--color-border); }
 
 .history-item {
   min-height: 122rpx;
   padding: 20rpx 21rpx;
   display: flex;
   align-items: center;
-  border: 2rpx solid #ead9bd;
-  border-left-width: 7rpx;
-  border-radius: 24rpx;
-  background: #fffdf6;
-  box-shadow: 0 8rpx 19rpx rgba(103, 68, 47, 0.07);
+  border: 2rpx solid var(--color-border);
+  border-left-width: 4rpx;
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: none;
   box-sizing: border-box;
 }
 
-.history-audio { border-left-color: #dfa45c; }
-.history-video { border-left-color: #d47d89; }
-.history-article { border-left-color: #78a9b3; }
-.history-game { border-left-color: #72a57a; }
+.history-audio { border-left-color: var(--color-chapter-learn); }
+.history-video { border-left-color: var(--color-chapter-original); }
+.history-article { border-left-color: var(--color-info); }
+.history-game { border-left-color: var(--color-chapter-games); }
 
 .item-icon { width: 76rpx; height: 76rpx; margin-right: 18rpx; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; border: 2rpx solid rgba(81, 54, 42, 0.07); border-radius: 22rpx; background: #f8ead5; font-size: 33rpx; }
 .history-video .item-icon { background: #f8e1e4; }
@@ -65,16 +65,16 @@
 .history-game .item-icon { background: #e1efdf; }
 
 .item-info { min-width: 0; flex: 1; }
-.item-title { display: block; overflow: hidden; color: #4b382f; font-size: 24rpx; font-weight: 850; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
+.item-title { display: block; overflow: hidden; color: var(--color-text); font-size: 24rpx; font-weight: 850; line-height: 1.4; text-overflow: ellipsis; white-space: nowrap; }
 .item-meta { margin-top: 9rpx; display: flex; align-items: center; gap: 10rpx; }
-.type-tag { padding: 5rpx 9rpx; border: 2rpx solid #e5cfad; border-radius: 999rpx; background: #fff6e7; color: #7f6251; font-size: 15rpx; line-height: 1; }
-.duration-text { color: #998073; font-size: 17rpx; }
-.time-text { margin-left: 14rpx; align-self: flex-start; color: #a08778; font-size: 17rpx; font-variant-numeric: tabular-nums; }
+.type-tag { padding: 5rpx 9rpx; border: 2rpx solid #e5cfad; border-radius: 999rpx; background: #fff6e7; color: var(--color-text-secondary); font-size: 15rpx; line-height: 1; }
+.duration-text { color: var(--color-text-muted); font-size: 17rpx; }
+.time-text { margin-left: 14rpx; align-self: flex-start; color: var(--color-text-muted); font-size: 17rpx; font-variant-numeric: tabular-nums; }
 
 .empty-state { min-height: 520rpx; padding: 70rpx 50rpx; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 2rpx dashed #dfc9a8; border-radius: 32rpx; background: rgba(255, 253, 246, 0.78); text-align: center; box-sizing: border-box; }
 .empty-symbol { width: 116rpx; height: 116rpx; display: flex; align-items: center; justify-content: center; border: 2rpx solid #e8cfab; border-radius: 50%; background: #fff0d6; color: #ad774b; font-size: 58rpx; }
-.empty-title { margin-top: 25rpx; color: #543f35; font-size: 29rpx; font-weight: 900; }
-.empty-description { max-width: 480rpx; margin-top: 13rpx; color: #907769; font-size: 20rpx; line-height: 1.65; }
+.empty-title { margin-top: 25rpx; color: var(--color-text); font-size: 29rpx; font-weight: 900; }
+.empty-description { max-width: 480rpx; margin-top: 13rpx; color: var(--color-text-muted); font-size: 20rpx; line-height: 1.65; }
 
 @keyframes pageEnter { from { opacity: 0; transform: translateY(22rpx); } to { opacity: 1; transform: translateY(0); } }
 

@@ -1,0 +1,321 @@
+[
+  {
+    "path": "pages/home/home",
+    "imageSources": [
+      "/static/tabbar/games-active.png",
+      "/static/tabbar/learn-active.png",
+      "/static/tabbar/original-active.png",
+      "/static/tabbar/profile-active.png",
+      "/static/ui/home/互动社区.jpg"
+    ],
+    "emojiOrSymbols": [
+      "✿"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/learn/learn",
+    "imageSources": [
+      "/static/ui/learn/文字科普.jpg",
+      "/static/ui/learn/音频学习.jpg"
+    ],
+    "emojiOrSymbols": [
+      "♪"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/games/games",
+    "imageSources": [
+      "/static/ui/games/picture-puzzle.png",
+      "/static/ui/games/童谣拼图.jpg",
+      "/static/ui/games/童谣接龙.jpg",
+      "/static/ui/games/童谣消消乐.jpg"
+    ],
+    "emojiOrSymbols": [
+      "★"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/original/original",
+    "imageSources": [
+      "/static/ui/original/原创视频.jpg",
+      "/static/ui/original/童谣课程手册.svg",
+      "/static/ui/original/绘本故事.jpg"
+    ],
+    "emojiOrSymbols": [
+      "✿"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/profile/profile",
+    "imageSources": [
+      "/static/ui/profile/个性化设置.jpg",
+      "/static/ui/profile/历史记录.jpg",
+      "/static/ui/profile/学习统计.jpg",
+      "/static/ui/profile/建议反馈.jpg",
+      "/static/ui/profile/我的收藏.jpg"
+    ],
+    "emojiOrSymbols": [
+      "☀",
+      "🏡"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/login/login",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "☁",
+      "✏",
+      "✿",
+      "❀",
+      "📱"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/community/community",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "✓",
+      "🌟",
+      "🌱",
+      "🎖",
+      "🏆",
+      "👑",
+      "👤",
+      "💎",
+      "💬",
+      "📚",
+      "🔒",
+      "🔥"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/feedback/feedback",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "★",
+      "☆",
+      "✉",
+      "🌟",
+      "🐛",
+      "💡",
+      "💬",
+      "📋",
+      "📌",
+      "📝"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/feedback-admin/feedback-admin",
+    "imageSources": [],
+    "emojiOrSymbols": [],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/settings/settings",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "✏",
+      "👤",
+      "📱"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/my-collection/my-collection",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "♡",
+      "♥",
+      "🎬",
+      "🎵",
+      "📄",
+      "📖",
+      "📚"
+    ],
+    "edgeAccents": [
+      "border-left-width: 4rpx;"
+    ],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/history/history",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "🎬",
+      "🎮",
+      "🎵",
+      "📄",
+      "📖"
+    ],
+    "edgeAccents": [
+      "border-left-width: 4rpx;"
+    ],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/learning-stats/learning-stats",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "☀",
+      "♥",
+      "🎬",
+      "🎵",
+      "📖"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/audio-learning/audio-learning",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "♥",
+      "♪"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/audio-player/audio-player",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "♡",
+      "♥",
+      "♫"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/text-science/text-science",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "♥"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/article-reader/article-reader",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "♡",
+      "♥",
+      "❦"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/chain-game/chain-game",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "✓",
+      "🏆",
+      "💡"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/elimination-game/elimination-game",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "★",
+      "✓",
+      "❌",
+      "🎉",
+      "🎵",
+      "💡"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/puzzle-game/puzzle-game",
+    "imageSources": [
+      "/static/ui/games/lyric-sort.png",
+      "/static/ui/games/lyric-tap.png"
+    ],
+    "emojiOrSymbols": [
+      "★",
+      "✓"
+    ],
+    "edgeAccents": [
+      "border-bottom: 4rpx solid #b9c8ad;",
+      "border-left: 7rpx solid #7ca6c5;"
+    ],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/picture-puzzle-game/picture-puzzle-game",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "★",
+      "✓"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/daily-quiz/daily-quiz",
+    "imageSources": [],
+    "emojiOrSymbols": [],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/picture-books/picture-books",
+    "imageSources": [],
+    "emojiOrSymbols": [],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "pages/video-learning/video-learning",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "♡",
+      "♥",
+      "❚",
+      "❤",
+      "💖"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "components/ai-explainer/ai-explainer",
+    "imageSources": [],
+    "emojiOrSymbols": [],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  },
+  {
+    "path": "components/alin-3d/alin-3d",
+    "imageSources": [],
+    "emojiOrSymbols": [
+      "🦁"
+    ],
+    "edgeAccents": [],
+    "visualStatus": "待选型后在微信中逐页验证"
+  }
+]

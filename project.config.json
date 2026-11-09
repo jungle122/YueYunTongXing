@@ -30,6 +30,7 @@
   "simulatorPluginLibVersion": {},
   "packOptions": {
     "ignore": [
+      { "type": "folder", "value": ".agents" },
       { "type": "folder", "value": "static/home" },
       { "type": "folder", "value": "static/learn" },
       { "type": "folder", "value": "static/games" },

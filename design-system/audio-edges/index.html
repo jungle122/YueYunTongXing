@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>童谣目录页边比较</title>
+<style>
+*{box-sizing:border-box}body{margin:20px;color:#49392d;background:#faf6ed;font:16px system-ui}h1{font-size:23px}h2{font-size:16px}label,select{font:inherit}section{flex:none}iframe{display:block;width:375px;height:690px;border:1px solid #cdbfa9;background:#fffdf5}.strip{display:flex;gap:16px;overflow-x:auto;padding-bottom:8px}a{color:inherit}
+</style>
+<h1>童谣小目录 / 页边比较</h1>
+<label>学习状态 <select><option value="partial">部分完成</option><option value="first">首次使用</option><option value="complete">全部完成</option><option value="loading">加载中</option><option value="error">加载失败</option></select></label>
+<div class="strip"></div>
+<p>空心圆表示未开始，半圆表示学习中，圆内对勾表示已听完。</p>
+<a href="../audio-folios/a.html">查看调整前的 A</a>
+<script>
+const strip=document.querySelector('.strip');
+for(const [edge,name] of Object.entries({original:'01 原竹纹',rules:'02 细双线',cloth:'03 青布包边',relief:'04 纸面压纹'})){
+  const section=document.createElement('section'),heading=document.createElement('h2'),frame=document.createElement('iframe');
+  heading.textContent=frame.title=name;
+  frame.dataset.edge=edge;
+  section.append(heading,frame);
+  strip.append(section);
+}
+function sync(){
+  for(const frame of strip.querySelectorAll('iframe'))frame.src='a.html?edge='+frame.dataset.edge+'&state='+document.querySelector('select').value;
+}
+document.querySelector('select').onchange=sync;
+sync();
+</script></html>

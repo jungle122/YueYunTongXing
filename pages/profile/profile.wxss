@@ -1,17 +1,17 @@
 .profile-hero {
-  border-color: #bcd8e9;
-  background: linear-gradient(145deg, #edf7fd 0%, #e2f2fb 100%);
+  border-color: var(--color-info-border);
+  background: linear-gradient(145deg, var(--color-info-soft) 0%, #e2f2fb 100%);
 }
 
-.profile-hero .chapter-seal { color: #487799; }
+.profile-hero .chapter-seal { color: var(--color-info); }
 
 .profile-summary,
 .login-panel,
 .menu-list {
-  border: 2rpx solid #ead5b5;
-  border-radius: 28rpx;
-  background: #fffdf5;
-  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: none;
 }
 
 .profile-summary {
@@ -45,7 +45,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fffdf5;
+  color: var(--color-surface);
   font-size: 32rpx;
   font-weight: 800;
 }
@@ -61,7 +61,7 @@
 
 .profile-name,
 .login-title {
-  color: #49352d;
+  color: var(--color-text);
   font-size: 29rpx;
   font-weight: 800;
 }
@@ -70,7 +70,7 @@
 .login-subtitle,
 .menu-description {
   margin-top: 7rpx;
-  color: #7a655a;
+  color: var(--color-text-secondary);
   font-size: 21rpx;
   line-height: 1.45;
 }
@@ -80,7 +80,7 @@
   padding-top: 24rpx;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  border-top: 2rpx dashed #e6d1b2;
+  border-top: 2rpx dashed var(--color-border);
 }
 
 .stat-cell {
@@ -89,17 +89,17 @@
   align-items: center;
 }
 
-.stat-cell + .stat-cell { border-left: 2rpx solid #eadbc4; }
+.stat-cell + .stat-cell { border-left: 2rpx solid var(--color-border); }
 
 .stat-number {
-  color: #b4513d;
+  color: var(--color-primary);
   font-size: 35rpx;
   font-weight: 850;
 }
 
 .stat-label {
   margin-top: 6rpx;
-  color: #806b60;
+  color: var(--color-text-muted);
   font-size: 20rpx;
 }
 
@@ -132,7 +132,7 @@
 .login-action {
   margin-left: 14rpx;
   flex: 0 0 auto;
-  color: #a94736;
+  color: var(--color-primary);
   font-size: 21rpx;
   font-weight: 750;
 }
@@ -154,7 +154,7 @@
   transition: transform 180ms ease-out, opacity 180ms ease-out;
 }
 
-.menu-row + .menu-row { border-top: 2rpx dashed #eadbc4; }
+.menu-row + .menu-row { border-top: 2rpx dashed var(--color-border); }
 
 .menu-symbol {
   width: 68rpx;
@@ -173,7 +173,7 @@
 
 .menu-symbol image { width: 100%; height: 100%; }
 .menu-title {
-  color: #49352d;
+  color: var(--color-text);
   font-size: 27rpx;
   font-weight: 750;
 }

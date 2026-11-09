@@ -28,12 +28,12 @@
   "window": {
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "粤语童谣时光屋",
-    "navigationBarBackgroundColor": "#FFF7E8",
-    "backgroundColor": "#F6F7FF"
+    "navigationBarBackgroundColor": "#FFFDF5",
+    "backgroundColor": "#FFFDF5"
   },
   "tabBar": {
-    "color": "#77758A",
-    "selectedColor": "#C8553D",
+    "color": "#765F54",
+    "selectedColor": "#A94736",
     "backgroundColor": "#FFFDF5",
     "borderStyle": "white",
     "list": [

@@ -31,7 +31,7 @@
             <text class="song-title">{{song.title}}</text>
             <text wx:if="{{song.isLiked}}" class="liked-mark" aria-label="已收藏">♥</text>
           </view>
-          <text class="song-meta">{{song.lesson}} · {{song.progressText}}</text>
+          <text class="song-meta">{{song.lesson}}，{{song.progressText}}</text>
           <view class="progress-track">
             <view class="progress-fill" style="width: {{song.progress}}%;"></view>
           </view>

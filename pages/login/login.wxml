@@ -7,13 +7,12 @@
   <view class="login-hero">
     <view class="hero-badge">粤语童谣时光屋</view>
     <text class="hero-title">建立你的学习角色</text>
-    <text class="hero-subtitle">微信身份会自动识别学习角色，昵称可以随时修改</text>
+    <text class="hero-subtitle">资料关联当前微信身份，无需账号密码</text>
   </view>
 
   <view wx:if="{{isRestoring}}" class="identity-loading-card">
     <view class="identity-loading-icon">☁</view>
     <text class="identity-loading-title">正在恢复学习资料</text>
-    <text class="identity-loading-copy">无需输入账号或密码</text>
   </view>
 
   <view wx:else class="login-card">
@@ -32,7 +31,7 @@
           type="nickname"
           class="nickname-input"
           placeholder="输入昵称"
-          placeholder-style="color:#b8a99a"
+          placeholder-style="color:var(--color-text-muted)"
           value="{{nickname}}"
           bindinput="onNicknameInput"
           bindblur="onNicknameBlur"
@@ -41,7 +40,7 @@
         />
         <view class="wechat-nickname-action" bindtap="useWechatNickname">使用微信昵称</view>
       </view>
-      <text class="nickname-helper">真机点击后，可从微信提供的昵称中快速选择</text>
+      <text class="nickname-helper">昵称最多12字</text>
     </view>
 
     <view class="avatar-section">
@@ -73,12 +72,9 @@
 
     <view class="login-btn-wrap">
       <view class="login-btn {{!nickname || isSaving ? 'login-btn-disabled' : ''}}" bindtap="handleLogin" hover-class="login-btn-press">
-        <text class="login-btn-text">{{isSaving ? '正在保存...' : '保存资料 · 开始学习'}}</text>
+        <text class="login-btn-text">{{isSaving ? '正在保存...' : '保存并开始学习'}}</text>
       </view>
     </view>
   </view>
 
-  <view class="login-footer">
-    <text class="footer-text">角色资料与当前微信身份关联，无需记住昵称或密码</text>
-  </view>
 </view>

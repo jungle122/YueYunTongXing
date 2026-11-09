@@ -3,9 +3,9 @@
   padding: 28rpx 28rpx 80rpx;
   box-sizing: border-box;
   background:
-    radial-gradient(circle at 94% 4%, rgba(244, 190, 80, 0.22), transparent 26%),
-    radial-gradient(circle at 2% 42%, rgba(224, 126, 98, 0.1), transparent 20%),
-    #fff7e8;
+    radial-gradient(circle at 94% 4%, rgba(244, 190, 80, 0.088), transparent 26%),
+    radial-gradient(circle at 2% 42%, rgba(224, 126, 98, 0.04), transparent 20%),
+    var(--color-bg);
 }
 
 .community-hero {
@@ -13,15 +13,15 @@
   background: linear-gradient(145deg, #fff5e6 0%, #ffe8d0 100%);
 }
 
-.community-hero .chapter-seal { color: #cf684b; }
+.community-hero .chapter-seal { color: var(--color-primary); }
 
 /* 打卡卡片 */
 .checkin-card {
   padding: 26rpx;
-  border: 2rpx solid #ead5b5;
-  border-radius: 28rpx;
-  background: #fffdf5;
-  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: none;
 }
 
 .checkin-header {
@@ -39,12 +39,12 @@
 .checkin-days {
   font-size: 48rpx;
   font-weight: 850;
-  color: #cf684b;
+  color: var(--color-primary);
 }
 
 .checkin-label {
   font-size: 21rpx;
-  color: #7a655a;
+  color: var(--color-text-secondary);
   margin-top: 4rpx;
 }
 
@@ -55,12 +55,12 @@
 
 .checkin-btn {
   padding: 18rpx 36rpx;
-  border-radius: 30rpx;
-  background: linear-gradient(135deg, #cf684b, #e8a87c);
-  color: #fff;
+  border-radius: var(--radius-control);
+  background: var(--color-primary);
+  color: var(--color-white);
   font-size: 24rpx;
   font-weight: 700;
-  box-shadow: 0 8rpx 18rpx rgba(207, 104, 75, 0.25);
+  box-shadow: none;
 }
 
 .checkin-btn-press {
@@ -69,17 +69,17 @@
 }
 
 .checkin-done {
-  background: linear-gradient(135deg, #7db487, #a8d5b0);
-  box-shadow: 0 8rpx 18rpx rgba(125, 180, 135, 0.25);
-}
+  background: var(--color-success-soft);
+  box-shadow: none;
+ color: var(--color-success); }
 
 .checkin-calendar {
   display: flex;
   justify-content: space-between;
   gap: 10rpx;
   padding: 16rpx 0;
-  border-top: 2rpx dashed #e6d1b2;
-  border-bottom: 2rpx dashed #e6d1b2;
+  border-top: 2rpx dashed var(--color-border);
+  border-bottom: 2rpx dashed var(--color-border);
 }
 
 .calendar-item {
@@ -90,28 +90,28 @@
   width: 72rpx;
   height: 80rpx;
   border-radius: 16rpx;
-  background: #f8edd8;
+  background: var(--color-surface-soft);
   border: 2rpx solid transparent;
 }
 
 .calendar-checked {
-  background: #fff3e0;
-  border-color: #cf684b;
+  background: var(--color-warning-soft);
+  border-color: var(--color-primary);
 }
 
 .calendar-today {
-  box-shadow: 0 0 0 3rpx rgba(207, 104, 75, 0.2);
+  box-shadow: none;
 }
 
 .calendar-day {
   font-size: 24rpx;
   font-weight: 700;
-  color: #49352d;
+  color: var(--color-text);
 }
 
 .calendar-dot {
   font-size: 18rpx;
-  color: #cf684b;
+  color: var(--color-primary);
   font-weight: 700;
 }
 
@@ -122,23 +122,23 @@
 
 .total-text {
   font-size: 22rpx;
-  color: #7a655a;
+  color: var(--color-text-secondary);
 }
 
 /* 成就墙 */
 .achievements-card {
   padding: 20rpx 24rpx;
-  border: 2rpx solid #ead5b5;
-  border-radius: 28rpx;
-  background: #fffdf5;
-  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: none;
 }
 
 .achievement-item {
   display: flex;
   align-items: center;
   padding: 18rpx 0;
-  border-bottom: 2rpx dashed #eadbc4;
+  border-bottom: 2rpx dashed var(--color-border);
 }
 
 .achievement-item:last-child {
@@ -167,7 +167,7 @@
 
 .achievement-unlocked .achievement-icon {
   background: linear-gradient(135deg, #ffd700, #ffb347);
-  box-shadow: 0 6rpx 14rpx rgba(255, 215, 0, 0.3);
+  box-shadow: none;
 }
 
 .achievement-info {
@@ -177,12 +177,12 @@
 .achievement-name {
   font-size: 26rpx;
   font-weight: 700;
-  color: #49352d;
+  color: var(--color-text);
 }
 
 .achievement-desc {
   font-size: 20rpx;
-  color: #7a655a;
+  color: var(--color-text-secondary);
   margin-top: 4rpx;
 }
 
@@ -200,10 +200,10 @@
 /* 云端成长分享 */
 .messageboard-card {
   padding: 24rpx;
-  border: 2rpx solid #ead5b5;
-  border-radius: 28rpx;
-  background: #fffdf5;
-  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.08);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: none;
 }
 
 .share-intro {
@@ -218,14 +218,14 @@
   display: block;
   font-size: 24rpx;
   font-weight: 700;
-  color: #49352d;
+  color: var(--color-text);
 }
 
 .share-subtitle {
   display: block;
   margin-top: 8rpx;
   font-size: 19rpx;
-  color: #8d776b;
+  color: var(--color-text-muted);
 }
 
 .study-pill {
@@ -251,7 +251,7 @@
 }
 
 .form-label {
-  color: #6d5246;
+  color: var(--color-text-secondary);
   font-size: 21rpx;
   font-weight: 700;
 }
@@ -264,25 +264,25 @@
   padding: 16rpx 18rpx;
   border: 2rpx solid #e0c7a7;
   border-radius: 18rpx;
-  background: #fffaf0;
-  color: #60483d;
+  background: var(--color-surface);
+  color: var(--color-text);
   font-size: 22rpx;
   line-height: 1.45;
 }
 
 .picker-placeholder {
-  color: #a08d82;
+  color: var(--color-text-muted);
 }
 
 .picker-disabled {
-  background: #f4eee5;
+  background: var(--color-surface-soft);
   opacity: 0.65;
 }
 
 .picker-arrow {
   flex-shrink: 0;
   margin-left: 16rpx;
-  color: #b65b42;
+  color: var(--color-primary);
   font-size: 28rpx;
   font-weight: 800;
 }
@@ -320,13 +320,13 @@
 .publish-btn {
   margin-top: 22rpx;
   padding: 18rpx 24rpx;
-  border-radius: 24rpx;
-  background: #cf684b;
-  color: #fff;
+  border-radius: var(--radius-control);
+  background: var(--color-primary);
+  color: var(--color-white);
   text-align: center;
   font-size: 24rpx;
   font-weight: 700;
-  box-shadow: 0 8rpx 18rpx rgba(207, 104, 75, 0.22);
+  box-shadow: none;
 }
 
 .publish-btn-press {
@@ -340,10 +340,10 @@
 .community-feed {
   margin-top: 22rpx;
   padding: 22rpx 24rpx;
-  border: 2rpx solid #ead5b5;
-  border-radius: 28rpx;
-  background: #fffdf8;
-  box-shadow: 0 10rpx 24rpx rgba(104, 66, 43, 0.07);
+  border: 2rpx solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: none;
 }
 
 .feed-heading {
@@ -351,18 +351,18 @@
   align-items: center;
   justify-content: space-between;
   padding-bottom: 14rpx;
-  border-bottom: 2rpx dashed #eadbc4;
+  border-bottom: 2rpx dashed var(--color-border);
 }
 
 .feed-title {
-  color: #49352d;
+  color: var(--color-text);
   font-size: 24rpx;
   font-weight: 700;
 }
 
 .feed-refresh {
   padding: 6rpx 12rpx;
-  color: #b65b42;
+  color: var(--color-primary);
   font-size: 20rpx;
 }
 
@@ -373,7 +373,7 @@
 .message-item {
   display: flex;
   padding: 16rpx 0;
-  border-bottom: 2rpx dashed #eadbc4;
+  border-bottom: 2rpx dashed var(--color-border);
 }
 
 .message-item:last-child {
@@ -415,24 +415,24 @@
 .msg-name {
   font-size: 22rpx;
   font-weight: 700;
-  color: #49352d;
+  color: var(--color-text);
 }
 
 .msg-time {
   font-size: 18rpx;
-  color: #a08d82;
+  color: var(--color-text-muted);
 }
 
 .msg-text {
   display: block;
   font-size: 24rpx;
-  color: #49352d;
+  color: var(--color-text);
   line-height: 1.5;
 }
 
 .mine-badge {
   padding: 2rpx 9rpx;
-  border-radius: 12rpx;
+  border-radius: var(--radius-label);
   background: #fff0cf;
   color: #a25d39;
   font-size: 17rpx;
@@ -447,14 +447,14 @@
 }
 
 .source-note {
-  color: #9a8a7e;
+  color: var(--color-text-muted);
   font-size: 17rpx;
 }
 
 .delete-post {
   margin-left: auto;
   padding: 4rpx 0 4rpx 18rpx;
-  color: #b65b42;
+  color: var(--color-primary);
   font-size: 19rpx;
 }
 
@@ -466,14 +466,14 @@
 
 .retry-text,
 .load-more-action {
-  color: #b65b42;
+  color: var(--color-primary);
   font-weight: 700;
 }
 
 .load-more {
   padding: 22rpx 0 8rpx;
   text-align: center;
-  color: #9a8a7e;
+  color: var(--color-text-muted);
   font-size: 20rpx;
 }
 
@@ -481,7 +481,7 @@
 .empty-hint {
   text-align: center;
   padding: 40rpx 20rpx;
-  color: #a08d82;
+  color: var(--color-text-muted);
   font-size: 24rpx;
 }
 
@@ -489,3 +489,7 @@
   .community-page { padding-left: 22rpx; padding-right: 22rpx; }
   .calendar-item { width: 62rpx; }
 }
+
+.checkin-btn:active, .publish-btn:active { background: var(--color-primary-pressed); }
+.checkin-done:active { background: var(--color-success-soft); }
+.publish-disabled { background: var(--color-disabled-bg); color: var(--color-disabled-text); opacity: 1; }

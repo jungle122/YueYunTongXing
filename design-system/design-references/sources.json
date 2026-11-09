@@ -1,0 +1,36 @@
+{
+  "status": "研究参考，尚未选定方向；不构成原型",
+  "freedesign": "https://github.com/AIPMAndy/FreeDesign",
+  "rights": "下列作品仅作视觉参考，未取得其图片或完整设计的再分发及复用授权；不加入产品素材。FreeDesign MIT不覆盖其链接站点的资源。",
+  "references": [
+    {
+      "name": "A 皇帝的一天",
+      "url": "https://apps.apple.com/cn/app/id893942155",
+      "img": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource124/v4/eb/17/e8/eb17e880-b710-ab87-bb45-12e9056e369e/68f4f7b8-e767-4f28-8dbe-2895d1d347f2_2.png/643x297bb.webp",
+      "take": "看角色、场景与学习任务怎样成为整体；适合参考入口组织。",
+      "avoid": "不搬皇宫建筑，也不做整屏游戏地图。",
+      "imageType": "官方商店展示图，含游戏界面与宣传外框"
+    },
+    {
+      "name": "B 紫禁城祥瑞",
+      "url": "https://www.red-dot.org/zh/project/forbidden-city-xiangrui-13284",
+      "img": "https://www.red-dot.org/index.php?f=17083&token=81eed617ec055a9c2a44ef540098c0bf9855fcc6&eID=tx_solr_image&size=large&usage=slider",
+      "take": "看器物、纸面、底部操作怎样融为一体；适合参考拟物层次与功能承载。",
+      "avoid": "不搬复杂纹样与沉重配色。"
+    },
+    {
+      "name": "C 胤禛美人图",
+      "url": "https://apps.apple.com/cn/app/id631295915",
+      "img": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource115/v4/32/7d/32/327d3273-3714-e63b-51ee-6e0d767c26d3/ca862d82-1268-4b42-9a90-559cfb1a0431_Simulator_Screen_Shot_-_iPad_Pro__U002812.9-inch_U0029__U00284th_generation_U0029_-_2021-08-27_at_21.26.01.png/643x857bb.webp",
+      "take": "看传统画面如何成为可探索的界面；适合参考图像入口与细节。",
+      "avoid": "不搬成人宫廷题材和原作画面。"
+    },
+    {
+      "name": "D 每日故宫",
+      "url": "https://apps.apple.com/cn/app/id943324650",
+      "img": "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource116/v4/ef/bc/df/efbcdf00-8dfe-2908-3677-d98fe4319d1c/8a1c1bbc-e239-419c-adc3-38bcc8af48bb_123.png/300x650bb.webp",
+      "take": "看一张内容卡的主次、标题和物件比例；适合参考温和的纸面排版。",
+      "avoid": "不复制日历功能或藏品照片。"
+    }
+  ]
+}

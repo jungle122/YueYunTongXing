@@ -16,7 +16,7 @@
     </view>
     <text class="note">符合筛选条件的反馈共 {{total}} 条。旧记录未评分，不计为零分。</text>
     <view wx:for="{{rows}}" wx:key="id" class="card">
-      <view class="row-head"><text>{{item.typeLabel}} · {{item.statusText}}</text><text>{{item.rating ? item.rating + ' / 5星' : '未评分'}}</text></view>
+      <view class="row-head"><text>{{item.typeLabel}}，{{item.statusText}}</text><text>{{item.rating ? item.rating + ' / 5星' : '未评分'}}</text></view>
       <text class="content" selectable="true">{{item.content || '仅提交评分'}}</text>
       <text class="note">{{item.timeText}}</text>
       <text wx:if="{{item.contact}}" class="note" selectable="true">联系方式：{{item.contact}}</text>

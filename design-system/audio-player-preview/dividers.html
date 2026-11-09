@@ -1,0 +1,8 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>播放器分隔比较</title><style>*{box-sizing:border-box}body{margin:16px;color:#4c3e30;background:#f4efe4;font:16px system-ui}h1{font-size:22px}main{display:flex;gap:16px;overflow:auto}h2{font-size:17px}iframe{display:block;width:377px;height:842px;border:1px solid #d5c7b0;background:#fffdf5}a{color:inherit}</style><h1>播放器分隔比较</h1><main></main><script>
+for(const [rule,label] of [['short','A 对称短线'],['crease','B 纸面浅压痕'],['space','C 留白']]){
+ const section=document.createElement('section');
+ const url='index.html?id=song20&rule='+rule;
+ section.innerHTML='<h2><a href="'+url+'">'+label+'</a></h2><iframe title="'+label+'" src="'+url+'"></iframe>';
+ document.querySelector('main').append(section);
+}
+</script></html>

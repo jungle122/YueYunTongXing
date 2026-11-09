@@ -1,0 +1,38 @@
+{
+  "existingMaterial": [
+    "月亮阿霖透明底，来源c-polish/assets/moon-alin-transparent.png",
+    "尾巴伞，来源material-preview/assets/umbrella-story.png",
+    "龙舟小鼓手，来源用户文创目录插画3"
+  ],
+  "generated": [
+    "rooster.png",
+    "bath.png",
+    "pond.png"
+  ],
+  "generation": "imagegen新增透明底小场景，不是第三方下载素材",
+  "patterns": {
+    "source": "https://heropatterns.com/",
+    "author": "Steve Schoger",
+    "license": "CC BY 4.0",
+    "changes": "沿用已有改色缩放版本"
+  },
+  "paper": {
+    "source": "https://ambientcg.com/view?id=Paper001",
+    "license": "CC0"
+  },
+  "icons": {
+    "source": "https://github.com/phosphor-icons/core",
+    "license": "MIT",
+    "new": "star-duotone.svg"
+  },
+  "assets": {
+    "bath.png": "c1f367ba55896ef60c2c3c34e0102de557f4347a65e3ae3711c32fe98f60c510",
+    "dragon-story.png": "dab2ca7ede2d1e0d71a3f58a13f9519d3af1d9f0aea7663c1da202d77b65b21f",
+    "moon-alin.png": "c75d82ea45fea08e1dfc292c3f336986c53419316933b2665e59a358f4778d82",
+    "pond.png": "82a92012c358934adbffecf709826c3b09b74774e5ee1909a1c6faf452d05ddc",
+    "rain-story.png": "04ec32313a6dd82ff35a6fafdc98d610fc8324129871633bee20021645d962e2",
+    "rooster.png": "b1b68442ca83501c60db5d44c12ba08c5d6cc2555e30588864840383101c9470",
+    "star.svg": "d99a65040b32b5da2b50077a15d8b8b5ae90307c1a5bd34771c3f7b21e055835"
+  },
+  "history": "audio-options保留，不覆盖"
+}

@@ -90,7 +90,7 @@ Page({
       return typeCounts[type] > 0;
     }).map(function(type) {
       return labels[type] + " " + typeCounts[type];
-    }).join(" · ");
+    }).join("，");
     this.setData({ favorites: favorites, favoriteCount: favorites.length, summaryText: summaryText });
   },
   getArticleTitleById(id) {

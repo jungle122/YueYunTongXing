@@ -1,0 +1,10 @@
+[data-edge] main { position:relative; border-image:none; border-left-color:transparent; }
+[data-edge] main::before { content:""; position:absolute; width:8px; left:-8px; inset-block:0; }
+[data-edge=rules] main::before { background:linear-gradient(to right,transparent 1px,#815e47 1px 2px,transparent 2px 5px,#bc9c79 5px 6px,transparent 6px); }
+[data-edge=cloth] main::before { background-color:#55695b; background-image:repeating-linear-gradient(25deg,transparent 0 2px,#d5d1ad65 2px 3px),repeating-linear-gradient(100deg,transparent 0 2px,#303d343b 2px 3px); box-shadow:inset -1px 0 #334d40; }
+[data-edge=relief] main::before { background:linear-gradient(90deg,#dbcdb47a,#fff9e8 38%,#e5d9c3 64%,#fffdf5 85%); }
+.folio-a .song-content { flex-direction:row; align-items:center; gap:6px; }
+.status { flex:none; display:inline-flex; color:#706a59; }
+.status svg { width:18px; height:18px; }
+.trail { display:inline-flex; align-items:center; gap:7px; }
+.trail img { width:19px; height:19px; opacity:.69; }

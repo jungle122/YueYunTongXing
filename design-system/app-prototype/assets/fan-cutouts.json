@@ -1,0 +1,12 @@
+{
+  "operation": "image_gen transparent-background edit",
+  "originals": [
+    "../../material-preview/assets/music-fan.png",
+    "../../material-preview/assets/window-fan.png"
+  ],
+  "outputs": [
+    "music-fan-cutout.png",
+    "window-fan-cutout.png"
+  ],
+  "note": "移除外部矩形底，保留扇面内部白纸与印画，完整扇柄；原始素材不变"
+}

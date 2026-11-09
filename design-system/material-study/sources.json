@@ -1,0 +1,68 @@
+[
+  {
+    "file": "assets/science.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-03cfe82d-7a16-469e-96af-01a27e87afe3.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/tape-clear.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-1d4a12c3-fe23-48db-872e-20b06d202d9d.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/tape-ivory.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-f43c3b47-49ab-4ffd-b379-2f249ed97776.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/tape-pink.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-b10d1ec9-2aa0-40b4-b08d-312c9be15007.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/paper-grid.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-e3a5ade5-e7ca-4c8c-b500-3aa894a55c67.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/paper-blue.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-323064f1-b5e4-45ce-a086-d1c99f4a9fd8.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/paper-clip.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-7c56acb3-e962-4d81-8069-04c9dcfbecbc.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/paper-ivory.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-e1f0bde8-9388-457c-a32f-9164f4773cb1.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/photo-stack.png",
+    "source": "C:\\Users\\14740\\AppData\\Local\\Temp\\codex-clipboard-3b048a1c-398d-4d32-a6d2-a32e6c2f233a.png",
+    "method": "原图透明通道保留、连通背景去除、裁切；竖向磁带旋转 90 度。无生成或重绘。",
+    "license": "用户提供的原型参考，原始授权未核实"
+  },
+  {
+    "file": "assets/science-refined.png",
+    "source": "用户图 1，codex-clipboard-03cfe82d-7a16-469e-96af-01a27e87afe3.png",
+    "method": "人工描边 alpha 蒙版；保留原图像素，4 倍采样平滑边缘；无 AI 重绘",
+    "license": "同原始用户参考图"
+  },
+  {
+    "file": "assets/title-paper.png",
+    "source": "assets/paper-ivory.png，用户浅色撕纸图",
+    "method": "截取原图 27%–55% 高度作为横向标题纸条，不拉长整张纸",
+    "license": "同原始用户参考图"
+  }
+]

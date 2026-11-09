@@ -1,0 +1,7 @@
+const id=document.querySelector('#article'),position=document.querySelector('#position');
+const frames=[document.querySelector('#old'),document.querySelector('#new')];
+function move(){for(const frame of frames){const d=frame.contentDocument,w=frame.contentWindow;if(!d?.querySelector('main:not([hidden])'))continue;const bottom=position.value==='bottom';const details=d.querySelector('details');if(details)details.open=bottom;const toggle=d.querySelector('#explain-toggle');if(toggle){toggle.setAttribute('aria-expanded',String(bottom));d.querySelector('#explain').hidden=!bottom;}w.scrollTo(0,bottom?d.documentElement.scrollHeight:0);}}
+function load(){frames.forEach((f,i)=>f.src=(i?'index.html':'before.html')+'?id='+id.value+'&state=complete');document.querySelector('#open').href='index.html?id='+id.value;}
+for(const frame of frames)frame.addEventListener('load',async()=>{await frame.contentDocument.fonts.ready;await Promise.all([...frame.contentDocument.images].map(i=>i.decode().catch(()=>{})));move();});
+id.onchange=load;position.onchange=move;load();
+fetch('sources.json').then(r=>r.json()).then(items=>{for(const item of items){const li=document.createElement('li'),a=document.createElement('a');a.href=item.url;a.textContent=item.name;a.target='_blank';a.rel='noopener';li.append(a,document.createTextNode('：'+item.creator+'，'+item.license+'。用于'+item.use+'。'));document.querySelector('#sources').append(li);}});

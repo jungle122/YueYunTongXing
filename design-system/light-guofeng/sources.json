@@ -1,0 +1,12 @@
+{
+  "paper": {
+    "source": "https://ambientcg.com/view?id=Paper001",
+    "license": "CC0",
+    "licenseUrl": "https://docs.ambientcg.com/license/",
+    "file": "assets/paper.jpg"
+  },
+  "illustrations": "既有文创圆形与窗格扇，复用已抠图版本，未新增生成插画",
+  "fonts": "已确认Ma Shan Zheng与LXGW WenKai TC，沿用本地OFL文件",
+  "icons": "已确认Phosphor Duotone，MIT",
+  "scope": "仅原型；首页仅细节；旧文件不覆盖"
+}

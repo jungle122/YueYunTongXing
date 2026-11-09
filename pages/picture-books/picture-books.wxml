@@ -2,7 +2,6 @@
   <view class="container">
     <view wx:if="{{isLoading}}" class="media-state-card">
       <text class="media-state-title">正在加载绘本</text>
-      <text class="media-state-message">正在从云端获取资源，请稍候</text>
     </view>
 
     <view wx:elif="{{loadError}}" class="media-state-card">

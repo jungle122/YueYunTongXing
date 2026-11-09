@@ -1,0 +1,23 @@
+@font-face{font-family:ReadingBrush;src:url('heading.woff')}
+.title h1 {font-family:ReadingBrush,var(--heading)}
+[hidden]{display:none!important}
+.directory-row .song {padding-block:12px;min-height:96px}
+.directory-row .song-content {display:block}
+.directory-row .song strong {display:block;font-size:22px;line-height:1.35}
+.minutes {display:block;margin-top:3px;font:14px/1.4 var(--body);color:var(--muted)}
+.directory-row .status svg,.save img {width:21px;height:21px}
+.arrow svg {display:block;width:22px;height:22px}
+dialog {max-width:min(360px,90vw);color:var(--ink)}
+dialog form {text-align:right}
+dialog p {line-height:1.7}
+#catalog.loading {pointer-events:none}
+.loading .song:disabled {background:transparent;opacity:1}
+.loading :is(.lesson-number,.collection-total,.minutes,.status,.save,.arrow,.summary,.title h1 span,.song strong span) {visibility:hidden}
+.loading :is(.title h1,.song-content,.minutes) {position:relative}
+.loading .title h1::after,.loading .song-content::after,.loading .minutes::after {
+  content:"";position:absolute;left:0;pointer-events:none;visibility:visible;
+}
+.loading .title h1::after {top:50%;transform:translateY(-50%);width:104px;height:22px}
+.loading .song-content::after {top:7px;width:min(92%,142px);height:16px}
+.loading .directory-row:nth-child(even) .song-content::after {width:min(78%,118px)}
+.loading .minutes::after {top:4px;width:44px;height:11px}

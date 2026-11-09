@@ -1,0 +1,33 @@
+{
+  "status": "候选素材，尚未采用；原型继续暂停",
+  "direction": "传统文化气质为主，现代易用布局为辅；温暖、轻快、适合儿童",
+  "references": {
+    "1": "主排版参考，文化符号与浅色纸面",
+    "2": "柔和插画处理参考，不直接复用带水印原图",
+    "3": "借鉴列表清晰度，不采用厚阴影与商务卡片",
+    "4": "借鉴插画与功能融合",
+    "5": "借鉴操作清楚、适度圆角",
+    "6": "传统色关系参考，不全量铺色、不沿用粗重纸纹",
+    "7": "少量祥云参考，不直接使用来源不明拼图"
+  },
+  "candidates": [
+    {
+      "name": "Examples of Chinese Ornament",
+      "url": "https://www.rawpixel.com/search?page=1&path=1522.sub_topic-2788&sort=popular",
+      "license": "集合说明CC0；采用具体条目前再次核对",
+      "use": "花卉、边饰局部提取，降饱和与重配色"
+    },
+    {
+      "name": "Chinese floral illustration 6184339",
+      "url": "https://www.rawpixel.com/image/6184339/image-flower-aesthetic-leaf",
+      "license": "页面Public Domain / CC0，个人与商业使用",
+      "use": "植物纹样候选，不能整张平铺作背景"
+    },
+    {
+      "name": "ambientCG Paper001",
+      "url": "https://ambientcg.com/view?id=Paper001",
+      "license": "CC0，官方许可 https://docs.ambientcg.com/license/",
+      "use": "轻微纸面质感，保留正文对比度"
+    }
+  ]
+}

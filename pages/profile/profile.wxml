@@ -2,7 +2,6 @@
   <view class="page-intro profile-hero">
     <text class="chapter-seal">第四章</text>
     <text class="intro-title">把每一次进步收藏起来</text>
-    <text class="intro-description">看看最近的学习足迹，也记住自己坚持的每一天。</text>
     <text class="hero-ornament">☀</text>
   </view>
 
@@ -46,12 +45,12 @@
       </view>
       <view class="menu-row enter-menu-2" bindtap="goToHistory" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看历史记录">
         <view class="menu-symbol history-symbol"><image src="/static/ui/profile/历史记录.jpg" mode="aspectFill"></image></view>
-        <view class="menu-copy"><text class="menu-title">历史记录</text><text class="menu-description">最近学习过的内容</text></view>
+        <view class="menu-copy"><text class="menu-title">历史记录</text></view>
         <text class="feature-arrow">›</text>
       </view>
       <view class="menu-row enter-menu-3" bindtap="goToLearningStats" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="查看学习统计">
         <view class="menu-symbol stats-symbol"><image src="/static/ui/profile/学习统计.jpg" mode="aspectFill"></image></view>
-        <view class="menu-copy"><text class="menu-title">学习统计</text><text class="menu-description">查看天数和学习趋势</text></view>
+        <view class="menu-copy"><text class="menu-title">学习统计</text></view>
         <text class="feature-arrow">›</text>
       </view>
     </view>
@@ -62,7 +61,7 @@
     <view class="menu-list">
       <view class="menu-row enter-menu-4" bindtap="goToFeedback" hover-class="soft-press" hover-stay-time="120" aria-role="button" aria-label="提交建议反馈">
         <view class="menu-symbol feedback-symbol"><image src="/static/ui/profile/建议反馈.jpg" mode="aspectFill"></image></view>
-        <view class="menu-copy"><text class="menu-title">建议反馈</text><text class="menu-description">帮助我们做得更好</text></view>
+        <view class="menu-copy"><text class="menu-title">建议反馈</text></view>
         <text class="feature-arrow">›</text>
       </view>
     </view>

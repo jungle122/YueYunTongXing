@@ -1,0 +1,28 @@
+.actions { display:flex; align-items:center; gap:8px; }
+.star-icon { width:18px; height:18px; display:block; color:#9b7134; }
+.song { width:100%; font-family:var(--body); }
+.song-content { gap:3px; }
+.summary { border-bottom:0; }
+.folio-a main { margin:8px 12px; padding:0 14px 0 19px; border-left:8px solid #425f51; border-image:url("../audio-patterns/assets/pattern-2.svg") 0 0 0 18 / 0 0 0 8px repeat; background:linear-gradient(to right,#c2ac8230,transparent 16px); }
+.folio-a .title { margin:0; padding:18px 0; border-top:2px solid #594836; border-bottom:3px double #79694f; }
+.folio-a .title h1 { color:#733d2e; }
+.folio-a .song { display:grid; grid-template-columns:30px minmax(0,1fr) auto; gap:10px; align-items:center; padding:10px 0; min-height:76px; border-bottom:1px solid #cfbfa9; }
+.folio-a .lesson-number { writing-mode:vertical-rl; letter-spacing:.12em; color:#816c55; font-size:13px; border-right:1px solid #cfbfa9; }
+.folio-a .play { width:30px; height:30px; }
+.folio-a .summary { margin:0; padding:12px 0; }
+.folio-c .title { margin:6px 0 22px; }
+.tabs { display:flex; padding-left:9px; gap:3px; }
+.tabs button { font:14px var(--body); border:1px solid #c0ab83; border-bottom:0; background:#ecdfc7; color:#5c4e3b; padding:12px 9px 13px; border-radius:8px 12px 0 0; }
+.tabs button[aria-pressed=true] { background:#486a59; color:#fffdf5; }
+.binder { position:relative; padding:16px 11px 18px; background:#536c59 url("../audio-patterns/assets/pattern-2.svg") center/56px; border-radius:4px 9px 8px 4px; }
+.folio-c .songs { padding:23px 15px 10px; background:#fffbeb; border-radius:2px 6px 4px 2px; box-shadow:1px 3px #dbd1b7,2px 6px #f4edd8,3px 8px #968d72; }
+.folio-c .songs:before,.folio-c .songs:after { content:""; position:absolute; top:-7px; width:5px; height:23px; border:1px solid #5f5944; border-radius:8px; background:linear-gradient(to right,#827253,#eee4be,#8e8264); box-shadow:0 2px 0 1px #736855; }
+.folio-c .songs:before { left:24%; } .folio-c .songs:after { right:24%; }
+.folio-c .song { display:grid; grid-template-columns:1fr auto; row-gap:11px; padding:20px 3px; }
+.folio-c .song:nth-child(odd) { border-bottom:1px dashed #bda889; }
+.folio-c .lesson-number { color:#87664f; }
+.folio-c .song-content { grid-column:1/-1; grid-row:2; gap:8px; }
+.folio-c .actions { grid-column:2; grid-row:3; }
+.folio-c .verse { grid-column:1; grid-row:3; align-self:center; font-size:15px; color:#776956; }
+.folio-c .song[hidden] { display:none; }
+.folio-c nav.tabs { position:static; width:auto; height:auto; inset:auto; transform:none; justify-content:flex-start; border:0; background:transparent; padding:0 0 0 8px; }

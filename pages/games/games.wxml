@@ -2,7 +2,6 @@
   <view class="page-intro games-hero">
     <text class="chapter-seal">第二章</text>
     <text class="intro-title">今天想挑战哪一关？</text>
-    <text class="intro-description">每局都很轻巧，在玩耍中复习童谣和粤语表达。</text>
     <text class="hero-ornament">★</text>
   </view>
 
@@ -13,7 +12,7 @@
         <image class="feature-symbol chain-symbol" src="/static/ui/games/童谣接龙.jpg" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">童谣接龙</text>
-          <text class="feature-description">根据上一句接出下一句，练习记忆和表达。</text>
+          <text class="feature-description">接出下一句歌词</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>
@@ -34,7 +33,7 @@
         <image class="feature-symbol match-symbol" src="/static/ui/games/童谣消消乐.jpg" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">童谣消消乐</text>
-          <text class="feature-description">配对相同词语，在游戏里熟悉童谣词汇。</text>
+          <text class="feature-description">翻牌配对相同词语</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>
@@ -55,7 +54,7 @@
         <image class="feature-symbol puzzle-symbol" src="/static/ui/games/童谣拼图.jpg" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">歌词挑战</text>
-          <text class="feature-description">逐字寻找或排列整句，用两种难度熟悉歌词。</text>
+          <text class="feature-description">逐字找词或整句排序</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>
@@ -76,7 +75,7 @@
         <image class="feature-symbol picture-puzzle-symbol" src="/static/ui/games/picture-puzzle.png" mode="aspectFit" />
         <view class="feature-copy">
           <text class="feature-title">绘本拼图</text>
-          <text class="feature-description">挑战3本绘本的3×3拼图，边听童谣边还原完整画面。</text>
+          <text class="feature-description">听童谣，挑战3×3拼图</text>
         </view>
         <text class="feature-arrow">›</text>
       </view>

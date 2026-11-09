@@ -4,7 +4,6 @@
       <view class="growth-copy">
         <text class="growth-kicker">成长概览</text>
         <text class="growth-title">每一次学习都算数</text>
-        <text class="growth-description">继续听、读、看，让粤语童谣慢慢成为熟悉的声音。</text>
       </view>
       <text class="growth-mark" aria-hidden="true">长</text>
     </view>
@@ -37,7 +36,6 @@
       <view class="section-heading">
         <view>
           <text class="section-title">学习分布</text>
-          <text class="section-description">看看时间花在了哪些内容上</text>
         </view>
       </view>
       <view class="category-list">
@@ -48,7 +46,7 @@
               <text class="category-name">音频学习</text>
               <text class="category-percent">{{stats.categoryStats.audio.share || 0}}%</text>
             </view>
-            <text class="category-desc">{{stats.categoryStats.audio.count}} 次记录 · {{stats.categoryStats.audio.minutes}} 分钟</text>
+            <text class="category-desc">{{stats.categoryStats.audio.count}} 次记录，{{stats.categoryStats.audio.minutes}} 分钟</text>
             <view class="progress-track"><view class="progress-fill" style="width: {{stats.categoryStats.audio.share || 0}}%;"></view></view>
           </view>
         </view>
@@ -59,7 +57,7 @@
               <text class="category-name">视频学习</text>
               <text class="category-percent">{{stats.categoryStats.video.share || 0}}%</text>
             </view>
-            <text class="category-desc">{{stats.categoryStats.video.count}} 次记录 · {{stats.categoryStats.video.minutes}} 分钟</text>
+            <text class="category-desc">{{stats.categoryStats.video.count}} 次记录，{{stats.categoryStats.video.minutes}} 分钟</text>
             <view class="progress-track"><view class="progress-fill" style="width: {{stats.categoryStats.video.share || 0}}%;"></view></view>
           </view>
         </view>
@@ -70,7 +68,7 @@
               <text class="category-name">文章阅读</text>
               <text class="category-percent">{{stats.categoryStats.article.share || 0}}%</text>
             </view>
-            <text class="category-desc">{{stats.categoryStats.article.count}} 次记录 · {{stats.categoryStats.article.minutes}} 分钟</text>
+            <text class="category-desc">{{stats.categoryStats.article.count}} 次记录，{{stats.categoryStats.article.minutes}} 分钟</text>
             <view class="progress-track"><view class="progress-fill" style="width: {{stats.categoryStats.article.share || 0}}%;"></view></view>
           </view>
         </view>

@@ -13,7 +13,7 @@
   <view wx:else class="game-shell">
     <view class="game-overview">
       <view class="overview-copy">
-        <text class="overview-kicker">绘本拼图 · 3×3</text>
+        <text class="overview-kicker">绘本拼图（3×3）</text>
         <text class="overview-title">第 {{currentRound + 1}} 关</text>
       </view>
       <view class="overview-stats">

@@ -1,0 +1,58 @@
+{
+  "source": "https://heropatterns.com/",
+  "download": "https://heropatterns.com/js/app.js",
+  "author": "Steve Schoger",
+  "license": "CC BY 4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "changes": "改色、缩放，CSS裁成纸片轮廓或纹样边饰，未生成插画",
+  "patterns": [
+    {
+      "name": "Leaf",
+      "asset": "assets/pattern-0.svg",
+      "colour": "#87a28c"
+    },
+    {
+      "name": "Endless Clouds",
+      "asset": "assets/pattern-1.svg",
+      "colour": "#bb8c78"
+    },
+    {
+      "name": "Bamboo",
+      "asset": "assets/pattern-2.svg",
+      "colour": "#a8a178"
+    },
+    {
+      "name": "Overlapping Circles",
+      "asset": "assets/pattern-3.svg",
+      "colour": "#c79e5e"
+    },
+    {
+      "name": "Temple",
+      "asset": "assets/pattern-4.svg",
+      "colour": "#7a9d9f"
+    },
+    {
+      "name": "Wiggle",
+      "asset": "assets/pattern-5.svg",
+      "colour": "#bb8f92"
+    }
+  ],
+  "credit": "index.html含署名和许可链接",
+  "history": "audio-rich插画版已弃用，audio-options作为本轮基线完整保留",
+  "functionIcons": "Phosphor Duotone, MIT",
+  "paper": "ambientCG Paper001, CC0",
+  "assets": {
+    "pattern-0-original.svg": "f12c80e9b7a3e6eb9b1886789d85377850263b409bedb6367f4b535b4a443b1a",
+    "pattern-0.svg": "5c431b08981ceb161bf733d76117445dc03eb375657b53ee3a70741d98c058ce",
+    "pattern-1-original.svg": "fb9c92bfd78178b742ac0b28d1804269f26e198af968cdcf21b07829f99b049b",
+    "pattern-1.svg": "42ee9bfa11d037c5176342805930ebf3aac4b72d3570f9203c308377a1ba3740",
+    "pattern-2-original.svg": "ffe79df88e7fc8bab96f3f2e5a7551d29b93a90e8aa0695fbeff508e854555e7",
+    "pattern-2.svg": "51e0d82509d6490c0b1b4292f94c9605cc55d12f23670c65822645e941201d5d",
+    "pattern-3-original.svg": "255069be6d57a707c93aeb0bb94ab55c377caa9fc2a76f4d007abd7c59b8d9a5",
+    "pattern-3.svg": "11a2d69f249ecacd8922f4f7b16fef4f7966c13d1397c9b07dea42e41045d00d",
+    "pattern-4-original.svg": "9a1e6403d39b62ec6d9a40262cd0067b237bd4b9e58573061b73c9c103dfdceb",
+    "pattern-4.svg": "debe4380e2b07dc4f93d4a4d0a431cfcf326fe0a8f9ba16c2e2d8409c42c5c9a",
+    "pattern-5-original.svg": "aaef422fad63a423c8e30293aa2fc3ef27857147a4e77f0f1ad0e871156e42f0",
+    "pattern-5.svg": "cb9ad5b8f03c126d0902d6e03b344bef16354d3b2917a12ffbd81d1a6d2ea1b6"
+  }
+}

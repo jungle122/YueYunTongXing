@@ -1,0 +1,18 @@
+[
+  {
+    "file": "assets/arrow-right.svg",
+    "name": "Phosphor Regular arrow-right",
+    "creator": "Phosphor Icons",
+    "license": "MIT",
+    "url": "https://github.com/phosphor-icons/core",
+    "use": "去听童谣入口",
+    "changes": "等比缩放"
+  },
+  {
+    "name": "Paper001",
+    "creator": "ambientCG",
+    "license": "CC0 1.0",
+    "url": "https://ambientcg.com/view?id=Paper001",
+    "use": "全局浅米黄纸面底纹，沿用既定设置"
+  }
+]

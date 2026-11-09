@@ -1,14 +1,14 @@
 .games-hero {
-  border-color: #bcdcb7;
-  background: linear-gradient(145deg, #eef9df 0%, #e3f5df 100%);
+  border-color: var(--color-success-border);
+  background: linear-gradient(145deg, var(--color-success-soft) 0%, #e3f5df 100%);
 }
 
-.games-hero .chapter-seal { color: #4f7b4d; }
+.games-hero .chapter-seal { color: var(--color-success); }
 
-.chain-card { border-left: 8rpx solid #ed9b4b; }
-.match-card { border-left: 8rpx solid #7ba9dc; }
-.puzzle-card { border-left: 8rpx solid #72b57f; }
-.picture-puzzle-card { border-left: 8rpx solid #668eaf; }
+.chain-card { }
+.match-card { }
+.puzzle-card { }
+.picture-puzzle-card { }
 
 .chain-symbol { background: #ffe7c9; }
 .match-symbol { background: #e0effc; }
@@ -18,7 +18,7 @@
 .game-meta {
   margin-top: 20rpx;
   padding-top: 17rpx;
-  border-top: 2rpx dashed #eadac2;
+  border-top: 2rpx dashed var(--color-border);
 }
 
 .difficulty-row,
@@ -33,7 +33,7 @@
 
 .meta-label {
   margin-right: 14rpx;
-  color: #765f54;
+  color: var(--color-text-secondary);
   font-size: 21rpx;
   font-weight: 650;
 }
@@ -46,12 +46,12 @@
   width: 20rpx;
   height: 20rpx;
   border-radius: 50%;
-  background: #ded2bf;
+  background: var(--color-border-strong);
 }
 
 .active-dot {
-  background: #efb841;
-  box-shadow: inset 0 2rpx 0 rgba(255, 255, 255, 0.5);
+  background: var(--color-chapter-learn);
+  box-shadow: none;
 }
 
 /* 初版分层入场动画，使用显式 class 以便 TabBar 页面再次显示时重播。 */

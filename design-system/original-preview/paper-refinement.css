@@ -1,0 +1,7 @@
+/* Hallmark: A rectangular collage with quiet paper film; scope: original prototype. */
+/* Critique: texture replaces amber gradients; a single torn note supports the manual title. */
+:root{--film-paper:#eee5d5;--film-texture:url('../light-guofeng/assets/paper.jpg');--manual-note:url('../material-study/assets/title-paper.png')}
+.video-entry:before{background-color:var(--film-paper);background-image:var(--film-texture);background-size:360px;background-blend-mode:multiply}
+.manual-copy{position:relative;isolation:isolate;gap:8px}
+.manual-copy strong{position:relative;isolation:isolate;align-self:flex-start;padding:4px 8px;margin-left:-8px}
+.manual-copy strong:before{content:none}
