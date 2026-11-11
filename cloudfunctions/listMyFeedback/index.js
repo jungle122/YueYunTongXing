@@ -30,6 +30,7 @@ exports.main = async function() {
         id: item._id,
         type: item.type,
         content: item.content,
+        rating: Number.isInteger(item.rating) && item.rating >= 1 && item.rating <= 5 ? item.rating : null,
         status: item.status,
         reply: item.reply || '',
         createdAt: item.createdAt,

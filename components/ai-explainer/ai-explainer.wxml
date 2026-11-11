@@ -1,0 +1,21 @@
+<view class="ai-panel">
+  <button class="ai-toggle" bindtap="toggle" aria-expanded="{{expanded}}">{{expanded ? '收起 AI 讲解' : '问问阿霖 · AI 讲解'}}</button>
+  <view wx:if="{{expanded}}" class="ai-content">
+    <text class="ai-note">围绕当前童谣或文章提问，AI 回答可能有误，可和家长一起核对。</text>
+    <view class="ai-suggestions">
+      <button size="mini" data-question="请用小朋友听得懂的话讲讲这段内容。" bindtap="chooseQuestion" disabled="{{busy}}">讲给我听</button>
+      <button size="mini" data-question="这段内容里有哪些有趣的粤语词语？" bindtap="chooseQuestion" disabled="{{busy}}">认识粤语词</button>
+    </view>
+    <textarea class="ai-input" value="{{question}}" maxlength="200" placeholder="例如：这句童谣是什么意思？" bindinput="inputQuestion" disabled="{{busy}}" aria-label="关于当前内容的问题" />
+    <checkbox-group bindchange="changeConsent">
+      <label class="ai-consent"><checkbox value="agree" checked="{{consent}}" disabled="{{busy}}" />我已了解：问题和当前内容会发送给 AI 服务，请勿填写个人信息；儿童请由监护人确认后使用。</label>
+    </checkbox-group>
+    <button class="ai-submit" bindtap="ask" loading="{{busy}}" disabled="{{busy || !consent}}">{{busy ? '正在生成讲解' : '获取讲解'}}</button>
+    <text wx:if="{{error}}" class="ai-error" role="alert">{{error}}</text>
+    <view wx:if="{{answer}}" class="ai-answer">
+      <text class="ai-answer-label">AI 生成的讲解</text>
+      <text class="ai-answer-text" selectable="true">{{answer}}</text>
+      <text class="ai-note">参考项目材料：{{sourceTitle}}。内容尚需核对。</text>
+    </view>
+  </view>
+</view>

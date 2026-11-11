@@ -9,6 +9,8 @@ Page({
       { value: 'other', label: '其他', icon: '📌' }
     ],
     selectedType: 'suggestion',
+    rating: 0,
+    ratingOptions: [1, 2, 3, 4, 5],
     feedbackContent: '',
     contactInfo: '',
     feedbackList: [],
@@ -62,6 +64,18 @@ Page({
     this.setData({ feedbackContent: e.detail.value });
   },
 
+  selectRating: function(e) {
+    if (!this.data.isSubmitting) this.setData({ rating: Number(e.currentTarget.dataset.value) });
+  },
+
+  clearRating: function() {
+    if (!this.data.isSubmitting) this.setData({ rating: 0 });
+  },
+
+  goToFeedbackAdmin: function() {
+    wx.navigateTo({ url: '/pages/feedback-admin/feedback-admin' });
+  },
+
   onContactInput: function(e) {
     this.setData({ contactInfo: e.detail.value });
   },
@@ -72,8 +86,8 @@ Page({
     var content = this.data.feedbackContent.trim();
     var contact = this.data.contactInfo.trim();
 
-    if (!content) {
-      wx.showToast({ title: '请输入反馈内容', icon: 'none' });
+    if (!content && !this.data.rating) {
+      wx.showToast({ title: '请填写建议或选择评分', icon: 'none' });
       return;
     }
     if (content.length > 500) {
@@ -105,6 +119,7 @@ Page({
         data: {
           type: this.data.selectedType,
           content: content,
+          rating: this.data.rating || null,
           contact: contact
         }
       });
@@ -116,7 +131,8 @@ Page({
         this.setData({
           feedbackContent: '',
           contactInfo: '',
-          selectedType: 'suggestion'
+          selectedType: 'suggestion',
+          rating: 0
         });
         submitted = true;
       }
@@ -205,6 +221,7 @@ Page({
         type: item.type,
         typeLabel: self.getTypeLabel(item.type),
         content: item.content,
+        rating: item.rating || null,
         timeText: self.formatTime(item.createdAt),
         status: status,
         statusText: self.getStatusText(status),
